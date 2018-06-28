@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import './signup_signin.css';
 
 class Signin extends Component {
 
@@ -23,31 +24,47 @@ class Signin extends Component {
     const { handleSubmit } = this.props;
     return (
       <div className="signin-form-wrapper">
-        <legend>Sign In</legend>
         <form
           className="signin-form"
           onSubmit={handleSubmit(this.onSubmit)}
         >
+          <legend>Sign In</legend>
           <fieldset>
-            <label>Email</label>
+            <label
+              className="signin-label"
+              htmlFor="signin-email"
+            >Email</label>
             <Field
+              id="signin-email"
+              className="signin-email-input"
               name="email"
-              type="text"
+              type="email"
               component="input"
               autoComplete="none"
+              placeholder="me@example.com"
+              required
             />
           </fieldset>
           <fieldset>
-            <label>Password</label>
+            <label
+              className="signin-label"
+              htmlFor="signin-password"
+            >Password</label>
             <Field
+              id="signin-password"
+              className="signin-password-input"
               name="password"
               type="password"
               component="input"
               autoComplete="none"
+              placeholder="mypassword"
+              required
             />
           </fieldset>
           <div>{this.props.errorMessage}</div>
-          <button>Sign In!</button>
+          <button
+            className="signin-button"
+          >Sign In!</button>
         </form>
         <div className="link-wrapper">Don't have an account?
           <Link className="signup-link" to="/signup">Sign Up</Link>

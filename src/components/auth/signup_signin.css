@@ -1,0 +1,90 @@
+html {
+  font-family: 'Lato', sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+
+/******************************************************************************/
+/*  SIGNIN / SIGNUP FORM - BEGIN */
+/******************************************************************************/
+.signin-form-wrapper,
+.signup-form-wrapper {
+  padding-top: 2em;
+  /* loc below creates spacing under form/link */
+  padding-bottom: 10rem;
+  z-index: 2;
+}
+.signin-form,
+.signup-form {
+  width: 400px;
+  background-color: white;
+  margin: 0 auto;
+  padding: 40px;
+}
+.signin-form fieldset,
+.signup-form fieldset {
+  border-style: none;
+}
+.signin-form legend,
+.signup-form legend {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+.signin-label,
+.signup-label {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.signin-email-input,
+.signin-password-input,
+.signin-button,
+.signup-email-input,
+.signup-password-input,
+.signup-conf-password-input,
+.signup-button {
+  height: 55px;
+  font-size: 1.25rem;
+  width: 100%;
+  border: 2px solid #dddddd;
+  padding: 15px;
+}
+.signin-email-input,
+.signin-password-input,
+.signup-email-input,
+.signup-password-input,
+.signup-conf-password-input {
+  margin-bottom: 20px;
+}
+.signin-button,
+.signup-button {
+  background-color: rgba(100,149,237, 1);
+  color: white;
+}
+.signin-button:hover,
+.signup-button:hover {
+  background-color: rgba(100,149,237, 0.8);
+  cursor: pointer;
+}
+.link-wrapper {
+  /*padding-top: 2rem;*/
+  /*padding-bottom: 4em;*/
+  font-size: 1.25em;
+  text-align: center;
+  color: black
+}
+/* signup link is on the signin page */
+/* signin link is on the signup page */
+.signup-link,
+.signin-link {
+  color: black;
+  text-decoration: underline;
+  margin-left: 10px;
+}
+
+/******************************************************************************/
+/*  SIGNIN / SIGNUP FORM - END */
+/******************************************************************************/
