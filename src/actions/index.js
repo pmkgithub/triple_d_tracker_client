@@ -46,8 +46,15 @@ export const signin = ( formProps, callback ) => dispatch => {
     body: JSON.stringify(formProps)
   })
     .then(res => {
+      // // This version of code generates error === "Unauthorized"
+      // // res.statusText === "Unauthorized" What generates this text?
+      // if (!res.ok) {
+      //   return Promise.reject(res.statusText);
+      // }
+      // This version of code generates custom error message.
       if (!res.ok) {
-        return Promise.reject(res.statusText);
+        const customErrorMessage = 'Invalid Email or Password';
+        return Promise.reject(customErrorMessage)
       }
       return res.json();
     }).then(response => {

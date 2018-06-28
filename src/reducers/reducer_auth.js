@@ -11,7 +11,7 @@ import {
 
 const INITIAL_STATE = {
   authenticated: '',
-  errorMessage: '',
+  authErrorMessage: '',
   isFetching: false
 };
 
@@ -25,14 +25,14 @@ export default function(state=INITIAL_STATE, action) {
       return {
         ...state,
         authenticated: action.token,
-        errorMessage: '',
+        authErrorMessage: '',
         isLoading: false
       };
 
     case AUTH_ERROR:
       return {
         ...state,
-        errorMessage: action.err,
+        authErrorMessage: action.err,
         isLoading: false
       };
 

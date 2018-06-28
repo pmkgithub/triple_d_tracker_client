@@ -31,7 +31,7 @@ html {
   text-align: center;
   font-size: 40px;
   font-weight: 400;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .signin-label,
 .signup-label {
@@ -57,7 +57,8 @@ html {
 .signup-email-input,
 .signup-password-input,
 .signup-conf-password-input {
-  margin-bottom: 20px;
+  /* styles not needed b/c input-error-message css */
+  /*margin-bottom: 20px;*/
 }
 .signin-button,
 .signup-button {
@@ -84,6 +85,25 @@ html {
   text-decoration: underline;
   margin-left: 10px;
 }
+
+/* INPUT ERRORS - BEGIN */
+.input-error-message {
+  height: 20px;
+  font-size: 1.25em;
+  color: red;
+  padding-top: 5px;
+  margin-bottom: 10px;
+}
+/* INPUT ERRORS - END */
+
+/* AUTHENTICATION ERRORS - BEGIN */
+.auth-error-message {
+  height: 1.25em;
+  font-size: 1.25em;
+  text-align: center;
+  color: red;
+}
+/* AUTHENTICATION ERRORS - END */
 
 /******************************************************************************/
 /*  SIGNIN / SIGNUP FORM - END */
