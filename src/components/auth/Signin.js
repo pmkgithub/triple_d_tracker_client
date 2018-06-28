@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
+import { Link } from 'react-router-dom'
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
@@ -21,28 +22,38 @@ class Signin extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.onSubmit)}>
-        <fieldset>
-          <label>Email</label>
-          <Field
-            name="email"
-            type="text"
-            component="input"
-            autoComplete="none"
-          />
-        </fieldset>
-        <fieldset>
-          <label>Password</label>
-          <Field
-            name="password"
-            type="password"
-            component="input"
-            autoComplete="none"
-          />
-        </fieldset>
-        <div>{this.props.errorMessage}</div>
-        <button>Sign In!</button>
-      </form>
+      <div className="signin-form-wrapper">
+        <legend>Sign In</legend>
+        <form
+          className="signin-form"
+          onSubmit={handleSubmit(this.onSubmit)}
+        >
+          <fieldset>
+            <label>Email</label>
+            <Field
+              name="email"
+              type="text"
+              component="input"
+              autoComplete="none"
+            />
+          </fieldset>
+          <fieldset>
+            <label>Password</label>
+            <Field
+              name="password"
+              type="password"
+              component="input"
+              autoComplete="none"
+            />
+          </fieldset>
+          <div>{this.props.errorMessage}</div>
+          <button>Sign In!</button>
+        </form>
+        <div className="link-wrapper">Don't have an account?
+          <Link className="signup-link" to="/signup">Sign Up</Link>
+        </div>
+      </div>
+
     );
   }
 }

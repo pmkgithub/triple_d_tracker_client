@@ -2,11 +2,13 @@
 /////////////////////////////////////////////////////////////////////////
 // fetch logic - BEGIN
 /////////////////////////////////////////////////////////////////////////
+const ROOT_URL = 'http://localhost:8080/api';
+
 
 // signup - fetch syntax - BEGIN
 export const signup = ( formProps, callback ) => dispatch => {
   dispatch(fetchSignupSigninRequest());
-  fetch('http://localhost:8080/api/signup', {
+  fetch(`${ROOT_URL}/signup`, {
     method: "POST",
     headers: {
       "content-type": "application/json"
@@ -36,7 +38,7 @@ export const signup = ( formProps, callback ) => dispatch => {
 // signin - fetch syntax - BEGIN
 export const signin = ( formProps, callback ) => dispatch => {
   dispatch(fetchSignupSigninRequest());
-  fetch('http://localhost:8080/api/signin', {
+  fetch(`${ROOT_URL}/signin`, {
     method: "POST",
     headers: {
       "content-type": "application/json"
