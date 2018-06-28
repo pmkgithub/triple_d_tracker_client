@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+// import './signup_signin.css';
 
 class Signup extends Component {
 
@@ -29,25 +30,57 @@ class Signup extends Component {
         >
           <legend>Sign Up</legend>
           <fieldset>
-            <label>Email</label>
+            <label
+              className="signup-label"
+              htmlFor="signup-email"
+            >Email</label>
             <Field
+              id="signup-email"
+              className="signup-email-input"
               name="email"
-              type="text"
+              type="email"
               component="input"
               autoComplete="none"
+              placeholder="me@example.com"
+              required
             />
           </fieldset>
           <fieldset>
-            <label>Password</label>
+            <label
+              className="signup-label"
+              htmlFor="signup-password"
+            >Password</label>
             <Field
+              id="signup-password"
+              className="signup-password-input"
               name="password"
               type="password"
               component="input"
               autoComplete="none"
+              placeholder="mypassword"
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <label
+              className="signup-label"
+              htmlFor="signup-conf-password"
+            >Confirm Password</label>
+            <Field
+              id="signup-conf-password"
+              className="signup-conf-password-input"
+              name="conf-password"
+              type="password"
+              component="input"
+              autoComplete="none"
+              placeholder="mypassword"
+              required
             />
           </fieldset>
           <div>{this.props.errorMessage}</div>
-          <button>Sign Up!</button>
+          <button
+            className="signup-button"
+          >Sign Up!</button>
         </form>
         <div className="link-wrapper">Already have an account?
             <Link className="signin-link" to="/signin">Sign In</Link>
