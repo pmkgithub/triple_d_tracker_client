@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -15,9 +15,11 @@ class Signup extends Component {
 
   // Arrow Function allows us not to need binding "this".
   onSubmit = (formProps) => {
-    this.props.signup(formProps, () => {
-      this.props.history.push('/feature');
-    });
+    console.log('formProps = ', formProps);
+
+    // this.props.signup(formProps, () => {
+    //   this.props.history.push('/feature');
+    // });
   };
 
   render() {
@@ -78,9 +80,7 @@ class Signup extends Component {
             />
           </fieldset>
           <div>{this.props.errorMessage}</div>
-          <button
-            className="signup-button"
-          >Sign Up!</button>
+          <button className="signup-button" type="submit">Sign Up!</button>
         </form>
         <div className="link-wrapper">Already have an account?
             <Link className="signin-link" to="/signin">Sign In</Link>
