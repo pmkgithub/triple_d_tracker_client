@@ -16,8 +16,9 @@ export default (ChildComponent) => {
     }
 
     shouldNavigageAway() {
+      // If no value for auth prop, it means no token has been assigned to state.auth.
+      // Thus, navigate away to root page.
       if (!this.props.auth) {
-        // console.log('I need to leave!!!!');
         this.props.history.push('/');
       }
     }

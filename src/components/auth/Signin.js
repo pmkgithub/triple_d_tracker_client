@@ -6,6 +6,11 @@ import * as actions from '../../actions';
 
 class Signin extends Component {
 
+  componentDidMount() {
+    // clear any lingering error messages.
+    this.props.authError("");
+  }
+
   // Arrow Function allows us not to need binding this.
   onSubmit = (formProps) => {
     this.props.signin(formProps, () => {

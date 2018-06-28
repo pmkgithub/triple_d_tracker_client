@@ -6,7 +6,12 @@ import * as actions from '../../actions';
 
 class Signup extends Component {
 
-  // Arrow Function allows us not to need binding this.
+  componentDidMount() {
+    // clear any lingering error messages.
+    this.props.authError("");
+  }
+
+  // Arrow Function allows us not to need binding "this".
   onSubmit = (formProps) => {
     this.props.signup(formProps, () => {
       this.props.history.push('/feature');
