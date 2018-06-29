@@ -4,7 +4,6 @@
 /////////////////////////////////////////////////////////////////////////
 const ROOT_URL = 'http://localhost:8080/api';
 
-
 // signup - fetch syntax - BEGIN
 export const signup = ( formProps, callback ) => dispatch => {
   dispatch(fetchSignupSigninRequest());
@@ -16,8 +15,16 @@ export const signup = ( formProps, callback ) => dispatch => {
     body: JSON.stringify(formProps)
   })
     .then(res => {
+      console.log('signup Action Creator res.statusText', res.statusText);
+      // // This version of code generates error === "Unauthorized"
+      // // res.statusText === "Unauthorized" What generates this text?
+      // if (!res.ok) {
+      //   return Promise.reject(res.statusText);
+      // }
+      // This version of code generates custom error message.
       if (!res.ok) {
-        return Promise.reject(res.statusText);
+        const customErrorMessage = 'Email already in use.';
+        return Promise.reject(customErrorMessage)
       }
       return res.json();
     }).then(response => {

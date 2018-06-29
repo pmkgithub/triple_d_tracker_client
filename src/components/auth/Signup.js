@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-// import './signup_signin.css';
+import './signup_signin.css';
 
 class Signup extends Component {
 
@@ -13,13 +13,40 @@ class Signup extends Component {
     this.props.authError("");
   }
 
+  renderField(field) {
+
+    return (
+      <div>
+        <label
+          className={field.labelClassName}
+          htmlFor={field.labelHtmlFor}
+        >{field.label}</label>
+        <input
+          {...field.input}
+          id={field.id}
+          className={field.className}
+          name={field.name}
+          type={field.type}
+          placeholder={field.placeholder}
+          autoComplete="none"
+          // required
+        />
+        <div className="input-error-message">
+          {field.meta.touched ? field.meta.error : ''}
+        </div>
+      </div>
+    )
+  }
+
   // Arrow Function allows us not to need binding "this".
   onSubmit = (formProps) => {
-    console.log('formProps = ', formProps);
-
-    // this.props.signup(formProps, () => {
-    //   this.props.history.push('/feature');
-    // });
+    // formProps contains: email, password, confPassword.
+    // All get sent to API server.
+    // API's authController verifies that "email", "password" are present in req.body.
+    // API's authController disregards "confPassword" in req.body.
+    this.props.signup(formProps, () => {
+      this.props.history.push('/feature');
+    });
   };
 
   render() {
@@ -31,55 +58,50 @@ class Signup extends Component {
           onSubmit={handleSubmit(this.onSubmit)}
         >
           <legend>Sign Up</legend>
+          <div className="auth-error-message">{this.props.authErrorMessage}</div>
           <fieldset>
-            <label
-              className="signup-label"
-              htmlFor="signup-email"
-            >Email</label>
             <Field
+              label="Email"
+              labelClassName="signup-label"
+              labelHtmlFor="signup-email"
+
               id="signup-email"
               className="signup-email-input"
               name="email"
               type="email"
-              component="input"
-              autoComplete="none"
               placeholder="me@example.com"
-              required
+              component={this.renderField}
             />
           </fieldset>
           <fieldset>
-            <label
-              className="signup-label"
-              htmlFor="signup-password"
-            >Password</label>
             <Field
+              label="Password"
+              labelClassName="signup-label"
+              labelHtmlFor="signup-password"
+
               id="signup-password"
               className="signup-password-input"
               name="password"
               type="password"
-              component="input"
-              autoComplete="none"
               placeholder="mypassword"
-              required
+              component={this.renderField}
             />
           </fieldset>
           <fieldset>
-            <label
-              className="signup-label"
-              htmlFor="signup-conf-password"
-            >Confirm Password</label>
             <Field
+              label="Confirm Password"
+              labelClassName="signup-label"
+              labelHtmlFor="signup-conf-password"
+
               id="signup-conf-password"
               className="signup-conf-password-input"
-              name="conf-password"
+              name="confPassword"
               type="password"
-              component="input"
-              autoComplete="none"
               placeholder="mypassword"
-              required
+              component={this.renderField}
+
             />
           </fieldset>
-          <div>{this.props.errorMessage}</div>
           <button className="signup-button" type="submit">Sign Up!</button>
         </form>
         <div className="link-wrapper">Already have an account?
@@ -90,6 +112,31 @@ class Signup extends Component {
   }
 }
 
+const validate = (values) => {
+
+  const errors = {};
+
+  // Validate the inputs from "values".
+  if (!values.email) {
+    errors.email = "Must Enter Email"
+  }
+
+  if (!values.password) {
+    errors.password = "Must Enter Password"
+  }
+
+  if (!values.confPassword) {
+    errors.confPassword = "Must Enter Password"
+  }
+
+  if (values.password !== values.confPassword) {
+    errors.confPassword = "Passwords Must Match"
+  }
+  // If errors is empty, the form is OK to submit.
+  // If errors has any properties, reduxForm assumes form is invalid.
+  return errors;
+};
+
 // // syntax NOT using compose.
 // export default reduxForm({
 //   form: 'signup'
@@ -99,13 +146,16 @@ class Signup extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    errorMessage: state.auth.errorMessage
+    authErrorMessage: state.auth.authErrorMessage
   }
 };
 
 // syntax USING compose -> allows us to pass in multiple HOC's.
 export default compose(
   connect(mapStateToProps, actions),
-  reduxForm({form: 'signup'})
+  reduxForm({
+    form: 'signup',
+    validate: validate
+  })
 )(Signup);
 
