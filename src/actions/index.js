@@ -15,13 +15,14 @@ export const signup = ( formProps, callback ) => dispatch => {
     body: JSON.stringify(formProps)
   })
     .then(res => {
-      console.log('signup Action Creator res.statusText', res.statusText);
-      // // This version of code generates error === "Unauthorized"
-      // // res.statusText === "Unauthorized" What generates this text?
+      // // This version of code generates error === "Unprocessable Entity"
+      // // res.statusText === "Unprocessable Entity" What generates this text? I think this is Passport.
       // if (!res.ok) {
       //   return Promise.reject(res.statusText);
       // }
-      // This version of code generates custom error message.
+      // This version of code generates custom error message on the Client.
+      // NOTE: res.json() here contains the error message generated on the API Server,
+      // but we are instead creating an error message on the Client.
       if (!res.ok) {
         const customErrorMessage = 'Email already in use.';
         return Promise.reject(customErrorMessage)
