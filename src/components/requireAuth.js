@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 export default (ChildComponent) => {
   class ComposedComponent extends Component {
 
-    // added in Section 3 - Lecture 76.
+    // HOC - for requiring authorization to access a protected route.
     // handles case when our component renders the first time.
     componentDidMount() {
       this.shouldNavigageAway();
