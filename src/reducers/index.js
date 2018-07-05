@@ -5,6 +5,6 @@ import locationsReducer from './reducer_locations';
 
 export default combineReducers({
   auth: authReducer,
-  locations: locationsReducer,
+  mapData: locationsReducer,
   form: formReducer
 });
