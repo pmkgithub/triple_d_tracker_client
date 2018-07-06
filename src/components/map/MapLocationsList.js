@@ -9,7 +9,7 @@ class MapLocationsList extends Component {
     const recenterData = {
       lat: parseFloat(event.target.getAttribute('data-lat')),
       lon: parseFloat(event.target.getAttribute('data-lon')),
-      zoom: 7
+      zoom: 14
     };
     this.props.centerMapOnLocation(recenterData);
   }

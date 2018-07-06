@@ -62,6 +62,7 @@ export const fetchLocationsError = (err) => {
 export const CENTER_MAP_ON_LOCATION = 'CENTER_MAP_ON_LOCATION';
 export const centerMapOnLocation = (recenterData) => {
   console.log('centerMapOnLocation ran');
+  console.log('recenterData = ', recenterData);
   return {
     type: CENTER_MAP_ON_LOCATION,
     recenterData
