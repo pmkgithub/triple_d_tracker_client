@@ -19,19 +19,6 @@ const store = createStore(
   applyMiddleware(reduxThunk)
 );
 
-
-// const MyMap = (props) => {
-//   return (
-//     <Map
-//       containerElement={<div className="containerElement" style={{height: 600+'px', width: 700+'px'}} />}
-//       mapElement={<div className="mapElement" style={{height: 600+'px', width: 700+'px'}} />}
-//       isMarkerShown
-//       >
-//     </Map>
-//   )
-// };
-
-
 ReactDom.render(
   <Provider store={store}>
     <BrowserRouter>
@@ -39,7 +26,6 @@ ReactDom.render(
         <Route exact path="/" component={Welcome} />
         <Route path="/signup" component={Signup} />
         <Route path="/feature" component={Feature} />
-        {/*<Route path="/locations" render={MyMap}  />*/}
         <Route path="/signout" component={Signout} />
         <Route path="/signin" component={Signin} />
       </App>

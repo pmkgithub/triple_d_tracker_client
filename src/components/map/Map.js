@@ -1,55 +1,54 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { fetchLocations } from "../../actions/locations";
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { fetchLocations } from "../../actions/locations";
+import mapConfig from '../../map_config/mapConfig';
+import "./map.css";
 
 class Map extends Component {
 
   componentDidMount() {
-    this.props.fetchLocations();
+    if (!this.props.mapData.locationsBeenFetched) {
+      this.props.fetchLocations();
+    }
   }
 
   renderMarkers() {
-    const { locations } = this.props.mapData;
+    const { displayedLocations } = this.props.mapData;
+
     if ( this.props.mapData.isFetching ) {
       console.log('data is loading');
       return false;  // temporary code...
-
     }
 
-    return locations.map((location, index) => {
-
-      const lat = location.coords.lat;
-      const lng = location.coords.lon;
-
+    return displayedLocations.map((location, index) => {
+      const {lat, lon} = location.coords;
       return (
         <Marker
           key={index}
-          position={{ lat: lat, lng: lng }}
+          position={{ lat: lat, lng: lon }}
         />
       )
     })
   }
 
   render() {
+    const geographicArea = this.props.mapData.geographicArea;
+    const centerLat = mapConfig[geographicArea].lat;
+    const centerLng = mapConfig[geographicArea].lon;
+    const zoom = mapConfig[geographicArea].zoom;
 
     return (
       <GoogleMap
-        defaultZoom={4.5}
-        defaultCenter={{ lat: 39.8283, lng: -98.5795 }}
+        defaultZoom={zoom}
+        defaultCenter={{ lat: centerLat, lng: centerLng }}
       >
-        {this.props.isMarkerShown && <div>{this.renderMarkers()}</div>
-        }
+        {this.props.isMarkerShown && <div>{this.renderMarkers()}</div>}
       </GoogleMap>
     )
   }
 }
-
-
-// const mapStateToProps = (state) => {
-//   return { locations: state.locations };
-// };
 
 const mapStateToProps = (state) => {
   return { mapData: state.mapData };
