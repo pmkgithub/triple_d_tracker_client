@@ -1,0 +1,15 @@
+/* react-ggogle-map css*/
+.map-and-map-filter-wrapper {
+  display: flex;
+}
+.map-wrapper,
+.map-element{
+  height: 550px;
+  width: 900px;
+}
+.map-filter-wrapper {
+
+}
+.map-locations-list {
+
+}

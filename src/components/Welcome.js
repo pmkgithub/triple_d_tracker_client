@@ -1,16 +1,26 @@
 import React from 'react';
 import Map from './map/Map';
+import MapFilters from './map/MapFilters';
+import MapSelectInput from './map/MapSelectInput';
+import MapLocationsList from './map/MapLocationsList';
+import '../components/map/map.css';
 
 export default (props) => {
   return (
     <div>
       <h3>Welcome! Sign Up or Sign In!  This is the Landing Page</h3>
-      <Map
-        containerElement={<div className="containerElement" style={{height: 600+'px', width: 700+'px'}} />}
-        mapElement={<div className="mapElement" style={{height: 600+'px', width: 700+'px'}} />}
-        isMarkerShown
-        >
-      </Map>
+      <div className="map-and-map-filter-wrapper">
+        <Map
+          containerElement={<div className="map-wrapper" />}
+          mapElement={<div className="map-element" />}
+          isMarkerShown >
+        </Map>
+        <div className="map-filter-wrapper">
+          <MapFilters/>
+          <MapSelectInput/>
+          <MapLocationsList/>
+        </div>
+      </div>
     </div>
   )
 }

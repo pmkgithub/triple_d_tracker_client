@@ -5,7 +5,10 @@ import {
 } from "../actions/locations";
 
 const initialState = {
+  locationsBeenFetched: false,
   locations: [],
+  geographicArea: 'us',
+  displayedLocations: [],
   isFetching: false,
   err: ""
 };
@@ -24,8 +27,10 @@ export default (state=initialState, action) => {
       console.log('FETCH_LOCATIONS_SUCCESS action', action);
       return {
         ...state,
-        isFetching: false,
+        locationsBeenFetched: true,
         locations: action.locations,
+        displayedLocations: action.locations,
+        isFetching: false,
         err: ""
       };
 
