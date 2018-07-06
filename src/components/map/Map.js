@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { fetchLocations } from "../../actions/locations";
-import mapConfig from '../../map_config/mapConfig';
 import "./map.css";
 
 class Map extends Component {
@@ -34,10 +33,13 @@ class Map extends Component {
   }
 
   render() {
-    const geographicArea = this.props.mapData.geographicArea;
-    const centerLat = mapConfig[geographicArea].lat;
-    const centerLng = mapConfig[geographicArea].lon;
-    const zoom = mapConfig[geographicArea].zoom;
+    const centerLat = this.props.mapData.mapCenterLat;
+    const centerLng = this.props.mapData.mapCenterLon;
+    const zoom = this.props.mapData.mapZoom;
+
+    console.log('Map render() centerLat = ', centerLat);
+    console.log('Map render() centerLang = ', centerLng);
+    console.log('Map render() zoom = ', zoom);
 
     return (
       <GoogleMap

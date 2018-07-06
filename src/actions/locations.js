@@ -1,5 +1,9 @@
 const ROOT_URL = 'http://localhost:8080/api';
 
+///////////////////////////////////////////////////////////////////////////////
+// fetchLocations - BEGIN
+///////////////////////////////////////////////////////////////////////////////
+
 export const fetchLocations = () => dispatch => {
 
   dispatch(fetchLocationsRequest);
@@ -17,7 +21,6 @@ export const fetchLocations = () => dispatch => {
       return res.json();
     })
     .then(locations => {
-      console.log('fetchLocationsRequest locations', locations);
       // TODO - modify the visited locations b/f dispatching?
       // TODO - or modify the visited locations in reducer?
       // TODO - or modifiy the visited locations b/f rendering?
@@ -49,3 +52,21 @@ export const fetchLocationsError = (err) => {
     err
   }
 };
+///////////////////////////////////////////////////////////////////////////////
+// fetchLocations - END
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// recenterMap - BEGIN
+///////////////////////////////////////////////////////////////////////////////
+export const CENTER_MAP_ON_LOCATION = 'CENTER_MAP_ON_LOCATION';
+export const centerMapOnLocation = (recenterData) => {
+  console.log('centerMapOnLocation ran');
+  return {
+    type: CENTER_MAP_ON_LOCATION,
+    recenterData
+  }
+};
+///////////////////////////////////////////////////////////////////////////////
+// recenterMap - END
+///////////////////////////////////////////////////////////////////////////////
