@@ -43,8 +43,11 @@ class Map extends Component {
 
     return (
       <GoogleMap
-        defaultZoom={zoom}
-        defaultCenter={{ lat: centerLat, lng: centerLng }}
+        // defaultZoom={this.props.mapData.mapZoom}
+        zoom={this.props.mapData.mapZoom}
+        // defaultCenter={{ lat: this.props.mapData.mapCenterLat, lng: this.props.mapData.mapCenterLon }}
+        center={{ lat: this.props.mapData.mapCenterLat, lng: this.props.mapData.mapCenterLon }}
+
       >
         {this.props.isMarkerShown && <div>{this.renderMarkers()}</div>}
       </GoogleMap>

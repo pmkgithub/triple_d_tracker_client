@@ -20,3 +20,8 @@
   list-style: none;
   padding: 3px 0;
 }
+.map-locations-li:hover {
+  cursor: pointer;
+  font-weight: bold;
+  color: dodgerblue;
+}
