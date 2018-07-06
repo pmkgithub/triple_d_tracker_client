@@ -18,7 +18,10 @@ export default (props) => {
         <div className="map-filter-wrapper">
           <MapFilters/>
           <MapSelectInput/>
-          <MapLocationsList/>
+          <div className="map-locations-list-wrapper">
+            <div className="map-locations-list-header">Tripple D Locations</div>
+            <MapLocationsList/>
+          </div>
         </div>
       </div>
     </div>

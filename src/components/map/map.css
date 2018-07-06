@@ -5,11 +5,18 @@
 .map-wrapper,
 .map-element{
   height: 550px;
-  width: 900px;
+  width: 800px;
 }
 .map-filter-wrapper {
 
 }
-.map-locations-list {
-
+.map-locations-ul {
+  height: 400px;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+}
+.map-locations-li {
+  list-style: none;
+  padding: 3px 0;
 }

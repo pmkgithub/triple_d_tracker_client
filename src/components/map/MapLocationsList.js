@@ -3,9 +3,26 @@ import { connect } from 'react-redux';
 
 class MapLocationsList extends Component {
 
+  renderList() {
+    return this.props.displayedLocations.map((location, index) => {
+      console.log('location =', location);
+      return (
+        <li
+          className="map-locations-li"
+          key={index}
+        >
+          {location.name}: {location.city}, {location.state}
+        </li>
+      )
+
+    });
+  }
+
   render() {
     return (
-      <div className="map-locations-list">List of Locations</div>
+      <ul className="map-locations-ul">
+        {this.renderList()}
+      </ul>
     )
   }
 }
