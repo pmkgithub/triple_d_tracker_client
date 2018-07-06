@@ -15,8 +15,10 @@ import Signin from './components/auth/Signin';
 
 const store = createStore(
   reducers,
-  {auth: {authenticated: localStorage.getItem('token')}},
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  // {auth: {authenticated: localStorage.getItem('token')}}, // moved to reducer_auth initialState.
   applyMiddleware(reduxThunk)
+
 );
 
 ReactDom.render(

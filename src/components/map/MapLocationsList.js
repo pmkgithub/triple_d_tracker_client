@@ -4,11 +4,19 @@ import { centerMapOnLocation } from '../../actions/locations';
 
 class MapLocationsList extends Component {
 
-  handleOnClick(event) {
+  handleOnClick(event, coords) {
+    event.preventDefault();
     console.log('handleOnClick ran');
+    // const recenterData = {
+    //   lat: parseFloat(event.target.getAttribute('data-lat')),
+    //   lon: parseFloat(event.target.getAttribute('data-lon')),
+    //   zoom: 14
+    // };
+    // this.props.centerMapOnLocation(recenterData);
+
     const recenterData = {
-      lat: parseFloat(event.target.getAttribute('data-lat')),
-      lon: parseFloat(event.target.getAttribute('data-lon')),
+      lat: parseFloat(coords.lat),
+      lon: parseFloat(coords.lon),
       zoom: 14
     };
     this.props.centerMapOnLocation(recenterData);
@@ -20,9 +28,10 @@ class MapLocationsList extends Component {
         <li
           className="map-locations-li"
           key={index}
-          onClick={this.handleOnClick.bind(this)}
-          data-lat={location.coords.lat}
-          data-lon={location.coords.lon}
+          // onClick={this.handleOnClick(location.coords).bind(this)}
+          onClick={(event) => this.handleOnClick(event, location.coords)}
+          // data-lat={location.coords.lat}
+          // data-lon={location.coords.lon}
         >
           {location.name}: {location.city}, {location.state}
         </li>

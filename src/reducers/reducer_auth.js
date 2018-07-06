@@ -9,8 +9,9 @@ import {
   AUTH_ERROR
 } from '../actions';
 
+
 const INITIAL_STATE = {
-  authenticated: '',
+  authenticated: localStorage.getItem('token'),
   authErrorMessage: '',
   isFetching: false
 };
