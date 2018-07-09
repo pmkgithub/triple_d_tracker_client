@@ -9,8 +9,10 @@ import {
   AUTH_ERROR
 } from '../actions';
 
-
+// setting authenticated here, allows user on signup to access protected resources.
+// TODO - is setting authenticated in initialState needed?
 const INITIAL_STATE = {
+  // authenticated: '',
   authenticated: localStorage.getItem('token'),
   authErrorMessage: '',
   isFetching: false
