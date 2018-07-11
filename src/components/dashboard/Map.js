@@ -14,14 +14,14 @@ class Map extends Component {
   }
 
   renderMarkers() {
-    const { displayedLocations } = this.props.mapData;
+    const { displayedMapLocations } = this.props.mapData;
 
     if ( this.props.mapData.isFetching ) {
-      console.log('data is loading');
+      // console.log('data is loading');
       return false;  // temporary code...
     }
 
-    return displayedLocations.map((location, index) => {
+    return displayedMapLocations.map((location, index) => {
       const {lat, lon} = location.coords;
       return (
         <Marker
@@ -37,9 +37,9 @@ class Map extends Component {
     const centerLng = this.props.mapData.mapCenterLon;
     const zoom = this.props.mapData.mapZoom;
 
-    console.log('Map render() centerLat = ', centerLat);
-    console.log('Map render() centerLang = ', centerLng);
-    console.log('Map render() zoom = ', zoom);
+    // console.log('Map render() centerLat = ', centerLat);
+    // console.log('Map render() centerLang = ', centerLng);
+    // console.log('Map render() zoom = ', zoom);
 
     return (
       <GoogleMap
