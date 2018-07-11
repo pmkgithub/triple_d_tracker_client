@@ -6,8 +6,8 @@ import {
   CLEAR_FILTERED_LOCATIONS_LIST,
   GET_ALL_LOCATIONS_FROM_CACHE,
   MAP_LISTED_LOCATIONS
-} from "../actions/locations";
-import mapConfig from '../map_config/mapConfig';
+} from "../actions/action_locations";
+import mapConfig from '../configs/mapConfig';
 
 const initialState = {
   locationsBeenFetched: false,
@@ -17,6 +17,7 @@ const initialState = {
   mapCenterLat: mapConfig.us.lat,
   mapCenterLon: mapConfig.us.lon,
   mapZoom: mapConfig.us.zoom,
+  mapSelectInputType: 'us',
   isFetching: false,
   err: ""
 };

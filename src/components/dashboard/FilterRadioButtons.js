@@ -4,26 +4,28 @@ import {
   clearFilteredLocationsList,
   getAllLocationsFromCache,
   mapListedLocations
-} from '../../actions/locations';
-import mapConfig from '../../map_config/mapConfig';
+} from '../../actions/action_locations';
+import { setMapSelectInputType } from '../../actions/action_map_select_input';
+import mapConfig from '../../configs/mapConfig';
+import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
 import './filter_radio_buttons.css';
 
 class FilterRadioButtons extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { selectedRadio: 'us' };
+    this.state = { selectedRadio: mapSelectInputConfig.us };
   }
 
   handleOnChange(e) {
-    // console.log('handleOnChange ran, filter = ', filter.selectedRadio);
     const radioButtonValue = e.target.value;
     this.setState({selectedRadio: radioButtonValue});
 
-    if (radioButtonValue === 'us') {
-      console.log('build us select input');
+    if (radioButtonValue === mapSelectInputConfig.us) {
+      console.log('FilterRadioButton call setMapSelectInputType with ', radioButtonValue);
 
       // TODO - build us select input.
+      this.props.setMapSelectInputType(radioButtonValue);
 
       // this.props.getAllLocationsFromCache();
       this.props.mapListedLocations();
@@ -36,14 +38,16 @@ class FilterRadioButtons extends Component {
       // this.props.centerMapOnLocation(recenterData);
     }
 
-    if (radioButtonValue === 'state') {
-      console.log('build states select input');
+    if (radioButtonValue === mapSelectInputConfig.state) {
+      console.log('FilterRadioButton call setMapSelectInputType with ', radioButtonValue);
       // TODO  - build state select input.
+      this.props.setMapSelectInputType(radioButtonValue);
       // this.props.clearFilteredLocationsList();
     }
-    if (radioButtonValue === 'nearme') {
-      console.log('build nearme select input');
+    if (radioButtonValue === mapSelectInputConfig.nearme) {
+      console.log('FilterRadioButton call setMapSelectInputType with ', radioButtonValue);
       // TODO - build nearme select input.
+      this.props.setMapSelectInputType(radioButtonValue);
     }
   }
 
@@ -106,5 +110,6 @@ class FilterRadioButtons extends Component {
 export default connect(null, {
   clearFilteredLocationsList,
   getAllLocationsFromCache,
-  mapListedLocations
+  mapListedLocations,
+  setMapSelectInputType
 })(FilterRadioButtons);

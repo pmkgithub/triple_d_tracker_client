@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
-import { fetchLocations } from "../../actions/locations";
+import { fetchLocations } from "../../actions/action_locations";
 import "./map.css";
 
 class Map extends Component {

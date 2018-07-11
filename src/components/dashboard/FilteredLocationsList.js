@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   centerMapOnSingleLocation,
   mapListedLocations
-} from '../../actions/locations';
+} from '../../actions/action_locations';
 import './filtered_locations_list.css';
 
 class FilteredLocationsList extends Component {
@@ -59,7 +59,8 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, {
-  centerMapOnSingleLocation,
-  mapListedLocations
-} )(FilteredLocationsList);
+export default connect(mapStateToProps,
+  {
+    centerMapOnSingleLocation,
+    mapListedLocations
+  })(FilteredLocationsList);
