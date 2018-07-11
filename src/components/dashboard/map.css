@@ -1,0 +1,6 @@
+/* map css classNames defined in dashboard.js <Map> component */
+.map_wrapper,
+.map_element{
+  height: 550px;
+  width: 800px;
+}

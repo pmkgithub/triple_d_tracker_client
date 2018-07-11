@@ -1,0 +1,15 @@
+.filtered_locations_ul {
+  height: 400px;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+}
+.filtered_locations_li {
+  list-style: none;
+  padding: 3px 0;
+}
+.filtered_locations_li:hover {
+  cursor: pointer;
+  font-weight: bold;
+  color: dodgerblue;
+}
