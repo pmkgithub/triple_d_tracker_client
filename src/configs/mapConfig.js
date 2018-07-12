@@ -65,9 +65,9 @@ export default {
     zoom: 7
   },
   ID: {
-    lat: 44.5,
-    lon: -114.478828,
-    zoom: 6.5
+    lat: 45,
+    lon: -114,
+    zoom: 6.25
   },
   IL: {
     lat: 40,
