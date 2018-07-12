@@ -1,61 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  clearFilteredLocationsList,
-  getAllLocationsFromCache,
-  mapListedLocations
-} from '../../actions/locations';
-import mapConfig from '../../map_config/mapConfig';
+  clearLocationsFromList,
+  createUsLocationsList,
+  setMapGeoCenter
+} from '../../actions/action_locations';
+import {
+  setMapSelectInputType
+} from '../../actions/action_map_select_input';
+// import mapConfig from '../../configs/mapConfig';
+import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
 import './filter_radio_buttons.css';
 
 class FilterRadioButtons extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { selectedRadio: 'us' };
+    this.state = { selectedRadio: mapSelectInputConfig.us };
   }
 
   handleOnChange(e) {
-    // console.log('handleOnChange ran, filter = ', filter.selectedRadio);
     const radioButtonValue = e.target.value;
     this.setState({selectedRadio: radioButtonValue});
+    console.log('radioButtonValue', radioButtonValue);
 
-    if (radioButtonValue === 'us') {
-      console.log('build us select input');
-
-      // TODO - build us select input.
-
-      // this.props.getAllLocationsFromCache();
-      this.props.mapListedLocations();
-
-      // const recenterData = {
-      //   lat: mapConfig.us.lat,
-      //   lon: mapConfig.us.lon,
-      //   zoom: mapConfig.us.zoom
-      // };
-      // this.props.centerMapOnLocation(recenterData);
+    if (radioButtonValue === mapSelectInputConfig.us) {
+      this.props.setMapSelectInputType(radioButtonValue); // controls Map Filter Select Input.
+      this.props.setMapGeoCenter('US');
+      this.props.clearLocationsFromList();
+      this.props.createUsLocationsList();
     }
 
-    if (radioButtonValue === 'state') {
-      console.log('build states select input');
-      // TODO  - build state select input.
-      // this.props.clearFilteredLocationsList();
+    if (radioButtonValue === mapSelectInputConfig.state) {
+      this.props.setMapSelectInputType(radioButtonValue);
+      // Note: for States, setMapGeoCenter() occurs when a State is selected from Select Input.
+      this.props.clearLocationsFromList();
     }
-    if (radioButtonValue === 'nearme') {
-      console.log('build nearme select input');
-      // TODO - build nearme select input.
+    if (radioButtonValue === mapSelectInputConfig.nearme) {
+      this.props.setMapSelectInputType(radioButtonValue);
     }
   }
-
-  // handleOnClick(e) {
-  //   e.preventDefault();
-  //   const recenterData = {
-  //     lat: mapConfig.us.lat,
-  //     lon: mapConfig.us.lon,
-  //     zoom: mapConfig.us.zoom
-  //   };
-  //   this.props.centerMapOnLocation(recenterData);
-  // }
 
   render()  {
     return (
@@ -71,7 +55,7 @@ class FilterRadioButtons extends Component {
               checked={this.state.selectedRadio==='us'}
               onChange={e => this.handleOnChange(e)}
             />
-            <label htmlFor="radio_us">US</label>
+            <label htmlFor="radio_us">USA</label>
           </div>
           <div className="filter_radio_button">
             <input
@@ -82,7 +66,7 @@ class FilterRadioButtons extends Component {
               checked={this.state.selectedRadio==='state'}
               onChange={e => this.handleOnChange(e)}
             />
-            <label htmlFor="radio_states">State</label>
+            <label htmlFor="radio_states">States</label>
           </div>
           <div className="filter_radio_button">
             <input
@@ -96,15 +80,14 @@ class FilterRadioButtons extends Component {
             <label htmlFor="radio_nearme">Near Me</label>
           </div>
         </form>
-        {/*<button onClick={this.handleOnClick.bind(this)}>Display US Map</button>*/}
       </div>
     )
   }
-
 }
 
 export default connect(null, {
-  clearFilteredLocationsList,
-  getAllLocationsFromCache,
-  mapListedLocations
+  setMapGeoCenter,
+  clearLocationsFromList,
+  createUsLocationsList,
+  setMapSelectInputType
 })(FilterRadioButtons);

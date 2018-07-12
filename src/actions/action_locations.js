@@ -58,38 +58,60 @@ export const fetchLocationsError = (err) => {
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// recenterMap - BEGIN
+// other - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
-export const CENTER_MAP_ON_SINGLE_LOCATION = 'CENTER_MAP_ON_LOCATION';
-export const centerMapOnSingleLocation = (recenterData) => {
+
+export const SET_MAP_GEO_CENTER = 'SET_MAP_GEO_CENTER';
+export const setMapGeoCenter = (geoCenter) => {
+  console.log('geoCenter = ', geoCenter);
+  return {
+    type: SET_MAP_GEO_CENTER,
+    geoCenter
+  }
+};
+
+export const MAP_SINGLE_LOCATION_FROM_LIST = 'MAP_SINGLE_LOCATION_FROM_LIST';
+export const mapSingleLocationFromList = (recenterData) => {
   // console.log('centerMapOnSingleLocation ran');
   // console.log('recenterData = ', recenterData);
   return {
-    type: CENTER_MAP_ON_SINGLE_LOCATION,
+    type: MAP_SINGLE_LOCATION_FROM_LIST,
     recenterData
   }
 };
-///////////////////////////////////////////////////////////////////////////////
-// recenterMap - END
-///////////////////////////////////////////////////////////////////////////////
-export const GET_ALL_LOCATIONS_FROM_CACHE = 'GET_ALL_LOCATIONS_FROM_CACHE';
-export const getAllLocationsFromCache = () => {
+
+export const MAP_ALL_LOCATIONS_FROM_LIST = 'MAP_ALL_LOCATIONS_FROM_LIST';
+export const mapAllLocationsFromList = (geoCenter) => {
+  console.log('action_locations.js mapAllLocationsFromList ran');
+  console.log('action_locations.js geoCenter = ', geoCenter);
   return {
-    type: GET_ALL_LOCATIONS_FROM_CACHE
+    type: MAP_ALL_LOCATIONS_FROM_LIST,
+    geoCenter
   }
 };
 
-export const MAP_LISTED_LOCATIONS = 'MAP_LISTED_LOCATIONS';
-export const mapListedLocations = () => {
-  console.log('action mapListedLocations ran');
+export const CLEAR_LOCATIONS_FROM_LIST = 'CLEAR_LOCATIONS_FROM_LIST';
+export const clearLocationsFromList = () => {
   return {
-    type: MAP_LISTED_LOCATIONS
+    type: CLEAR_LOCATIONS_FROM_LIST
   }
 };
 
-export const CLEAR_FILTERED_LOCATIONS_LIST = 'CLEAR_FILTERED_LOCATIONS_LIST';
-export const clearFilteredLocationsList = () => {
+export const CREATE_US_LOCATIONS_LIST = 'CREATE_US_LOCATIONS_LIST';
+export const createUsLocationsList = () => {
   return {
-    type: CLEAR_FILTERED_LOCATIONS_LIST
-}
+    type: CREATE_US_LOCATIONS_LIST
+  }
 };
+
+export const CREATE_STATE_LOCATIONS_LIST = 'CREATE_STATE_LOCATIONS_LIST';
+export const createStateLocationsList = (stateName) => {
+  return {
+    type: CREATE_STATE_LOCATIONS_LIST,
+    stateName
+  }
+};
+///////////////////////////////////////////////////////////////////////////////
+// other - END
+///////////////////////////////////////////////////////////////////////////////
+

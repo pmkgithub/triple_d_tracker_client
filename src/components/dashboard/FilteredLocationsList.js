@@ -1,13 +1,14 @@
 import React, { Component }from 'react';
 import { connect } from 'react-redux';
 import {
-  centerMapOnSingleLocation,
-  mapListedLocations
-} from '../../actions/locations';
+  mapSingleLocationFromList,
+  mapAllLocationsFromList
+} from '../../actions/action_locations';
 import './filtered_locations_list.css';
 
 class FilteredLocationsList extends Component {
 
+  // click on list item.
   handleOnClick(event, location) {
     event.preventDefault();
 
@@ -17,12 +18,14 @@ class FilteredLocationsList extends Component {
       lon: parseFloat(location.coords.lon),
       zoom: 14
     };
-    this.props.centerMapOnSingleLocation(recenterData);
+    this.props.mapSingleLocationFromList(recenterData);
   }
 
+  // click on Map All Locations From List <button>.
   handleOnClickButton(e) {
     e.preventDefault();
-    this.props.mapListedLocations();
+    console.log('FilteredLocationsList.js handleOnClickButton this.props.mapGeoCenter', this.props.mapGeoCenter);
+    this.props.mapAllLocationsFromList(this.props.mapGeoCenter);
   }
 
   renderList() {
@@ -43,9 +46,13 @@ class FilteredLocationsList extends Component {
   render() {
     return (
       <div>
-        {/*<button className="filtered_locations_button" onClick={this.handleOnClickButton.bind(this)}>Map All Listed Items</button>*/}
-        <button className="filtered_locations_button" onClick={(e) => {this.handleOnClickButton(e)}}>Map All Listed Items</button>
-        <ul className="filtered_locations_ul">
+        <button
+          className="filtered_locations_button"
+          onClick={(e) => {this.handleOnClickButton(e)}}
+        >Map All Listed Items
+        </button>
+        <ul
+          className="filtered_locations_ul">
           {this.renderList()}
         </ul>
       </div>
@@ -54,12 +61,15 @@ class FilteredLocationsList extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('state = ', state);
   return {
-    filteredListLocations: state.mapData.filteredListLocations
+    filteredListLocations: state.mapData.filteredListLocations,
+    mapGeoCenter: state.mapData.mapGeoCenter
   }
 };
 
-export default connect(mapStateToProps, {
-  centerMapOnSingleLocation,
-  mapListedLocations
-} )(FilteredLocationsList);
+export default connect(mapStateToProps,
+  {
+    mapSingleLocationFromList,
+    mapAllLocationsFromList
+  })(FilteredLocationsList);
