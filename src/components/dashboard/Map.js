@@ -33,14 +33,6 @@ class Map extends Component {
   }
 
   render() {
-    // const centerLat = this.props.mapData.mapCenterLat;
-    // const centerLng = this.props.mapData.mapCenterLon;
-    // const zoom = this.props.mapData.mapZoom;
-
-    // console.log('Map render() centerLat = ', centerLat);
-    // console.log('Map render() centerLang = ', centerLng);
-    // console.log('Map render() zoom = ', zoom);
-
     return (
       <GoogleMap
         // defaultZoom={this.props.mapData.mapZoom}

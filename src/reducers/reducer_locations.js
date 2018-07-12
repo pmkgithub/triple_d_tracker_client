@@ -2,12 +2,12 @@ import {
   FETCH_LOCATIONS_REQUEST,
   FETCH_LOCATIONS_SUCCESS,
   FETCH_LOCATIONS_ERROR,
+  SET_MAP_GEO_CENTER,
   MAP_SINGLE_LOCATION_FROM_LIST,
   MAP_ALL_LOCATIONS_FROM_LIST,
   CLEAR_LOCATIONS_FROM_LIST,
   CREATE_US_LOCATIONS_LIST,
-  CREATE_STATE_LOCATIONS_LIST,
-  // GET_ALL_LOCATIONS_FROM_CACHE
+  CREATE_STATE_LOCATIONS_LIST
 
 } from "../actions/action_locations";
 import mapConfig from '../configs/mapConfig';
@@ -18,6 +18,7 @@ const initialState = {
   cachedLocations: [],
   displayedMapLocations: [],
   filteredListLocations: [],
+  mapGeoCenter: 'US',
   mapCenterLat: mapConfig.US.lat,
   mapCenterLon: mapConfig.US.lon,
   mapZoom: mapConfig.US.zoom,
@@ -26,6 +27,9 @@ const initialState = {
 };
 
 export default (state=initialState, action) => {
+
+  let lat, lon, zoom, stateCode;
+
   switch (action.type) {
 
     case FETCH_LOCATIONS_REQUEST:
@@ -52,6 +56,12 @@ export default (state=initialState, action) => {
         err: action.err
       };
 
+    case SET_MAP_GEO_CENTER:
+      return {
+        ...state,
+        mapGeoCenter: action.geoCenter
+      };
+
     case CLEAR_LOCATIONS_FROM_LIST:
       return {
         ...state,
@@ -73,7 +83,8 @@ export default (state=initialState, action) => {
       };
 
     case CREATE_STATE_LOCATIONS_LIST:
-      const stateCode = stateNameToAbbr[action.stateName];
+
+      stateCode = stateNameToAbbr[action.stateName];
 
       const locations = state.cachedLocations.filter((location) => {
         return location.state === stateCode;
@@ -98,35 +109,34 @@ export default (state=initialState, action) => {
       return {
         ...state,
         displayedMapLocations: [location],
-        filteredListLocations: [...state.cachedLocations],
         mapCenterLat: action.recenterData.lat,
         mapCenterLon: action.recenterData.lon,
         mapZoom: action.recenterData.zoom,
       };
 
     case MAP_ALL_LOCATIONS_FROM_LIST:
-      console.log('reducer_locations.js MAP_ALL_LOCATIONS_FROM_LIST state = ', state);
+
+      if( action.geoCenter === 'US' ) {
+        lat= mapConfig.US.lat;
+        lon= mapConfig.US.lon;
+        zoom= mapConfig.US.zoom;
+
+      } else if ( action.geoCenter === 'nearme') {
+
+      } else {
+        stateCode = stateNameToAbbr[action.geoCenter];
+        lat = mapConfig[stateCode].lat;
+        lon = mapConfig[stateCode].lon;
+        zoom = mapConfig[stateCode].zoom;
+      }
+
       return {
         ...state,
-        mapCenterLat: mapConfig.US.lat,
-        mapCenterLon: mapConfig.US.lon,
-        mapZoom: mapConfig.US.zoom,
+        mapCenterLat: lat,
+        mapCenterLon: lon,
+        mapZoom: zoom,
         displayedMapLocations: [...state.filteredListLocations],
       };
-
-      // undecided - BEGIN
-    // case GET_ALL_LOCATIONS_FROM_CACHE:
-    //   return {
-    //     ...state,
-    //     mapCenterLat: mapConfig.US.lat,
-    //     mapCenterLon: mapConfig.US.lon,
-    //     mapZoom: mapConfig.US.zoom,
-    //     displayedMapLocations: [...state.cachedLocations],
-    //     filteredListLocations: [...state.cachedLocations],
-    //   };
-
-
-    // undecided - END
 
     default:
       return state;

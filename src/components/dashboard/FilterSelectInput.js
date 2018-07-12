@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  createStateLocationsList
+  createStateLocationsList,
+  setMapGeoCenter
 } from '../../actions/action_locations';
 import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
 import stateAbbrToNameConfig from '../../configs/stateAbbrToNameConfig';
@@ -18,8 +19,8 @@ class FilterSelectInput extends Component {
     // console.log('FilterSelectInput buildOptions ran');
     // console.log('this.props.mapSelectInputType = ', this.props.mapSelectInputType);
 
-    // Select Input when US radio button chosen.
-    if(this.props.mapSelectInputType === mapSelectInputConfig.us) {
+    // Select Input when "US" radio button chosen.
+    if(this.props.mapSelectInputType === 'us') {
       return (
         <option
           disabled={true}
@@ -30,19 +31,20 @@ class FilterSelectInput extends Component {
       )
     }
 
-    // Select Input when State radio button chosen.
-    if(this.props.mapSelectInputType === mapSelectInputConfig.state) {
+    // Select Input when "US States" radio button chosen.
+    if(this.props.mapSelectInputType === 'state') {
 
+      // Build states array represented in the entire list of states from DB,
+      // which are cached during initial fetch. Stored in state.cachedLocations.
       let states = [];
-
       this.props.cachedLocations.forEach(location => {
-
         if ( states.indexOf(stateAbbrToNameConfig[location.state]) === -1 )  {
           states.push(stateAbbrToNameConfig[location.state]);
         }
         states.sort();
       });
 
+      // Build <options>.
       return states.map((stateName, index) => {
         return (
           <option
@@ -56,8 +58,8 @@ class FilterSelectInput extends Component {
 
     }
 
-    // Select Input when Nearme radio button chosen.
-    if(this.props.mapSelectInputType === mapSelectInputConfig.nearme) {
+    // Select Input when "nearme" radio button chosen.
+    if(this.props.mapSelectInputType === 'nearme') {
       return mapSelectInputConfig.nearmeRadius.map((radius, index) => {
         return (
           <option
@@ -72,16 +74,22 @@ class FilterSelectInput extends Component {
   }
 
   handleOnChangeSelect(e) {
-    console.log('FilterSelectInput handleOnSelect ran');
-    console.log('FilterSelectInput handleOnSelect e.target.value', e.target.value);
+    console.log('FilterSelectInput.js handleOnChangeSelect ran');
+    console.log('FilterSelectInput.js handleOnChangeSelect e.target.value', e.target.value);
     this.setState({value: e.target.value});
     // call action creator to populate Locations List.
     console.log('FilterSelectInput.js this.props.mapSelectInputType = ', this.props.mapSelectInputType);
 
-    // Case when State radio button selected.
+    // Case when "USA" radio button selected.  Not needed, USA select Input is empty.
+
+    // Case when "States" radio button selected.
     if(this.props.mapSelectInputType === 'state') {
+      this.props.setMapGeoCenter(e.target.value);
       this.props.createStateLocationsList(e.target.value)
     }
+
+    // Case when "Nearme" radio button selected.
+    // TODO - code this up.
 
   }
 
@@ -109,4 +117,7 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, { createStateLocationsList })(FilterSelectInput);
+export default connect(mapStateToProps, {
+  createStateLocationsList,
+  setMapGeoCenter
+})(FilterSelectInput);

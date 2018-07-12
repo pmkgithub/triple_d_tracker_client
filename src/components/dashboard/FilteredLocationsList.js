@@ -8,6 +8,7 @@ import './filtered_locations_list.css';
 
 class FilteredLocationsList extends Component {
 
+  // click on list item.
   handleOnClick(event, location) {
     event.preventDefault();
 
@@ -20,9 +21,11 @@ class FilteredLocationsList extends Component {
     this.props.mapSingleLocationFromList(recenterData);
   }
 
+  // click on Map All Locations From List <button>.
   handleOnClickButton(e) {
     e.preventDefault();
-    this.props.mapAllLocationsFromList();
+    console.log('FilteredLocationsList.js handleOnClickButton this.props.mapGeoCenter', this.props.mapGeoCenter);
+    this.props.mapAllLocationsFromList(this.props.mapGeoCenter);
   }
 
   renderList() {
@@ -43,7 +46,6 @@ class FilteredLocationsList extends Component {
   render() {
     return (
       <div>
-        {/*<button className="filtered_locations_button" onClick={this.handleOnClickButton.bind(this)}>Map All Listed Items</button>*/}
         <button
           className="filtered_locations_button"
           onClick={(e) => {this.handleOnClickButton(e)}}
@@ -59,8 +61,10 @@ class FilteredLocationsList extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('state = ', state);
   return {
-    filteredListLocations: state.mapData.filteredListLocations
+    filteredListLocations: state.mapData.filteredListLocations,
+    mapGeoCenter: state.mapData.mapGeoCenter
   }
 };
 

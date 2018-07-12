@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
   clearLocationsFromList,
   createUsLocationsList,
-  mapAllLocationsFromList
 } from '../../actions/action_locations';
 import {
   setMapSelectInputType
@@ -22,11 +21,10 @@ class FilterRadioButtons extends Component {
   handleOnChange(e) {
     const radioButtonValue = e.target.value;
     this.setState({selectedRadio: radioButtonValue});
+    console.log('radioButtonValue', radioButtonValue);
 
     if (radioButtonValue === mapSelectInputConfig.us) {
       // console.log('FilterRadioButton call setMapSelectInputType with ', radioButtonValue);
-
-      // TODO - build us select input.
       this.props.setMapSelectInputType(radioButtonValue);
       this.props.clearLocationsFromList();
       this.props.createUsLocationsList();
@@ -34,27 +32,14 @@ class FilterRadioButtons extends Component {
 
     if (radioButtonValue === mapSelectInputConfig.state) {
       // console.log('FilterRadioButton call setMapSelectInputType with ', radioButtonValue);
-      // TODO  - build state select input.
       this.props.setMapSelectInputType(radioButtonValue);
       this.props.clearLocationsFromList();
     }
     if (radioButtonValue === mapSelectInputConfig.nearme) {
       // console.log('FilterRadioButton call setMapSelectInputType with ', radioButtonValue);
-      // TODO - build nearme select input.
       this.props.setMapSelectInputType(radioButtonValue);
     }
   }
-
-  // button onClick
-  // handleOnClick(e) {
-  //   e.preventDefault();
-  //   const recenterData = {
-  //     lat: mapConfig.us.lat,
-  //     lon: mapConfig.us.lon,
-  //     zoom: mapConfig.us.zoom
-  //   };
-  //   this.props.centerMapOnLocation(recenterData);
-  // }
 
   render()  {
     return (
@@ -70,7 +55,7 @@ class FilterRadioButtons extends Component {
               checked={this.state.selectedRadio==='us'}
               onChange={e => this.handleOnChange(e)}
             />
-            <label htmlFor="radio_us">US</label>
+            <label htmlFor="radio_us">USA</label>
           </div>
           <div className="filter_radio_button">
             <input
@@ -81,7 +66,7 @@ class FilterRadioButtons extends Component {
               checked={this.state.selectedRadio==='state'}
               onChange={e => this.handleOnChange(e)}
             />
-            <label htmlFor="radio_states">State</label>
+            <label htmlFor="radio_states">States</label>
           </div>
           <div className="filter_radio_button">
             <input
@@ -95,16 +80,13 @@ class FilterRadioButtons extends Component {
             <label htmlFor="radio_nearme">Near Me</label>
           </div>
         </form>
-        {/*<button onClick={this.handleOnClick.bind(this)}>Display US Map</button>*/}
       </div>
     )
   }
-
 }
 
 export default connect(null, {
   clearLocationsFromList,
   createUsLocationsList,
-  mapAllLocationsFromList,
   setMapSelectInputType
 })(FilterRadioButtons);
