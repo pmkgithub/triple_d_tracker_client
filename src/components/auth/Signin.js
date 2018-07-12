@@ -40,7 +40,6 @@ class Signin extends Component {
 
   // Arrow Function allows us not to need binding this.
   onSubmit = (formProps) => {
-    console.log('formProps = ', formProps);
     this.props.signin(formProps, () => {
       this.props.history.push('/feature');
     });

@@ -24,7 +24,6 @@ class FilteredLocationsList extends Component {
   // click on Map All Locations From List <button>.
   handleOnClickButton(e) {
     e.preventDefault();
-    console.log('FilteredLocationsList.js handleOnClickButton this.props.mapGeoCenter', this.props.mapGeoCenter);
     this.props.mapAllLocationsFromList(this.props.mapGeoCenter);
   }
 
@@ -61,7 +60,6 @@ class FilteredLocationsList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('state = ', state);
   return {
     filteredListLocations: state.mapData.filteredListLocations,
     mapGeoCenter: state.mapData.mapGeoCenter

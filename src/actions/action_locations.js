@@ -63,7 +63,6 @@ export const fetchLocationsError = (err) => {
 
 export const SET_MAP_GEO_CENTER = 'SET_MAP_GEO_CENTER';
 export const setMapGeoCenter = (geoCenter) => {
-  console.log('geoCenter = ', geoCenter);
   return {
     type: SET_MAP_GEO_CENTER,
     geoCenter
@@ -72,8 +71,6 @@ export const setMapGeoCenter = (geoCenter) => {
 
 export const MAP_SINGLE_LOCATION_FROM_LIST = 'MAP_SINGLE_LOCATION_FROM_LIST';
 export const mapSingleLocationFromList = (recenterData) => {
-  // console.log('centerMapOnSingleLocation ran');
-  // console.log('recenterData = ', recenterData);
   return {
     type: MAP_SINGLE_LOCATION_FROM_LIST,
     recenterData
@@ -82,8 +79,6 @@ export const mapSingleLocationFromList = (recenterData) => {
 
 export const MAP_ALL_LOCATIONS_FROM_LIST = 'MAP_ALL_LOCATIONS_FROM_LIST';
 export const mapAllLocationsFromList = (geoCenter) => {
-  console.log('action_locations.js mapAllLocationsFromList ran');
-  console.log('action_locations.js geoCenter = ', geoCenter);
   return {
     type: MAP_ALL_LOCATIONS_FROM_LIST,
     geoCenter

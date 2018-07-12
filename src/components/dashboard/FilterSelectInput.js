@@ -16,8 +16,6 @@ class FilterSelectInput extends Component {
   }
 
   buildOptions() {
-    // console.log('FilterSelectInput buildOptions ran');
-    // console.log('this.props.mapSelectInputType = ', this.props.mapSelectInputType);
 
     // Select Input when "US" radio button chosen.
     if(this.props.mapSelectInputType === 'us') {
@@ -74,16 +72,13 @@ class FilterSelectInput extends Component {
   }
 
   handleOnChangeSelect(e) {
-    console.log('FilterSelectInput.js handleOnChangeSelect ran');
-    console.log('FilterSelectInput.js handleOnChangeSelect e.target.value', e.target.value);
+    // Note:
+    // On a State Select Input, e.target.value = the State's name (e.g. "Arizona").
     this.setState({value: e.target.value});
-    // call action creator to populate Locations List.
-    console.log('FilterSelectInput.js this.props.mapSelectInputType = ', this.props.mapSelectInputType);
 
-    // Case when "USA" radio button selected.  Not needed, USA select Input is empty.
-    if (this.props.mapSelectInputType === 'us') {
-
-    }
+    // Case when "USA" radio button selected.
+    // Note: Not needed, USA select Input is empty.
+    // Note: this.props.setMapGeoCenter('US') for USA occurs in FilterRadioButton.js.
 
     // Case when "States" radio button selected.
     if (this.props.mapSelectInputType === 'state') {

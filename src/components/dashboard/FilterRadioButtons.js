@@ -8,7 +8,6 @@ import {
 import {
   setMapSelectInputType
 } from '../../actions/action_map_select_input';
-// import mapConfig from '../../configs/mapConfig';
 import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
 import './filter_radio_buttons.css';
 
@@ -22,7 +21,6 @@ class FilterRadioButtons extends Component {
   handleOnChange(e) {
     const radioButtonValue = e.target.value;
     this.setState({selectedRadio: radioButtonValue});
-    console.log('radioButtonValue', radioButtonValue);
 
     if (radioButtonValue === mapSelectInputConfig.us) {
       this.props.setMapSelectInputType(radioButtonValue); // controls Map Filter Select Input.
