@@ -81,9 +81,12 @@ class FilterSelectInput extends Component {
     console.log('FilterSelectInput.js this.props.mapSelectInputType = ', this.props.mapSelectInputType);
 
     // Case when "USA" radio button selected.  Not needed, USA select Input is empty.
+    if (this.props.mapSelectInputType === 'us') {
+
+    }
 
     // Case when "States" radio button selected.
-    if(this.props.mapSelectInputType === 'state') {
+    if (this.props.mapSelectInputType === 'state') {
       this.props.setMapGeoCenter(e.target.value);
       this.props.createStateLocationsList(e.target.value)
     }

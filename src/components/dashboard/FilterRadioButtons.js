@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
   clearLocationsFromList,
   createUsLocationsList,
+  setMapGeoCenter
 } from '../../actions/action_locations';
 import {
   setMapSelectInputType
@@ -24,19 +25,18 @@ class FilterRadioButtons extends Component {
     console.log('radioButtonValue', radioButtonValue);
 
     if (radioButtonValue === mapSelectInputConfig.us) {
-      // console.log('FilterRadioButton call setMapSelectInputType with ', radioButtonValue);
-      this.props.setMapSelectInputType(radioButtonValue);
+      this.props.setMapSelectInputType(radioButtonValue); // controls Map Filter Select Input.
+      this.props.setMapGeoCenter('US');
       this.props.clearLocationsFromList();
       this.props.createUsLocationsList();
     }
 
     if (radioButtonValue === mapSelectInputConfig.state) {
-      // console.log('FilterRadioButton call setMapSelectInputType with ', radioButtonValue);
       this.props.setMapSelectInputType(radioButtonValue);
+      // Note: for States, setMapGeoCenter() occurs when a State is selected from Select Input.
       this.props.clearLocationsFromList();
     }
     if (radioButtonValue === mapSelectInputConfig.nearme) {
-      // console.log('FilterRadioButton call setMapSelectInputType with ', radioButtonValue);
       this.props.setMapSelectInputType(radioButtonValue);
     }
   }
@@ -86,6 +86,7 @@ class FilterRadioButtons extends Component {
 }
 
 export default connect(null, {
+  setMapGeoCenter,
   clearLocationsFromList,
   createUsLocationsList,
   setMapSelectInputType
