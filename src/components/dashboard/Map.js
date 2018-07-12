@@ -33,9 +33,9 @@ class Map extends Component {
   }
 
   render() {
-    const centerLat = this.props.mapData.mapCenterLat;
-    const centerLng = this.props.mapData.mapCenterLon;
-    const zoom = this.props.mapData.mapZoom;
+    // const centerLat = this.props.mapData.mapCenterLat;
+    // const centerLng = this.props.mapData.mapCenterLon;
+    // const zoom = this.props.mapData.mapZoom;
 
     // console.log('Map render() centerLat = ', centerLat);
     // console.log('Map render() centerLang = ', centerLng);

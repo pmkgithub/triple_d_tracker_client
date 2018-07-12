@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+  createStateLocationsList
+} from '../../actions/action_locations';
 import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
+import stateAbbrToNameConfig from '../../configs/stateAbbrToNameConfig';
 import './filter_select_input.css';
 
 class FilterSelectInput extends Component {
@@ -11,8 +15,8 @@ class FilterSelectInput extends Component {
   }
 
   buildOptions() {
-    console.log('FilterSelectInput buildOptions ran');
-    console.log('this.props.mapSelectInputType = ', this.props.mapSelectInputType);
+    // console.log('FilterSelectInput buildOptions ran');
+    // console.log('this.props.mapSelectInputType = ', this.props.mapSelectInputType);
 
     // Select Input when US radio button chosen.
     if(this.props.mapSelectInputType === mapSelectInputConfig.us) {
@@ -33,8 +37,8 @@ class FilterSelectInput extends Component {
 
       this.props.cachedLocations.forEach(location => {
 
-        if ( states.indexOf(mapSelectInputConfig[location.state]) === -1 )  {
-          states.push(mapSelectInputConfig[location.state]);
+        if ( states.indexOf(stateAbbrToNameConfig[location.state]) === -1 )  {
+          states.push(stateAbbrToNameConfig[location.state]);
         }
         states.sort();
       });
@@ -67,11 +71,18 @@ class FilterSelectInput extends Component {
     }
   }
 
-  handleOnSelect(e) {
-    console.log('handleOnSelect ran');
-    console.log('e.target.value', e.target.value);
+  handleOnChangeSelect(e) {
+    console.log('FilterSelectInput handleOnSelect ran');
+    console.log('FilterSelectInput handleOnSelect e.target.value', e.target.value);
     this.setState({value: e.target.value});
     // call action creator to populate Locations List.
+    console.log('FilterSelectInput.js this.props.mapSelectInputType = ', this.props.mapSelectInputType);
+
+    // Case when State radio button selected.
+    if(this.props.mapSelectInputType === 'state') {
+      this.props.createStateLocationsList(e.target.value)
+    }
+
   }
 
   render() {
@@ -81,7 +92,7 @@ class FilterSelectInput extends Component {
           <select
             className="filter_select_input"
             value={this.state.value}
-            onChange={(e) => {this.handleOnSelect(e)}}
+            onChange={(e) => {this.handleOnChangeSelect(e)}}
           >
             {this.buildOptions()}
           </select>
@@ -92,11 +103,10 @@ class FilterSelectInput extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('FilterSelectInput mapStateToProps state', state);
   return {
     mapSelectInputType: state.mapSelectInput.mapSelectInputType,
     cachedLocations: state.mapData.cachedLocations
   }
 };
 
-export default connect(mapStateToProps)(FilterSelectInput);
+export default connect(mapStateToProps, { createStateLocationsList })(FilterSelectInput);

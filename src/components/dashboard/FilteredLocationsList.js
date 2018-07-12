@@ -1,8 +1,8 @@
 import React, { Component }from 'react';
 import { connect } from 'react-redux';
 import {
-  centerMapOnSingleLocation,
-  mapListedLocations
+  mapSingleLocationFromList,
+  mapAllLocationsFromList
 } from '../../actions/action_locations';
 import './filtered_locations_list.css';
 
@@ -17,12 +17,12 @@ class FilteredLocationsList extends Component {
       lon: parseFloat(location.coords.lon),
       zoom: 14
     };
-    this.props.centerMapOnSingleLocation(recenterData);
+    this.props.mapSingleLocationFromList(recenterData);
   }
 
   handleOnClickButton(e) {
     e.preventDefault();
-    this.props.mapListedLocations();
+    this.props.mapAllLocationsFromList();
   }
 
   renderList() {
@@ -44,8 +44,13 @@ class FilteredLocationsList extends Component {
     return (
       <div>
         {/*<button className="filtered_locations_button" onClick={this.handleOnClickButton.bind(this)}>Map All Listed Items</button>*/}
-        <button className="filtered_locations_button" onClick={(e) => {this.handleOnClickButton(e)}}>Map All Listed Items</button>
-        <ul className="filtered_locations_ul">
+        <button
+          className="filtered_locations_button"
+          onClick={(e) => {this.handleOnClickButton(e)}}
+        >Map All Listed Items
+        </button>
+        <ul
+          className="filtered_locations_ul">
           {this.renderList()}
         </ul>
       </div>
@@ -61,6 +66,6 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
   {
-    centerMapOnSingleLocation,
-    mapListedLocations
+    mapSingleLocationFromList,
+    mapAllLocationsFromList
   })(FilteredLocationsList);
