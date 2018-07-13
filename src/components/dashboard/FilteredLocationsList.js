@@ -48,7 +48,7 @@ class FilteredLocationsList extends Component {
         <button
           className="filtered_locations_button"
           onClick={(e) => {this.handleOnClickButton(e)}}
-        >Map All Listed Items
+        >Map All Listed Locations
         </button>
         <ul
           className="filtered_locations_ul">

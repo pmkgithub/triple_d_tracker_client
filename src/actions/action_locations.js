@@ -61,6 +61,9 @@ export const fetchLocationsError = (err) => {
 // other - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
 
+// Note: geoCenter is a string: e.g. 'US', 'Kansas' returned from clicking
+//       the Select Input of States, or the USA Radio Button being clicked.
+// Based on this string, config files map the lat, lon in the reducer.
 export const SET_MAP_GEO_CENTER = 'SET_MAP_GEO_CENTER';
 export const setMapGeoCenter = (geoCenter) => {
   return {
@@ -69,40 +72,40 @@ export const setMapGeoCenter = (geoCenter) => {
   }
 };
 
-export const MAP_SINGLE_LOCATION_FROM_LIST = 'MAP_SINGLE_LOCATION_FROM_LIST';
+export const MAP_SINGLE_LOCATIONS_FROM_UI_LIST = 'MAP_SINGLE_LOCATIONS_FROM_UI_LIST';
 export const mapSingleLocationFromList = (recenterData) => {
   return {
-    type: MAP_SINGLE_LOCATION_FROM_LIST,
+    type: MAP_SINGLE_LOCATIONS_FROM_UI_LIST,
     recenterData
   }
 };
 
-export const MAP_ALL_LOCATIONS_FROM_LIST = 'MAP_ALL_LOCATIONS_FROM_LIST';
+export const MAP_ALL_LOCATIONS_FROM_UI_LIST = 'MAP_ALL_LOCATIONS_FROM_UI_LIST';
 export const mapAllLocationsFromList = (geoCenter) => {
   return {
-    type: MAP_ALL_LOCATIONS_FROM_LIST,
+    type: MAP_ALL_LOCATIONS_FROM_UI_LIST,
     geoCenter
   }
 };
 
-export const CLEAR_LOCATIONS_FROM_LIST = 'CLEAR_LOCATIONS_FROM_LIST';
+export const CLEAR_LOCATIONS_FROM_UI_LIST = 'CLEAR_LOCATIONS_FROM_UI_LIST';
 export const clearLocationsFromList = () => {
   return {
-    type: CLEAR_LOCATIONS_FROM_LIST
+    type: CLEAR_LOCATIONS_FROM_UI_LIST
   }
 };
 
-export const CREATE_US_LOCATIONS_LIST = 'CREATE_US_LOCATIONS_LIST';
+export const CREATE_US_LOCATIONS_UI_LIST = 'CREATE_US_LOCATIONS_UI_LIST';
 export const createUsLocationsList = () => {
   return {
-    type: CREATE_US_LOCATIONS_LIST
+    type: CREATE_US_LOCATIONS_UI_LIST
   }
 };
 
-export const CREATE_STATE_LOCATIONS_LIST = 'CREATE_STATE_LOCATIONS_LIST';
+export const CREATE_STATE_LOCATIONS_UI_LIST = 'CREATE_STATE_LOCATIONS_UI_LIST';
 export const createStateLocationsList = (stateName) => {
   return {
-    type: CREATE_STATE_LOCATIONS_LIST,
+    type: CREATE_STATE_LOCATIONS_UI_LIST,
     stateName
   }
 };

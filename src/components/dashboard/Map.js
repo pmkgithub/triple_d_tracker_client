@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+// import { MAP } from 'react-google-maps/lib/constants';
 import { fetchLocations } from "../../actions/action_locations";
 import "./map.css";
 
@@ -10,7 +11,9 @@ class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      map: null
+      map: null,
+      isInfoWindowOpen: false,
+      markerId: null
     }
   }
 
@@ -26,8 +29,26 @@ class Map extends Component {
     // Note: without this check, react errors out.
     if (this.state.map !== null) {return}
     this.setState({map: map});
-    // console.log('onMapLoad: ', JSON.stringify(this.state.map.getCenter()));
-    console.log('onMapLoad: ', JSON.stringify(map.getCenter()));
+    // console.log('MAP', MAP);
+
+  }
+
+  handleOnClickMarker(markerObj, mongoId) {
+    console.log('open detail modal with this id', mongoId);
+    console.log('markerObj', markerObj);
+    console.log(this.state.map.getZoom());
+    console.log(this.state.map);
+    // this.setState({isInfoWindowOpen: !this.state.isInfoWindowOpen, markerId});
+    // console.log('markerObj', markerObj);
+    // console.log('markerId', markerId);
+  }
+
+  mouseOverMouseOutMarker(markerObj, markerId) {
+    // this.state.map.setOptions({disableAutoPan: true});
+
+    // hack
+
+    this.setState({isInfoWindowOpen: !this.state.isInfoWindowOpen, markerId});
   }
 
   renderMarkers() {
@@ -38,15 +59,39 @@ class Map extends Component {
       return false;  // temporary code...
     }
 
+    // // original code.
+    // return displayedMapLocations.map((location, index) => {
+    //   const {lat, lon} = location.coords;
+    //   return (
+    //       <Marker
+    //         key={index}
+    //         position={{ lat: lat, lng: lon }}
+    //         onClick={(e) => this.handleOnClickMarker(e)}
+    //       />
+    //   )
+    // })
+
     return displayedMapLocations.map((location, index) => {
+      console.log('Map.js renderMarkers location = ',location);
       const {lat, lon} = location.coords;
       return (
-        <Marker
-          key={index}
-          position={{ lat: lat, lng: lon }}
-        />
+          <Marker
+            key={index}
+            position={{ lat: lat, lng: lon }}
+            onClick={(markerObj) => this.handleOnClickMarker(markerObj, location._id)}
+            onMouseOver={(markerObj) => this.mouseOverMouseOutMarker(markerObj, index, location.coords)}
+            onMouseOut={(markerObj) => this.mouseOverMouseOutMarker(markerObj, index)}
+            animation={this.state.map.getZoom()}
+          >
+            {this.state.isInfoWindowOpen && this.state.markerId === index && <InfoWindow
+              key={index}
+              options={{disableAutoPan: true}}
+              // onCloseClick={() => this.handleOnClickMarker()}
+            ><div>{location.name}</div></InfoWindow>}
+          </Marker>
       )
     })
+
   }
 
   handleOnDragEnd(e) {
