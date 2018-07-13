@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 // import { MAP } from 'react-google-maps/lib/constants';
-import { fetchLocations } from "../../actions/action_locations";
+import {
+  fetchLocations,
+  setMapGeoCenterMarkerHover
+} from "../../actions/action_locations";
 import "./map.css";
 
 class Map extends Component {
@@ -36,19 +39,24 @@ class Map extends Component {
   handleOnClickMarker(markerObj, mongoId) {
     console.log('open detail modal with this id', mongoId);
     console.log('markerObj', markerObj);
-    console.log(this.state.map.getZoom());
+    console.log('this.state.map.getZoom()',this.state.map.getZoom());
+    console.log('this.state.map.getCenter()',JSON.stringify(this.state.map.getCenter()));
     console.log(this.state.map);
     // this.setState({isInfoWindowOpen: !this.state.isInfoWindowOpen, markerId});
     // console.log('markerObj', markerObj);
     // console.log('markerId', markerId);
   }
 
-  mouseOverMouseOutMarker(markerObj, markerId) {
-    // this.state.map.setOptions({disableAutoPan: true});
-
+  mouseOverMarker(markerObj, markerId, coords) {
+    //NOTE: markerObj supplied as first arg by react-google-maps.
     // hack
-
+    console.log('mouseOverMouseOutMarker coords', coords);
+    this.props.setMapGeoCenterMarkerHover(coords);
     this.setState({isInfoWindowOpen: !this.state.isInfoWindowOpen, markerId});
+  }
+
+  mouseOutMarker() {
+    this.setState({isInfoWindowOpen: !this.state.isInfoWindowOpen});
   }
 
   renderMarkers() {
@@ -79,8 +87,8 @@ class Map extends Component {
             key={index}
             position={{ lat: lat, lng: lon }}
             onClick={(markerObj) => this.handleOnClickMarker(markerObj, location._id)}
-            onMouseOver={(markerObj) => this.mouseOverMouseOutMarker(markerObj, index, location.coords)}
-            onMouseOut={(markerObj) => this.mouseOverMouseOutMarker(markerObj, index)}
+            onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, index, location.coords)}
+            onMouseOut={(markerObj) => this.mouseOutMarker()}
             animation={this.state.map.getZoom()}
           >
             {this.state.isInfoWindowOpen && this.state.markerId === index && <InfoWindow
@@ -130,7 +138,10 @@ const mapStateToProps = (state) => {
 // export default connect(mapStateToProps, { fetchLocations })(withGoogleMap(Map));
 
 export default compose (
-  connect(mapStateToProps, { fetchLocations }),
+  connect(mapStateToProps, {
+    fetchLocations,
+    setMapGeoCenterMarkerHover
+  }),
   withGoogleMap
 )(Map)
 

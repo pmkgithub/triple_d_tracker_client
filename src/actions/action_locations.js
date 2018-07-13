@@ -72,6 +72,15 @@ export const setMapGeoCenter = (geoCenter) => {
   }
 };
 
+export const SET_MAP_GEO_CENTER_MARKER_HOVER = 'SET_MAP_GEO_CENTER_MARKER_HOVER';
+export const setMapGeoCenterMarkerHover = (markerCoords) => {
+  console.log('action creator setMapGeoCenterMarkerHover markerCoords', markerCoords);
+  return {
+    type: SET_MAP_GEO_CENTER_MARKER_HOVER,
+    markerCoords
+  }
+};
+
 export const MAP_SINGLE_LOCATIONS_FROM_UI_LIST = 'MAP_SINGLE_LOCATIONS_FROM_UI_LIST';
 export const mapSingleLocationFromList = (recenterData) => {
   return {
