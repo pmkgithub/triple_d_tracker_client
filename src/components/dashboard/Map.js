@@ -89,6 +89,21 @@ class Map extends Component {
     return displayedMapLocations.map((location, index) => {
       // console.log('Map.js renderMarkers location = ',location);
       const {lat, lon} = location.coords;
+
+      let iconUrl;
+      const blueMarker = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+      const redMarker = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+      const greenMarker = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+
+
+      if (location.outOfBusiness === false) {
+        iconUrl = blueMarker;
+      }
+
+      if (location.outOfBusiness === true) {
+        iconUrl = redMarker;
+      }
+
       return (
           <Marker
             key={index}
@@ -96,7 +111,7 @@ class Map extends Component {
             onClick={(markerObj) => this.handleOnClickMarker(markerObj, location._id)}
             onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, index, location.coords)}
             onMouseOut={(markerObj) => this.mouseOutMarker()}
-            icon={{strokeColor: "blue"}}
+            icon={{url: iconUrl}}
           >
             {this.state.isInfoWindowOpen && this.state.markerId === index && <InfoWindow
               key={index}

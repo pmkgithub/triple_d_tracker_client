@@ -2,11 +2,11 @@ import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import authReducer from './reducer_auth';
 import locationsReducer from './reducer_locations';
-import mapSelectInputReducer from './reducer_map_select_input'
+import radioButtonReducer from './reducer_radio_button'
 
 export default combineReducers({
   auth: authReducer,
   mapData: locationsReducer,
-  mapSelectInput: mapSelectInputReducer,
+  radioButton: radioButtonReducer,
   form: formReducer
 });

@@ -5,6 +5,7 @@ import {
   setMapGeoCenter
 } from '../../actions/action_locations';
 import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
+import radioButtonConfig from '../../configs/radioButtonConfig';
 import stateAbbrToNameConfig from '../../configs/stateAbbrToNameConfig';
 import './filter_select_input.css';
 
@@ -18,7 +19,7 @@ class FilterSelectInput extends Component {
   buildOptions() {
 
     // Select Input when "US" radio button chosen.
-    if(this.props.mapSelectInputType === 'us') {
+    if (this.props.selectedRadioButton === radioButtonConfig.us) {
       return (
         <option
           disabled={true}
@@ -30,7 +31,7 @@ class FilterSelectInput extends Component {
     }
 
     // Select Input when "US States" radio button chosen.
-    if(this.props.mapSelectInputType === 'state') {
+    if (this.props.selectedRadioButton === radioButtonConfig.state) {
 
       // Build states array represented in the entire list of states from DB,
       // which are cached during initial fetch. Stored in state.cachedLocations.
@@ -57,7 +58,7 @@ class FilterSelectInput extends Component {
     }
 
     // Select Input when "nearme" radio button chosen.
-    if(this.props.mapSelectInputType === 'nearme') {
+    if(this.props.selectedRadioButton === radioButtonConfig.nearme) {
       return mapSelectInputConfig.nearmeRadius.map((radius, index) => {
         return (
           <option
@@ -81,7 +82,7 @@ class FilterSelectInput extends Component {
     // Note: this.props.setMapGeoCenter('US') for USA occurs in FilterRadioButton.js.
 
     // Case when "States" radio button selected.
-    if (this.props.mapSelectInputType === 'state') {
+    if (this.props.selectedRadioButton === 'state') {
       this.props.setMapGeoCenter(e.target.value);
       this.props.createStateLocationsList(e.target.value)
     }
@@ -99,7 +100,10 @@ class FilterSelectInput extends Component {
             className="filter_select_input"
             value={this.state.value}
             onChange={(e) => {this.handleOnChangeSelect(e)}}
+            defaultValue={"choose_us_state"}
           >
+            {/*{this.props.selectedRadioButton === 'state'? <option value="choose_us_state" disabled>Choose a US State</option> : ''}*/}
+            {this.props.default === 'state'? <option value="choose_us_state" disabled>Choose a US State</option> : ''}
             {this.buildOptions()}
           </select>
         </form>
@@ -110,7 +114,7 @@ class FilterSelectInput extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    mapSelectInputType: state.mapSelectInput.mapSelectInputType,
+    selectedRadioButton: state.radioButton.selectedRadioButton,
     cachedLocations: state.mapData.cachedLocations
   }
 };
