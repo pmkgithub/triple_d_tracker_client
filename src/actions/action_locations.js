@@ -72,12 +72,11 @@ export const setMapGeoCenter = (geoCenter) => {
   }
 };
 
-export const SET_MAP_GEO_CENTER_MARKER_HOVER = 'SET_MAP_GEO_CENTER_MARKER_HOVER';
-export const setMapGeoCenterMarkerHover = (markerCoords) => {
-  console.log('action creator setMapGeoCenterMarkerHover markerCoords', markerCoords);
+export const SET_MAP_LAT_LON_CENTER = 'SET_MAP_LAT_LON_CENTER';
+export const setMapLatLonCenter = (coords) => {
   return {
-    type: SET_MAP_GEO_CENTER_MARKER_HOVER,
-    markerCoords
+    type: SET_MAP_LAT_LON_CENTER,
+    coords
   }
 };
 

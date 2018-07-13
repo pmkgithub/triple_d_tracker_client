@@ -3,7 +3,7 @@ import {
   FETCH_LOCATIONS_SUCCESS,
   FETCH_LOCATIONS_ERROR,
   SET_MAP_GEO_CENTER,
-  SET_MAP_GEO_CENTER_MARKER_HOVER,
+  SET_MAP_LAT_LON_CENTER,
   MAP_SINGLE_LOCATIONS_FROM_UI_LIST,
   MAP_ALL_LOCATIONS_FROM_UI_LIST,
   CLEAR_LOCATIONS_FROM_UI_LIST,
@@ -63,10 +63,10 @@ export default (state=initialState, action) => {
         mapGeoCenter: action.geoCenter
       };
 
-    case SET_MAP_GEO_CENTER_MARKER_HOVER:
-      console.log('SET_MAP_GEO_CENTER_MARKER_HOVER action', action);
-       lat = action.markerCoords.lat;
-       lon = action.markerCoords.lon;
+    case SET_MAP_LAT_LON_CENTER:
+
+       lat = action.coords.lat;
+       lon = action.coords.lng;
 
       return {
         ...state,

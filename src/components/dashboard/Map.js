@@ -5,7 +5,7 @@ import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
 // import { MAP } from 'react-google-maps/lib/constants';
 import {
   fetchLocations,
-  setMapGeoCenterMarkerHover
+  setMapLatLonCenter
 } from "../../actions/action_locations";
 import "./map.css";
 
@@ -36,22 +36,29 @@ class Map extends Component {
 
   }
 
-  handleOnClickMarker(markerObj, mongoId) {
-    console.log('open detail modal with this id', mongoId);
-    console.log('markerObj', markerObj);
-    console.log('this.state.map.getZoom()',this.state.map.getZoom());
-    console.log('this.state.map.getCenter()',JSON.stringify(this.state.map.getCenter()));
-    console.log(this.state.map);
-    // this.setState({isInfoWindowOpen: !this.state.isInfoWindowOpen, markerId});
-    // console.log('markerObj', markerObj);
-    // console.log('markerId', markerId);
+  // When map is panned by User, reset the map center lat/lon.
+  // This keeps map from "jumping" when marker's are hovered.
+  handleOnDragEnd(e) {
+    const coordsString = JSON.stringify(this.state.map.getCenter());
+    const coords = JSON.parse(coordsString);
+    this.props.setMapLatLonCenter(coords);
   }
 
-  mouseOverMarker(markerObj, markerId, coords) {
+  // When map is zoomed by User, reset the map center lat/lon.
+  // This keeps map from "jumping" when marker's are hovered.
+  handleOnZoomChanged(e) {
+    const coordsString = JSON.stringify(this.state.map.getCenter());
+    const coords = JSON.parse(coordsString);
+    this.props.setMapLatLonCenter(coords);
+  }
+
+  handleOnClickMarker(markerObj, mongoId) {
     //NOTE: markerObj supplied as first arg by react-google-maps.
-    // hack
-    console.log('mouseOverMouseOutMarker coords', coords);
-    this.props.setMapGeoCenterMarkerHover(coords);
+    console.log('open detail modal with this id', mongoId);
+  }
+
+  mouseOverMarker(markerObj, markerId) {
+    //NOTE: markerObj supplied as first arg by react-google-maps.
     this.setState({isInfoWindowOpen: !this.state.isInfoWindowOpen, markerId});
   }
 
@@ -80,7 +87,7 @@ class Map extends Component {
     // })
 
     return displayedMapLocations.map((location, index) => {
-      console.log('Map.js renderMarkers location = ',location);
+      // console.log('Map.js renderMarkers location = ',location);
       const {lat, lon} = location.coords;
       return (
           <Marker
@@ -89,7 +96,7 @@ class Map extends Component {
             onClick={(markerObj) => this.handleOnClickMarker(markerObj, location._id)}
             onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, index, location.coords)}
             onMouseOut={(markerObj) => this.mouseOutMarker()}
-            animation={this.state.map.getZoom()}
+            icon={{strokeColor: "blue"}}
           >
             {this.state.isInfoWindowOpen && this.state.markerId === index && <InfoWindow
               key={index}
@@ -102,15 +109,6 @@ class Map extends Component {
 
   }
 
-  handleOnDragEnd(e) {
-    console.log('onMapMoved ran');
-    console.log('this.state.map.getCenter() = ',JSON.stringify(this.state.map.getCenter()));
-  }
-
-  handleOnZoomChanged(e) {
-    console.log('handleOnZoomChanged');
-    console.log('this.state.map.getZoom() = ',this.state.map.getZoom());
-  }
   render() {
     return (
       <GoogleMap
@@ -140,7 +138,7 @@ const mapStateToProps = (state) => {
 export default compose (
   connect(mapStateToProps, {
     fetchLocations,
-    setMapGeoCenterMarkerHover
+    setMapLatLonCenter
   }),
   withGoogleMap
 )(Map)
