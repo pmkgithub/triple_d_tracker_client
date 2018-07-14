@@ -31,11 +31,13 @@ class FilterRadioButtons extends Component {
 
     if (radioButtonValue === radioButtonConfig.state) {
       this.props.selectedRadioButton(radioButtonValue);
-      // Note: for States, setMapGeoCenter() occurs when a State is selected from Select Input.
+      // Note: for US States, setMapGeoCenter() occurs when a State is selected from Select Input.
       this.props.clearLocationsFromList();
     }
     if (radioButtonValue === radioButtonConfig.nearme) {
       this.props.selectedRadioButton(radioButtonValue);
+      // Note: for "nearme", setMapGeoCenter() occurs when a "nearme" distance is selected from Select Input.
+      this.props.clearLocationsFromList();
     }
   }
 

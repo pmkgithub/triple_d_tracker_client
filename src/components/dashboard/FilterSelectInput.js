@@ -16,23 +16,21 @@ class FilterSelectInput extends Component {
     this.state = {value: ""}
   }
 
-  buildOptions() {
-
-    // Select Input when "US" radio button chosen.
-    if (this.props.selectedRadioButton === radioButtonConfig.us) {
-      return (
-        <option
-          disabled={true}
-          value={this.state.value}
-        >
-          Not Applicable for Filter By: US
-        </option>
-      )
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.selectedRadioButton === radioButtonConfig.state) {
+      this.setState({value: 'choose_us_state'});
     }
+    if (nextProps.selectedRadioButton === radioButtonConfig.nearme) {
+      this.setState({value: 'choose_nearme'});
+    }
+  }
+
+  buildOptions() {
 
     // Select Input when "US States" radio button chosen.
     if (this.props.selectedRadioButton === radioButtonConfig.state) {
 
+      // this.setState({value: 'choose_us_state'});
       // Build states array represented in the entire list of states from DB,
       // which are cached during initial fetch. Stored in state.cachedLocations.
       let states = [];
@@ -59,13 +57,13 @@ class FilterSelectInput extends Component {
 
     // Select Input when "nearme" radio button chosen.
     if(this.props.selectedRadioButton === radioButtonConfig.nearme) {
-      return mapSelectInputConfig.nearmeRadius.map((radius, index) => {
+      return mapSelectInputConfig.nearmeDistance.map((distance, index) => {
         return (
           <option
             key={index}
-            value={radius}
+            value={distance}
           >
-            {radius}
+            {distance}
           </option>
         )
       })
@@ -73,22 +71,23 @@ class FilterSelectInput extends Component {
   }
 
   handleOnChangeSelect(e) {
-    // Note:
-    // On a State Select Input, e.target.value = the State's name (e.g. "Arizona").
+    // Note: On a State Select Input, e.target.value = the State's name (e.g. "Arizona").
     this.setState({value: e.target.value});
 
-    // Case when "USA" radio button selected.
-    // Note: Not needed, USA select Input is empty.
+    // Case when "USA" radio button is selected.
+    // Note: Not needed, USA Select Input is empty.
     // Note: this.props.setMapGeoCenter('US') for USA occurs in FilterRadioButton.js.
 
-    // Case when "States" radio button selected.
-    if (this.props.selectedRadioButton === 'state') {
+    // Case when "States" radio button is selected.
+    if (this.props.selectedRadioButton === radioButtonConfig.state) {
       this.props.setMapGeoCenter(e.target.value);
       this.props.createStateLocationsList(e.target.value)
     }
 
-    // Case when "Nearme" radio button selected.
-    // TODO - code this up.
+    // Case when "Nearme" radio button is selected.
+    if (this.props.selectedRadioButton === radioButtonConfig.state) {
+
+    }
 
   }
 
@@ -100,10 +99,10 @@ class FilterSelectInput extends Component {
             className="filter_select_input"
             value={this.state.value}
             onChange={(e) => {this.handleOnChangeSelect(e)}}
-            defaultValue={"choose_us_state"}
           >
-            {/*{this.props.selectedRadioButton === 'state'? <option value="choose_us_state" disabled>Choose a US State</option> : ''}*/}
-            {this.props.default === 'state'? <option value="choose_us_state" disabled>Choose a US State</option> : ''}
+            {this.props.selectedRadioButton === 'us'? <option value="choose_country" selected disabled>Not Applicable for Filter By: US</option> : ''}
+            {this.props.selectedRadioButton === 'state'? <option value="choose_us_state" disabled>Choose a US State</option> : ''}
+            {this.props.selectedRadioButton === 'nearme'? <option value="choose_nearme" disabled>Choose a Near Me Distance</option> : ''}
             {this.buildOptions()}
           </select>
         </form>
