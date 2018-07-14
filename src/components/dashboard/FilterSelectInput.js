@@ -81,7 +81,7 @@ class FilterSelectInput extends Component {
     // Case when "States" radio button is selected.
     if (this.props.selectedRadioButton === radioButtonConfig.state) {
       this.props.setMapGeoCenter(e.target.value);
-      this.props.createStateLocationsList(e.target.value)
+      this.props.createStateLocationsList(e.target.value);
     }
 
     // Case when "Nearme" radio button is selected.
