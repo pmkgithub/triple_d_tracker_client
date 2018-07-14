@@ -25,6 +25,7 @@ export default function(state=INITIAL_STATE, action) {
       return {...state, isLoading: true };
 
     case AUTH_USER:
+      console.log('reducer_auth AUTH_USER action =', action);
       return {
         ...state,
         authenticated: action.token,

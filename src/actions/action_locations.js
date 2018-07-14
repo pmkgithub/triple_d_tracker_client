@@ -61,6 +61,14 @@ export const fetchLocationsError = (err) => {
 // other - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
 
+// On signin, API sends visitedLocations array to Client.
+// This Action Creator is imported into /actions/index.js file.
+export const SET_VISITED_LOCATIONS_ON_SIGNIN = 'SET_VISITED_LOCATIONS_ON_SIGNIN';
+export const setVisitedLocationsOnSignin = (visitedLocations) => ({
+  type: SET_VISITED_LOCATIONS_ON_SIGNIN,
+  visitedLocations
+});
+
 // Note: geoCenter is a string: e.g. 'US', 'Kansas' returned from clicking
 //       the Select Input of States, or the USA Radio Button being clicked.
 // Based on this string, config files map the lat, lon in the reducer.

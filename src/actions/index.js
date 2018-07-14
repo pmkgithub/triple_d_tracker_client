@@ -1,4 +1,4 @@
-
+import { setVisitedLocationsOnSignin } from './action_locations';
 /////////////////////////////////////////////////////////////////////////
 // fetch logic - BEGIN
 /////////////////////////////////////////////////////////////////////////
@@ -66,10 +66,17 @@ export const signin = ( formProps, callback ) => dispatch => {
       }
       return res.json();
     }).then(response => {
+    console.log('index.js Action Creator signin response', response);
     // get token from response, place in localstorage.
     const token = response.token;
+    const visitedLocations = response.visitedLocations;
+
+    // Place token in localStorage.  Later, token is placed into Redux in /reducers/reducer_auth.js.
     localStorage.setItem("token", token);
-    dispatch(authUser(token));
+
+    dispatch(authUser({token}));
+    // Action Creator setVisitedLocationsOnSignin imported from actions_locations.js.
+    dispatch(setVisitedLocationsOnSignin({visitedLocations:visitedLocations}));
 
     // redirect to protected resource.
     callback();
@@ -83,10 +90,12 @@ export const signin = ( formProps, callback ) => dispatch => {
 // signout - fetch syntax - BEGIN
 export const signout = () => {
   localStorage.removeItem('token');
+
   return {
     type: AUTH_USER,
     token: ''
   }
+
 };
 // signout - fetch syntax - END
 

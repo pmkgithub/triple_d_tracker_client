@@ -96,8 +96,12 @@ class Map extends Component {
       const greenMarker = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
 
 
-      if (location.outOfBusiness === false) {
+      if (location.outOfBusiness === false && location.visited === false) {
         iconUrl = blueMarker;
+      }
+
+      if (location.outOfBusiness === false && location.visited === true ) {
+        iconUrl = greenMarker;
       }
 
       if (location.outOfBusiness === true) {
