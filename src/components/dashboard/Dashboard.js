@@ -1,8 +1,8 @@
 import React from 'react';
-import Map from './dashboard/Map';
-import FilterRadioButton from './dashboard/FilterRadioButtons';
-import FilterSelectInput from './dashboard/FilterSelectInput';
-import FileterdLocationsList from './dashboard/FilteredLocationsList';
+import Map from './Map';
+import FilterRadioButton from './FilterRadioButtons';
+import FilterSelectInput from './FilterSelectInput';
+import FileterdLocationsList from './FilteredLocationsList';
 import './dashboard.css';
 
 export default (props) => {

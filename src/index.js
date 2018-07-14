@@ -7,7 +7,7 @@ import reduxThunk from 'redux-thunk';
 
 import reducers from './reducers';
 import App from './components/App';
-import Welcome from './components/Dashboard';
+import Welcome from './components/dashboard/Dashboard';
 import Signup from './components/auth/Signup';
 import Feature from './components/Feature';
 import Signout from './components/auth/Signout';

@@ -3,11 +3,12 @@ import {
   FETCH_LOCATIONS_SUCCESS,
   FETCH_LOCATIONS_ERROR,
   SET_MAP_GEO_CENTER,
-  MAP_SINGLE_LOCATION_FROM_LIST,
-  MAP_ALL_LOCATIONS_FROM_LIST,
-  CLEAR_LOCATIONS_FROM_LIST,
-  CREATE_US_LOCATIONS_LIST,
-  CREATE_STATE_LOCATIONS_LIST
+  SET_MAP_LAT_LON_CENTER,
+  MAP_SINGLE_LOCATIONS_FROM_UI_LIST,
+  MAP_ALL_LOCATIONS_FROM_UI_LIST,
+  CLEAR_LOCATIONS_FROM_UI_LIST,
+  CREATE_US_LOCATIONS_UI_LIST,
+  CREATE_STATE_LOCATIONS_UI_LIST
 
 } from "../actions/action_locations";
 import mapConfig from '../configs/mapConfig';
@@ -62,7 +63,18 @@ export default (state=initialState, action) => {
         mapGeoCenter: action.geoCenter
       };
 
-    case CLEAR_LOCATIONS_FROM_LIST:
+    case SET_MAP_LAT_LON_CENTER:
+
+       lat = action.coords.lat;
+       lon = action.coords.lng;
+
+      return {
+        ...state,
+        mapCenterLat: lat,
+        mapCenterLon: lon
+      };
+
+    case CLEAR_LOCATIONS_FROM_UI_LIST:
       return {
         ...state,
         mapCenterLat: mapConfig.US.lat,
@@ -72,7 +84,7 @@ export default (state=initialState, action) => {
         filteredListLocations: []
       };
 
-    case CREATE_US_LOCATIONS_LIST:
+    case CREATE_US_LOCATIONS_UI_LIST:
       return {
         ...state,
         displayedMapLocations: [...state.cachedLocations],
@@ -82,7 +94,7 @@ export default (state=initialState, action) => {
         mapZoom: mapConfig.US.zoom,
       };
 
-    case CREATE_STATE_LOCATIONS_LIST:
+    case CREATE_STATE_LOCATIONS_UI_LIST:
 
       stateCode = stateNameToAbbr[action.stateName];
 
@@ -99,7 +111,7 @@ export default (state=initialState, action) => {
         mapZoom: mapConfig[stateCode].zoom,
       };
 
-    case MAP_SINGLE_LOCATION_FROM_LIST:
+    case MAP_SINGLE_LOCATIONS_FROM_UI_LIST:
 
       const location = state.cachedLocations.find(locationObj => {
           return (locationObj.name === action.recenterData.name)
@@ -114,7 +126,7 @@ export default (state=initialState, action) => {
         mapZoom: action.recenterData.zoom,
       };
 
-    case MAP_ALL_LOCATIONS_FROM_LIST:
+    case MAP_ALL_LOCATIONS_FROM_UI_LIST:
 
       if( action.geoCenter === 'US' ) {
         lat= mapConfig.US.lat;
@@ -122,8 +134,9 @@ export default (state=initialState, action) => {
         zoom= mapConfig.US.zoom;
 
       } else if ( action.geoCenter === 'nearme') {
-
+        // future code.
       } else {
+        // handles any geoCenter containing a US State's name.
         stateCode = stateNameToAbbr[action.geoCenter];
         lat = mapConfig[stateCode].lat;
         lon = mapConfig[stateCode].lon;

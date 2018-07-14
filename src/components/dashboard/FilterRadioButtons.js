@@ -6,36 +6,38 @@ import {
   setMapGeoCenter
 } from '../../actions/action_locations';
 import {
-  setMapSelectInputType
-} from '../../actions/action_map_select_input';
-import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
+  selectedRadioButton
+} from '../../actions/action_radio_button';
+import radioButtonConfig from '../../configs/radioButtonConfig';
 import './filter_radio_buttons.css';
 
 class FilterRadioButtons extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { selectedRadio: mapSelectInputConfig.us };
+    this.state = { selectedRadio: 'us' };
   }
 
   handleOnChange(e) {
     const radioButtonValue = e.target.value;
     this.setState({selectedRadio: radioButtonValue});
 
-    if (radioButtonValue === mapSelectInputConfig.us) {
-      this.props.setMapSelectInputType(radioButtonValue); // controls Map Filter Select Input.
+    if (radioButtonValue === radioButtonConfig.us) {
+      this.props.selectedRadioButton(radioButtonValue); // controls Map Filter Select Input.
       this.props.setMapGeoCenter('US');
       this.props.clearLocationsFromList();
       this.props.createUsLocationsList();
     }
 
-    if (radioButtonValue === mapSelectInputConfig.state) {
-      this.props.setMapSelectInputType(radioButtonValue);
-      // Note: for States, setMapGeoCenter() occurs when a State is selected from Select Input.
+    if (radioButtonValue === radioButtonConfig.state) {
+      this.props.selectedRadioButton(radioButtonValue);
+      // Note: for US States, setMapGeoCenter() occurs when a State is selected from Select Input.
       this.props.clearLocationsFromList();
     }
-    if (radioButtonValue === mapSelectInputConfig.nearme) {
-      this.props.setMapSelectInputType(radioButtonValue);
+    if (radioButtonValue === radioButtonConfig.nearme) {
+      this.props.selectedRadioButton(radioButtonValue);
+      // Note: for "nearme", setMapGeoCenter() occurs when a "nearme" distance is selected from Select Input.
+      this.props.clearLocationsFromList();
     }
   }
 
@@ -50,7 +52,7 @@ class FilterRadioButtons extends Component {
               type="radio"
               name="filter_by"
               value="us"
-              checked={this.state.selectedRadio==='us'}
+              checked={this.state.selectedRadio === radioButtonConfig.us}
               onChange={e => this.handleOnChange(e)}
             />
             <label htmlFor="radio_us">USA</label>
@@ -61,7 +63,7 @@ class FilterRadioButtons extends Component {
               type="radio"
               name="filter_by"
               value="state"
-              checked={this.state.selectedRadio==='state'}
+              checked={this.state.selectedRadio === radioButtonConfig.state}
               onChange={e => this.handleOnChange(e)}
             />
             <label htmlFor="radio_states">States</label>
@@ -72,7 +74,7 @@ class FilterRadioButtons extends Component {
               type="radio"
               name="filter_by"
               value="nearme"
-              checked={this.state.selectedRadio==='nearme'}
+              checked={this.state.selectedRadio === radioButtonConfig.nearme}
               onChange={e => this.handleOnChange(e)}
             />
             <label htmlFor="radio_nearme">Near Me</label>
@@ -87,5 +89,5 @@ export default connect(null, {
   setMapGeoCenter,
   clearLocationsFromList,
   createUsLocationsList,
-  setMapSelectInputType
+  selectedRadioButton
 })(FilterRadioButtons);
