@@ -4,7 +4,6 @@ import {
   mapSingleLocationFromList,
   mapAllLocationsFromList
 } from '../../actions/action_locations';
-// import mapConfig from '../../configs/mapConfig';
 import './filtered_locations_list.css';
 
 class FilteredLocationsList extends Component {
@@ -24,30 +23,11 @@ class FilteredLocationsList extends Component {
     this.props.mapSingleLocationFromList(singleLocationData);
   }
 
-  // TODO - refact for SET_LAT_LON_ZOOM_FOR_UI_LIST
-  // click on Map All Locations From List <button>.
   handleOnClickButton(e) {
-    // Note: Will resit the map to US, selected US State, or selected Near Me.
-    //       props.geoCenter
+    // Note: Clicking on Map All Locations From List button will:
+    //       will redisplay all markers for the UI List Locations.
+    //       for US List, selected US State List, or selected Near Me List.
     e.preventDefault();
-
-    // TODO - refact for SET_LAT_LON_ZOOM_FOR_UI_LIST code for deletion.
-    //
-    // if (this.props.selectedRadioButton === 'US') {
-    //   // recenter/zoom to US lat/lon/zoom.
-    //
-    // }
-    //
-    // if (this.props.selectedRadioButton === 'nearme') {
-    //   // recenter/zoom map on nearme's lat/lon/zoom.
-    // } else {
-    //   // recenter/zoom map to US State's lat/lon/zoom.
-    // }
-
-    // TODO - refact for SET_LAT_LON_ZOOM_FOR_UI_LIST
-    // b/f refact.
-    // this.props.mapAllLocationsFromList(this.props.mapGeoCenter);
-    console.log('FilterLocationsList.js this.props.uiListRecenterCoords = ', this.props.uiListRecenterCoords);
     this.props.mapAllLocationsFromList(this.props.uiListRecenterCoords);
   }
 
@@ -86,9 +66,6 @@ class FilteredLocationsList extends Component {
 const mapStateToProps = (state) => {
   return {
     filteredListLocations: state.mapData.filteredListLocations,
-    // b/f refact
-    // TODO - refact for SET_LAT_LON_ZOOM_FOR_UI_LIST code for deletion.
-    // mapGeoCenter: state.mapData.mapGeoCenter,
     uiListRecenterCoords: state.mapData.uiListRecenterCoords,
     selectedRadioButton: state.radioButton.selectedRadioButton
   }

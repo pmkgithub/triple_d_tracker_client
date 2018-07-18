@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   createStateLocationsList,
-  // setMapGeoCenter,
   setLatLonZoomForUiList
 } from '../../actions/action_locations';
 import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
@@ -77,31 +76,25 @@ class FilterSelectInput extends Component {
     // Note: On a State Select Input, e.target.value = the State's name (e.g. "Arizona").
     this.setState({value: e.target.value});
     let uiListRecenterCoords  = {};
-    // Case when "USA" radio button is selected.
-    // Note: Not needed, USA Select Input is empty.
-    // TODO - refact for SET_LAT_LON_ZOOM_FOR_UI_LIST
-    // Note: this.props.setMapGeoCenter('US') for USA occurs in FilterRadioButton.js.
+    // Note: Don't need an if stmt for USA, b/c USA Select Input is empty.
+    // Note: this.props.setLatLonZoomForUiList(uiListRecenterCoords) for USA occurs in FilterRadioButton.js.
 
-    // TODO - refact for SET_LAT_LON_ZOOM_FOR_UI_LIST
     if (this.props.selectedRadioButton === radioButtonConfig.state) {
-      // Case when "US States" radio button is selected.
-      // Get the US State from e.target.value.
-      console.log('FilterSelectInput.js handleOnChangeSelect e.target.value = ', e.target.value);
-      const selectedUsStateAbbr = stateNameToAbbrConfig[e.target.value];
+      // Case when "US States" radio button has been selected.
+      const usStateName = e.target.value;
+      const selectedUsStateAbbr = stateNameToAbbrConfig[usStateName];
        uiListRecenterCoords  = {
         lat: mapConfig[selectedUsStateAbbr].lat,
         lon: mapConfig[selectedUsStateAbbr].lon,
         zoom: mapConfig[selectedUsStateAbbr].zoom
       };
-      console.log('FilterSelectInput.js handleOnChangeSelect uiListRecenterCoords =', uiListRecenterCoords);
-      // this.props.setMapGeoCenter(e.target.value);// Store the selected US State.
-      this.props.setLatLonZoomForUiList(uiListRecenterCoords);
+
+      this.props.setLatLonZoomForUiList(uiListRecenterCoords);  // Store the selected US State's re-center coords.
       this.props.createStateLocationsList(e.target.value);
     }
 
-    // Case when "Nearme" radio button is selected.
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
-
+      // Case when "Nearme" radio button has been selected.
     }
 
   }
@@ -135,7 +128,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   createStateLocationsList,
-  // TODO - refact for SET_LAT_LON_ZOOM_FOR_UI_LIST code for deletion.
-  // setMapGeoCenter,
   setLatLonZoomForUiList
 })(FilterSelectInput);
