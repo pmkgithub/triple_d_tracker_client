@@ -4,6 +4,7 @@ import {
   FETCH_LOCATIONS_ERROR,
   SET_VISITED_LOCATIONS_ON_SIGNIN,
   SET_MAP_GEO_CENTER,
+  SET_LAT_LON_ZOOM_FOR_UI_LIST,
   SET_MAP_LAT_LON_CENTER,
   MAP_SINGLE_LOCATIONS_FROM_UI_LIST,
   MAP_ALL_LOCATIONS_FROM_UI_LIST,
@@ -25,7 +26,14 @@ const initialState = {
   // visitedLocations: [],
   displayedMapLocations: [],
   filteredListLocations: [],
+  // TODO - refact for SET_LAT_LON_ZOOM_FOR_UI_LIST
   mapGeoCenter: 'US',
+  // default value set to US.
+  uiListRecenterCoords: {
+    lat: 37,
+    lon: -96.5795,
+    zoom: 4.1
+  },
   mapCenterLat: mapConfig.US.lat,
   mapCenterLon: mapConfig.US.lon,
   mapZoom: mapConfig.US.zoom,
@@ -71,11 +79,9 @@ export default (state=initialState, action) => {
       // When locations fetched from API,
       // process fetched locations and set the "location.visited" to "true",
       // when a location's id is in the state.visitedLocations array.
-      console.log('state.visitedLocations = ', state.visitedLocations);
       const fetchedLocations = action.locations;
       const processedLocations = fetchedLocations.map((location) => {
         if (state.visitedLocations.indexOf(location._id) >= 0) {
-          console.log('locations matches a visitedLocation');
           location.visited = true;
         }
         return location;
@@ -104,10 +110,20 @@ export default (state=initialState, action) => {
         visitedLocations: action.visitedLocations
       };
 
+      // TODO - SET_MAP_GEO_CENTER should this be lat/lon/zoom not a String??
     case SET_MAP_GEO_CENTER:
+      //
       return {
         ...state,
         mapGeoCenter: action.geoCenter
+      };
+
+    // TODO - refact for SET_MAP_GEO_CENTER.
+    case SET_LAT_LON_ZOOM_FOR_UI_LIST:
+      console.log('recider_locations.js case SET_LAT_LON_ZOOM_FOR_UI_LIST , action = ', action);
+      return {
+        ...state,
+        uiListRecenterCoords: action.uiListRecenterCoords
       };
 
     case SET_MAP_LAT_LON_CENTER:
@@ -160,41 +176,53 @@ export default (state=initialState, action) => {
 
     case MAP_SINGLE_LOCATIONS_FROM_UI_LIST:
 
-      const location = state.cachedLocations.find(locationObj => {
-          return (locationObj.name === action.recenterData.name)
+      const location = state.cachedLocations.find(location => {
+          return (location.name === action.singleLocationData.name)
         }
       );
 
       return {
         ...state,
         displayedMapLocations: [location],
-        mapCenterLat: action.recenterData.lat,
-        mapCenterLon: action.recenterData.lon,
-        mapZoom: action.recenterData.zoom,
+        mapCenterLat: action.singleLocationData.lat,
+        mapCenterLon: action.singleLocationData.lon,
+        mapZoom: action.singleLocationData.zoom,
       };
 
+// TODO - refact for SET_LAT_LON_ZOOM_FOR_UI_LIST
     case MAP_ALL_LOCATIONS_FROM_UI_LIST:
+      console.log('reducer_locations.js MAP_ALL_LOCATIONS_FROM_UI_LIST = action = ', action);
 
-      if( action.geoCenter === 'US' ) {
-        lat= mapConfig.US.lat;
-        lon= mapConfig.US.lon;
-        zoom= mapConfig.US.zoom;
-
-      } else if ( action.geoCenter === 'nearme') {
-        // future code.
-      } else {
-        // handles any geoCenter containing a US State's name.
-        stateCode = stateNameToAbbr[action.geoCenter];
-        lat = mapConfig[stateCode].lat;
-        lon = mapConfig[stateCode].lon;
-        zoom = mapConfig[stateCode].zoom;
-      }
+      // // old geoCenter approach...before refact to setLatLonZoomForUiList logic.
+      // if( action.geoCenter === 'US' ) {
+      //   lat= mapConfig.US.lat;
+      //   lon= mapConfig.US.lon;
+      //   zoom= mapConfig.US.zoom;
+      //
+      // } else if ( action.geoCenter === 'nearme') {
+      //   // future code.
+      // } else {
+      //   // handles any geoCenter containing a US State's name.
+      //   console.log('reducer_locations.js MAP_ALL_LOCATIONS_FROM_UI_LIST "else" action / action = ', action);
+      //   stateCode = stateNameToAbbr[action.geoCenter];
+      //   lat = mapConfig[stateCode].lat;
+      //   lon = mapConfig[stateCode].lon;
+      //   zoom = mapConfig[stateCode].zoom;
+      // }
+      //
+      // return {
+      //   ...state,
+      //   mapCenterLat: lat,
+      //   mapCenterLon: lon,
+      //   mapZoom: zoom,
+      //   displayedMapLocations: [...state.filteredListLocations],
+      // };
 
       return {
         ...state,
-        mapCenterLat: lat,
-        mapCenterLon: lon,
-        mapZoom: zoom,
+        mapCenterLat: action.uiListRecenterCoords.lat,
+        mapCenterLon: action.uiListRecenterCoords.lon,
+        mapZoom: action.uiListRecenterCoords.zoom,
         displayedMapLocations: [...state.filteredListLocations],
       };
 

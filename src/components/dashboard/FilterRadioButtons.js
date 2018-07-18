@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import {
   clearLocationsFromList,
   createUsLocationsList,
-  setMapGeoCenter
+  setMapGeoCenter,
+  setLatLonZoomForUiList
 } from '../../actions/action_locations';
 import {
   selectedRadioButton
 } from '../../actions/action_radio_button';
 import radioButtonConfig from '../../configs/radioButtonConfig';
+import mapConfig from '../../configs/mapConfig';
 import './filter_radio_buttons.css';
 
 class FilterRadioButtons extends Component {
@@ -23,8 +25,18 @@ class FilterRadioButtons extends Component {
     this.setState({selectedRadio: radioButtonValue});
 
     if (radioButtonValue === radioButtonConfig.us) {
+
+      const uiListRecenterCoords = {
+        lat: mapConfig.US.lat,
+        lon: mapConfig.US.lon,
+        zoom: mapConfig.US.zoom
+      };
+
+      // TODO - refact for SET_LAT_LON_ZOOM_FOR_UI_LIST
+      console.log('FilterRadioButton.js uiListRecenterCoords = ', uiListRecenterCoords);
       this.props.selectedRadioButton(radioButtonValue); // controls Map Filter Select Input.
       this.props.setMapGeoCenter('US');
+      this.props.setLatLonZoomForUiList(uiListRecenterCoords);
       this.props.clearLocationsFromList();
       this.props.createUsLocationsList();
     }
@@ -87,6 +99,7 @@ class FilterRadioButtons extends Component {
 
 export default connect(null, {
   setMapGeoCenter,
+  setLatLonZoomForUiList,
   clearLocationsFromList,
   createUsLocationsList,
   selectedRadioButton

@@ -69,9 +69,9 @@ export const setVisitedLocationsOnSignin = (visitedLocations) => ({
   visitedLocations
 });
 
-// Note: geoCenter is a string: e.g. 'US', 'Kansas' returned from clicking
-//       the Select Input of States, or the USA Radio Button being clicked.
-// Based on this string, config files map the lat, lon in the reducer.
+// Note: geoCenter is a string:
+//       e.g. 'US' when the USA Radio Button is clicked,
+//       or 'Kansas', etc. returned when clicking the Select Input of States.
 export const SET_MAP_GEO_CENTER = 'SET_MAP_GEO_CENTER';
 export const setMapGeoCenter = (geoCenter) => {
   return {
@@ -80,6 +80,20 @@ export const setMapGeoCenter = (geoCenter) => {
   }
 };
 
+// Pertains to re-centering map when "Map All Listed Locations" button clicked.
+// This Action Creator called when:
+// 1) US Radio button selected, set US lat/lon/zoom.
+// 2) US State is selected from drop down list.
+export const SET_LAT_LON_ZOOM_FOR_UI_LIST = 'SET_LAT_LON_ZOOM_FOR_UI_LIST';
+export const setLatLonZoomForUiList = (uiListRecenterCoords) => {
+  return {
+    type: SET_LAT_LON_ZOOM_FOR_UI_LIST,
+    uiListRecenterCoords
+  }
+};
+
+// on map onDragEnd, set the map's lat/lon.
+// on map zoom, set the map's lat/lon.
 export const SET_MAP_LAT_LON_CENTER = 'SET_MAP_LAT_LON_CENTER';
 export const setMapLatLonCenter = (coords) => {
   return {
@@ -89,18 +103,29 @@ export const setMapLatLonCenter = (coords) => {
 };
 
 export const MAP_SINGLE_LOCATIONS_FROM_UI_LIST = 'MAP_SINGLE_LOCATIONS_FROM_UI_LIST';
-export const mapSingleLocationFromList = (recenterData) => {
+export const mapSingleLocationFromList = (singleLocationData) => {
   return {
     type: MAP_SINGLE_LOCATIONS_FROM_UI_LIST,
-    recenterData
+    singleLocationData
   }
 };
-
+// // TODO - refact for SET_LAT_LON_ZOOM_FOR_UI_LIST
+// // old code b/f refact
+// export const MAP_ALL_LOCATIONS_FROM_UI_LIST = 'MAP_ALL_LOCATIONS_FROM_UI_LIST';
+// export const mapAllLocationsFromList = (geoCenter) => {
+//   console.log('action_locations.js MAP_ALL_LOCATIONS_FROM_UI_LIST geoCenter = ', geoCenter);
+//   return {
+//     type: MAP_ALL_LOCATIONS_FROM_UI_LIST,
+//     geoCenter
+//   }
+// };
+// new code for refact
 export const MAP_ALL_LOCATIONS_FROM_UI_LIST = 'MAP_ALL_LOCATIONS_FROM_UI_LIST';
-export const mapAllLocationsFromList = (geoCenter) => {
+export const mapAllLocationsFromList = (uiListRecenterCoords) => {
+  console.log('action_locations.js MAP_ALL_LOCATIONS_FROM_UI_LIST uiListRecenterCoords = ', uiListRecenterCoords);
   return {
     type: MAP_ALL_LOCATIONS_FROM_UI_LIST,
-    geoCenter
+    uiListRecenterCoords
   }
 };
 
