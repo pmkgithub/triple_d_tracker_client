@@ -21,9 +21,6 @@ export const fetchLocations = () => dispatch => {
       return res.json();
     })
     .then(locations => {
-      // TODO - modify the visited locations b/f dispatching?
-      // TODO - or modify the visited locations in reducer?
-      // TODO - or modifiy the visited locations b/f rendering?
       dispatch(fetchLocationsSuccess(locations))
     })
     .catch(err => {
@@ -61,7 +58,7 @@ export const fetchLocationsError = (err) => {
 // other - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
 
-// On signin, API sends visitedLocations array to Client.
+// On signin, API sends User Schema's visitedLocations array to Client.
 // This Action Creator is imported into /actions/index.js file.
 export const SET_VISITED_LOCATIONS_ON_SIGNIN = 'SET_VISITED_LOCATIONS_ON_SIGNIN';
 export const setVisitedLocationsOnSignin = (visitedLocations) => ({
@@ -69,17 +66,23 @@ export const setVisitedLocationsOnSignin = (visitedLocations) => ({
   visitedLocations
 });
 
-// Note: geoCenter is a string: e.g. 'US', 'Kansas' returned from clicking
-//       the Select Input of States, or the USA Radio Button being clicked.
-// Based on this string, config files map the lat, lon in the reducer.
-export const SET_MAP_GEO_CENTER = 'SET_MAP_GEO_CENTER';
-export const setMapGeoCenter = (geoCenter) => {
+// SET_LAT_LON_ZOOM_FOR_UI_LIST pertains to re-centering map when "Map All Listed Locations" button clicked.
+// This Action Creator called when:
+// 1) US Radio button selected, set US lat/lon/zoom.
+// 2) a US State is selected from drop down list.
+// 3) For "nearme", it is a two part process.
+//    "Nearme" Radio button is selected ,
+//    and User selects a "nearme" distance from drop down list.
+export const SET_LAT_LON_ZOOM_FOR_UI_LIST = 'SET_LAT_LON_ZOOM_FOR_UI_LIST';
+export const setLatLonZoomForUiList = (uiListRecenterCoords) => {
   return {
-    type: SET_MAP_GEO_CENTER,
-    geoCenter
+    type: SET_LAT_LON_ZOOM_FOR_UI_LIST,
+    uiListRecenterCoords
   }
 };
 
+// on map onDragEnd, set the map's lat/lon.
+// on map zoom, set the map's lat/lon.
 export const SET_MAP_LAT_LON_CENTER = 'SET_MAP_LAT_LON_CENTER';
 export const setMapLatLonCenter = (coords) => {
   return {
@@ -89,18 +92,18 @@ export const setMapLatLonCenter = (coords) => {
 };
 
 export const MAP_SINGLE_LOCATIONS_FROM_UI_LIST = 'MAP_SINGLE_LOCATIONS_FROM_UI_LIST';
-export const mapSingleLocationFromList = (recenterData) => {
+export const mapSingleLocationFromList = (singleLocationData) => {
   return {
     type: MAP_SINGLE_LOCATIONS_FROM_UI_LIST,
-    recenterData
+    singleLocationData
   }
 };
 
 export const MAP_ALL_LOCATIONS_FROM_UI_LIST = 'MAP_ALL_LOCATIONS_FROM_UI_LIST';
-export const mapAllLocationsFromList = (geoCenter) => {
+export const mapAllLocationsFromList = (uiListRecenterCoords) => {
   return {
     type: MAP_ALL_LOCATIONS_FROM_UI_LIST,
-    geoCenter
+    uiListRecenterCoords
   }
 };
 

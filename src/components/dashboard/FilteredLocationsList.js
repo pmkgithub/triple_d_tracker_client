@@ -9,22 +9,26 @@ import './filtered_locations_list.css';
 class FilteredLocationsList extends Component {
 
   // click on list item.
-  handleOnClick(event, location) {
+  handleOnClickListItem(event, location) {
     event.preventDefault();
 
-    const recenterData = {
+    // Lat / Lon is the Single Location's lat/ lon.
+    // Zoom will be the same for all Single Location markers.
+    const singleLocationData = {
       name: location.name,
       lat: parseFloat(location.coords.lat),
       lon: parseFloat(location.coords.lon),
       zoom: 14
     };
-    this.props.mapSingleLocationFromList(recenterData);
+    this.props.mapSingleLocationFromList(singleLocationData);
   }
 
-  // click on Map All Locations From List <button>.
   handleOnClickButton(e) {
+    // Note: Clicking on Map All Locations From List button will:
+    //       will redisplay all markers for the UI List Locations.
+    //       for US List, selected US State List, or selected Near Me List.
     e.preventDefault();
-    this.props.mapAllLocationsFromList(this.props.mapGeoCenter);
+    this.props.mapAllLocationsFromList(this.props.uiListRecenterCoords);
   }
 
   renderList() {
@@ -33,7 +37,7 @@ class FilteredLocationsList extends Component {
         <li
           className="filtered_locations_li"
           key={index}
-          onClick={(event) => this.handleOnClick(event, location)}
+          onClick={(event) => this.handleOnClickListItem(event, location)}
         >
           {location.name}: {location.city}, {location.state}
         </li>
@@ -62,7 +66,8 @@ class FilteredLocationsList extends Component {
 const mapStateToProps = (state) => {
   return {
     filteredListLocations: state.mapData.filteredListLocations,
-    mapGeoCenter: state.mapData.mapGeoCenter
+    uiListRecenterCoords: state.mapData.uiListRecenterCoords,
+    selectedRadioButton: state.radioButton.selectedRadioButton
   }
 };
 

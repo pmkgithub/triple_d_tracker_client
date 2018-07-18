@@ -3,7 +3,7 @@ import {
   FETCH_LOCATIONS_SUCCESS,
   FETCH_LOCATIONS_ERROR,
   SET_VISITED_LOCATIONS_ON_SIGNIN,
-  SET_MAP_GEO_CENTER,
+  SET_LAT_LON_ZOOM_FOR_UI_LIST,
   SET_MAP_LAT_LON_CENTER,
   MAP_SINGLE_LOCATIONS_FROM_UI_LIST,
   MAP_ALL_LOCATIONS_FROM_UI_LIST,
@@ -25,7 +25,13 @@ const initialState = {
   // visitedLocations: [],
   displayedMapLocations: [],
   filteredListLocations: [],
-  mapGeoCenter: 'US',
+  // default value set to US.
+  uiListRecenterCoords: {
+    lat: 37,
+    lon: -96.5795,
+    zoom: 4.1
+  },
+  // default values set to US lat, lon, zoom.
   mapCenterLat: mapConfig.US.lat,
   mapCenterLon: mapConfig.US.lon,
   mapZoom: mapConfig.US.zoom,
@@ -35,7 +41,7 @@ const initialState = {
 
 export default (state=initialState, action) => {
 
-  let lat, lon, zoom, stateCode;
+  let lat, lon, zoom, usStateAbbr;
 
   switch (action.type) {
 
@@ -45,37 +51,22 @@ export default (state=initialState, action) => {
         isFetching: true
       };
 
-    // // orig
-    // case FETCH_LOCATIONS_SUCCESS:
-    //   return {
-    //     ...state,
-    //     locationsBeenFetched: true,
-    //     cachedLocations: action.locations,
-    //     displayedMapLocations: action.locations,
-    //     filteredListLocations: action.locations,
-    //     isFetching: false,
-    //     err: ""
-    //   };
-
-    // refact
     case FETCH_LOCATIONS_SUCCESS:
-      // Fetched locations are "single source of truth" - all User's get this set of
+      // Fetched locations from API are "single source of truth" - all User's get this set of
       // locations from API.
       //
       // Different User's will see different "green" markers depending whether or not
       // they have personally visited / written a review a location.
       //
       // Visited locations are stored in the UserSchema and placed into Redux state
-      // when the User signsin.
+      // when the User signs-in.
       //
       // When locations fetched from API,
       // process fetched locations and set the "location.visited" to "true",
       // when a location's id is in the state.visitedLocations array.
-      console.log('state.visitedLocations = ', state.visitedLocations);
       const fetchedLocations = action.locations;
       const processedLocations = fetchedLocations.map((location) => {
         if (state.visitedLocations.indexOf(location._id) >= 0) {
-          console.log('locations matches a visitedLocation');
           location.visited = true;
         }
         return location;
@@ -104,10 +95,11 @@ export default (state=initialState, action) => {
         visitedLocations: action.visitedLocations
       };
 
-    case SET_MAP_GEO_CENTER:
+
+    case SET_LAT_LON_ZOOM_FOR_UI_LIST:
       return {
         ...state,
-        mapGeoCenter: action.geoCenter
+        uiListRecenterCoords: action.uiListRecenterCoords
       };
 
     case SET_MAP_LAT_LON_CENTER:
@@ -143,58 +135,42 @@ export default (state=initialState, action) => {
 
     case CREATE_STATE_LOCATIONS_UI_LIST:
 
-      stateCode = stateNameToAbbr[action.stateName];
+      usStateAbbr = stateNameToAbbr[action.stateName];
 
       const locations = state.cachedLocations.filter((location) => {
-        return location.state === stateCode;
+        return location.state === usStateAbbr;
       });
 
       return {
         ...state,
         displayedMapLocations: [...locations],
         filteredListLocations: [...locations],
-        mapCenterLat: mapConfig[stateCode].lat,
-        mapCenterLon: mapConfig[stateCode].lon,
-        mapZoom: mapConfig[stateCode].zoom,
+        mapCenterLat: mapConfig[usStateAbbr].lat,
+        mapCenterLon: mapConfig[usStateAbbr].lon,
+        mapZoom: mapConfig[usStateAbbr].zoom,
       };
 
     case MAP_SINGLE_LOCATIONS_FROM_UI_LIST:
 
-      const location = state.cachedLocations.find(locationObj => {
-          return (locationObj.name === action.recenterData.name)
+      const location = state.cachedLocations.find(location => {
+          return (location.name === action.singleLocationData.name)
         }
       );
 
       return {
         ...state,
         displayedMapLocations: [location],
-        mapCenterLat: action.recenterData.lat,
-        mapCenterLon: action.recenterData.lon,
-        mapZoom: action.recenterData.zoom,
+        mapCenterLat: action.singleLocationData.lat,
+        mapCenterLon: action.singleLocationData.lon,
+        mapZoom: action.singleLocationData.zoom,
       };
 
     case MAP_ALL_LOCATIONS_FROM_UI_LIST:
-
-      if( action.geoCenter === 'US' ) {
-        lat= mapConfig.US.lat;
-        lon= mapConfig.US.lon;
-        zoom= mapConfig.US.zoom;
-
-      } else if ( action.geoCenter === 'nearme') {
-        // future code.
-      } else {
-        // handles any geoCenter containing a US State's name.
-        stateCode = stateNameToAbbr[action.geoCenter];
-        lat = mapConfig[stateCode].lat;
-        lon = mapConfig[stateCode].lon;
-        zoom = mapConfig[stateCode].zoom;
-      }
-
       return {
         ...state,
-        mapCenterLat: lat,
-        mapCenterLon: lon,
-        mapZoom: zoom,
+        mapCenterLat: action.uiListRecenterCoords.lat,
+        mapCenterLon: action.uiListRecenterCoords.lon,
+        mapZoom: action.uiListRecenterCoords.zoom,
         displayedMapLocations: [...state.filteredListLocations],
       };
 

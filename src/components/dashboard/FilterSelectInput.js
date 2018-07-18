@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   createStateLocationsList,
-  setMapGeoCenter
+  setLatLonZoomForUiList
 } from '../../actions/action_locations';
 import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
 import radioButtonConfig from '../../configs/radioButtonConfig';
+import mapConfig from "../../configs/mapConfig";
 import stateAbbrToNameConfig from '../../configs/stateAbbrToNameConfig';
+import stateNameToAbbrConfig from '../../configs/stateNameToAbbrConfig';
 import './filter_select_input.css';
 
 class FilterSelectInput extends Component {
@@ -73,20 +75,26 @@ class FilterSelectInput extends Component {
   handleOnChangeSelect(e) {
     // Note: On a State Select Input, e.target.value = the State's name (e.g. "Arizona").
     this.setState({value: e.target.value});
+    let uiListRecenterCoords  = {};
+    // Note: Don't need an if stmt for USA, b/c USA Select Input is empty.
+    // Note: this.props.setLatLonZoomForUiList(uiListRecenterCoords) for USA occurs in FilterRadioButton.js.
 
-    // Case when "USA" radio button is selected.
-    // Note: Not needed, USA Select Input is empty.
-    // Note: this.props.setMapGeoCenter('US') for USA occurs in FilterRadioButton.js.
-
-    // Case when "States" radio button is selected.
     if (this.props.selectedRadioButton === radioButtonConfig.state) {
-      this.props.setMapGeoCenter(e.target.value);
+      // Case when "US States" radio button has been selected.
+      const usStateName = e.target.value;
+      const selectedUsStateAbbr = stateNameToAbbrConfig[usStateName];
+       uiListRecenterCoords  = {
+        lat: mapConfig[selectedUsStateAbbr].lat,
+        lon: mapConfig[selectedUsStateAbbr].lon,
+        zoom: mapConfig[selectedUsStateAbbr].zoom
+      };
+
+      this.props.setLatLonZoomForUiList(uiListRecenterCoords);  // Store the selected US State's re-center coords.
       this.props.createStateLocationsList(e.target.value);
     }
 
-    // Case when "Nearme" radio button is selected.
-    if (this.props.selectedRadioButton === radioButtonConfig.state) {
-
+    if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
+      // Case when "Nearme" radio button has been selected.
     }
 
   }
@@ -120,5 +128,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   createStateLocationsList,
-  setMapGeoCenter
+  setLatLonZoomForUiList
 })(FilterSelectInput);
