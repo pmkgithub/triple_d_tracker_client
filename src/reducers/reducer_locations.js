@@ -102,6 +102,8 @@ export default (state=initialState, action) => {
         uiListRecenterCoords: action.uiListRecenterCoords
       };
 
+    // on map onDragEnd, set the map's lat/lon.
+    // on map zoom, set the map's lat/lon.
     case SET_MAP_LAT_LON_CENTER:
 
        lat = action.coords.lat;
