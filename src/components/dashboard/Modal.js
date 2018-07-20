@@ -20,6 +20,7 @@ class LocationModal extends Component {
   }
 
   afterOpenModal() {
+    console.log('afterOpenModal ran');
     // this.subtitle.style.color = '#f00';
     // this.red.style.color = '#f00';
     // this.green.style.color = '#f00';
@@ -74,7 +75,10 @@ class LocationModal extends Component {
             <h3 className="modal_location_about">About:</h3>
             <p>{location.about}</p>
           </div>
-          <div className="modal_add_review_button">Add Review</div>
+          <div className="add-review-button-wrapper">
+            {location.outOfBusiness ? <div></div> : <div className="modal_add_review_button">Add Review</div>}
+            {/*<div className="modal_add_review_button">Add Review</div>*/}
+          </div>
         </div>
 
       </Modal>
