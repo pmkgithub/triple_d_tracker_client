@@ -1,12 +1,85 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
+import { setIsModalOpen } from '../../actions/action_modal';
+import "./modal.css";
 
 class LocationModal extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.closeModal = this.closeModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+
+  }
+
+  closeModal() {
+    console.log('closeModal ran');
+    this.props.setIsModalOpen(false);
+  }
+
+  afterOpenModal() {
+    console.log('afterOpenModal ran');
+    // this.subtitle.style.color = '#f00';
+    // this.red.style.color = '#f00';
+    // this.green.style.color = '#f00';
+  }
+
   render() {
+
+    console.log('this.props = ', this.props);
+    console.log('this.props.mapData.cachedLocations', this.props.mapData.cachedLocations);
+    console.log('this.props.modal.isModalOpen', this.props.modal.isModalOpen);
+
+    const location = this.props.mapData.cachedLocations.find((location) => {
+      return location._id === this.props.modal.locationId;
+    });
+
+    if ( !location ) { return false }
+    console.log('Modal.js location = ', location);
+    console.log('location.outOfBusiness = ', location.outOfBusiness);
+
     return (
-      <Modal>
+
+      <Modal
+        isOpen={this.props.modal.isModalOpen}
+        onAfterOpen={this.afterOpenModal}
+        overlayClassName="overlay"
+        className="modal"
+        ariaHideApp={false} // disables aria
+        // contentLabel="Example Modal" // for aria.
+      >
+        {/*<div>This is a Modal</div>*/}
+        <div className="modal_button_close" onClick={this.closeModal}>X</div>
+        {/*<h2 ref={red => this.red = red}>{location.outOfBusiness ?  location.name + ' (CLOSED)': location.name}</h2>*/}
+        {/*<h2 className="modal_location_name">{location.outOfBusiness ?  location.name + ' (CLOSED)': location.name}</h2>*/}
+
+        <div className="modal_location_detail_wrapper">
+          {location.outOfBusiness ? <h2 className="modal_location_name modal_location_out_biz">{location.name + ' (CLOSED)'}</h2>
+            : <h1 className="modal_location_name modal_location_in_biz">{location.name}</h1>}
+
+          <div className="modal_location_info-wrapper">
+            <div className="modal_location_addr">{location.addrFull}</div>
+            <div className="modal_location_phone">{location.phone === 'none' ? 'No Phone Number' : 'Phone: ' + location.phone}</div>
+            {location.url === 'none' ?
+              <div>No URL Available</div> :
+              <a
+                className="modal_location_url"
+                href={'//' + location.url}
+                target="_blank"
+              >{location.url}</a>
+            }
+          </div>
+          <div className="modal_about_wrapper">
+            <h3 className="modal_location_about">About:</h3>
+            <p>{location.about}</p>
+          </div>
+          <div className="add-review-button-wrapper">
+            {location.outOfBusiness ? <div></div> : <div className="modal_add_review_button">Add Review</div>}
+            {/*<div className="modal_add_review_button">Add Review</div>*/}
+          </div>
+        </div>
 
       </Modal>
     );
@@ -14,7 +87,7 @@ class LocationModal extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { mapData: state.mapData };
+  return { mapData: state.mapData, modal: state.modal };
 };
 
-export default connect(mapStateToProps, null)(LocationModal)
+export default connect(mapStateToProps, { setIsModalOpen })(LocationModal)
