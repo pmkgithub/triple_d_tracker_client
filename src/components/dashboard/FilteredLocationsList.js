@@ -33,9 +33,14 @@ class FilteredLocationsList extends Component {
 
   renderList() {
     return this.props.filteredListLocations.map((location, index) => {
+
+      let className;
+      index % 2 === 1 ? className = "filtered_locations_li even" : className = "filtered_locations_li odd"
+
       return (
         <li
-          className="filtered_locations_li"
+          // className="filtered_locations_li"
+          className={className}
           key={index}
           onClick={(event) => this.handleOnClickListItem(event, location)}
         >
@@ -54,6 +59,7 @@ class FilteredLocationsList extends Component {
           onClick={(e) => {this.handleOnClickButton(e)}}
         >Map All Listed Locations
         </button>
+        <hr></hr>
         <ul
           className="filtered_locations_ul">
           {this.renderList()}

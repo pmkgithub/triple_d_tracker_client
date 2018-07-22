@@ -10,7 +10,7 @@ import {
 } from '../../actions/action_radio_button';
 import radioButtonConfig from '../../configs/radioButtonConfig';
 import mapConfig from '../../configs/mapConfig';
-import './filter_radio_buttons.css';
+import './filters.css';
 
 class FilterRadioButtons extends Component {
 

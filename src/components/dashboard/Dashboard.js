@@ -15,9 +15,11 @@ export default (props) => {
           mapElement={<div className="map_element" />}
           isMarkerShown >
         </Map>
-        <div className="map_filter_wrapper">
-          <FilterRadioButton/>
-          <FilterSelectInput/>
+        <div className="map_filters_location_list_wrapper">
+          <div className="map_filters_wrapper">
+            <FilterRadioButton/>
+            <FilterSelectInput/>
+          </div>
           <div className="map_locations_list_wrapper">
             <div className="map_locations_list_header">Diners, Drive-ins & Dives Locations:</div>
             <FileterdLocationsList/>

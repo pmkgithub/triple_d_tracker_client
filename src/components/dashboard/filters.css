@@ -1,0 +1,36 @@
+/* wrappers - BEGIN */
+.map_filters_location_list_wrapper {
+  width: 400px;
+  margin-left: 20px;
+}
+.map_filters_wrapper {
+  padding: 10px;
+  border: 1px solid black;
+}
+/* wrappers - END */
+
+/* Radio Buttons - BEGIN */
+.filter_radio_button_header {
+  font-size: 18px;
+  font-weight: bold;
+  /*margin-bottom: 10px;*/
+}
+.form_filter_radio_buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.form_filter_radio_buttons label {
+  font-size: 18px;
+}
+/* Radio Buttons - END */
+
+
+/* Select Input - BEGIN */
+.filter_select_input {
+  height: 30px;
+  width: 100%;
+  font-size: 16px;
+}
+/* Select Input - END */
