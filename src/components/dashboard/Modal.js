@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import { setIsModalOpen } from '../../actions/action_modal';
+import {
+  setIsModalOpen,
+  setLocationId
+} from '../../actions/action_modal';
 import "./modal.css";
 
 class LocationModal extends Component {
@@ -15,12 +18,11 @@ class LocationModal extends Component {
   }
 
   closeModal() {
-    console.log('closeModal ran');
     this.props.setIsModalOpen(false);
+    this.props.setLocationId('');
   }
 
   afterOpenModal() {
-    console.log('afterOpenModal ran');
     // this.subtitle.style.color = '#f00';
     // this.red.style.color = '#f00';
     // this.green.style.color = '#f00';
@@ -28,17 +30,11 @@ class LocationModal extends Component {
 
   render() {
 
-    console.log('this.props = ', this.props);
-    console.log('this.props.mapData.cachedLocations', this.props.mapData.cachedLocations);
-    console.log('this.props.modal.isModalOpen', this.props.modal.isModalOpen);
-
     const location = this.props.mapData.cachedLocations.find((location) => {
       return location._id === this.props.modal.locationId;
     });
 
     if ( !location ) { return false }
-    console.log('Modal.js location = ', location);
-    console.log('location.outOfBusiness = ', location.outOfBusiness);
 
     return (
 
@@ -90,4 +86,4 @@ const mapStateToProps = (state) => {
   return { mapData: state.mapData, modal: state.modal };
 };
 
-export default connect(mapStateToProps, { setIsModalOpen })(LocationModal)
+export default connect(mapStateToProps, { setIsModalOpen, setLocationId })(LocationModal)

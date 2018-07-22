@@ -9,13 +9,16 @@ import radioButtonConfig from '../../configs/radioButtonConfig';
 import mapConfig from "../../configs/mapConfig";
 import stateAbbrToNameConfig from '../../configs/stateAbbrToNameConfig';
 import stateNameToAbbrConfig from '../../configs/stateNameToAbbrConfig';
-import './filter_select_input.css';
+import './filters.css';
 
 class FilterSelectInput extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {value: ""}
+    this.state = {
+      value: "",
+      size: "0"
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,7 +77,11 @@ class FilterSelectInput extends Component {
 
   handleOnChangeSelect(e) {
     // Note: On a State Select Input, e.target.value = the State's name (e.g. "Arizona").
-    this.setState({value: e.target.value});
+    this.setState({
+      value: e.target.value,
+      // size: "0",
+      // height: "30px"
+    });
     let uiListRecenterCoords  = {};
     // Note: Don't need an if stmt for USA, b/c USA Select Input is empty.
     // Note: this.props.setLatLonZoomForUiList(uiListRecenterCoords) for USA occurs in FilterRadioButton.js.
@@ -99,6 +106,19 @@ class FilterSelectInput extends Component {
 
   }
 
+  // handleOnFocus() {
+  //   console.log('this.props.selectedRadioButton = ', this.props.selectedRadioButton);
+  //   if(this.props.selectedRadioButton !== radioButtonConfig.us) {
+  //     this.setState({size: "5", height: "100px"});
+  //   }
+  // }
+  //
+  // handleOnBlur() {
+  //   if(this.props.selectedRadioButton !== radioButtonConfig.us) {
+  //     this.setState({size: "0", height: "30px"});
+  //   }
+  // }
+
   render() {
     return (
       <div>
@@ -107,12 +127,16 @@ class FilterSelectInput extends Component {
             className="filter_select_input"
             value={this.state.value}
             onChange={(e) => {this.handleOnChangeSelect(e)}}
+            size={this.state.size}
+            height={this.state.height}
+            // onFocus={() => {this.handleOnFocus()}}
+            // onBlur={() => {this.handleOnBlur()}}
           >
-            {this.props.selectedRadioButton === 'us'? <option value="choose_country" selected disabled>Not Applicable for Filter By: US</option> : ''}
+            {this.props.selectedRadioButton === 'us'? <option value="choose_country" selected disabled>Not Applicable for Filter By: USA</option> : ''}
             {this.props.selectedRadioButton === 'state'? <option value="choose_us_state" disabled>Choose a US State</option> : ''}
             {this.props.selectedRadioButton === 'nearme'? <option value="choose_nearme" disabled>Choose a Near Me Distance</option> : ''}
             {this.buildOptions()}
-          </select>
+            </select>
         </form>
       </div>
     )

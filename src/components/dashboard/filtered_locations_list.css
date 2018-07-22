@@ -1,15 +1,52 @@
+.map_locations_list_wrapper {
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.map_locations_list_header {
+  font-size: 18px;
+  font-weight: bold;
+  /*margin-top: 5px;*/
+  margin-bottom: 10px
+}
+.filtered_locations_button {
+  height: 30px;
+  width: 100%;
+  font-size: 16px;
+}
+.filtered_locations_button:hover {
+  color: white;
+  background-color: cornflowerblue;
+}
+.map_locations_list_wrapper hr {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 .filtered_locations_ul {
-  height: 400px;
+  height: 330px;
   overflow: auto;
   margin: 0;
   padding: 0;
+  border: 1px solid black;
 }
 .filtered_locations_li {
   list-style: none;
-  padding: 3px 0;
+  height: 40px;
+  vertical-align: middle;
+  line-height: 40px;
+  padding: 0 0 0 10px;
+}
+.filtered_locations_li.odd {
+  background-color: rgb(224,224,224);
+}
+.filtered_locations_li.even {
+  background-color: rgb(245,245,245);
+}
+.filtered_locations_li.odd:hover,
+.filtered_locations_li.even:hover {
+  background-color: cornflowerblue;
 }
 .filtered_locations_li:hover {
   cursor: pointer;
-  font-weight: bold;
-  color: dodgerblue;
+  color: white;
 }
