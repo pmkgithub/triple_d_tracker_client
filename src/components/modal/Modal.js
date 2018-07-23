@@ -5,16 +5,15 @@ import {
   setIsModalOpen,
   setLocationId
 } from '../../actions/action_modal';
+import { setIsAddReviewFormOpen } from '../../actions/action_review';
 import "./modal.css";
 
 class LocationModal extends Component {
 
   constructor(props) {
     super(props);
-
     this.closeModal = this.closeModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
-
   }
 
   closeModal() {
@@ -26,6 +25,13 @@ class LocationModal extends Component {
     // this.subtitle.style.color = '#f00';
     // this.red.style.color = '#f00';
     // this.green.style.color = '#f00';
+  }
+
+  handleAddReview() {
+    // close Modal, open Add Review component.
+    console.log('handleAddReview ran');
+    this.props.setIsModalOpen(false);
+    this.props.setIsAddReviewFormOpen(true);
   }
 
   render() {
@@ -70,7 +76,10 @@ class LocationModal extends Component {
             <h3 className="modal_location_about">About:</h3>
             <p>{location.about}</p>
           </div>
-          <div className="add-review-button-wrapper">
+          <div
+            className="add-review-button-wrapper"
+            onClick={() => this.handleAddReview()}
+          >
             {location.outOfBusiness ? <div></div> : <div className="modal_add_review_button">Add Review</div>}
             {/*<div className="modal_add_review_button">Add Review</div>*/}
           </div>
@@ -82,7 +91,14 @@ class LocationModal extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { mapData: state.mapData, modal: state.modal };
+  return {
+    mapData: state.mapData,
+    modal: state.modal
+  };
 };
 
-export default connect(mapStateToProps, { setIsModalOpen, setLocationId })(LocationModal)
+export default connect(mapStateToProps,
+  { setIsModalOpen,
+    setLocationId,
+    setIsAddReviewFormOpen
+  })(LocationModal);
