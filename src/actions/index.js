@@ -34,7 +34,6 @@ export const signup = ( formProps, callback ) => dispatch => {
     // get token from response, place in localstorage.
     const token = response.token;
     const userId = response.userId;
-    console.log('index.js signup userId = ', userId);
     localStorage.setItem("token", token);
     dispatch(authUser(token, userId));
 
