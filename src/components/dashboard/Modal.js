@@ -46,7 +46,6 @@ class LocationModal extends Component {
         ariaHideApp={false} // disables aria
         // contentLabel="Example Modal" // for aria.
       >
-        {/*<div>This is a Modal</div>*/}
         <div className="modal_button_close" onClick={this.closeModal}>X</div>
         {/*<h2 ref={red => this.red = red}>{location.outOfBusiness ?  location.name + ' (CLOSED)': location.name}</h2>*/}
         {/*<h2 className="modal_location_name">{location.outOfBusiness ?  location.name + ' (CLOSED)': location.name}</h2>*/}

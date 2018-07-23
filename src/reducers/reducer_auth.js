@@ -14,6 +14,7 @@ import {
 const INITIAL_STATE = {
   // authenticated: '',
   authenticated: localStorage.getItem('token'),
+  userId: '',
   authErrorMessage: '',
   isFetching: false
 };
@@ -22,22 +23,23 @@ export default function(state=INITIAL_STATE, action) {
   switch (action.type) {
 
     case FETCH_SIGNUP_SIGNIN_REQUEST:
-      return {...state, isLoading: true };
+      return {...state, isFetching: true };
 
     case AUTH_USER:
       console.log('reducer_auth AUTH_USER action =', action);
       return {
         ...state,
         authenticated: action.token,
+        userId: action.userId,
         authErrorMessage: '',
-        isLoading: false
+        isFetching: false
       };
 
     case AUTH_ERROR:
       return {
         ...state,
         authErrorMessage: action.err,
-        isLoading: false
+        isFetching: false
       };
 
     default:

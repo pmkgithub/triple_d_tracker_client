@@ -2,7 +2,7 @@ import {
   FETCH_LOCATIONS_REQUEST,
   FETCH_LOCATIONS_SUCCESS,
   FETCH_LOCATIONS_ERROR,
-  SET_VISITED_LOCATIONS_ON_SIGNIN,
+  SET_VISITED_LOCATIONS_REVIEWS_ON_SIGNIN,
   SET_LAT_LON_ZOOM_FOR_UI_LIST,
   SET_MAP_LAT_LON_CENTER,
   MAP_SINGLE_LOCATIONS_FROM_UI_LIST,
@@ -23,6 +23,7 @@ const initialState = {
   visitedLocations: ['5b3cfa5f8b3c33973279e8c1','5b3cfa5f8b3c33973279e8b6', '5b3cfa5f8b3c33973279e8a2'],
   // below for PRODUCTION...
   // visitedLocations: [],
+  reviews: [],
   displayedMapLocations: [],
   filteredListLocations: [],
   // default value set to US.
@@ -89,12 +90,12 @@ export default (state=initialState, action) => {
         err: action.err
       };
 
-    case SET_VISITED_LOCATIONS_ON_SIGNIN:
+    case SET_VISITED_LOCATIONS_REVIEWS_ON_SIGNIN:
       return {
         ...state,
-        visitedLocations: action.visitedLocations
+        visitedLocations: action.visitedLocations,
+        reviews: action.reviews
       };
-
 
     case SET_LAT_LON_ZOOM_FOR_UI_LIST:
       return {

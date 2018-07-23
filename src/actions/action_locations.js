@@ -60,9 +60,9 @@ export const fetchLocationsError = (err) => {
 
 // On sign-in, API sends User Schema's visitedLocations array to Client.
 // This Action Creator is imported into /actions/index.js file.
-export const SET_VISITED_LOCATIONS_ON_SIGNIN = 'SET_VISITED_LOCATIONS_ON_SIGNIN';
-export const setVisitedLocationsOnSignin = (visitedLocations) => ({
-  type: SET_VISITED_LOCATIONS_ON_SIGNIN,
+export const SET_VISITED_LOCATIONS_REVIEWS_ON_SIGNIN = 'SET_VISITED_LOCATIONS_REVIEWS_ON_SIGNIN';
+export const setVisitedLocationsReviewsOnSignin = (visitedLocations) => ({
+  type: SET_VISITED_LOCATIONS_REVIEWS_ON_SIGNIN,
   visitedLocations
 });
 
