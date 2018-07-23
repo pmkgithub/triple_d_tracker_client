@@ -1,5 +1,6 @@
 import React from 'react';
 import Map from './Map';
+import LocationModal from '../modal/Modal';
 import FilterRadioButton from './FilterRadioButtons';
 import FilterSelectInput from './FilterSelectInput';
 import FileterdLocationsList from './FilteredLocationsList';
@@ -15,6 +16,7 @@ export default (props) => {
           mapElement={<div className="map_element" />}
           isMarkerShown >
         </Map>
+        <LocationModal />
         <div className="map_filters_location_list_wrapper">
           <div className="map_filters_wrapper">
             <FilterRadioButton/>

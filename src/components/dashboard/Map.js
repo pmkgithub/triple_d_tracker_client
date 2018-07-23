@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 // import { MAP } from 'react-google-maps/lib/constants';
-import LocationModal from '../modal/Modal';
 import {
   fetchLocations,
   setMapLatLonCenter
@@ -140,11 +139,7 @@ class Map extends Component {
         >
           {this.props.isMarkerShown && <div>{this.renderMarkers()}</div>}
         </GoogleMap>
-        {/*{this.state.isModalOpen &&  <div>{this.renderModal()}</div>}*/}
-        <LocationModal />
       </div>
-
-
     )
   }
 }
