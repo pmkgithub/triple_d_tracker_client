@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactModal from 'react-modal';
+import LocationDetail from './LocationDetail';
+import AddReviewForm from './AddReviewForm';
 import {
   setIsModalOpen,
   setLocationId,
 } from '../../actions/action_modals';
 import './modal.css';
-
-import LocationDetail from './LocationDetail';
 
 class Modal extends Component {
 
@@ -32,8 +32,12 @@ class Modal extends Component {
         ariaHideApp={false} // disables aria
         // contentLabel="Example Modal" // for aria.
       >
-        <div className="modal_button_close" onClick={() => {this.closeModal()}}>X</div>
+        {this.props.modal.modalView === 'location_detail'?
+          <div className="modal_button_close" onClick={() => {this.closeModal()}}>X</div>
+          : ''
+        }
         {this.props.modal.modalView === 'location_detail' && <LocationDetail/>}
+        {this.props.modal.modalView === 'add_review_form' && <AddReviewForm/>}
       </ReactModal>
     );
   }
