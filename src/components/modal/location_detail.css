@@ -1,33 +1,33 @@
-.location_modal_location_detail_wrapper {
+.location_detail_wrapper {
   position: relative;
   border: 1px solid black;
   padding: 20px;
   margin: 10px;
 }
-.location_modal_location_name {
+.location_name {
   margin-top: 0;
 }
-.location_modal_location_in_biz {
+.location_in_biz {
   color: black;
 }
-.location_modal_location_out_biz {
+.location_out_biz {
   color: red;
 }
-.location_modal_location_addr,
-.location_modal_location_phone {
+.location_addr,
+.location_phone {
   color: black;
 }
-.location_modal_location_url {
+.location_url {
   color: blue;
 }
-.location_modal_location_about_wrapper {
+.location_about_wrapper {
   margin-bottom: 20px;
 }
 .modal_location_about {
   margin-top: 30px;
   margin-bottom: 10px;
 }
-/*.location_modal_add_review_button {*/
+/*.add_review_button {*/
 /*position: absolute;*/
 /*right: 0;*/
 /*bottom: 0;*/
@@ -42,11 +42,11 @@
 /*vertical-align: middle;*/
 /*line-height: 30px;*/
 /*}*/
-.location_modal_add_review_button_wrapper {
+.location_add_review_button_wrapper {
   display: flex;
   justify-content: flex-end;
 }
-.location_modal_add_review_button {
+.location_add_review_button {
   /*position: absolute;*/
   /*right: 0;*/
   /*bottom: 0;*/
@@ -61,6 +61,6 @@
   vertical-align: middle;
   line-height: 30px;
 }
-.location_modal_add_review_button:hover {
+.location_add_review_button:hover {
   cursor: pointer;
 }

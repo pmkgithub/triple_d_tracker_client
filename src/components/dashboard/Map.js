@@ -8,8 +8,8 @@ import {
   setMapLatLonCenter
 } from "../../actions/action_locations";
 import {
-  setIsLocationModalOpen,
-  setLocationId
+  setIsModalOpen,
+  setLocationId,
 } from '../../actions/action_modals';
 import "./map.css";
 
@@ -60,8 +60,8 @@ class Map extends Component {
   // markers - BEGIN
   handleOnClickMarker(markerObj, locationId) {
     //NOTE: markerObj supplied as first arg by react-google-maps.
-    console.log('open detail modal with this id', locationId);
-    this.props.setIsLocationModalOpen(true);
+    console.log('open Modal with this id', locationId);
+    this.props.setIsModalOpen(true);
     this.props.setLocationId(locationId);
   }
 
@@ -155,7 +155,7 @@ export default compose (
   connect(mapStateToProps, {
     fetchLocations,
     setMapLatLonCenter,
-    setIsLocationModalOpen,
+    setIsModalOpen,
     setLocationId
   }),
   withGoogleMap

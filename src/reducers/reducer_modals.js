@@ -1,12 +1,12 @@
 import {
-  SET_IS_LOCATION_MODAL_OPEN,
-  SET_IS_ADD_REVIEW_MODAL_OPEN,
+  SET_IS_MODAL_OPEN,
+  SET_MODAL_VIEW,
   SET_LOCATION_ID,
 } from '../actions/action_modals';
 
 const initialState = {
-  isLocationModalOpen: false,
-  isAddReviewModalOpen: false,
+  isModalOpen: false,
+  modalView: 'location_detail',
   locationId: ''
 };
 
@@ -14,17 +14,17 @@ export default (state=initialState, action) => {
 
   switch(action.type) {
 
-    case SET_IS_LOCATION_MODAL_OPEN:
+    case SET_IS_MODAL_OPEN:
       return {
         ...state,
-        isLocationModalOpen: action.isLocationModalOpen
+        isModalOpen: action.isModalOpen
       };
 
-    case SET_IS_ADD_REVIEW_MODAL_OPEN:
-      console.log('reducer_modals.js SET_IS_ADD_REVIEW_MODAL_OPEN action = ', action);
+    case SET_MODAL_VIEW:
+      console.log('SET_MODAL_VIEW action = ', action);
       return {
         ...state,
-        isAddReviewModalOpen: action.isAddReviewModalOpen
+        modalView: action.modalView
       };
 
     case SET_LOCATION_ID:
