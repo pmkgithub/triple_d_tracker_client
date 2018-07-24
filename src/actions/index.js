@@ -81,10 +81,7 @@ export const signin = ( formProps, callback ) => dispatch => {
 
     // Place token in localStorage.  Later, token is placed into Redux in /reducers/reducer_auth.js.
     localStorage.setItem("token", token);
-
     dispatch(authUser(token, userId));
-    // TODO - add reviews - create AC to set reviews.
-    // Action Creator setVisitedLocationsReviewsOnSignin imported from actions_locations.js.
     dispatch(setVisitedLocationsReviewsOnSignin({
       visitedLocations: visitedLocations,
       reviews: reviews

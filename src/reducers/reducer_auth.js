@@ -14,7 +14,10 @@ import {
 const INITIAL_STATE = {
   // authenticated: '',
   authenticated: localStorage.getItem('token'),
-  userId: '',
+  // Dev
+  userId: '5b578696527db520e24a7bc2',
+  // Production
+  // userId: '',
   authErrorMessage: '',
   isFetching: false
 };

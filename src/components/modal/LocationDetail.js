@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   setModalView,
-} from '../../actions/action_modals';
+} from '../../actions/action_modal';
 import "./location_detail.css";
 
 class LocationDetail extends Component {
@@ -14,12 +14,12 @@ class LocationDetail extends Component {
 
   render() {
 
-    // On first render, "this.props.modal.locationId" is undefined. Return early.
-    if (!this.props.modal.locationId) {return false;}
+    // On first render, "this.props.mapData.locationId" is undefined. Return early.
+    if (!this.props.mapData.locationId) {return false;}
 
     // Find the desired location from cachedLocations.
     const location = this.props.mapData.cachedLocations.find((location) => {
-      return location._id === this.props.modal.locationId;
+      return location._id === this.props.mapData.locationId;
     });
 
     return (
@@ -43,14 +43,16 @@ class LocationDetail extends Component {
           <h3 className="location_about">About:</h3>
           <p>{location.about}</p>
         </div>
-        <div
-          className="location_add_review_button_wrapper"
-          onClick={() => this.handleAddReview()}
-        >
-          {location.outOfBusiness ? <div></div> : <div className="location_add_review_button">Add Review</div>}
+        <div className="location_add_review_button_wrapper">
+          {location.outOfBusiness
+            ? <span></span>
+            : <span
+              className="location_add_review_button"
+              onClick={() => this.handleAddReview()}
+            >Add Review</span>
+          }
         </div>
       </div>
-
     )
   }
 }

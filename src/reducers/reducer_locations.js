@@ -9,8 +9,8 @@ import {
   MAP_ALL_LOCATIONS_FROM_UI_LIST,
   CLEAR_LOCATIONS_FROM_UI_LIST,
   CREATE_US_LOCATIONS_UI_LIST,
-  CREATE_STATE_LOCATIONS_UI_LIST
-
+  CREATE_STATE_LOCATIONS_UI_LIST,
+  SET_LOCATION_ID,
 } from "../actions/action_locations";
 import mapConfig from '../configs/mapConfig';
 import stateNameToAbbr from '../configs/stateNameToAbbrConfig';
@@ -24,6 +24,7 @@ const initialState = {
   // below for PRODUCTION...
   // visitedLocations: [],
   reviews: [],
+  locationId: '',
   displayedMapLocations: [],
   filteredListLocations: [],
   // default value set to US.
@@ -175,6 +176,14 @@ export default (state=initialState, action) => {
         mapCenterLon: action.uiListRecenterCoords.lon,
         mapZoom: action.uiListRecenterCoords.zoom,
         displayedMapLocations: [...state.filteredListLocations],
+      };
+
+    // When User clicks a Map Maker, store the Location Id.
+    // Location Id needed when User creates a Review.
+    case SET_LOCATION_ID:
+      return {
+        ...state,
+        locationId: action.locationId
       };
 
     default:

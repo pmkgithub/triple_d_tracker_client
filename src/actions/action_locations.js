@@ -128,6 +128,16 @@ export const createStateLocationsList = (stateName) => {
     stateName
   }
 };
+
+// When User clicks a Map Maker, store the Location Id.
+// Location Id needed when User creates a Review.
+export const SET_LOCATION_ID = 'SET_LOCATION_ID';
+export const setLocationId = (locationId) => {
+  return {
+    type: SET_LOCATION_ID,
+    locationId
+  }
+};
 ///////////////////////////////////////////////////////////////////////////////
 // other - END
 ///////////////////////////////////////////////////////////////////////////////

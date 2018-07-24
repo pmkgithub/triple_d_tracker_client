@@ -5,12 +5,12 @@ import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
 // import { MAP } from 'react-google-maps/lib/constants';
 import {
   fetchLocations,
-  setMapLatLonCenter
+  setMapLatLonCenter,
+  setLocationId
 } from "../../actions/action_locations";
 import {
-  setIsModalOpen,
-  setLocationId,
-} from '../../actions/action_modals';
+  setIsModalOpen
+} from '../../actions/action_modal';
 import "./map.css";
 
 
@@ -60,7 +60,7 @@ class Map extends Component {
   // markers - BEGIN
   handleOnClickMarker(markerObj, locationId) {
     //NOTE: markerObj supplied as first arg by react-google-maps.
-    console.log('open Modal with this id', locationId);
+    // console.log('Clicked Marker location id', locationId);
     this.props.setIsModalOpen(true);
     this.props.setLocationId(locationId);
   }

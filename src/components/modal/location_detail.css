@@ -47,11 +47,7 @@
   justify-content: flex-end;
 }
 .location_add_review_button {
-  /*position: absolute;*/
-  /*right: 0;*/
-  /*bottom: 0;*/
   margin-right: -5px;
-  /*margin-bottom: 15px;*/
   height: 30px;
   width:  100px;
   background-color: cornflowerblue;
@@ -63,4 +59,5 @@
 }
 .location_add_review_button:hover {
   cursor: pointer;
+  font-size: 1.03em;
 }

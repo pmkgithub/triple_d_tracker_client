@@ -5,8 +5,10 @@ import LocationDetail from './LocationDetail';
 import AddReviewForm from './AddReviewForm';
 import {
   setIsModalOpen,
+} from '../../actions/action_modal';
+import {
   setLocationId,
-} from '../../actions/action_modals';
+} from '../../actions/action_locations';
 import './modal.css';
 
 class Modal extends Component {
@@ -32,10 +34,13 @@ class Modal extends Component {
         ariaHideApp={false} // disables aria
         // contentLabel="Example Modal" // for aria.
       >
-        {this.props.modal.modalView === 'location_detail'?
-          <div className="modal_button_close" onClick={() => {this.closeModal()}}>X</div>
-          : ''
-        }
+        <div className="modal_button_close_wrapper">
+          {this.props.modal.modalView === 'location_detail'
+            ? <span className="modal_button_close" onClick={() => {this.closeModal()}}>X</span>
+            : ''
+          }
+        </div>
+
         {this.props.modal.modalView === 'location_detail' && <LocationDetail/>}
         {this.props.modal.modalView === 'add_review_form' && <AddReviewForm/>}
       </ReactModal>

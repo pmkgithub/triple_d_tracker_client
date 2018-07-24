@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import {
   setIsLocationModalOpen,
   setIsAddReviewModalOpen
-} from '../../actions/action_modals';
+} from '../../actions/action_modal';
 import './modal.css';
 
 
