@@ -18,7 +18,6 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   // {auth: {authenticated: localStorage.getItem('token')}}, // moved to reducer_auth initialState.
   applyMiddleware(reduxThunk)
-
 );
 
 ReactDom.render(

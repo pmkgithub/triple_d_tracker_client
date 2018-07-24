@@ -59,8 +59,8 @@ class Signin extends Component {
             <Field
               label="Email"
               labelClassName="signin-label"
-              labelHtmlFor="signin-email"
 
+              labelHtmlFor="signin-email"
               id="signin-email"
               className="signin-email-input"
               name="email"
@@ -73,8 +73,8 @@ class Signin extends Component {
             <Field
               label="Password"
               labelClassName="signin-label"
-              labelHtmlFor="signin-password"
 
+              labelHtmlFor="signin-password"
               id="signin-password"
               className="signin-password-input"
               name="password"
