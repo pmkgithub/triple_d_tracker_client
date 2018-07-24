@@ -14,7 +14,7 @@ import {
 const INITIAL_STATE = {
   // authenticated: '',
   authenticated: localStorage.getItem('token'),
-  // Dev
+  // Dev - user b@b.com
   userId: '5b578696527db520e24a7bc2',
   // Production
   // userId: '',

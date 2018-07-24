@@ -23,8 +23,31 @@ const initialState = {
   visitedLocations: ['5b3cfa5f8b3c33973279e8c1','5b3cfa5f8b3c33973279e8b6', '5b3cfa5f8b3c33973279e8a2'],
   // below for PRODUCTION...
   // visitedLocations: [],
-  reviews: [],
-  locationId: '',
+  reviews: [{
+    // "_id" : ObjectId("5b5794adac0149234d4ad6e6"),
+    "locationId" : "5b3cfa5f8b3c33973279e839",
+    "date" : "2018-07-01",
+    "review" : "Sweet Stuff"
+  },
+    {
+      // "_id" : ObjectId("5b5794cfac0149234d4ad6e7"),
+      "locationId" : "5b3cfa5f8b3c33973279e8c1",
+      "date" : "2018-07-02",
+      "review" : "This ain't Jimmy John's."
+    },
+    {
+      // "_id" : ObjectId("5b5794e2ac0149234d4ad6e8"),
+      "locationId" : "5b3cfa5f8b3c33973279e8b6",
+      "date" : "2018-07-03",
+      "review" : "Darn good BBQ!"
+    },
+    {
+      // "_id" : ObjectId("5b57951bac0149234d4ad6e9"),
+      "locationId" : "5b3cfa5f8b3c33973279e7c1",
+      "date" : "2018-07-16",
+      "review" : "Zema?  Wasn't that a really bad drink form the 90's?"
+    }],
+  locationId: '',  // locationId of clicked Map Marker.
   displayedMapLocations: [],
   filteredListLocations: [],
   // default value set to US.
@@ -66,9 +89,24 @@ export default (state=initialState, action) => {
       // When locations fetched from API,
       // process fetched locations and set the "location.visited" to "true",
       // when a location's id is in the state.visitedLocations array.
+
+      // // orig code - dont change
+      // const fetchedLocations = action.locations;
+      // const processedLocations = fetchedLocations.map((location) => {
+      //   if (state.visitedLocations.indexOf(location._id) >= 0) {
+      //     location.visited = true;
+      //   }
+      //   return location;
+      // });
+
+      // refact
       const fetchedLocations = action.locations;
+      const visitedLocations = state.reviews.map(review => {
+        return review.locationId;
+      });
+
       const processedLocations = fetchedLocations.map((location) => {
-        if (state.visitedLocations.indexOf(location._id) >= 0) {
+        if (visitedLocations.indexOf(location._id) >= 0) {
           location.visited = true;
         }
         return location;
@@ -181,6 +219,7 @@ export default (state=initialState, action) => {
     // When User clicks a Map Maker, store the Location Id.
     // Location Id needed when User creates a Review.
     case SET_LOCATION_ID:
+      console.log('SET_LOCATION_ID');
       return {
         ...state,
         locationId: action.locationId

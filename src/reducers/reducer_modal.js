@@ -1,7 +1,6 @@
 import {
   SET_IS_MODAL_OPEN,
   SET_MODAL_VIEW,
-  // SET_LOCATION_ID,
   FETCH_CREATE_REVIEW_REQUEST,
   CREATE_REVIEW_ERROR,
   CREATE_REVIEW_SUCCESS,
@@ -32,16 +31,9 @@ export default (state=initialState, action) => {
         modalView: action.modalView
       };
 
-    // case SET_LOCATION_ID:
-    //   return {
-    //     ...state,
-    //     locationId: action.locationId
-    //   };
-
     case FETCH_CREATE_REVIEW_REQUEST:
       console.log('FETCH_CREATE_REVIEW_REQUEST action = ', action);
       return {...state, isFetching: true };
-
 
     // TODO - add the returned review, and visitedLocation to Redux.
     case CREATE_REVIEW_SUCCESS:
