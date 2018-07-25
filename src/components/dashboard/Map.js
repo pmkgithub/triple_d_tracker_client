@@ -27,7 +27,6 @@ class Map extends Component {
 
   componentDidMount() {
     if (!this.props.mapData.locationsBeenFetched) {
-      console.log('Map.js componentDidMount this.props = ', this.props);
       // pass the REVIEWS array to be processed during fetchLocationSuccess.
       this.props.fetchLocations(this.props.reviews);
     }
@@ -98,7 +97,6 @@ class Map extends Component {
       }
 
       if (location.outOfBusiness === false && location.visited === true ) {
-        console.log('location.outOfBusiness === false && location.visited === true');
         iconUrl = greenMarker;
       }
 

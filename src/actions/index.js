@@ -35,6 +35,7 @@ export const signup = ( formProps, callback ) => dispatch => {
     const token = response.token;
     const userId = response.userId;
     localStorage.setItem("token", token);
+    localStorage.setItem("userId", userId);
     dispatch(authUser(token, userId));
 
     // redirect to protected resource.
@@ -60,36 +61,36 @@ export const signin = ( formProps, callback ) => dispatch => {
     },
     body: JSON.stringify(formProps)
   })
-    .then(res => {
-      // // This version of code generates error === "Unauthorized"
-      // // res.statusText === "Unauthorized" What generates this text?
-      // if (!res.ok) {
-      //   return Promise.reject(res.statusText);
-      // }
-      // This version of code generates custom error message.
-      if (!res.ok) {
-        const customErrorMessage = 'Invalid Email or Password';
-        return Promise.reject(customErrorMessage)
-      }
-      return res.json();
-    }).then(response => {
+  .then(res => {
+    // // This version of code generates error === "Unauthorized"
+    // // res.statusText === "Unauthorized" What generates this text?
+    // if (!res.ok) {
+    //   return Promise.reject(res.statusText);
+    // }
+    // This version of code generates custom error message.
+    if (!res.ok) {
+      const customErrorMessage = 'Invalid Email or Password';
+      return Promise.reject(customErrorMessage)
+    }
+    return res.json();
+  })
+  .then(response => {
     // get token from response, place in localstorage or keep token in Redux?
     const token = response.token;
     const userId = response.userId;
     const reviews = response.reviews;
-    console.log('signin token = ', token);
-    console.log('signin userId = ', userId);
-    console.log('signin reviews = ', reviews);
 
     // Place token in localStorage.  Later, token is placed into Redux in /reducers/reducer_auth.js.
     localStorage.setItem("token", token);
+    localStorage.setItem("userId", userId);
     dispatch(authUser(token, userId));
     dispatch(setReviewsOnSignin(reviews));
 
     // redirect to protected resource.
     callback();
 
-  }).catch(err => {
+  })
+  .catch(err => {
     dispatch(authError(err));
   });
 };
@@ -100,8 +101,6 @@ export const signin = ( formProps, callback ) => dispatch => {
 /////////////////////////////////////////////////////////////////////////
 // signout - fetch syntax - BEGIN
 /////////////////////////////////////////////////////////////////////////
-// TODO - refact a new action, reducer for signout.
-// TODO - on signout - empty all Redux location fields: cachedLocations, visitedLocations, reviews, displayedMapLocations, filteredListLocations etc.
 export const signout = () => {
   // localStorage.removeItem('token');
   localStorage.clear();

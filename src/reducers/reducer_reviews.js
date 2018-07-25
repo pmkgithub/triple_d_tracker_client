@@ -6,7 +6,7 @@ import {
 } from '../actions/action_reviews';
 
 const initialState = {
-  reviews: [{foo: 'bar'}],
+  reviews: [],
   createReviewErrorMessage: '',
 };
 
@@ -18,14 +18,13 @@ export default (state=initialState, action) => {
       console.log('SET_REVIEWS_ON_SIGNIN action , ', action);
       return {
         ...state,
-        reviews: [...action.reviews]
+        reviews: action.reviews
       };
 
     case FETCH_CREATE_REVIEW_REQUEST:
-      console.log('FETCH_CREATE_REVIEW_REQUEST action = ', action);
       return {...state, isFetching: true };
 
-    // TODO - add the returned review, and visitedLocation to Redux.
+    // TODO - When a review is successfully saved, do what?
     case CREATE_REVIEW_SUCCESS:
       console.log('CREATE_REVIEW_SUCCESS action = ', action);
       return {

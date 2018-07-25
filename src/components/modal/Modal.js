@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ReactModal from 'react-modal';
 import LocationDetail from './LocationDetail';
 import AddReviewForm from './AddReviewForm';
+import ReviewList from './ReviewsList'
 import {
   setIsModalOpen,
 } from '../../actions/action_modal';
@@ -40,8 +41,9 @@ class Modal extends Component {
             : ''
           }
         </div>
-
         {this.props.modal.modalView === 'location_detail' && <LocationDetail/>}
+        {/*{this.props.modal.modalView === 'location_detail' && this.props.reviews.map(this.renderReviews)}*/}
+        {this.props.modal.modalView === 'location_detail' && <ReviewList/>}
         {this.props.modal.modalView === 'add_review_form' && <AddReviewForm/>}
       </ReactModal>
     );
@@ -50,8 +52,8 @@ class Modal extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    mapData: state.mapData,
-    modal: state.modal
+    modal: state.modal,
+    mapData: state.mapData
   };
 };
 

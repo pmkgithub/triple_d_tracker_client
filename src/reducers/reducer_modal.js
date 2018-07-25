@@ -25,32 +25,10 @@ export default (state=initialState, action) => {
       };
 
     case SET_MODAL_VIEW:
-      console.log('SET_MODAL_VIEW action = ', action);
       return {
         ...state,
         modalView: action.modalView
       };
-
-      // TODO - delete after posting review logic working.
-    // case FETCH_CREATE_REVIEW_REQUEST:
-    //   console.log('FETCH_CREATE_REVIEW_REQUEST action = ', action);
-    //   return {...state, isFetching: true };
-
-    // // TODO - add the returned review, and visitedLocation to Redux.
-    // case CREATE_REVIEW_SUCCESS:
-    //   console.log('CREATE_REVIEW_SUCCESS action = ', action);
-    //   return {
-    //     ...state,
-    //
-    //   };
-
-    // case CREATE_REVIEW_ERROR:
-    //   console.log('CREATE_REVIEW_ERROR action = ', action);
-    //   return {
-    //     ...state,
-    //     createReviewErrorMessage: action.err,
-    //     isFetching: false
-    //   };
 
     default:
       return state;
