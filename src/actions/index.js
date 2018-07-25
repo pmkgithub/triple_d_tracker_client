@@ -35,6 +35,7 @@ export const signup = ( formProps, callback ) => dispatch => {
     const token = response.token;
     const userId = response.userId;
     localStorage.setItem("token", token);
+    localStorage.setItem("userId", userId);
     dispatch(authUser(token, userId));
 
     // redirect to protected resource.
@@ -81,6 +82,7 @@ export const signin = ( formProps, callback ) => dispatch => {
 
     // Place token in localStorage.  Later, token is placed into Redux in /reducers/reducer_auth.js.
     localStorage.setItem("token", token);
+    localStorage.setItem("userId", userId);
     dispatch(authUser(token, userId));
     dispatch(setReviewsOnSignin(reviews));
 
