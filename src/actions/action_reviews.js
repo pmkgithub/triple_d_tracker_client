@@ -3,10 +3,13 @@ const ROOT_URL = 'http://localhost:8080/api';
 
 ///////////////////////////////////////////////////////////////////////////////
 // GET Reviews - BEGIN
+// Reviews are initially sent to Client when User signs-in.
+// GET Reviews is for when User refreshes Browser.
+// fetchReviews is called:
+//   1) in Map.js b/c when locations are fetched, the User's reviews are needed
+//      color visited/reviewed locations green.
 ///////////////////////////////////////////////////////////////////////////////
 export const fetchReviews = () => dispatch => {
-  // fetchReviews called when:
-  // 1) User refreshes Browser.
   const userId = localStorage.getItem("userId");
   dispatch(fetchReviewsRequest());
   fetch(`${ROOT_URL}/reviews/${userId}`, {
@@ -32,10 +35,11 @@ export const fetchReviews = () => dispatch => {
     .then(response => {
       const reviews = response.reviews;
       console.log('action_reviews.js fetchReviews');
-      dispatch(setReviews(reviews));
+      dispatch(fetchReviewsSuccess()); // resets isFetching to false.
+      dispatch(setReviews(reviews));   // sets the fetched Reviews.
     })
     .catch(err => {
-      dispatch(createReviewError(err));
+      dispatch(fetchReviewsError(err));
     });
 
 };
@@ -44,6 +48,17 @@ export const fetchReviewsRequest = () => ({
   type: FETCH_REVIEWS_REQUEST,
 });
 
+// TODO - When a reviews is successfully fetched, do what?
+export const FETCH_REVIEWS_SUCCESS = 'FETCH_REVIEWS_SUCCESS';
+export const fetchReviewsSuccess = () => ({
+  type: FETCH_REVIEWS_SUCCESS,
+});
+
+export const FETCH_REVIEWS_ERROR = 'FETCH_REVIEWS_ERROR';
+export const fetchReviewsError = (err) => ({
+  type: FETCH_REVIEWS_ERROR,
+  err
+});
 ///////////////////////////////////////////////////////////////////////////////
 // GET Reviews - END
 ///////////////////////////////////////////////////////////////////////////////
@@ -52,7 +67,7 @@ export const fetchReviewsRequest = () => ({
 // POST Review - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
 export const createReview = ( formData, callback ) => dispatch => {
-  dispatch(fetchCreateReviewRequest());
+  dispatch(createReviewRequest());
   fetch(`${ROOT_URL}/reviews/add`, {
     method: "POST",
     headers: {
@@ -87,11 +102,12 @@ export const createReview = ( formData, callback ) => dispatch => {
   });
 };
 
-export const FETCH_CREATE_REVIEW_REQUEST = 'FETCH_CREATE_REVIEW_REQUEST';
-export const fetchCreateReviewRequest = () => ({
-  type: FETCH_CREATE_REVIEW_REQUEST,
+export const CREATE_REVIEW_REQUEST = 'CREATE_REVIEW_REQUEST';
+export const createReviewRequest = () => ({
+  type: CREATE_REVIEW_REQUEST,
 });
 
+// TODO - When a review is successfully saved, do what?
 export const CREATE_REVIEW_SUCCESS = 'CREATE_REVIEW_SUCCESS';
 export const createReviewSuccess = () => ({
   type: CREATE_REVIEW_SUCCESS,
