@@ -2,7 +2,7 @@ import {
   FETCH_CREATE_REVIEW_REQUEST,
   CREATE_REVIEW_ERROR,
   CREATE_REVIEW_SUCCESS,
-  SET_REVIEWS_ON_SIGNIN
+  SET_REVIEWS
 } from '../actions/action_reviews';
 
 const initialState = {
@@ -14,8 +14,8 @@ export default (state=initialState, action) => {
 
   switch(action.type) {
 
-    case SET_REVIEWS_ON_SIGNIN:
-      console.log('SET_REVIEWS_ON_SIGNIN action , ', action);
+    case SET_REVIEWS:
+      console.log('SET_REVIEWS action , ', action);
       return {
         ...state,
         reviews: action.reviews

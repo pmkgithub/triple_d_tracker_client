@@ -1,4 +1,4 @@
-import { setReviewsOnSignin } from './action_reviews';
+import { setReviews } from './action_reviews';
 /////////////////////////////////////////////////////////////////////////
 // fetch logic - BEGIN
 /////////////////////////////////////////////////////////////////////////
@@ -84,7 +84,7 @@ export const signin = ( formProps, callback ) => dispatch => {
     localStorage.setItem("token", token);
     localStorage.setItem("userId", userId);
     dispatch(authUser(token, userId));
-    dispatch(setReviewsOnSignin(reviews));
+    dispatch(setReviews(reviews));
 
     // redirect to protected resource.
     callback();
