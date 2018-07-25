@@ -52,19 +52,22 @@ export default (state=initialState, action) => {
       // Different User's will see different "green" markers depending whether or not
       // they have personally visited / written a review a location.
       //
-      // Visited locations are stored in the UserSchema and placed into Redux state
-      // when the User signs-in.
+      // Visited location's reviews are stored in the UserSchema and placed into Redux state
+      // when the User signs-in, AND upon Browser refresh.
       //
       // When locations fetched from API,
-      // process fetched locations and set the "location.visited" to "true",
+      // process the fetched locations and set the "location.visited" to "true",
       // when a location's id is in the state.visitedLocations array.
 
       const fetchedLocations = action.locations;
 
+      // create array of visited locations from the reviews array.
       const visitedLocations = action.reviews.map(review => {
         return review.locationId;
       });
 
+      // If User has visited a location/written a review,
+      // set location.visited to "true".
       const processedLocations = fetchedLocations.map((location) => {
         if (visitedLocations.indexOf(location._id) >= 0) {
           location.visited = true;

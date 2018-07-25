@@ -11,6 +11,7 @@ import {
 import {
   setIsModalOpen
 } from '../../actions/action_modal';
+import { fetchReviews } from '../../actions/action_reviews';
 import "./map.css";
 
 
@@ -26,16 +27,22 @@ class Map extends Component {
   }
 
   componentDidMount() {
+    // Code here handles multiple AJAX calls.
+    // First, fetchReviews, then fetchLocations.
+    // Reason: on Browser refresh, User reviews need to be in Redux
+    //         so location maker's get colored properly.
     if (!this.props.mapData.locationsBeenFetched) {
-      // pass the REVIEWS array to be processed during fetchLocationSuccess.
-      this.props.fetchLocations(this.props.reviews);
+      this.props.fetchReviews(localStorage.getItem("userId"))
+        .then(() => {
+          this.props.fetchLocations();
+        })
     }
   }
 
   onMapLoad(map) {
     // Set GMA map instance to component's local state.
     // If map instance already set to local state, return.
-    // Note: without this check, react errors out.
+    // Note: without this check, react throws an error.
     if (this.state.map !== null) {return}
     this.setState({map: map});
     // console.log('MAP', MAP);
@@ -60,14 +67,14 @@ class Map extends Component {
 
   // markers - BEGIN
   handleOnClickMarker(markerObj, locationId) {
-    //NOTE: markerObj supplied as first arg by react-google-maps.
+    //NOTE: markerObj supplied as first arg by react-google-maps, don't need it.
     // console.log('Clicked Marker location id', locationId);
     this.props.setIsModalOpen(true);
     this.props.setLocationId(locationId);
   }
 
   mouseOverMarker(markerObj, markerId) {
-    //NOTE: markerObj supplied as first arg by react-google-maps.
+    //NOTE: markerObj supplied as first arg by react-google-maps, don't need it.
     this.setState({isInfoWindowOpen: !this.state.isInfoWindowOpen, markerId});
   }
 
@@ -80,7 +87,7 @@ class Map extends Component {
 
     if ( this.props.mapData.isFetching ) {
       // console.log('data is loading');
-      return false;  // temporary code...
+      return false;
     }
 
     return displayedMapLocations.map((location, index) => {
@@ -146,8 +153,7 @@ class Map extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    mapData: state.mapData,
-    reviews: state.reviews.reviews
+    mapData: state.mapData
   };
 };
 
@@ -157,6 +163,7 @@ const mapStateToProps = (state) => {
 export default compose (
   connect(mapStateToProps, {
     fetchLocations,
+    fetchReviews,
     setMapLatLonCenter,
     setIsModalOpen,
     setLocationId

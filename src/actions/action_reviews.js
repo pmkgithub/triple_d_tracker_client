@@ -3,16 +3,21 @@ const ROOT_URL = 'http://localhost:8080/api';
 
 ///////////////////////////////////////////////////////////////////////////////
 // GET Reviews - BEGIN
-// Reviews are initially sent to Client when User signs-in.
+// Reviews are initially sent to Client when User signs-in, and
+// set in Redux.
+//
 // GET Reviews is for when User refreshes Browser.
 // fetchReviews is called:
-//   1) in Map.js b/c when locations are fetched, the User's reviews are needed
-//      color visited/reviewed locations green.
+//   1) in Map.js b/c before fetchLocation() is called.
+//      The User's reviews are needed in reducer_locations.js FETCH_LOCATIONS_SUCCESS
+//      in order to properly color visited/reviewed locations green.
 ///////////////////////////////////////////////////////////////////////////////
 export const fetchReviews = () => dispatch => {
   const userId = localStorage.getItem("userId");
   dispatch(fetchReviewsRequest());
-  fetch(`${ROOT_URL}/reviews/${userId}`, {
+
+  // "return" so that multiple AJAX requests in Map.js works.
+  return fetch(`${ROOT_URL}/reviews/${userId}`, {
     method: "GET",
     headers: {
       "content-type": "application/json",
@@ -34,7 +39,6 @@ export const fetchReviews = () => dispatch => {
     })
     .then(response => {
       const reviews = response.reviews;
-      console.log('action_reviews.js fetchReviews');
       dispatch(fetchReviewsSuccess()); // resets isFetching to false.
       dispatch(setReviews(reviews));   // sets the fetched Reviews.
     })
@@ -48,7 +52,6 @@ export const fetchReviewsRequest = () => ({
   type: FETCH_REVIEWS_REQUEST,
 });
 
-// TODO - When a reviews is successfully fetched, do what?
 export const FETCH_REVIEWS_SUCCESS = 'FETCH_REVIEWS_SUCCESS';
 export const fetchReviewsSuccess = () => ({
   type: FETCH_REVIEWS_SUCCESS,
@@ -125,7 +128,7 @@ export const createReviewError = (err) => ({
 ///////////////////////////////////////////////////////////////////////////////
 // Other Action Creators - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
-// On sign-in, API sends User Schema's REVIEWS array to Client.
+// On sign-in, API sends User's reviews array to Client.
 // This Action Creator is used in /actions/index.js "signin".
 export const SET_REVIEWS = 'SET_REVIEWS';
 export const setReviews = (reviews) => {
