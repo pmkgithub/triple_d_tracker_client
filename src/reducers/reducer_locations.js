@@ -59,7 +59,6 @@ export default (state=initialState, action) => {
       // process fetched locations and set the "location.visited" to "true",
       // when a location's id is in the state.visitedLocations array.
 
-      console.log('FETCH_LOCATIONS_SUCCESS action = ', action);
       const fetchedLocations = action.locations;
 
       const visitedLocations = action.reviews.map(review => {
@@ -69,7 +68,6 @@ export default (state=initialState, action) => {
       const processedLocations = fetchedLocations.map((location) => {
         if (visitedLocations.indexOf(location._id) >= 0) {
           location.visited = true;
-          console.log('location match = ', location);
         }
         return location;
       });
@@ -120,7 +118,6 @@ export default (state=initialState, action) => {
         filteredListLocations: []
       };
 
-    // TODO - ask Ray displayedMapLocations: [...state.cachedLocations], should be state.cached
     case CREATE_US_LOCATIONS_UI_LIST:
       return {
         ...state,
@@ -154,9 +151,7 @@ export default (state=initialState, action) => {
           return (location.name === action.singleLocationData.name)
         }
       );
-      console.log('MAP_SINGLE_LOCATIONS_FROM_UI_LIST location = ', location);
 
-      // TODO - ask Ray displayedMapLocations: [location],
       return {
         ...state,
         displayedMapLocations: [location],

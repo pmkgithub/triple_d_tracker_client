@@ -26,7 +26,6 @@ class Modal extends Component {
   }
 
   render() {
-    console.log('Modal.js this.props = ', this.props);
     return (
       <ReactModal
         isOpen={this.props.modal.isModalOpen}

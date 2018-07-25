@@ -41,7 +41,6 @@ class AddReviewForm extends Component {
   }
 
   onInputChange(e) {
-    // console.log(event.target.value);
     this.setState({date: e.target.value});
   }
 

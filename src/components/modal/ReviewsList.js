@@ -51,7 +51,6 @@ class ReviewList extends Component {
 
   renderList() {
     const locationId = this.props.mapData.locationId;
-    console.log('ReviewList.js this.props = ', this.props);
 
     // production
     return this.props.reviews.map((review, index) => {

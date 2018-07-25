@@ -2,7 +2,6 @@
 // This Action Creator is used in /actions/index.js "signin".
 export const SET_REVIEWS_ON_SIGNIN = 'SET_REVIEWS_ON_SIGNIN';
 export const setReviewsOnSignin = (reviews) => {
-  console.log('action_reviews.js setReviewsOnSignin reviews = ', reviews);
   return {
     type: SET_REVIEWS_ON_SIGNIN,
     reviews
@@ -23,29 +22,28 @@ export const createReview = ( formData, callback ) => dispatch => {
     },
     body: JSON.stringify(formData)
   })
-    .then(res => {
-      // // This version of code generates error === "Unauthorized"
-      // // res.statusText === "Unauthorized" What generates this text?
-      // if (!res.ok) {
-      //   return Promise.reject(res.statusText);
-      // }
-      // This version of code generates custom error message.
-      if (!res.ok) {
-        const customErrorMessage = 'Invalid Email or Password';
-        return Promise.reject(customErrorMessage)
-      }
-      return res.json();
-    }).then(response => {
-    // get token from response, place in localstorage or keep token in Redux?
-    console.log('action_modal.js createReview response = ', response);
+  .then(res => {
+    // // This version of code generates error === "Unauthorized"
+    // // res.statusText === "Unauthorized" What generates this text?
+    // if (!res.ok) {
+    //   return Promise.reject(res.statusText);
+    // }
+    // This version of code generates custom error message.
+    if (!res.ok) {
+      const customErrorMessage = 'Invalid Email or Password';
+      return Promise.reject(customErrorMessage)
+    }
+    return res.json();
+  })
+  .then(response => {
 
-    // TODO - add the returned review, and visitedLocation to Redux.
+    // TODO - When a review is successfully saved, do what?
     dispatch(createReviewSuccess());
 
     // redirect to protected resource.
     callback();
-
-  }).catch(err => {
+  })
+  .catch(err => {
     dispatch(createReviewError(err));
   });
 };
@@ -55,7 +53,6 @@ export const fetchCreateReviewRequest = () => ({
   type: FETCH_CREATE_REVIEW_REQUEST,
 });
 
-// TODO - finish
 export const CREATE_REVIEW_SUCCESS = 'CREATE_REVIEW_SUCCESS';
 export const createReviewSuccess = () => ({
   type: CREATE_REVIEW_SUCCESS,
