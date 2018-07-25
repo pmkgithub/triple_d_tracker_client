@@ -175,12 +175,12 @@ export default (state=initialState, action) => {
         filteredListLocations: []
       }
 
-    // TODO - ask Ray displayedMapLocations: [...state.cachedLocations]
+    // TODO - ask Ray displayedMapLocations: [...state.cachedLocations], should be state.cached
     case CREATE_US_LOCATIONS_UI_LIST:
       return {
         ...state,
-        displayedMapLocations: [...state.cachedLocations],
-        filteredListLocations: [...state.cachedLocations],
+        displayedMapLocations: state.cachedLocations,
+        filteredListLocations: state.cachedLocations,
         mapCenterLat: mapConfig.US.lat,
         mapCenterLon: mapConfig.US.lon,
         mapZoom: mapConfig.US.zoom,
