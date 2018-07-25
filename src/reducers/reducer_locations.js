@@ -17,50 +17,58 @@ import stateNameToAbbr from '../configs/stateNameToAbbrConfig';
 const initialState = {
   locationsBeenFetched: false,
   cachedLocations: [],
-  // This visitedLocations for DEV b/c otherwise, each time app reloads,
-  // I must "signin" a User to populate this field.
-  // visitedLocations: ['5b3cfa5f8b3c33973279e8c1','5b3cfa5f8b3c33973279e8b6', '5b3cfa5f8b3c33973279e8a2'],
-  // below for PRODUCTION...
-  // visitedLocations: [],
-  reviews: [{
-    // "_id" : ObjectId("5b5794adac0149234d4ad6e6"),
-    "locationId" : "5b3cfa5f8b3c33973279e839",
-    "date" : "2018-07-01",
-    "review" : "Sweet Stuff"
-  },
-    {
-      // "_id" : ObjectId("5b5794cfac0149234d4ad6e7"),
-      "locationId" : "5b3cfa5f8b3c33973279e8c1",
-      "date" : "2018-07-02",
-      "review" : "This ain't Jimmy John's."
-    },
-    {
-      // "_id" : ObjectId("5b5794e2ac0149234d4ad6e8"),
-      "locationId" : "5b3cfa5f8b3c33973279e8b6",
-      "date" : "2018-07-03",
-      "review" : "Darn good BBQ!"
-    },
-    {
-      // "_id" : ObjectId("5b57951bac0149234d4ad6e9"),
-      "locationId" : "5b3cfa5f8b3c33973279e7c1",
-      "date" : "2018-07-16",
-      "review" : "Zema?  Wasn't that a really bad drink form the 90's?"
-    }],
-  locationId: '',  // locationId of clicked Map Marker.
   displayedMapLocations: [],
   filteredListLocations: [],
+  locationId: '',  // locationId of clicked Map Marker.
   // default value set to US.
   uiListRecenterCoords: {
     lat: 37,
     lon: -96.5795,
     zoom: 4.1
   },
-  // default values set to US lat, lon, zoom.
   mapCenterLat: mapConfig.US.lat,
   mapCenterLon: mapConfig.US.lon,
   mapZoom: mapConfig.US.zoom,
   isFetching: false,
   err: ""
+  // reviews: [
+  //   {
+  //     // "_id" : ObjectId("5b5794adac0149234d4ad6e6"),
+  //     "locationId" : "5b3cfa5f8b3c33973279e839",
+  //     "date" : "2018-07-01",
+  //     "review" : "Sweet Stuff"
+  //   },
+  //   {
+  //     // "_id" : ObjectId("5b5794cfac0149234d4ad6e7"),
+  //     "locationId" : "5b3cfa5f8b3c33973279e8c1",
+  //     "date" : "2018-07-02",
+  //     "review" : "This ain't Jimmy John's."
+  //   },
+  //   {
+  //     // "_id" : ObjectId("5b5794e2ac0149234d4ad6e8"),
+  //     "locationId" : "5b3cfa5f8b3c33973279e8b6",
+  //     "date" : "2018-07-03",
+  //     "review" : "Darn good BBQ!"
+  //   },
+  //   {
+  //     // "_id" : ObjectId("5b57951bac0149234d4ad6e9"),
+  //     "locationId" : "5b3cfa5f8b3c33973279e7c1",
+  //     "date" : "2018-07-16",
+  //     "review" : "Zema?  Wasn't that a really bad drink form the 90's?"
+  //   },
+  //   {
+  //     // "_id" : ObjectId("5b57c49992535b2361b7b2e0"),
+  //     "locationId" : "5b3cfa5f8b3c33973279e7b9",
+  //     "date" : "2018-07-01",
+  //     "review" : "Elfs's Den review"
+  //   },
+  //   {
+  //     // "_id" : ObjectId("5b57d33bacf989053f4b5da1"),
+  //     "locationId" : "5b3cfa5f8b3c33973279e96a",
+  //     "date" : "2018-07-01",
+  //     "review" : "yummy"
+  //   }
+  // ]
 };
 
 export default (state=initialState, action) => {
@@ -114,12 +122,6 @@ export default (state=initialState, action) => {
         return location;
       });
 
-      // Ray's refact
-      // fetchedLocations.map(location => {
-      //   action.reviews.includes(location._id);
-      //
-      // });
-
       return {
         ...state,
         locationsBeenFetched: true,
@@ -171,8 +173,9 @@ export default (state=initialState, action) => {
         mapZoom: mapConfig.US.zoom,
         displayedMapLocations: [],
         filteredListLocations: []
-      };
+      }
 
+    // TODO - ask Ray displayedMapLocations: [...state.cachedLocations]
     case CREATE_US_LOCATIONS_UI_LIST:
       return {
         ...state,
@@ -182,6 +185,15 @@ export default (state=initialState, action) => {
         mapCenterLon: mapConfig.US.lon,
         mapZoom: mapConfig.US.zoom,
       };
+    // case CREATE_US_LOCATIONS_UI_LIST:
+    //   return {
+    //     ...state,
+    //     displayedMapLocations: ...state.cachedLocations,
+    //     filteredListLocations: ...state.cachedLocations,
+    //     mapCenterLat: mapConfig.US.lat,
+    //     mapCenterLon: mapConfig.US.lon,
+    //     mapZoom: mapConfig.US.zoom,
+    //   };
 
     case CREATE_STATE_LOCATIONS_UI_LIST:
 
@@ -191,6 +203,7 @@ export default (state=initialState, action) => {
         return location.state === usStateAbbr;
       });
 
+      // TODO - ask Ray displayedMapLocations: [...locations],
       return {
         ...state,
         displayedMapLocations: [...locations],
@@ -206,7 +219,7 @@ export default (state=initialState, action) => {
           return (location.name === action.singleLocationData.name)
         }
       );
-
+      // TODO - ask Ray displayedMapLocations: [location],
       return {
         ...state,
         displayedMapLocations: [location],
@@ -215,6 +228,7 @@ export default (state=initialState, action) => {
         mapZoom: action.singleLocationData.zoom,
       };
 
+    // TODO - ask Ray displayedMapLocations: [...state.filteredListLocations],
     case MAP_ALL_LOCATIONS_FROM_UI_LIST:
       return {
         ...state,

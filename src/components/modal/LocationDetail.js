@@ -59,8 +59,9 @@ class LocationDetail extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    modal: state.modal,
     mapData: state.mapData,
-    modal: state.modal
+    reviews: state.reviews
   };
 };
 

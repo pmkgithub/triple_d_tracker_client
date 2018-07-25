@@ -5,8 +5,9 @@ import {
   SET_REVIEWS_ON_SIGNIN
 } from '../actions/action_reviews';
 
+// TODO - ask Ray about this structure
 const initialState = {
-  reviews: [{foo: 'bar'}],
+  reviews: [],
   createReviewErrorMessage: '',
 };
 
@@ -18,7 +19,7 @@ export default (state=initialState, action) => {
       console.log('SET_REVIEWS_ON_SIGNIN action , ', action);
       return {
         ...state,
-        reviews: [...action.reviews]
+        reviews: action.reviews
       };
 
     case FETCH_CREATE_REVIEW_REQUEST:
