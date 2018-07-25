@@ -31,44 +31,6 @@ const initialState = {
   mapZoom: mapConfig.US.zoom,
   isFetching: false,
   err: ""
-  // reviews: [
-  //   {
-  //     // "_id" : ObjectId("5b5794adac0149234d4ad6e6"),
-  //     "locationId" : "5b3cfa5f8b3c33973279e839",
-  //     "date" : "2018-07-01",
-  //     "review" : "Sweet Stuff"
-  //   },
-  //   {
-  //     // "_id" : ObjectId("5b5794cfac0149234d4ad6e7"),
-  //     "locationId" : "5b3cfa5f8b3c33973279e8c1",
-  //     "date" : "2018-07-02",
-  //     "review" : "This ain't Jimmy John's."
-  //   },
-  //   {
-  //     // "_id" : ObjectId("5b5794e2ac0149234d4ad6e8"),
-  //     "locationId" : "5b3cfa5f8b3c33973279e8b6",
-  //     "date" : "2018-07-03",
-  //     "review" : "Darn good BBQ!"
-  //   },
-  //   {
-  //     // "_id" : ObjectId("5b57951bac0149234d4ad6e9"),
-  //     "locationId" : "5b3cfa5f8b3c33973279e7c1",
-  //     "date" : "2018-07-16",
-  //     "review" : "Zema?  Wasn't that a really bad drink form the 90's?"
-  //   },
-  //   {
-  //     // "_id" : ObjectId("5b57c49992535b2361b7b2e0"),
-  //     "locationId" : "5b3cfa5f8b3c33973279e7b9",
-  //     "date" : "2018-07-01",
-  //     "review" : "Elfs's Den review"
-  //   },
-  //   {
-  //     // "_id" : ObjectId("5b57d33bacf989053f4b5da1"),
-  //     "locationId" : "5b3cfa5f8b3c33973279e96a",
-  //     "date" : "2018-07-01",
-  //     "review" : "yummy"
-  //   }
-  // ]
 };
 
 export default (state=initialState, action) => {
@@ -97,16 +59,6 @@ export default (state=initialState, action) => {
       // process fetched locations and set the "location.visited" to "true",
       // when a location's id is in the state.visitedLocations array.
 
-      // // orig code - dont change
-      // const fetchedLocations = action.locations;
-      // const processedLocations = fetchedLocations.map((location) => {
-      //   if (state.visitedLocations.indexOf(location._id) >= 0) {
-      //     location.visited = true;
-      //   }
-      //   return location;
-      // });
-
-      // refact
       console.log('FETCH_LOCATIONS_SUCCESS action = ', action);
       const fetchedLocations = action.locations;
 
@@ -139,13 +91,6 @@ export default (state=initialState, action) => {
         err: action.err
       };
 
-    // case SET_VISITED_LOCATIONS_REVIEWS_ON_SIGNIN:
-    //   return {
-    //     ...state,
-    //     visitedLocations: action.visitedLocations,
-    //     reviews: action.reviews
-    //   };
-
     case SET_LAT_LON_ZOOM_FOR_UI_LIST:
       return {
         ...state,
@@ -173,7 +118,7 @@ export default (state=initialState, action) => {
         mapZoom: mapConfig.US.zoom,
         displayedMapLocations: [],
         filteredListLocations: []
-      }
+      };
 
     // TODO - ask Ray displayedMapLocations: [...state.cachedLocations], should be state.cached
     case CREATE_US_LOCATIONS_UI_LIST:
@@ -185,15 +130,6 @@ export default (state=initialState, action) => {
         mapCenterLon: mapConfig.US.lon,
         mapZoom: mapConfig.US.zoom,
       };
-    // case CREATE_US_LOCATIONS_UI_LIST:
-    //   return {
-    //     ...state,
-    //     displayedMapLocations: ...state.cachedLocations,
-    //     filteredListLocations: ...state.cachedLocations,
-    //     mapCenterLat: mapConfig.US.lat,
-    //     mapCenterLon: mapConfig.US.lon,
-    //     mapZoom: mapConfig.US.zoom,
-    //   };
 
     case CREATE_STATE_LOCATIONS_UI_LIST:
 
@@ -203,11 +139,10 @@ export default (state=initialState, action) => {
         return location.state === usStateAbbr;
       });
 
-      // TODO - ask Ray displayedMapLocations: [...locations],
       return {
         ...state,
-        displayedMapLocations: [...locations],
-        filteredListLocations: [...locations],
+        displayedMapLocations: locations,
+        filteredListLocations: locations,
         mapCenterLat: mapConfig[usStateAbbr].lat,
         mapCenterLon: mapConfig[usStateAbbr].lon,
         mapZoom: mapConfig[usStateAbbr].zoom,
@@ -219,6 +154,8 @@ export default (state=initialState, action) => {
           return (location.name === action.singleLocationData.name)
         }
       );
+      console.log('MAP_SINGLE_LOCATIONS_FROM_UI_LIST location = ', location);
+
       // TODO - ask Ray displayedMapLocations: [location],
       return {
         ...state,
@@ -228,14 +165,13 @@ export default (state=initialState, action) => {
         mapZoom: action.singleLocationData.zoom,
       };
 
-    // TODO - ask Ray displayedMapLocations: [...state.filteredListLocations],
     case MAP_ALL_LOCATIONS_FROM_UI_LIST:
       return {
         ...state,
         mapCenterLat: action.uiListRecenterCoords.lat,
         mapCenterLon: action.uiListRecenterCoords.lon,
         mapZoom: action.uiListRecenterCoords.zoom,
-        displayedMapLocations: [...state.filteredListLocations],
+        displayedMapLocations: state.filteredListLocations,
       };
 
     // When User clicks a Map Maker, store the Location Id in Redux.
