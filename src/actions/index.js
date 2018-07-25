@@ -103,7 +103,9 @@ export const signin = ( formProps, callback ) => dispatch => {
 // TODO - refact a new action, reducer for signout.
 // TODO - on signout - empty all Redux location fields: cachedLocations, visitedLocations, reviews, displayedMapLocations, filteredListLocations etc.
 export const signout = () => {
-  localStorage.removeItem('token');
+  // localStorage.removeItem('token');
+  localStorage.clear();
+  window.location = '/';
   return {
     type: AUTH_USER,
     token: ''
