@@ -40,6 +40,7 @@ class Signin extends Component {
 
   // Arrow Function allows us not to need binding this.
   onSubmit = (formProps) => {
+    // console.log('formProps = ', formProps);
     this.props.signin(formProps, () => {
       this.props.history.push('/feature');
     });
@@ -59,8 +60,8 @@ class Signin extends Component {
             <Field
               label="Email"
               labelClassName="signin-label"
-              labelHtmlFor="signin-email"
 
+              labelHtmlFor="signin-email"
               id="signin-email"
               className="signin-email-input"
               name="email"
@@ -73,8 +74,8 @@ class Signin extends Component {
             <Field
               label="Password"
               labelClassName="signin-label"
-              labelHtmlFor="signin-password"
 
+              labelHtmlFor="signin-password"
               id="signin-password"
               className="signin-password-input"
               name="password"
@@ -95,7 +96,7 @@ class Signin extends Component {
 }
 
 const validate = (values) => {
-
+  // console.log('values = ', values);
   const errors = {};
 
   // Validate the inputs from "values".

@@ -4,7 +4,9 @@ const ROOT_URL = 'http://localhost:8080/api';
 // fetchLocations - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
 
-export const fetchLocations = () => dispatch => {
+export const fetchLocations = (reviews) => dispatch => {
+
+  console.log('action_locations.js fetchLocations reviews', reviews);
 
   dispatch(fetchLocationsRequest);
 
@@ -21,7 +23,7 @@ export const fetchLocations = () => dispatch => {
       return res.json();
     })
     .then(locations => {
-      dispatch(fetchLocationsSuccess(locations))
+      dispatch(fetchLocationsSuccess(locations, reviews))
     })
     .catch(err => {
       dispatch(fetchLocationsError(err))
@@ -35,10 +37,11 @@ export const fetchLocationsRequest = () => ({
 });
 
 export const FETCH_LOCATIONS_SUCCESS = 'FETCH_LOCATIONS_SUCCESS';
-export const fetchLocationsSuccess = (locations) => {
+export const fetchLocationsSuccess = (locations, reviews) => {
   return {
     type: FETCH_LOCATIONS_SUCCESS,
-    locations
+    locations,
+    reviews
   }
 };
 
@@ -57,14 +60,6 @@ export const fetchLocationsError = (err) => {
 ///////////////////////////////////////////////////////////////////////////////
 // other - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
-
-// On sign-in, API sends User Schema's visitedLocations array to Client.
-// This Action Creator is imported into /actions/index.js file.
-export const SET_VISITED_LOCATIONS_ON_SIGNIN = 'SET_VISITED_LOCATIONS_ON_SIGNIN';
-export const setVisitedLocationsOnSignin = (visitedLocations) => ({
-  type: SET_VISITED_LOCATIONS_ON_SIGNIN,
-  visitedLocations
-});
 
 // SET_LAT_LON_ZOOM_FOR_UI_LIST pertains to re-centering map when "Map All Listed Locations" button clicked.
 // This Action Creator called when:
@@ -126,6 +121,16 @@ export const createStateLocationsList = (stateName) => {
   return {
     type: CREATE_STATE_LOCATIONS_UI_LIST,
     stateName
+  }
+};
+
+// When User clicks a Map Maker, store the Location Id.
+// Location Id needed when User creates a Review.
+export const SET_LOCATION_ID = 'SET_LOCATION_ID';
+export const setLocationId = (locationId) => {
+  return {
+    type: SET_LOCATION_ID,
+    locationId
   }
 };
 ///////////////////////////////////////////////////////////////////////////////

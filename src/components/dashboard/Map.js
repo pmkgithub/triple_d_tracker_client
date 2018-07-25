@@ -3,18 +3,16 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 // import { MAP } from 'react-google-maps/lib/constants';
-// import Modal from 'react-modal';
-import LocationModal from './Modal';
 import {
   fetchLocations,
-  setMapLatLonCenter
+  setMapLatLonCenter,
+  setLocationId
 } from "../../actions/action_locations";
 import {
-  setIsModalOpen,
-  setLocationId
+  setIsModalOpen
 } from '../../actions/action_modal';
 import "./map.css";
-// import "./modal.css";
+
 
 class Map extends Component {
 
@@ -24,22 +22,15 @@ class Map extends Component {
       map: null,
       isInfoWindowOpen: false,
       markerId: null,
-      // isModalOpen: false,
-      // locationId: ''
     };
-
-    // this.openModal = this.openModal.bind(this);
-    // this.afterOpenModal = this.afterOpenModal.bind(this);
-    // this.closeModal = this.closeModal.bind(this);
-    // this.handleOnTabNavClick = this.handleOnTabNavClick.bind(this);
   }
 
   componentDidMount() {
     if (!this.props.mapData.locationsBeenFetched) {
-      this.props.fetchLocations();
+      console.log('Map.js componentDidMount this.props = ', this.props);
+      // pass the REVIEWS array to be processed during fetchLocationSuccess.
+      this.props.fetchLocations(this.props.reviews);
     }
-    // initialize isModalOpen here?
-    // this.setState({isModalOpen: false})
   }
 
   onMapLoad(map) {
@@ -71,13 +62,9 @@ class Map extends Component {
   // markers - BEGIN
   handleOnClickMarker(markerObj, locationId) {
     //NOTE: markerObj supplied as first arg by react-google-maps.
-    console.log('open detail modal with this id', locationId);
-    // // old
-    // this.setState({locationId});
-    // this.openModal();
-    // refact
+    // console.log('Clicked Marker location id', locationId);
     this.props.setIsModalOpen(true);
-    this.props.setLocationId(locationId)
+    this.props.setLocationId(locationId);
   }
 
   mouseOverMarker(markerObj, markerId) {
@@ -106,12 +93,12 @@ class Map extends Component {
       const redMarker = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
       const greenMarker = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
 
-
       if (location.outOfBusiness === false && location.visited === false) {
         iconUrl = blueMarker;
       }
 
       if (location.outOfBusiness === false && location.visited === true ) {
+        console.log('location.outOfBusiness === false && location.visited === true');
         iconUrl = greenMarker;
       }
 
@@ -140,76 +127,6 @@ class Map extends Component {
   }
   // markers - END
 
-  // // Modal - BEGIN
-  //
-  // openModal() {
-  //   this.setState({ isModalOpen: true});
-  // }
-  //
-  // afterOpenModal() {
-  //   // this.subtitle.style.color = '#f00';
-  //   // this.red.style.color = '#f00';
-  //   // this.green.style.color = '#f00';
-  // }
-  //
-  // closeModal() {
-  //   this.setState({isModalOpen: false});
-  // }
-  //
-  // handleOnTabNavClick(e) {
-  //   e.preventDefault();
-  //   console.log('handleOnTabNavClick ran');
-  // }
-
-  // renderModal() {
-  //   const location = this.props.mapData.cachedLocations.find((location) => {
-  //     return location._id === this.state.locationId;
-  //   });
-  //   console.log('location = ', location);
-  //   console.log('location.outOfBusiness = ', location.outOfBusiness);
-  //
-  //   return (
-  //     <Modal
-  //       isOpen={this.state.isModalOpen}
-  //       onAfterOpen={this.afterOpenModal}
-  //       //onRequestClose={this.closeModal} // closes modal when click outside modal.
-  //       //style={customStyles}
-  //       overlayClassName="overlay"
-  //       className="modal"
-  //       ariaHideApp={false} // disables aria
-  //       // contentLabel="Example Modal" // for aria.
-  //     >
-  //       <div className="modal_button_close" onClick={this.closeModal}>X</div>
-  //       {/*<h2 ref={red => this.red = red}>{location.outOfBusiness ?  location.name + ' (CLOSED)': location.name}</h2>*/}
-  //       {/*<h2 className="modal_location_name">{location.outOfBusiness ?  location.name + ' (CLOSED)': location.name}</h2>*/}
-  //
-  //       <div className="modal_location_detail_wrapper">
-  //         {location.outOfBusiness ? <h2 className="modal_location_name modal_location_out_biz">{location.name + ' (CLOSED)'}</h2>
-  //           : <h1 className="modal_location_name modal_location_in_biz">{location.name}</h1>}
-  //
-  //         <div className="modal_location_info-wrapper">
-  //           <div className="modal_location_addr">{location.addrFull}</div>
-  //           <div className="modal_location_phone">{location.phone === 'none' ? 'No Phone Number' : 'Phone: ' + location.phone}</div>
-  //           {location.url === 'none' ?
-  //             <div>No URL Available</div> :
-  //             <a
-  //               className="modal_location_url"
-  //               href={'//' + location.url}
-  //               target="_blank"
-  //             >{location.url}</a>
-  //           }
-  //         </div>
-  //         <div className="modal_about_wrapper">
-  //           <h3 className="modal_location_about">About:</h3>
-  //           <p>{location.about}</p>
-  //         </div>
-  //         <div className="modal_add_review_button">Add Review</div>
-  //       </div>
-  //     </Modal>
-  //     )
-  // }
-  // // Modal - END
-
   // Component's render()
   render() {
     return (
@@ -224,17 +141,16 @@ class Map extends Component {
         >
           {this.props.isMarkerShown && <div>{this.renderMarkers()}</div>}
         </GoogleMap>
-        {/*{this.state.isModalOpen &&  <div>{this.renderModal()}</div>}*/}
-        <LocationModal />
       </div>
-
-
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  return { mapData: state.mapData };
+  return {
+    mapData: state.mapData,
+    reviews: state.reviews.reviews
+  };
 };
 
 // export without redux compose.

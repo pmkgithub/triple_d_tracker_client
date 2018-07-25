@@ -1,10 +1,12 @@
-import { setVisitedLocationsOnSignin } from './action_locations';
+import { setReviewsOnSignin } from './action_reviews';
 /////////////////////////////////////////////////////////////////////////
 // fetch logic - BEGIN
 /////////////////////////////////////////////////////////////////////////
 const ROOT_URL = 'http://localhost:8080/api';
 
+/////////////////////////////////////////////////////////////////////////
 // signup - fetch syntax - BEGIN
+/////////////////////////////////////////////////////////////////////////
 export const signup = ( formProps, callback ) => dispatch => {
   dispatch(fetchSignupSigninRequest());
   fetch(`${ROOT_URL}/signup`, {
@@ -31,8 +33,9 @@ export const signup = ( formProps, callback ) => dispatch => {
     }).then(response => {
     // get token from response, place in localstorage.
     const token = response.token;
+    const userId = response.userId;
     localStorage.setItem("token", token);
-    dispatch(authUser(token));
+    dispatch(authUser(token, userId));
 
     // redirect to protected resource.
     callback();
@@ -41,9 +44,13 @@ export const signup = ( formProps, callback ) => dispatch => {
     dispatch(authError(err));
   });
 };
+/////////////////////////////////////////////////////////////////////////
 // signup - fetch syntax - END
+/////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////
 // signin - fetch syntax - BEGIN
+/////////////////////////////////////////////////////////////////////////
 export const signin = ( formProps, callback ) => dispatch => {
   dispatch(fetchSignupSigninRequest());
   fetch(`${ROOT_URL}/signin`, {
@@ -66,17 +73,18 @@ export const signin = ( formProps, callback ) => dispatch => {
       }
       return res.json();
     }).then(response => {
-    console.log('index.js Action Creator signin response', response);
-    // get token from response, place in localstorage.
+    // get token from response, place in localstorage or keep token in Redux?
     const token = response.token;
-    const visitedLocations = response.visitedLocations;
+    const userId = response.userId;
+    const reviews = response.reviews;
+    console.log('signin token = ', token);
+    console.log('signin userId = ', userId);
+    console.log('signin reviews = ', reviews);
 
     // Place token in localStorage.  Later, token is placed into Redux in /reducers/reducer_auth.js.
     localStorage.setItem("token", token);
-
-    dispatch(authUser({token}));
-    // Action Creator setVisitedLocationsOnSignin imported from actions_locations.js.
-    dispatch(setVisitedLocationsOnSignin({visitedLocations:visitedLocations}));
+    dispatch(authUser(token, userId));
+    dispatch(setReviewsOnSignin(reviews));
 
     // redirect to protected resource.
     callback();
@@ -85,31 +93,42 @@ export const signin = ( formProps, callback ) => dispatch => {
     dispatch(authError(err));
   });
 };
+/////////////////////////////////////////////////////////////////////////
 // signin - fetch syntax - END
+/////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////
 // signout - fetch syntax - BEGIN
+/////////////////////////////////////////////////////////////////////////
+// TODO - refact a new action, reducer for signout.
+// TODO - on signout - empty all Redux location fields: cachedLocations, visitedLocations, reviews, displayedMapLocations, filteredListLocations etc.
 export const signout = () => {
-  localStorage.removeItem('token');
-
+  // localStorage.removeItem('token');
+  localStorage.clear();
+  window.location = '/';
   return {
     type: AUTH_USER,
     token: ''
   }
-
 };
+/////////////////////////////////////////////////////////////////////////
 // signout - fetch syntax - END
+/////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////
 // common Action Creators - fetch syntax - BEGIN
 // NOTE: These Action Creators are used by signup, signin, and signout.
+//////////////////////////////////////////////////////////////////////////
 export const FETCH_SIGNUP_SIGNIN_REQUEST = 'FETCH_SIGNUP_SIGNIN_REQUEST';
 export const fetchSignupSigninRequest = () => ({
   type: FETCH_SIGNUP_SIGNIN_REQUEST,
 });
 
 export const AUTH_USER = 'AUTH_USER';
-export const authUser = (token) => ({
+export const authUser = (token, userId) => ({
   type: AUTH_USER,
-  token: token
+  token: token,
+  userId: userId
 });
 
 export const AUTH_ERROR = 'AUTH_ERROR';
@@ -117,7 +136,10 @@ export const authError = (err) => ({
   type: AUTH_ERROR,
   err
 });
+//////////////////////////////////////////////////////////////////////////
 // common Action Creators - fetch syntax - END
+/////////////////////////////////////////////////////////////////////////
+
 /////////////////////////////////////////////////////////////////////////
 // fetch logic - END
 /////////////////////////////////////////////////////////////////////////

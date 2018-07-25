@@ -26,7 +26,7 @@ class Header extends Component {
   render() {
     return (
       <div className="header">
-        <Link to="/" component="">Auth App</Link>
+        <Link to="/" component="">Dashboard</Link>
         {this.renderLinks()}
       </div>
     );
