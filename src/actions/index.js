@@ -1,4 +1,4 @@
-import { setVisitedLocationsReviewsOnSignin } from './action_locations';
+import { setReviewsOnSignin } from './action_reviews';
 /////////////////////////////////////////////////////////////////////////
 // fetch logic - BEGIN
 /////////////////////////////////////////////////////////////////////////
@@ -76,16 +76,15 @@ export const signin = ( formProps, callback ) => dispatch => {
     // get token from response, place in localstorage or keep token in Redux?
     const token = response.token;
     const userId = response.userId;
-    const visitedLocations = response.visitedLocations;
     const reviews = response.reviews;
+    console.log('signin token = ', token);
+    console.log('signin userId = ', userId);
+    console.log('signin reviews = ', reviews);
 
     // Place token in localStorage.  Later, token is placed into Redux in /reducers/reducer_auth.js.
     localStorage.setItem("token", token);
     dispatch(authUser(token, userId));
-    dispatch(setVisitedLocationsReviewsOnSignin({
-      visitedLocations: visitedLocations,
-      reviews: reviews
-    }));
+    dispatch(setReviewsOnSignin(reviews));
 
     // redirect to protected resource.
     callback();

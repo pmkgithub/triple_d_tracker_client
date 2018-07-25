@@ -1,17 +1,17 @@
 import {
   SET_IS_MODAL_OPEN,
   SET_MODAL_VIEW,
-  FETCH_CREATE_REVIEW_REQUEST,
-  CREATE_REVIEW_ERROR,
-  CREATE_REVIEW_SUCCESS,
+  // FETCH_CREATE_REVIEW_REQUEST,
+  // CREATE_REVIEW_ERROR,
+  // CREATE_REVIEW_SUCCESS,
 } from '../actions/action_modal';
 
 const initialState = {
   isModalOpen: false,
   modalView: 'location_detail',
-  locationId: '',
+  // locationId: '',
   isFetching: false,
-  createReviewErrorMessage: '',
+  // createReviewErrorMessage: '',
 };
 
 export default (state=initialState, action) => {
@@ -31,25 +31,26 @@ export default (state=initialState, action) => {
         modalView: action.modalView
       };
 
-    case FETCH_CREATE_REVIEW_REQUEST:
-      console.log('FETCH_CREATE_REVIEW_REQUEST action = ', action);
-      return {...state, isFetching: true };
+      // TODO - delete after posting review logic working.
+    // case FETCH_CREATE_REVIEW_REQUEST:
+    //   console.log('FETCH_CREATE_REVIEW_REQUEST action = ', action);
+    //   return {...state, isFetching: true };
 
-    // TODO - add the returned review, and visitedLocation to Redux.
-    case CREATE_REVIEW_SUCCESS:
-      console.log('CREATE_REVIEW_SUCCESS action = ', action);
-      return {
-        ...state,
+    // // TODO - add the returned review, and visitedLocation to Redux.
+    // case CREATE_REVIEW_SUCCESS:
+    //   console.log('CREATE_REVIEW_SUCCESS action = ', action);
+    //   return {
+    //     ...state,
+    //
+    //   };
 
-      };
-
-    case CREATE_REVIEW_ERROR:
-      console.log('CREATE_REVIEW_ERROR action = ', action);
-      return {
-        ...state,
-        createReviewErrorMessage: action.err,
-        isFetching: false
-      };
+    // case CREATE_REVIEW_ERROR:
+    //   console.log('CREATE_REVIEW_ERROR action = ', action);
+    //   return {
+    //     ...state,
+    //     createReviewErrorMessage: action.err,
+    //     isFetching: false
+    //   };
 
     default:
       return state;

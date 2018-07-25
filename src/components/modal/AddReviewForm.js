@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   setModalView,
-  createReview
 } from '../../actions/action_modal';
+import {
+  createReview
+} from '../../actions/action_reviews';
 
 class AddReviewForm extends Component {
 

@@ -2,7 +2,6 @@ import {
   FETCH_LOCATIONS_REQUEST,
   FETCH_LOCATIONS_SUCCESS,
   FETCH_LOCATIONS_ERROR,
-  SET_VISITED_LOCATIONS_REVIEWS_ON_SIGNIN,
   SET_LAT_LON_ZOOM_FOR_UI_LIST,
   SET_MAP_LAT_LON_CENTER,
   MAP_SINGLE_LOCATIONS_FROM_UI_LIST,
@@ -20,7 +19,7 @@ const initialState = {
   cachedLocations: [],
   // This visitedLocations for DEV b/c otherwise, each time app reloads,
   // I must "signin" a User to populate this field.
-  visitedLocations: ['5b3cfa5f8b3c33973279e8c1','5b3cfa5f8b3c33973279e8b6', '5b3cfa5f8b3c33973279e8a2'],
+  // visitedLocations: ['5b3cfa5f8b3c33973279e8c1','5b3cfa5f8b3c33973279e8b6', '5b3cfa5f8b3c33973279e8a2'],
   // below for PRODUCTION...
   // visitedLocations: [],
   reviews: [{
@@ -100,17 +99,26 @@ export default (state=initialState, action) => {
       // });
 
       // refact
+      console.log('FETCH_LOCATIONS_SUCCESS action = ', action);
       const fetchedLocations = action.locations;
-      const visitedLocations = state.reviews.map(review => {
+
+      const visitedLocations = action.reviews.map(review => {
         return review.locationId;
       });
 
       const processedLocations = fetchedLocations.map((location) => {
         if (visitedLocations.indexOf(location._id) >= 0) {
           location.visited = true;
+          console.log('location match = ', location);
         }
         return location;
       });
+
+      // Ray's refact
+      // fetchedLocations.map(location => {
+      //   action.reviews.includes(location._id);
+      //
+      // });
 
       return {
         ...state,
@@ -129,12 +137,12 @@ export default (state=initialState, action) => {
         err: action.err
       };
 
-    case SET_VISITED_LOCATIONS_REVIEWS_ON_SIGNIN:
-      return {
-        ...state,
-        visitedLocations: action.visitedLocations,
-        reviews: action.reviews
-      };
+    // case SET_VISITED_LOCATIONS_REVIEWS_ON_SIGNIN:
+    //   return {
+    //     ...state,
+    //     visitedLocations: action.visitedLocations,
+    //     reviews: action.reviews
+    //   };
 
     case SET_LAT_LON_ZOOM_FOR_UI_LIST:
       return {
@@ -216,13 +224,12 @@ export default (state=initialState, action) => {
         displayedMapLocations: [...state.filteredListLocations],
       };
 
-    // When User clicks a Map Maker, store the Location Id.
+    // When User clicks a Map Maker, store the Location Id in Redux.
     // Location Id needed when User creates a Review.
     case SET_LOCATION_ID:
-      console.log('SET_LOCATION_ID');
       return {
         ...state,
-        locationId: action.locationId
+        locationId: action.locationId,
       };
 
     default:

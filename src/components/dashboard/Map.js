@@ -27,7 +27,9 @@ class Map extends Component {
 
   componentDidMount() {
     if (!this.props.mapData.locationsBeenFetched) {
-      this.props.fetchLocations();
+      console.log('Map.js componentDidMount this.props = ', this.props);
+      // pass the REVIEWS array to be processed during fetchLocationSuccess.
+      this.props.fetchLocations(this.props.reviews);
     }
   }
 
@@ -91,12 +93,12 @@ class Map extends Component {
       const redMarker = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
       const greenMarker = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
 
-
       if (location.outOfBusiness === false && location.visited === false) {
         iconUrl = blueMarker;
       }
 
       if (location.outOfBusiness === false && location.visited === true ) {
+        console.log('location.outOfBusiness === false && location.visited === true');
         iconUrl = greenMarker;
       }
 
@@ -145,7 +147,10 @@ class Map extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { mapData: state.mapData };
+  return {
+    mapData: state.mapData,
+    reviews: state.reviews.reviews
+  };
 };
 
 // export without redux compose.

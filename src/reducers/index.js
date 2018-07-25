@@ -4,13 +4,13 @@ import authReducer from './reducer_auth';
 import locationsReducer from './reducer_locations';
 import radioButtonReducer from './reducer_radio_button';
 import modalReducer from './reducer_modal';
-import reviewReducer from './reducer_review';
+import reviewsReducer from './reducer_reviews';
 
 export default combineReducers({
   auth: authReducer,
   mapData: locationsReducer,
   radioButton: radioButtonReducer,
   modal: modalReducer,
-  review: reviewReducer,
+  reviews: reviewsReducer,
   form: formReducer
 });
