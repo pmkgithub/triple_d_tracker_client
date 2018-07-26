@@ -1,36 +1,47 @@
 import {
-  CREATE_REVIEW_REQUEST,
-  CREATE_REVIEW_ERROR,
-  CREATE_REVIEW_SUCCESS,
   FETCH_REVIEWS_REQUEST,
   FETCH_REVIEWS_SUCCESS,
   FETCH_REVIEWS_ERROR,
+  CREATE_REVIEW_REQUEST,
+  CREATE_REVIEW_ERROR,
+  CREATE_REVIEW_SUCCESS,
+  DELETE_REVIEW_REQUEST,
+  DELETE_REVIEW_SUCCESS,
+  DELETE_REVIEW_ERROR,
   SET_REVIEWS,
-
 } from '../actions/action_reviews';
 
 const initialState = {
   isFetching: false,
   reviews: [],
+  fetchReviewsErrorMessage: '',
   createReviewErrorMessage: '',
-  fetchReviewsErrorMessage: ''
+  deleteReviewsErrorMessage: ''
 };
 
 export default (state=initialState, action) => {
 
   switch(action.type) {
 
-    case SET_REVIEWS:
-      console.log('SET_REVIEWS action , ', action);
+    case FETCH_REVIEWS_REQUEST:
+      return {...state, isFetching: true };
+
+    case FETCH_REVIEWS_SUCCESS:
       return {
         ...state,
-        reviews: action.reviews
+        isFetching: false
+      };
+
+    case FETCH_REVIEWS_ERROR:
+      return {
+        ...state,
+        fetchReviewsErrorMessage: action.err,
+        isFetching: false
       };
 
     case CREATE_REVIEW_REQUEST:
       return {...state, isFetching: true };
 
-    // TODO - When a review is successfully saved, do what?
     case CREATE_REVIEW_SUCCESS:
       return {
         ...state,
@@ -44,22 +55,26 @@ export default (state=initialState, action) => {
         isFetching: false
       };
 
-
-    case FETCH_REVIEWS_REQUEST:
+    case DELETE_REVIEW_REQUEST:
       return {...state, isFetching: true };
 
-    // TODO - When a reviews are successfully fetched, do what?
-    case FETCH_REVIEWS_SUCCESS:
+    case DELETE_REVIEW_SUCCESS:
       return {
         ...state,
         isFetching: false
       };
 
-    case FETCH_REVIEWS_ERROR:
+    case DELETE_REVIEW_ERROR:
       return {
         ...state,
-        fetchReviewsErrorMessage: action.err,
+        deleteReviewErrorMessage: action.err,
         isFetching: false
+      };
+
+    case SET_REVIEWS:
+      return {
+        ...state,
+        reviews: action.reviews
       };
 
     default:
