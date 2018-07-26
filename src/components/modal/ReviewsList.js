@@ -68,8 +68,9 @@ class ReviewList extends Component {
 
   render() {
 
+    // Add or remove review list border depending if reviews exist or not
+    // for this location.
     let reviewListClassName;
-    console.log('ReviewList.js render this.state.isReviewListEmpty', this.state.isReviewListEmpty);
     !this.state.isReviewListEmpty
       ? reviewListClassName = "review_list_wrapper"
       : reviewListClassName = "review_list_wrapper border_none";
