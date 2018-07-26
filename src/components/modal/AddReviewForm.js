@@ -6,7 +6,9 @@ import {
 import {
   createReview
 } from '../../actions/action_reviews';
-import "./add_review_form.css";
+import "../css/normalize_form.css";
+import "../css/common_button.css";
+import "./add_edit_review_form.css";
 
 class AddReviewForm extends Component {
 
@@ -77,7 +79,7 @@ class AddReviewForm extends Component {
               htmlFor="add__review_textarea"
             >Review:</label>
             <textarea
-              id="add_eview_textarea"
+              id="add_review_textarea"
               className="add_review_textarea"
               placeholder="Enter your review here."
               value={this.state.review}
