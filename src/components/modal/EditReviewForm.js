@@ -7,6 +7,8 @@ import {
   setReviewToEditId,
   fetchReviewToEdit,
   editReview,
+  // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
+  // hasEditReviewFormOpened,
 } from '../../actions/action_reviews';
 import "./edit_review_form.css";
 
@@ -22,12 +24,27 @@ class EditReviewForm extends Component {
 
   }
 
+  // Overview - first time this component render:
+  // 1) Fetch review to edit,
+  // 2) populate the edit review form with returned review data.
   componentDidMount() {
+
+    // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
+    // this.props.hasEditReviewFormOpened(true);
+
     const reviewToEditId = this.props.reviews.reviewToEditId;
-    console.log('EditReviewForm componentDidMount reviewToEditId = ', reviewToEditId);
-    this.props.fetchReviewToEdit(reviewToEditId, () => {
-      // redirect to Location Detail Modal view.
-    });
+
+    if (!this.props.reviews.reviewToEdit) {
+      // 1) fetchReviewToEdit() fetches review to edit,
+      // 2) on fetchReviewToEditSuccess, the reviewToEdit is set in Redux.
+      this.props.fetchReviewToEdit(reviewToEditId)
+          .then(() => {
+            // Populate EditReviewForm with "Review To Be Edited" data.
+            const {date, review} = this.props.reviews.reviewToEdit;
+            this.setState({date: date, review:review});
+
+          })
+    }
   }
 
   handleCancel(e) {
@@ -39,14 +56,14 @@ class EditReviewForm extends Component {
     e.preventDefault();
 
     const userId = this.props.auth.userId;
-    const reviewId = this.props.reviews.reviewId;
+    const reviewToEditId = this.props.reviews.reviewToEditId;
 
     const toUpdate = {
       date: this.state.date,
       review: this.state.review
     };
 
-    this.props.editReview(userId, reviewId, toUpdate, () => {
+    this.props.editReview(userId, reviewToEditId, toUpdate, () => {
       // redirect to Location Detail Modal view.
       this.props.setModalView('location_detail');
     });
@@ -58,17 +75,17 @@ class EditReviewForm extends Component {
   }
 
   onTextareaChange(e) {
-    // console.log(event.target.value);
     this.setState({review: e.target.value});
   }
 
   render() {
+
     return (
       <div
         className="edit_review_form_wrapper"
       >
         <h3>Edit Review</h3>
-        <form onSubmit={(e) => this.onFormSubmit(e)} className="input-group">
+        <form onSubmit={(e) => this.onFormSubmit(e)} className="edit_review_form">
           <fieldset>
             <label
               className="edit_review_date_visited_label"
@@ -128,4 +145,6 @@ export default connect(mapStateToProps,
     setReviewToEditId,
     fetchReviewToEdit,
     editReview,
+    // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
+    // hasEditReviewFormOpened,
   })(EditReviewForm);

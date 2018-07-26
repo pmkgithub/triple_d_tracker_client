@@ -57,7 +57,7 @@ class AddReviewForm extends Component {
         className="add_review_form_wrapper"
       >
         <h3>Add Review</h3>
-        <form onSubmit={(e) => this.onFormSubmit(e)} className="input-group">
+        <form onSubmit={(e) => this.onFormSubmit(e)} className="add_review_form">
           <fieldset>
             <label
               className="add_review_date_visited_label"

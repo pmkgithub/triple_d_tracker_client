@@ -17,9 +17,8 @@ class ReviewList extends Component {
   }
 
   handleEditButtonClick(reviewToEditId) {
-    // set the id of the review to edit, so <EditReviewForm/> has access
-    // to this id when it fetches the "review to edit".
-    console.log('handleEditButtonClick ran reviewToEditId', reviewToEditId);
+    // Set the id of the review to edit, so <EditReviewForm/> has access
+    // to this id when it fetches the "review to edit" from API.
     this.props.setReviewToEditId(reviewToEditId);
     this.props.setModalView('edit_review_form');
   }

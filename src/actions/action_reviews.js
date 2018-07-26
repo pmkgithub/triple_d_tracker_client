@@ -132,7 +132,6 @@ export const setReviewToEditId = (reviewToEditId) => {
   }
 };
 export const fetchReviewToEdit = (reviewToEditId) => dispatch => {
-  console.log('action_reviews.js reviewToEditId = ', reviewToEditId);
   const userId = localStorage.getItem("userId");
   dispatch(fetchReviewToEditRequest());
 
@@ -158,7 +157,6 @@ export const fetchReviewToEdit = (reviewToEditId) => dispatch => {
       return res.json();
     })
     .then(review => {
-      console.log('fetchReviewToEdit.js response = ', review);
       dispatch(fetchReviewToEditSuccess());        // resets isFetching to false.
       dispatch(setReivewToEdit(review));  // sets the fetched Review to Edit.
     })
@@ -198,14 +196,17 @@ export const setReivewToEdit = (reviewToEdit) => {
 ///////////////////////////////////////////////////////////////////////////////
 // EDIT Review - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
-export const editReview = ( userId, reviewId, toUpdate, callback ) => dispatch => {
+export const editReview = ( userId, reviewToEditId, toUpdate, callback ) => dispatch => {
+
   dispatch(editReviewRequest());
-  fetch(`${ROOT_URL}/reviews/delete/${userId}/${reviewId}`, {
+  fetch(`${ROOT_URL}/reviews/edit/${userId}/${reviewToEditId}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json",
       "authorization": localStorage.getItem('token')
-    }
+    },
+    body: JSON.stringify(toUpdate)
+
   })
     .then(res => {
       // // This version of code generates error === "Unauthorized"
@@ -321,6 +322,16 @@ export const setReviews = (reviews) => {
   }
 };
 
+// // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
+// // Controls re-populating EditReviewForm form the first time EditReviewForm
+// // has been opened.
+// export const HAS_EDIT_REVIEW_FORM_OPENED = 'HAS_EDIT_REVIEW_FORM_OPENED';
+// export const hasEditReviewFormOpened = (bool) => {
+//   return {
+//     type: HAS_EDIT_REVIEW_FORM_OPENED,
+//     bool
+//   }
+// };
 ///////////////////////////////////////////////////////////////////////////////
 // Other Action Creators - END
 ///////////////////////////////////////////////////////////////////////////////

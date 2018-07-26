@@ -20,19 +20,23 @@ import {
   DELETE_REVIEW_REQUEST,
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_ERROR,
+
   SET_REVIEWS,
+  // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
+  // HAS_EDIT_REVIEW_FORM_OPENED,
 } from '../actions/action_reviews';
 
 const initialState = {
   isFetching: false,
   reviews: [],
   reviewToEditId: '',
-  reviewToEdit: {},
+  reviewToEdit: '',
   fetchReviewsErrorMessage: '',
   fetchReviewToEditErrorMessage: '',
   createReviewErrorMessage: '',
   editReviewErrorMessage: '',
   deleteReviewsErrorMessage: '',
+  hasEditReviewFormOpened: false,
 };
 
 export default (state=initialState, action) => {
@@ -78,7 +82,6 @@ export default (state=initialState, action) => {
     // EDIT REVIEW - BEGIN
     // fetch review to edit - BEGIN
     case SET_REVIEW_TO_EDIT_ID:
-      console.log('reducer_reviews.js SET_REVIEW_TO_EDIT_ID action = ', action);
       return {
         ...state,
         reviewToEditId: action.reviewToEditId
@@ -100,7 +103,6 @@ export default (state=initialState, action) => {
       };
 
     case SET_REVIEW_TO_EDIT:
-      console.log('reducers_reviews.js SET_REVIEW_TO_EDIT action = ', action);
       return {
         ...state,
         reviewToEdit: action.reviewToEdit
@@ -150,6 +152,15 @@ export default (state=initialState, action) => {
         ...state,
         reviews: action.reviews
       };
+
+    //   // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
+    // // Controls re-populating EditReviewForm form the first time EditReviewForm
+    // // has been opened.
+    // case HAS_EDIT_REVIEW_FORM_OPENED:
+    //   return {
+    //     ...state,
+    //     hasEditReviewFormOpened: action.bool
+    //   };
 
     default:
       return state;
