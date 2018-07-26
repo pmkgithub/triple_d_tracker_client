@@ -13,9 +13,14 @@
 .location_out_biz {
   color: red;
 }
+
 .location_addr,
 .location_phone {
   color: black;
+  margin: 5px 0;
+}
+.location_url_wrapper {
+  margin: 5px 0;
 }
 .location_url {
   color: blue;

@@ -64,7 +64,6 @@
   vertical-align: middle;
   line-height: 30px;
 }
-
 .review_delete_button:hover,
 .review_edit_button:hover {
   cursor: pointer;

@@ -36,15 +36,17 @@ class LocationDetail extends Component {
 
         <div className="location_info_wrapper">
           <div className="location_addr">{location.addrFull}</div>
-          <div className="location_phone">{location.phone === 'none' ? 'No Phone Number' : 'Phone: ' + location.phone}</div>
-          {location.url === 'none' ?
-            <div>No URL Available</div> :
-            <a
-              className="location_url"
-              href={'//' + location.url}
-              target="_blank"
-            >{location.url}</a>
-          }
+          <div className="location_phone">{location.phone === 'none' ? 'Phone: No Phone Number Available' : 'Phone: ' + location.phone}</div>
+          <div className="location_url_wrapper">
+            {location.url === 'none' ?
+              <div>No Website Available</div> :
+              <a
+                className="location_url"
+                href={'//' + location.url}
+                target="_blank"
+              >{location.url}</a>
+            }
+          </div>
         </div>
         <div className="location_about_wrapper">
           <h3 className="location_about">About:</h3>
