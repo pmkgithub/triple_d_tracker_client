@@ -53,23 +53,23 @@ class AddReviewForm extends Component {
 
   render() {
     return (
-      <div
-        className="add_review_form_wrapper"
-      >
-        <h3>Add Review</h3>
+      <div className="add_review_form_wrapper">
+        <h2>Add Review</h2>
         <form onSubmit={(e) => this.onFormSubmit(e)} className="add_review_form">
           <fieldset>
             <label
-              className="add_review_date_visited_label"
-              htmlFor="add_review_date_visited_input"
+              className="add_review_date_label"
+              htmlFor="add_review_date_input"
             >Date Visited:</label>
             <input
-              id="add_review_date_visited_input"
-              className="add_review_date_visited_input"
+              id="add_review_date_input"
+              className="add_review_date_input"
               type="date"
               placeholder="Enter Date Visited"
               value={this.state.date}
-              onChange={(e) => this.onInputChange(e)}/>
+              onChange={(e) => this.onInputChange(e)}
+              required
+            />
           </fieldset>
           <fieldset>
             <label
@@ -82,6 +82,7 @@ class AddReviewForm extends Component {
               placeholder="Enter your review here."
               value={this.state.review}
               onChange={(e) => this.onTextareaChange(e)}
+              required
             >
           </textarea>
           </fieldset>
