@@ -5,6 +5,7 @@ import {
   deleteReview,
   setReviewToEditId
 } from '../../actions/action_reviews';
+import './review_list.css';
 
 class ReviewList extends Component {
 
@@ -36,17 +37,20 @@ class ReviewList extends Component {
             key={index}
             className="review_list_li"
           >
+            <div className="review_buttons_wrapper">
+              <span
+                className="review_delete_button"
+                onClick={() => this.handleDeleteButtonClick(review._id)}
+              >Delete</span>
+              <span
+                className="review_edit_button"
+                onClick={() => this.handleEditButtonClick(review._id)}
+              >Edit</span>
+            </div>
+
             <div className="review_date">Date Visited:<span>{review.date}</span></div>
-            <div className="review_review_header">Review:</div>
+            <div className="review_header">Review:</div>
             <div className="review_review">{review.review}</div>
-            <div
-              className="review_delete_button"
-              onClick={() => this.handleDeleteButtonClick(review._id)}
-            >Delete</div>
-            <div
-              className="review_edit_button"
-              onClick={() => this.handleEditButtonClick(review._id)}
-            >Edit</div>
           </li>
         )
       }
@@ -57,9 +61,11 @@ class ReviewList extends Component {
 
   render() {
     return (
-      <ul className="review_list_ul">
-        {this.renderList()}
-      </ul>
+      <div className="review_list_wrapper">
+        <ul className="review_list_ul">
+          {this.renderList()}
+        </ul>
+      </div>
     )
   }
 }

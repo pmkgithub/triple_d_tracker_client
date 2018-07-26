@@ -112,8 +112,8 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
   { setModalView,
-    createReview})
-(AddReviewForm);
+    createReview
+  })(AddReviewForm);
 
 ////////////////////////////////////////////////////////////////////
 // // REDUX-FORM inside a Modal - not working.
