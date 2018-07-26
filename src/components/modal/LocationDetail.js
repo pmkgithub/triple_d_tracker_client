@@ -22,6 +22,15 @@ class LocationDetail extends Component {
 
     return (
       <div className="location_detail_wrapper">
+        <div className="location_add_review_button_wrapper">
+          {location.outOfBusiness
+            ? <span></span>
+            : <span
+              className="location_add_review_button"
+              onClick={() => this.handleAddReview()}
+            >Add Review</span>
+          }
+        </div>
         {location.outOfBusiness ? <h2 className="location_name location_out_biz">{location.name + ' (CLOSED)'}</h2>
           : <h1 className="location_name location_in_biz">{location.name}</h1>}
 
@@ -40,15 +49,6 @@ class LocationDetail extends Component {
         <div className="location_about_wrapper">
           <h3 className="location_about">About:</h3>
           <p>{location.about}</p>
-        </div>
-        <div className="location_add_review_button_wrapper">
-          {location.outOfBusiness
-            ? <span></span>
-            : <span
-              className="location_add_review_button"
-              onClick={() => this.handleAddReview()}
-            >Add Review</span>
-          }
         </div>
       </div>
     )

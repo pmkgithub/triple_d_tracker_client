@@ -9,6 +9,14 @@ import './review_list.css';
 
 class ReviewList extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isReviewListEmpty: true
+    }
+  }
+
   handleDeleteButtonClick(reviewId) {
     const userId = this.props.auth.userId;
     this.props.deleteReview(userId, reviewId, () => {
@@ -28,7 +36,6 @@ class ReviewList extends Component {
     // get locationId of clicked Marker.
     const locationId = this.props.mapData.locationId;
 
-    // production
     return this.props.reviews.map((review, index) => {
 
       if (review.locationId === locationId) {
@@ -60,8 +67,15 @@ class ReviewList extends Component {
   }
 
   render() {
+
+    let reviewListClassName;
+    console.log('ReviewList.js render this.state.isReviewListEmpty', this.state.isReviewListEmpty);
+    !this.state.isReviewListEmpty
+      ? reviewListClassName = "review_list_wrapper"
+      : reviewListClassName = "review_list_wrapper border_none";
+
     return (
-      <div className="review_list_wrapper">
+      <div className={reviewListClassName}>
         <ul className="review_list_ul">
           {this.renderList()}
         </ul>

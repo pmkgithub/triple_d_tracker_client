@@ -5,7 +5,7 @@
   margin: 10px;
 }
 .location_name {
-  margin-top: 0;
+  margin-top: -30px;
 }
 .location_in_biz {
   color: black;
@@ -21,10 +21,14 @@
   color: blue;
 }
 .location_about_wrapper {
-  margin-bottom: 20px;
+
 }
 .location_about {
   margin-top: 30px;
+  margin-bottom: 0;
+}
+.location_about_wrapper p {
+  line-height: 1.6;
   margin-bottom: 10px;
 }
 /*.add_review_button {*/
