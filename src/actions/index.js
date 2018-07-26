@@ -78,7 +78,6 @@ export const signin = ( formProps, callback ) => dispatch => {
     // get token from response, place in localstorage or keep token in Redux?
     const token = response.token;
     const userId = response.userId;
-    const reviews = response.reviews;
 
     // Place token in localStorage.  Later, token is placed into Redux in /reducers/reducer_auth.js.
     localStorage.setItem("token", token);

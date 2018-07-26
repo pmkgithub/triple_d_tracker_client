@@ -35,6 +35,7 @@ class AddReviewForm extends Component {
     };
 
     this.props.createReview(reviewData, () => {
+      // redirect to Location Detail Modal view.
       this.props.setModalView('location_detail');
     });
     this.setState({date: '', review: ''});

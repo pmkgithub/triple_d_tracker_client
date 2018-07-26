@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { deleteReview } from '../../actions/action_reviews';
 
 class ReviewList extends Component {
+
+  handleDeleteButtonClick(reviewId) {
+    console.log('handleDeleteButtonClick ran, reviewId = ', reviewId);
+    const userId = this.props.auth.userId;
+    this.props.deleteReview(userId, reviewId, () => {
+      // redirect to Location Detail Modal view.
+      this.props.setModalView('location_detail');
+    })
+  }
 
   renderList() {
     // get locationId of clicked Marker.
@@ -19,9 +29,14 @@ class ReviewList extends Component {
             <div className="review_date">Date Visited:<span>{review.date}</span></div>
             <div className="review_review_header">Review:</div>
             <div className="review_review">{review.review}</div>
+            <div
+              className="review_delete_button"
+              onClick={() => this.handleDeleteButtonClick(review._id)}
+            >Delete</div>
           </li>
         )
       }
+      return false;
     });
 
   }
@@ -37,9 +52,10 @@ class ReviewList extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.auth,
     mapData: state.mapData,
     reviews: state.reviews.reviews
   }
 };
 
-export default connect(mapStateToProps, null)(ReviewList);
+export default connect(mapStateToProps, { deleteReview })(ReviewList);

@@ -1,4 +1,3 @@
-'use strict';
 const ROOT_URL = 'http://localhost:8080/api';
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -38,9 +37,8 @@ export const fetchReviews = () => dispatch => {
       return res.json();
     })
     .then(response => {
-      const reviews = response.reviews;
-      dispatch(fetchReviewsSuccess()); // resets isFetching to false.
-      dispatch(setReviews(reviews));   // sets the fetched Reviews.
+      dispatch(fetchReviewsSuccess());        // resets isFetching to false.
+      dispatch(setReviews(response.reviews)); // sets the fetched Reviews.
     })
     .catch(err => {
       dispatch(fetchReviewsError(err));
@@ -67,11 +65,11 @@ export const fetchReviewsError = (err) => ({
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// POST Review - BEGIN
+// CREATE Review - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
 export const createReview = ( formData, callback ) => dispatch => {
   dispatch(createReviewRequest());
-  fetch(`${ROOT_URL}/reviews/add`, {
+  fetch(`${ROOT_URL}/reviews/create`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -87,16 +85,14 @@ export const createReview = ( formData, callback ) => dispatch => {
     // }
     // This version of code generates custom error message.
     if (!res.ok) {
-      const customErrorMessage = 'Invalid Email or Password';
+      const customErrorMessage = 'Something went wrong CREATING a Review';
       return Promise.reject(customErrorMessage)
     }
     return res.json();
   })
   .then(response => {
-    // TODO - When a review is successfully saved, do what?
-    const reviews = response.reviews;
-    dispatch(createReviewSuccess(reviews));
-    dispatch(setReviews(reviews));
+    dispatch(createReviewSuccess());        // resets isFetching to false.
+    dispatch(setReviews(response.reviews)); // sets new set reviews.
 
     // redirect to Location Details Modal.
     callback();
@@ -111,7 +107,6 @@ export const createReviewRequest = () => ({
   type: CREATE_REVIEW_REQUEST,
 });
 
-// TODO - When a review is successfully saved, do what?
 export const CREATE_REVIEW_SUCCESS = 'CREATE_REVIEW_SUCCESS';
 export const createReviewSuccess = () => ({
   type: CREATE_REVIEW_SUCCESS,
@@ -123,8 +118,65 @@ export const createReviewError = (err) => ({
   err
 });
 ///////////////////////////////////////////////////////////////////////////////
-// POST Review - END
+// CREATE Review - END
 ///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// DELETE Review - BEGIN
+///////////////////////////////////////////////////////////////////////////////
+export const deleteReview = ( userId, reviewId, callback ) => dispatch => {
+  dispatch(deleteReviewRequest());
+  fetch(`${ROOT_URL}/reviews/delete/${userId}/${reviewId}`, {
+    method: "DELETE",
+    headers: {
+      "content-type": "application/json",
+      "authorization": localStorage.getItem('token')
+    }
+  })
+    .then(res => {
+      // // This version of code generates error === "Unauthorized"
+      // // res.statusText === "Unauthorized" What generates this text?
+      // if (!res.ok) {
+      //   return Promise.reject(res.statusText);
+      // }
+      // This version of code generates custom error message.
+      if (!res.ok) {
+        const customErrorMessage = 'Something went wrong DELETING a Review';
+        return Promise.reject(customErrorMessage)
+      }
+      return res.json();
+    })
+    .then(response => {
+      dispatch(deleteReviewSuccess());        // resets isFetching to false.
+      dispatch(setReviews(response.reviews)); // sets new set reviews.
+
+      // redirect to Location Details Modal.
+      callback();
+    })
+    .catch(err => {
+      dispatch(deleteReviewError(err));
+    });
+};
+
+export const DELETE_REVIEW_REQUEST = 'DELETE_REVIEW_REQUEST';
+export const deleteReviewRequest = () => ({
+  type: DELETE_REVIEW_REQUEST,
+});
+
+export const DELETE_REVIEW_SUCCESS = 'DELETE_REVIEW_SUCCESS';
+export const deleteReviewSuccess = () => ({
+  type: DELETE_REVIEW_SUCCESS,
+});
+
+export const DELETE_REVIEW_ERROR = 'DELETE_REVIEW_ERROR';
+export const deleteReviewError = (err) => ({
+  type: DELETE_REVIEW_ERROR,
+  err
+});
+///////////////////////////////////////////////////////////////////////////////
+// DELETE Review - END
+///////////////////////////////////////////////////////////////////////////////
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Other Action Creators - BEGIN
