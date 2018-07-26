@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deleteReview } from '../../actions/action_reviews';
+import { setModalView } from '../../actions/action_modal';
+import {
+  deleteReview,
+  setReviewToEditId
+} from '../../actions/action_reviews';
 
 class ReviewList extends Component {
 
   handleDeleteButtonClick(reviewId) {
-    console.log('handleDeleteButtonClick ran, reviewId = ', reviewId);
     const userId = this.props.auth.userId;
     this.props.deleteReview(userId, reviewId, () => {
       // redirect to Location Detail Modal view.
       this.props.setModalView('location_detail');
     })
+  }
+
+  handleEditButtonClick(reviewToEditId) {
+    // set the id of the review to edit, so <EditReviewForm/> has access
+    // to this id when it fetches the "review to edit".
+    console.log('handleEditButtonClick ran reviewToEditId', reviewToEditId);
+    this.props.setReviewToEditId(reviewToEditId);
+    this.props.setModalView('edit_review_form');
   }
 
   renderList() {
@@ -33,6 +44,10 @@ class ReviewList extends Component {
               className="review_delete_button"
               onClick={() => this.handleDeleteButtonClick(review._id)}
             >Delete</div>
+            <div
+              className="review_edit_button"
+              onClick={() => this.handleEditButtonClick(review._id)}
+            >Edit</div>
           </li>
         )
       }
@@ -58,4 +73,8 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, { deleteReview })(ReviewList);
+export default connect(mapStateToProps,
+  { deleteReview,
+    setModalView,
+    setReviewToEditId
+  })(ReviewList);

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  setModalView,
-} from '../../actions/action_modal';
+import { setModalView } from '../../actions/action_modal';
 import "./location_detail.css";
 
 class LocationDetail extends Component {
 
   handleAddReview() {
-    // Change Modal's view to "Add Review Form".
+    // Change Modal's view to "AddReviewForm".
     this.props.setModalView('add_review_form');
   }
 
