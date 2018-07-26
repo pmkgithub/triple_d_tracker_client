@@ -46,13 +46,13 @@ class ReviewList extends Component {
           >
             <div className="review_buttons_wrapper">
               <span
-                className="review_delete_button"
-                onClick={() => this.handleDeleteButtonClick(review._id)}
-              >Delete</span>
-              <span
                 className="review_edit_button"
                 onClick={() => this.handleEditButtonClick(review._id)}
               >Edit</span>
+              <span
+                className="review_delete_button"
+                onClick={() => this.handleDeleteButtonClick(review._id)}
+              >Delete</span>
             </div>
 
             <div className="review_date">Date Visited:<span>{review.date}</span></div>
