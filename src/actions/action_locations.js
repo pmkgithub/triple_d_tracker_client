@@ -1,12 +1,14 @@
+import {store} from '../index';
 const ROOT_URL = 'http://localhost:8080/api';
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // fetchLocations - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
-
-export const fetchLocations = (reviews) => dispatch => {
-
-  console.log('action_locations.js fetchLocations reviews', reviews);
+export const fetchLocations = () => dispatch => {
+  // Get User's reviews directly from Redux store.
+  // Note: By the time this code runs, reviews have been fetched.
+  const reviews = store.getState().reviews.reviews;
 
   dispatch(fetchLocationsRequest);
 
