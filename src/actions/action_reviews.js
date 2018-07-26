@@ -93,11 +93,12 @@ export const createReview = ( formData, callback ) => dispatch => {
     return res.json();
   })
   .then(response => {
-
     // TODO - When a review is successfully saved, do what?
-    dispatch(createReviewSuccess());
+    const reviews = response.reviews;
+    dispatch(createReviewSuccess(reviews));
+    dispatch(setReviews(reviews));
 
-    // redirect to protected resource.
+    // redirect to Location Details Modal.
     callback();
   })
   .catch(err => {
