@@ -24,7 +24,7 @@ class LocationDetail extends Component {
       <div className="location_detail_wrapper">
         <div className="location_add_review_button_wrapper">
           {location.outOfBusiness
-            ? <span></span>
+            ? <span className="location_add_review_button_blank"> </span>
             : <span
               className="location_add_review_button"
               onClick={() => this.handleAddReview()}

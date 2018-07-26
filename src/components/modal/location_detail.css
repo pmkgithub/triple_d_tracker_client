@@ -66,6 +66,13 @@
   vertical-align: middle;
   line-height: 30px;
 }
+/* Style below preserves the Location Name header spacing
+   when Location is CLOSED.  Need a blank/empty <span>.*/
+.location_add_review_button_blank {
+  margin-right: -5px;
+  height: 30px;
+  width:  100px;
+}
 .location_add_review_button:hover {
   cursor: pointer;
   font-size: 1.03em;
