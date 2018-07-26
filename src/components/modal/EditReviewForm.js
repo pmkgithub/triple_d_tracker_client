@@ -10,7 +10,9 @@ import {
   // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
   // hasEditReviewFormOpened,
 } from '../../actions/action_reviews';
-import "./edit_review_form.css";
+import "../css/normalize_form.css";
+import "../css/common_button.css";
+import "./add_edit_review_form.css";
 
 class EditReviewForm extends Component {
 
@@ -42,7 +44,6 @@ class EditReviewForm extends Component {
             // Populate EditReviewForm with "Review To Be Edited" data.
             const {date, review} = this.props.reviews.reviewToEdit;
             this.setState({date: date, review:review});
-
           })
     }
   }
@@ -81,19 +82,17 @@ class EditReviewForm extends Component {
   render() {
 
     return (
-      <div
-        className="edit_review_form_wrapper"
-      >
-        <h3>Edit Review</h3>
+      <div className="edit_review_form_wrapper">
+        <h2>Edit Review</h2>
         <form onSubmit={(e) => this.onFormSubmit(e)} className="edit_review_form">
           <fieldset>
             <label
-              className="edit_review_date_visited_label"
-              htmlFor="edit_review_date_visited_input"
+              className="edit_review_date_label"
+              htmlFor="edit_review_date_input"
             >Date Visited:</label>
             <input
-              id="edit_review_date_visited_input"
-              className="edit_review_date_visited_input"
+              id="edit_review_date_input"
+              className="edit_review_date_input"
               type="date"
               placeholder="Enter Date Visited"
               value={this.state.date}
@@ -101,8 +100,8 @@ class EditReviewForm extends Component {
           </fieldset>
           <fieldset>
             <label
-              className="edit_review_review_label"
-              htmlFor="edit_review_review_textarea"
+              className="edit_review_textarea_label"
+              htmlFor="edit_review_textarea"
             >Review:</label>
             <textarea
               id="edit_review_textarea"
