@@ -5,8 +5,17 @@ import {
   deleteReview,
   setReviewToEditId
 } from '../../actions/action_reviews';
+import './review_list.css';
 
 class ReviewList extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isReviewListEmpty: true
+    }
+  }
 
   handleDeleteButtonClick(reviewId) {
     const userId = this.props.auth.userId;
@@ -27,7 +36,6 @@ class ReviewList extends Component {
     // get locationId of clicked Marker.
     const locationId = this.props.mapData.locationId;
 
-    // production
     return this.props.reviews.map((review, index) => {
 
       if (review.locationId === locationId) {
@@ -36,17 +44,20 @@ class ReviewList extends Component {
             key={index}
             className="review_list_li"
           >
+            <div className="review_buttons_wrapper">
+              <span
+                className="review_edit_button"
+                onClick={() => this.handleEditButtonClick(review._id)}
+              >Edit</span>
+              <span
+                className="review_delete_button"
+                onClick={() => this.handleDeleteButtonClick(review._id)}
+              >Delete</span>
+            </div>
+
             <div className="review_date">Date Visited:<span>{review.date}</span></div>
-            <div className="review_review_header">Review:</div>
+            <div className="review_header">Review:</div>
             <div className="review_review">{review.review}</div>
-            <div
-              className="review_delete_button"
-              onClick={() => this.handleDeleteButtonClick(review._id)}
-            >Delete</div>
-            <div
-              className="review_edit_button"
-              onClick={() => this.handleEditButtonClick(review._id)}
-            >Edit</div>
           </li>
         )
       }
@@ -56,10 +67,20 @@ class ReviewList extends Component {
   }
 
   render() {
+
+    // Add or remove review list border depending if reviews exist or not
+    // for this location.
+    let reviewListClassName;
+    !this.state.isReviewListEmpty
+      ? reviewListClassName = "review_list_wrapper"
+      : reviewListClassName = "review_list_wrapper border_none";
+
     return (
-      <ul className="review_list_ul">
-        {this.renderList()}
-      </ul>
+      <div className={reviewListClassName}>
+        <ul className="review_list_ul">
+          {this.renderList()}
+        </ul>
+      </div>
     )
   }
 }

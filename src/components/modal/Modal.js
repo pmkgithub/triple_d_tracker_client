@@ -43,7 +43,6 @@ class Modal extends Component {
           }
         </div>
         {this.props.modal.modalView === 'location_detail' && <LocationDetail/>}
-        {/*{this.props.modal.modalView === 'location_detail' && this.props.reviews.map(this.renderReviews)}*/}
         {this.props.modal.modalView === 'location_detail' && <ReviewList/>}
         {this.props.modal.modalView === 'add_review_form' && <AddReviewForm/>}
         {this.props.modal.modalView === 'edit_review_form' && <EditReviewForm/>}

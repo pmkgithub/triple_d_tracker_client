@@ -5,7 +5,7 @@
   margin: 10px;
 }
 .location_name {
-  margin-top: 0;
+  margin-top: -30px;
 }
 .location_in_biz {
   color: black;
@@ -13,18 +13,27 @@
 .location_out_biz {
   color: red;
 }
+
 .location_addr,
 .location_phone {
   color: black;
+  margin: 5px 0;
+}
+.location_url_wrapper {
+  margin: 5px 0;
 }
 .location_url {
   color: blue;
 }
 .location_about_wrapper {
-  margin-bottom: 20px;
+
 }
 .location_about {
   margin-top: 30px;
+  margin-bottom: 0;
+}
+.location_about_wrapper p {
+  line-height: 1.6;
   margin-bottom: 10px;
 }
 /*.add_review_button {*/
@@ -56,6 +65,13 @@
   text-align: center;
   vertical-align: middle;
   line-height: 30px;
+}
+/* Style below preserves the Location Name header spacing
+   when Location is CLOSED.  Need a blank/empty <span>.*/
+.location_add_review_button_blank {
+  margin-right: -5px;
+  height: 30px;
+  width:  100px;
 }
 .location_add_review_button:hover {
   cursor: pointer;

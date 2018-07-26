@@ -22,33 +22,35 @@ class LocationDetail extends Component {
 
     return (
       <div className="location_detail_wrapper">
-        {location.outOfBusiness ? <h2 className="location_name location_out_biz">{location.name + ' (CLOSED)'}</h2>
-          : <h1 className="location_name location_in_biz">{location.name}</h1>}
-
-        <div className="location_info_wrapper">
-          <div className="location_addr">{location.addrFull}</div>
-          <div className="location_phone">{location.phone === 'none' ? 'No Phone Number' : 'Phone: ' + location.phone}</div>
-          {location.url === 'none' ?
-            <div>No URL Available</div> :
-            <a
-              className="location_url"
-              href={'//' + location.url}
-              target="_blank"
-            >{location.url}</a>
-          }
-        </div>
-        <div className="location_about_wrapper">
-          <h3 className="location_about">About:</h3>
-          <p>{location.about}</p>
-        </div>
         <div className="location_add_review_button_wrapper">
           {location.outOfBusiness
-            ? <span></span>
+            ? <span className="location_add_review_button_blank"> </span>
             : <span
               className="location_add_review_button"
               onClick={() => this.handleAddReview()}
             >Add Review</span>
           }
+        </div>
+        {location.outOfBusiness ? <h2 className="location_name location_out_biz">{location.name + ' (CLOSED)'}</h2>
+          : <h1 className="location_name location_in_biz">{location.name}</h1>}
+
+        <div className="location_info_wrapper">
+          <div className="location_addr">{location.addrFull}</div>
+          <div className="location_phone">{location.phone === 'none' ? 'Phone: No Phone Number Available' : 'Phone: ' + location.phone}</div>
+          <div className="location_url_wrapper">
+            {location.url === 'none' ?
+              <div>No Website Available</div> :
+              <a
+                className="location_url"
+                href={'//' + location.url}
+                target="_blank"
+              >{location.url}</a>
+            }
+          </div>
+        </div>
+        <div className="location_about_wrapper">
+          <h3 className="location_about">About:</h3>
+          <p>{location.about}</p>
         </div>
       </div>
     )
