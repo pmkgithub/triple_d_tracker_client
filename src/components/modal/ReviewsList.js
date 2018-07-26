@@ -5,6 +5,8 @@ import {
   deleteReview,
   setReviewToEditId
 } from '../../actions/action_reviews';
+import '../css/normalize_form.css';
+import '../css/common_button.css';
 import './review_list.css';
 
 class ReviewList extends Component {
@@ -17,19 +19,21 @@ class ReviewList extends Component {
     }
   }
 
-  handleDeleteButtonClick(reviewId) {
+  handleEditButtonClick(e, reviewToEditId) {
+    e.preventDefault();
+    // Set the id of the review to edit, so <EditReviewForm/> has access
+    // to this id when it fetches the "review to edit" from API.
+    this.props.setReviewToEditId(reviewToEditId);
+    this.props.setModalView('edit_review_form');
+  }
+
+  handleDeleteButtonClick(e, reviewId) {
+    e.preventDefault();
     const userId = this.props.auth.userId;
     this.props.deleteReview(userId, reviewId, () => {
       // redirect to Location Detail Modal view.
       this.props.setModalView('location_detail');
     })
-  }
-
-  handleEditButtonClick(reviewToEditId) {
-    // Set the id of the review to edit, so <EditReviewForm/> has access
-    // to this id when it fetches the "review to edit" from API.
-    this.props.setReviewToEditId(reviewToEditId);
-    this.props.setModalView('edit_review_form');
   }
 
   renderList() {
@@ -45,14 +49,16 @@ class ReviewList extends Component {
             className="review_list_li"
           >
             <div className="review_buttons_wrapper">
-              <span
+              <button
                 className="review_edit_button"
-                onClick={() => this.handleEditButtonClick(review._id)}
-              >Edit</span>
-              <span
+                type="button"
+                onClick={(e) => this.handleEditButtonClick(e, review._id)}
+              >Edit</button>
+              <button
                 className="review_delete_button"
-                onClick={() => this.handleDeleteButtonClick(review._id)}
-              >Delete</span>
+                type="button"
+                onClick={(e) => this.handleDeleteButtonClick(e, review._id)}
+              >Delete</button>
             </div>
 
             <div className="review_date">Date Visited:<span>{review.date}</span></div>
