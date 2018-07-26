@@ -6,6 +6,7 @@ import {
 import {
   createReview
 } from '../../actions/action_reviews';
+import "./add_review_form.css";
 
 class AddReviewForm extends Component {
 
@@ -52,46 +53,51 @@ class AddReviewForm extends Component {
 
   render() {
     return (
-      <form onSubmit={(e) => this.onFormSubmit(e)} className="input-group">
-        <fieldset>
-          <label
-            className="date_visited_label"
-            htmlFor="date_visited_input"
-          >Date Visited:</label>
-          <input
-            id="date_visited_input"
-            className="date_visited_input"
-            type="date"
-            placeholder="Enter Date Visited"
-            value={this.state.date}
-            onChange={(e) => this.onInputChange(e)}/>
-        </fieldset>
-        <fieldset>
-          <label
-            className="review_label"
-            htmlFor="review_textarea"
-          >Review:</label>
-          <textarea
-            id="review_textarea"
-            className="review_textarea"
-            placeholder="Enter your review here."
-            value={this.state.review}
-            onChange={(e) => this.onTextareaChange(e)}
-          >
+      <div
+        className="add_review_form_wrapper"
+      >
+        <h3>Add Review</h3>
+        <form onSubmit={(e) => this.onFormSubmit(e)} className="add_review_form">
+          <fieldset>
+            <label
+              className="add_review_date_visited_label"
+              htmlFor="add_review_date_visited_input"
+            >Date Visited:</label>
+            <input
+              id="add_review_date_visited_input"
+              className="add_review_date_visited_input"
+              type="date"
+              placeholder="Enter Date Visited"
+              value={this.state.date}
+              onChange={(e) => this.onInputChange(e)}/>
+          </fieldset>
+          <fieldset>
+            <label
+              className="add_review_textarea_label"
+              htmlFor="add__review_textarea"
+            >Review:</label>
+            <textarea
+              id="add_eview_textarea"
+              className="add_review_textarea"
+              placeholder="Enter your review here."
+              value={this.state.review}
+              onChange={(e) => this.onTextareaChange(e)}
+            >
           </textarea>
-        </fieldset>
-        <div className="buttons_wrapper">
-         <button
-           className="cancel_button"
-           type="button"
-           onClick={(e) => {this.handleCancel(e)}}
-         >Cancel</button>
-         <button
-           className="submit_button"
-           type="submit"
-         >Submit</button>
-        </div>
-      </form>
+          </fieldset>
+          <div className="add_review_buttons_wrapper">
+            <button
+              className="add_review_cancel_button"
+              type="button"
+              onClick={(e) => {this.handleCancel(e)}}
+            >Cancel</button>
+            <button
+              className="add_review_submit_button"
+              type="submit"
+            >Submit</button>
+          </div>
+        </form>
+      </div>
     )
   }
 }
@@ -104,7 +110,10 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, {setModalView, createReview})(AddReviewForm);
+export default connect(mapStateToProps,
+  { setModalView,
+    createReview})
+(AddReviewForm);
 
 ////////////////////////////////////////////////////////////////////
 // // REDUX-FORM inside a Modal - not working.
@@ -118,7 +127,7 @@ export default connect(mapStateToProps, {setModalView, createReview})(AddReviewF
 // } from '../../actions/action_modals';
 // import './add_review_form.css';
 //
-// class AddReviewForm extends Component {
+// class CreateReviewForm extends Component {
 //
 //   handleCancel(e) {
 //     e.preventDefault();
@@ -128,8 +137,8 @@ export default connect(mapStateToProps, {setModalView, createReview})(AddReviewF
 //   // Arrow Function allows us not to need binding this.
 //   onSubmit({date, review}) {
 //     console.log('this.props = ', this.props);
-//     console.log('AddReviewForm.js onSubmit date_visted = ', date);
-//     console.log('AddReviewForm.js onSubmit review = ', review);
+//     console.log('CreateReviewForm.js onSubmit date_visted = ', date);
+//     console.log('CreateReviewForm.js onSubmit review = ', review);
 //     // this.props.signin(formProps, () => {
 //     //   this.props.history.push('/feature');
 //     // });
@@ -224,9 +233,9 @@ export default connect(mapStateToProps, {setModalView, createReview})(AddReviewF
 // //     fields: ['date', 'review'],
 // //
 // //   })
-// // )(AddReviewForm);
+// // )(CreateReviewForm);
 //
 // export default reduxForm({
 //   form: 'addReview',
 //   fields: ['date', 'review']
-// })(AddReviewForm);
+// })(CreateReviewForm);

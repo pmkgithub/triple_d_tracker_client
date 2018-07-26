@@ -95,7 +95,6 @@ class Signin extends Component {
 }
 
 const validate = (values) => {
-  // console.log('values = ', values);
   const errors = {};
 
   // Validate the inputs from "values".

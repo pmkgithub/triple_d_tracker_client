@@ -29,8 +29,8 @@ class Map extends Component {
   componentDidMount() {
     // Code here handles multiple AJAX calls.
     // First, fetchReviews, then fetchLocations.
-    // Reason: on Browser refresh, User reviews need to be in Redux
-    //         so location maker's get colored properly.
+    // Reason: on App load and Browser refresh, User reviews
+    //         need to be in Redux so location maker's get colored properly.
     if (!this.props.mapData.locationsBeenFetched) {
       this.props.fetchReviews(localStorage.getItem("userId"))
         .then(() => {
