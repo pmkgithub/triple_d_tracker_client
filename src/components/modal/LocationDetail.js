@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setModalView } from '../../actions/action_modal';
+import '../css/normalize_form.css';
+import '../css/common_button.css';
 import "./location_detail.css";
 
 class LocationDetail extends Component {
 
-  handleAddReview() {
+  handleAddReview(e) {
+    e.preventDefault();
     // Change Modal's view to "AddReviewForm".
     this.props.setModalView('add_review_form');
   }
@@ -24,13 +27,15 @@ class LocationDetail extends Component {
       <div className="location_detail_wrapper">
         <div className="location_add_review_button_wrapper">
           {location.outOfBusiness
-            ? <span className="location_add_review_button_blank"> </span>
-            : <span
+            ? <button className="location_add_review_button_blank" type="button"> </button>
+            : <button
               className="location_add_review_button"
-              onClick={() => this.handleAddReview()}
-            >Add Review</span>
+              type="button"
+              onClick={(e) => this.handleAddReview(e)}
+            >Add Review</button>
           }
         </div>
+
         {location.outOfBusiness ? <h2 className="location_name location_out_biz">{location.name + ' (CLOSED)'}</h2>
           : <h1 className="location_name location_in_biz">{location.name}</h1>}
 
