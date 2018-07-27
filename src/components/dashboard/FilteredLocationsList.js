@@ -35,11 +35,11 @@ class FilteredLocationsList extends Component {
     return this.props.filteredListLocations.map((location, index) => {
 
       let className;
-      index % 2 === 1 ? className = "filtered_locations_li even" : className = "filtered_locations_li odd"
+      index % 2 === 1 ? className = "filtered_locations_li even" : className = "filtered_locations_li odd";
+      location.outOfBusiness ? className = className + ' closed' : '';
 
       return (
         <li
-          // className="filtered_locations_li"
           className={className}
           key={index}
           onClick={(event) => this.handleOnClickListItem(event, location)}
