@@ -70,7 +70,7 @@ class Map extends Component {
     //NOTE: markerObj supplied as first arg by react-google-maps, don't need it.
     // console.log('Clicked Marker location id', locationId);
     this.props.setIsModalOpen(true);
-    this.props.setLocationId(locationId);
+    this.props.setLocationId(locationId);  // Needed by Modal's Location Detail.
   }
 
   mouseOverMarker(markerObj, markerId) {

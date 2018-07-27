@@ -3,9 +3,17 @@
   padding: 10px 20px;
   margin: 10px;
 }
-.review_list_wrapper.border_none {
-  border: none
-;}
+.review_list_header {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+.review_list_header h2 {
+  margin: 0;
+}
+.review_list_add_review_button {
+  margin-right: 10px;
+}
 .review_list_ul {
   list-style-type: none;
   padding: 0;
@@ -39,5 +47,5 @@
   justify-content: flex-end;
 }
 .review_delete_button {
-  margin-left: 10px;
+  margin-left: 5px;
 }
