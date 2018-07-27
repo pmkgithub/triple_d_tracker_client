@@ -7,11 +7,11 @@ import {
   CREATE_REVIEW_ERROR,
   CREATE_REVIEW_SUCCESS,
 
-  SET_REVIEW_TO_EDIT_ID,
+  SET_REVIEW_TO_EDIT,
   FETCH_REVIEW_TO_EDIT_REQUEST,
   FETCH_REVIEW_TO_EDIT_SUCCESS,
   FETCH_REVIEW_TO_EDIT_ERROR,
-  SET_REVIEW_TO_EDIT,
+
 
   EDIT_REVIEW_REQUEST,
   EDIT_REVIEW_SUCCESS,
@@ -31,8 +31,7 @@ import {
 const initialState = {
   isFetching: false,
   reviews: [],
-  reviewToEditId: '',
-  reviewToEdit: '',
+  reviewToEdit: {},
   fetchReviewsErrorMessage: '',
   fetchReviewToEditErrorMessage: '',
   createReviewErrorMessage: '',
@@ -84,10 +83,10 @@ export default (state=initialState, action) => {
 
     // EDIT REVIEW - BEGIN
     // fetch review to edit - BEGIN
-    case SET_REVIEW_TO_EDIT_ID:
+    case SET_REVIEW_TO_EDIT:
       return {
         ...state,
-        reviewToEditId: action.reviewToEditId
+        reviewToEdit: action.reviewToEdit
       };
     case FETCH_REVIEW_TO_EDIT_REQUEST:
       return {...state, isFetching: true };

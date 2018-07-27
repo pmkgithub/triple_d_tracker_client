@@ -4,7 +4,7 @@ import {
   setModalView,
 } from '../../actions/action_modal';
 import {
-  setReviewToEditId,
+  setReviewToEdit,
   fetchReviewToEdit,
   editReview,
   // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
@@ -20,33 +20,33 @@ class EditReviewForm extends Component {
     super(props);
 
     this.state = {
-      date: '',
-      review: ''
+      date: props.review.date,
+      review: props.review.review
     };
 
   }
 
-  // Overview - first time this component render:
-  // 1) Fetch review to edit,
-  // 2) populate the edit review form with returned review data.
-  componentDidMount() {
-
-    // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
-    // this.props.hasEditReviewFormOpened(true);
-
-    const reviewToEditId = this.props.reviews.reviewToEditId;
-
-    if (!this.props.reviews.reviewToEdit) {
-      // 1) fetchReviewToEdit() fetches review to edit,
-      // 2) on fetchReviewToEditSuccess, the reviewToEdit is set in Redux.
-      this.props.fetchReviewToEdit(reviewToEditId)
-          .then(() => {
-            // Populate EditReviewForm with "Review To Be Edited" data.
-            const {date, review} = this.props.reviews.reviewToEdit;
-            this.setState({date: date, review:review});
-          })
-    }
-  }
+  // // Overview - first time this component render:
+  // // 1) Fetch review to edit,
+  // // 2) populate the edit review form with returned review data.
+  // componentDidMount() {
+  //
+  //   // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
+  //   // this.props.hasEditReviewFormOpened(true);
+  //
+  //   const reviewToEditId = this.props.reviews.reviewToEditId;
+  //
+  //   if (!this.props.reviews.reviewToEdit) {
+  //     // 1) fetchReviewToEdit() fetches review to edit,
+  //     // 2) on fetchReviewToEditSuccess, the reviewToEdit is set in Redux.
+  //     this.props.fetchReviewToEdit(reviewToEditId)
+  //         .then(() => {
+  //           // Populate EditReviewForm with "Review To Be Edited" data.
+  //           const {date, review} = this.props.reviews.reviewToEdit;
+  //           this.setState({date: date, review:review});
+  //         })
+  //   }
+  // }
 
   handleCancel(e) {
     e.preventDefault();
@@ -57,7 +57,9 @@ class EditReviewForm extends Component {
     e.preventDefault();
 
     const userId = this.props.auth.userId;
-    const reviewToEditId = this.props.reviews.reviewToEditId;
+    // // orig
+    // const reviewToEditId = this.props.reviews.reviewToEditId;
+    const reviewToEditId = this.props.review._id;
 
     const toUpdate = {
       date: this.state.date,
@@ -100,6 +102,7 @@ class EditReviewForm extends Component {
               className="edit_review_date_input"
               type="date"
               placeholder="Enter Date Visited"
+              // value={this.state.date}
               value={this.state.date}
               onChange={(e) => this.onInputChange(e)}/>
           </fieldset>
@@ -139,14 +142,15 @@ const mapStateToProps = (state) => {
     auth: state.auth,
     mapData: state.mapData,
     modal: state.modal,
-    reviews: state.reviews
+    reviews: state.reviews,
+    review: state.reviews.reviewToEdit
   }
 };
 
 export default connect(mapStateToProps,
   {
     setModalView,
-    setReviewToEditId,
+    setReviewToEdit,
     fetchReviewToEdit,
     editReview,
     // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.

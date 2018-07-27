@@ -124,11 +124,19 @@ export const createReviewError = (err) => ({
 ///////////////////////////////////////////////////////////////////////////////
 // GET Review To Edit  - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
-export const SET_REVIEW_TO_EDIT_ID = 'SET_REVIEW_TO_EDIT_ID';
-export const setReviewToEditId = (reviewToEditId) => {
+// export const SET_REVIEW_TO_EDIT = 'SET_REVIEW_TO_EDIT';
+// export const setReivewToEdit = (reviewToEdit) => {
+//   return {
+//     type: SET_REVIEW_TO_EDIT,
+//     reviewToEdit
+//   }
+// };
+
+export const SET_REVIEW_TO_EDIT = 'SET_REVIEW_TO_EDIT';
+export const setReviewToEdit = (reviewToEdit) => {
   return {
-    type: SET_REVIEW_TO_EDIT_ID,
-    reviewToEditId
+    type: SET_REVIEW_TO_EDIT,
+    reviewToEdit
   }
 };
 export const fetchReviewToEdit = (reviewToEditId) => dispatch => {
@@ -158,7 +166,9 @@ export const fetchReviewToEdit = (reviewToEditId) => dispatch => {
     })
     .then(review => {
       dispatch(fetchReviewToEditSuccess());        // resets isFetching to false.
-      dispatch(setReivewToEdit(review));  // sets the fetched Review to Edit.
+
+      // // orig TODO - delete
+      // dispatch(setReivewToEdit(review));  // sets the fetched Review to Edit.
     })
     .catch(err => {
       dispatch(fetchReviewToEditError(err));
@@ -181,13 +191,6 @@ export const fetchReviewToEditError = (err) => ({
   err
 });
 
-export const SET_REVIEW_TO_EDIT = 'SET_REVIEW_TO_EDIT';
-export const setReivewToEdit = (reviewToEdit) => {
-  return {
-    type: SET_REVIEW_TO_EDIT,
-    reviewToEdit
-  }
-};
 
 ///////////////////////////////////////////////////////////////////////////////
 // GET Review To Edit  - END
