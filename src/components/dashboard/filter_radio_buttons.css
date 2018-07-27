@@ -18,11 +18,20 @@
 .form_filter_radio_buttons {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 .form_filter_radio_buttons label {
-  font-size: 18px;
+  /*display: inline-block;*/
+  font-size: 16px;
+  margin-left:  5px;
+}
+/* wacko css */
+/* https://stackoverflow.com/questions/13509883/how-to-vertically-align-a-html-radio-button-to-its-label */
+.form_filter_radio_buttons input[type=radio] {
+  margin-top: -6px;
+  vertical-align: middle;
 }
 /* Radio Buttons - END */
 

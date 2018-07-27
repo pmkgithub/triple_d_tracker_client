@@ -9,7 +9,7 @@ import radioButtonConfig from '../../configs/radioButtonConfig';
 import mapConfig from "../../configs/mapConfig";
 import stateAbbrToNameConfig from '../../configs/stateAbbrToNameConfig';
 import stateNameToAbbrConfig from '../../configs/stateNameToAbbrConfig';
-import './filters.css';
+import './filter_radio_buttons.css';
 
 class FilterSelectInput extends Component {
 
