@@ -57,10 +57,17 @@ class AddReviewForm extends Component {
     this.setState({review: e.target.value});
   }
 
+
   render() {
+
+    // Find the desired location from cachedLocations, add location name to Form.
+    const location = this.props.mapData.cachedLocations.find((location) => {
+      return location._id === this.props.mapData.locationId;
+    });
+
     return (
       <div className="add_review_form_wrapper">
-        <h2>Add Review</h2>
+        <h2>Add Review for {location.name}</h2>
         <form onSubmit={(e) => this.onFormSubmit(e)} className="add_review_form">
           <fieldset>
             <label
