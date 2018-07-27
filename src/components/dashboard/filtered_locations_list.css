@@ -44,6 +44,9 @@
 .filtered_locations_li.closed {
   color: red;
 }
+.filtered_locations_li.visited {
+
+}
 .filtered_locations_li.odd {
   background-color: rgb(224,224,224);
 }
