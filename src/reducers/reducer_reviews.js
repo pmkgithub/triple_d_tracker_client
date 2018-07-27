@@ -22,6 +22,8 @@ import {
   DELETE_REVIEW_ERROR,
 
   SET_REVIEWS,
+  // TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
+  SET_RERENDER_MAP_BOOL
   // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
   // HAS_EDIT_REVIEW_FORM_OPENED,
 } from '../actions/action_reviews';
@@ -36,7 +38,8 @@ const initialState = {
   createReviewErrorMessage: '',
   editReviewErrorMessage: '',
   deleteReviewsErrorMessage: '',
-  hasEditReviewFormOpened: false,
+  // hasEditReviewFormOpened: false, // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
+  // rerenderMapBool: false, // TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
 };
 
 export default (state=initialState, action) => {
@@ -151,6 +154,14 @@ export default (state=initialState, action) => {
       return {
         ...state,
         reviews: action.reviews
+      };
+
+    // TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
+    case SET_RERENDER_MAP_BOOL:
+      console.log('SET_RERENDER_MAP_BOOL action = ', action);
+      return {
+        ...state,
+        rerenderMapBool: action.bool
       };
 
     //   // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
