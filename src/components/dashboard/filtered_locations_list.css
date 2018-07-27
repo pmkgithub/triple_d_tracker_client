@@ -1,6 +1,8 @@
 .map_locations_list_wrapper {
   padding: 10px;
-  border: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 .map_locations_list_header {
@@ -14,6 +16,9 @@
   width: 100%;
   font-size: 16px;
 }
+.filtered_locations_button:focus {
+  outline: none;
+}
 .filtered_locations_button:hover {
   color: white;
   background-color: cornflowerblue;
@@ -23,7 +28,7 @@
   margin-bottom: 15px;
 }
 .filtered_locations_ul {
-  height: 322px;
+  height: 325px;
   overflow: auto;
   margin: 0;
   padding: 0;
