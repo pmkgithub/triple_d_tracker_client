@@ -37,6 +37,7 @@ class FilteredLocationsList extends Component {
       let className;
       index % 2 === 1 ? className = "filtered_locations_li even" : className = "filtered_locations_li odd";
       location.outOfBusiness ? className = className + ' closed' : '';
+      location.visited ? className = className + ' visited' : '';
 
       return (
         <li
@@ -45,6 +46,7 @@ class FilteredLocationsList extends Component {
           onClick={(event) => this.handleOnClickListItem(event, location)}
         >
           {location.name}: {location.city}, {location.state}
+          <i className="fa fa-trash"> </i>
         </li>
       )
 
