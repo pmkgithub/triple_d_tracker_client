@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   mapSingleLocationFromList,
   mapAllLocationsFromList
@@ -46,7 +47,10 @@ class FilteredLocationsList extends Component {
           onClick={(event) => this.handleOnClickListItem(event, location)}
         >
           {location.name}: {location.city}, {location.state}
-          <i className="fa fa-trash"> </i>
+          {location.visited
+            ? <FontAwesomeIcon className="icon_check" icon="check"/>
+            : ''
+          }
         </li>
       )
 

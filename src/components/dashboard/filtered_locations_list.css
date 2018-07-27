@@ -44,8 +44,12 @@
 .filtered_locations_li.closed {
   color: red;
 }
-.filtered_locations_li.visited {
-
+.filtered_locations_li .icon_check {
+  margin-left: 10px;
+  font-size: 20px;
+  /*color: green;*/
+  /*color: rgb(81, 226, 65);*/
+  color: rgb(89, 216, 75);
 }
 .filtered_locations_li.odd {
   background-color: rgb(224,224,224);
