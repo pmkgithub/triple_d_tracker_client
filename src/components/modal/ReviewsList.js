@@ -11,12 +11,10 @@ import './review_list.css';
 
 class ReviewList extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isReviewListEmpty: true
-    }
+  handleAddReview(e) {
+    e.preventDefault();
+    // Change Modal's view to "AddReviewForm".
+    this.props.setModalView('add_review_form');
   }
 
   handleEditButtonClick(e, reviewToEditId) {
@@ -40,6 +38,7 @@ class ReviewList extends Component {
     // get locationId of clicked Marker.
     const locationId = this.props.mapData.locationId;
 
+    // Find User review(s) which match the clicked Marker's location id.
     return this.props.reviews.map((review, index) => {
 
       if (review.locationId === locationId) {
@@ -74,18 +73,37 @@ class ReviewList extends Component {
 
   render() {
 
-    // Add or remove review list border depending if reviews exist or not
-    // for this location.
-    let reviewListClassName;
-    !this.state.isReviewListEmpty
-      ? reviewListClassName = "review_list_wrapper"
-      : reviewListClassName = "review_list_wrapper border_none";
+    // On first React render,
+    // "this.props.mapData.locationId" is undefined. Thus return early.
+    if (!this.props.mapData.locationId) {return false;}
+
+    // Determine if Location is CLOSED.
+    // If CLOSED, don't display Reviews List.
+    const location = this.props.mapData.cachedLocations.find((location) => {
+      return location._id === this.props.mapData.locationId;
+    });
+    const isLocationClosed = location.outOfBusiness;
 
     return (
-      <div className={reviewListClassName}>
-        <ul className="review_list_ul">
-          {this.renderList()}
-        </ul>
+      <div>
+        {!isLocationClosed ?
+          <div className="review_list_wrapper">
+            <div className="review_list_header">
+              <h2>Reviews:</h2>
+              <div className="review_list_add_review_button_wrapper">
+                <button
+                  className="review_list_add_review_button"
+                  type="button"
+                  onClick={(e) => this.handleAddReview(e)}
+                >Add Review</button>
+              </div>
+            </div>
+            <ul className="review_list_ul">
+              {this.renderList()}
+            </ul>
+          </div>
+          : ""
+        }
       </div>
     )
   }
