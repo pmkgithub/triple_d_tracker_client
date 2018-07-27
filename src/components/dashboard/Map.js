@@ -11,7 +11,8 @@ import {
 import {
   setIsModalOpen
 } from '../../actions/action_modal';
-import { fetchReviews } from '../../actions/action_reviews';
+// TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
+import { fetchReviews, setRerenderMapBool } from '../../actions/action_reviews';
 import "./map.css";
 
 
@@ -134,6 +135,16 @@ class Map extends Component {
 
   // Component's render()
   render() {
+
+    // TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
+    console.log('this.props = ', this.props);
+    // if ( !this.props.reviews.rerenderMapBool ) { return false }
+    if ( this.props.reviews.rerenderMapBool ) {
+      console.log('Map.js called setRerenderMapBool');
+      this.forceUpdate();
+      this.props.setRerenderMapBool(false);
+    }
+
     return (
       <div>
         <GoogleMap
@@ -153,7 +164,8 @@ class Map extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    mapData: state.mapData
+    mapData: state.mapData,
+    reviews: state.reviews
   };
 };
 
@@ -166,7 +178,9 @@ export default compose (
     fetchReviews,
     setMapLatLonCenter,
     setIsModalOpen,
-    setLocationId
+    setLocationId,
+    // TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
+    setRerenderMapBool
   }),
   withGoogleMap
 )(Map)

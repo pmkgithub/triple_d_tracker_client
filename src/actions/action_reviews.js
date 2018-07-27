@@ -322,6 +322,15 @@ export const setReviews = (reviews) => {
   }
 };
 
+// TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
+export const SET_RERENDER_MAP_BOOL = 'SET_RERENDER_MAP_BOOL';
+export const setRerenderMapBool = (bool) => {
+  return {
+    type: SET_RERENDER_MAP_BOOL,
+    bool
+  }
+};
+
 // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
 // // Controls re-populating EditReviewForm form the first time EditReviewForm
 // // has been opened.

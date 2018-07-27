@@ -4,7 +4,8 @@ import {
   setModalView,
 } from '../../actions/action_modal';
 import {
-  createReview
+  createReview,
+  setRerenderMapBool
 } from '../../actions/action_reviews';
 import "../css/normalize_form.css";
 import "../css/common_button.css";
@@ -42,6 +43,9 @@ class AddReviewForm extends Component {
       this.props.setModalView('location_detail');
     });
     this.setState({date: '', review: ''});
+
+    // // TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
+    this.props.setRerenderMapBool(true);
   }
 
   onInputChange(e) {
@@ -115,7 +119,8 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
   { setModalView,
-    createReview
+    createReview,
+    setRerenderMapBool
   })(AddReviewForm);
 
 ////////////////////////////////////////////////////////////////////
