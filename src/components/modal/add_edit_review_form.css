@@ -1,6 +1,8 @@
 .add_review_form_wrapper,
 .edit_review_form_wrapper {
   padding: 20px;
+  margin: 10px;
+  border: 1px solid black;
 }
 fieldset {
   padding: 0;
