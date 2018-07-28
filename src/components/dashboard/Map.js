@@ -136,14 +136,14 @@ class Map extends Component {
   // Component's render()
   render() {
 
-    // TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
-    console.log('this.props = ', this.props);
-    // if ( !this.props.reviews.rerenderMapBool ) { return false }
-    if ( this.props.reviews.rerenderMapBool ) {
-      console.log('Map.js called setRerenderMapBool');
-      this.forceUpdate();
-      this.props.setRerenderMapBool(false);
-    }
+    // // TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
+    // // console.log('this.props = ', this.props);
+    // // if ( !this.props.reviews.rerenderMapBool ) { return false }
+    // if ( this.props.reviews.rerenderMapBool ) {
+    //   console.log('Map.js called setRerenderMapBool');
+    //   this.forceUpdate();
+    //   this.props.setRerenderMapBool(false);
+    // }
 
     return (
       <div>

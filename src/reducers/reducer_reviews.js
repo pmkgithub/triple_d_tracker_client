@@ -7,11 +7,8 @@ import {
   CREATE_REVIEW_ERROR,
   CREATE_REVIEW_SUCCESS,
 
-  SET_REVIEW_TO_EDIT_ID,
-  FETCH_REVIEW_TO_EDIT_REQUEST,
-  FETCH_REVIEW_TO_EDIT_SUCCESS,
-  FETCH_REVIEW_TO_EDIT_ERROR,
   SET_REVIEW_TO_EDIT,
+
 
   EDIT_REVIEW_REQUEST,
   EDIT_REVIEW_SUCCESS,
@@ -31,14 +28,12 @@ import {
 const initialState = {
   isFetching: false,
   reviews: [],
-  reviewToEditId: '',
-  reviewToEdit: '',
+  reviewToEdit: {},
   fetchReviewsErrorMessage: '',
   fetchReviewToEditErrorMessage: '',
   createReviewErrorMessage: '',
   editReviewErrorMessage: '',
   deleteReviewsErrorMessage: '',
-  // hasEditReviewFormOpened: false, // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
   // rerenderMapBool: false, // TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
 };
 
@@ -82,37 +77,13 @@ export default (state=initialState, action) => {
       };
     // create review - END
 
-    // EDIT REVIEW - BEGIN
-    // fetch review to edit - BEGIN
-    case SET_REVIEW_TO_EDIT_ID:
-      return {
-        ...state,
-        reviewToEditId: action.reviewToEditId
-      };
-    case FETCH_REVIEW_TO_EDIT_REQUEST:
-      return {...state, isFetching: true };
-
-    case FETCH_REVIEW_TO_EDIT_SUCCESS:
-      return {
-        ...state,
-        isFetching: false
-      };
-
-    case FETCH_REVIEW_TO_EDIT_ERROR:
-      return {
-        ...state,
-        fetchReviewToEditErrorMessage: action.err,
-        isFetching: false
-      };
-
+    // edit review - BEGIN
     case SET_REVIEW_TO_EDIT:
       return {
         ...state,
         reviewToEdit: action.reviewToEdit
       };
-    // fetch review to edit - END
 
-    // edit review - BEGIN
     case EDIT_REVIEW_REQUEST:
       return {...state, isFetching: true };
 
@@ -129,7 +100,6 @@ export default (state=initialState, action) => {
         isFetching: false
       };
     // edit review -END
-    // EDIT REVIEW - END
 
     // delete review - BEGIN
     case DELETE_REVIEW_REQUEST:

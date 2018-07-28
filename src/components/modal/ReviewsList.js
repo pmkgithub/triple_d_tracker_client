@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { setModalView } from '../../actions/action_modal';
 import {
   deleteReview,
-  setReviewToEditId
+  setReviewToEdit
 } from '../../actions/action_reviews';
 import '../css/normalize_form.css';
 import '../css/common_button.css';
@@ -17,11 +17,9 @@ class ReviewList extends Component {
     this.props.setModalView('add_review_form');
   }
 
-  handleEditButtonClick(e, reviewToEditId) {
+  handleEditButtonClick(e, reviewToEdit) {
     e.preventDefault();
-    // Set the id of the review to edit, so <EditReviewForm/> has access
-    // to this id when it fetches the "review to edit" from API.
-    this.props.setReviewToEditId(reviewToEditId);
+    this.props.setReviewToEdit(reviewToEdit);
     this.props.setModalView('edit_review_form');
   }
 
@@ -51,7 +49,9 @@ class ReviewList extends Component {
               <button
                 className="review_edit_button"
                 type="button"
-                onClick={(e) => this.handleEditButtonClick(e, review._id)}
+                // TODO - Ray EditReivewForm fix - delete loc below when refact done.
+                // onClick={(e) => this.handleEditButtonClick(e, review._id)}
+                onClick={(e) => this.handleEditButtonClick(e, review)}
               >Edit</button>
               <button
                 className="review_delete_button"
@@ -120,5 +120,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps,
   { deleteReview,
     setModalView,
-    setReviewToEditId
+    setReviewToEdit
   })(ReviewList);

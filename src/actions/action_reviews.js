@@ -122,80 +122,16 @@ export const createReviewError = (err) => ({
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// GET Review To Edit  - BEGIN
+// EDIT Review - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
-export const SET_REVIEW_TO_EDIT_ID = 'SET_REVIEW_TO_EDIT_ID';
-export const setReviewToEditId = (reviewToEditId) => {
-  return {
-    type: SET_REVIEW_TO_EDIT_ID,
-    reviewToEditId
-  }
-};
-export const fetchReviewToEdit = (reviewToEditId) => dispatch => {
-  const userId = localStorage.getItem("userId");
-  dispatch(fetchReviewToEditRequest());
-
-  // "return" so that multiple AJAX requests in Map.js works.
-  return fetch(`${ROOT_URL}/reviews/${userId}/${reviewToEditId}`, {
-    method: "GET",
-    headers: {
-      "content-type": "application/json",
-      "authorization": localStorage.getItem('token')
-    },
-  })
-    .then(res => {
-      // // This version of code generates error === "Unauthorized"
-      // // res.statusText === "Unauthorized" What generates this text?
-      // if (!res.ok) {
-      //   return Promise.reject(res.statusText);
-      // }
-      // This version of code generates custom error message.
-      if (!res.ok) {
-        const customErrorMessage = 'Something went wrong fetching Review to Edit';
-        return Promise.reject(customErrorMessage)
-      }
-      return res.json();
-    })
-    .then(review => {
-      dispatch(fetchReviewToEditSuccess());        // resets isFetching to false.
-      dispatch(setReivewToEdit(review));  // sets the fetched Review to Edit.
-    })
-    .catch(err => {
-      dispatch(fetchReviewToEditError(err));
-    });
-
-};
-export const FETCH_REVIEW_TO_EDIT_REQUEST = 'FETCH_REVIEW_TO_EDIT_REQUEST';
-export const fetchReviewToEditRequest = () => ({
-  type: FETCH_REVIEW_TO_EDIT_REQUEST,
-});
-
-export const FETCH_REVIEW_TO_EDIT_SUCCESS = 'FETCH_REVIEW_TO_EDIT_SUCCESS';
-export const fetchReviewToEditSuccess = () => ({
-  type: FETCH_REVIEW_TO_EDIT_SUCCESS,
-});
-
-export const FETCH_REVIEW_TO_EDIT_ERROR = 'FETCH_REVIEW_TO_EDIT_ERROR';
-export const fetchReviewToEditError = (err) => ({
-  type: FETCH_REVIEW_TO_EDIT_ERROR,
-  err
-});
-
 export const SET_REVIEW_TO_EDIT = 'SET_REVIEW_TO_EDIT';
-export const setReivewToEdit = (reviewToEdit) => {
+export const setReviewToEdit = (reviewToEdit) => {
   return {
     type: SET_REVIEW_TO_EDIT,
     reviewToEdit
   }
 };
 
-///////////////////////////////////////////////////////////////////////////////
-// GET Review To Edit  - END
-///////////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////
-// EDIT Review - BEGIN
-///////////////////////////////////////////////////////////////////////////////
 export const editReview = ( userId, reviewToEditId, toUpdate, callback ) => dispatch => {
 
   dispatch(editReviewRequest());
@@ -223,7 +159,7 @@ export const editReview = ( userId, reviewToEditId, toUpdate, callback ) => disp
     })
     .then(response => {
       dispatch(editReviewSuccess());          // resets isFetching to false.
-      dispatch(setReviews(response.reviews)); // sets update set reviews.
+      dispatch(setReviews(response.reviews)); // sets updated set reviews.
 
       // redirect to Location Details Modal.
       callback();
