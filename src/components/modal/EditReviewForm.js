@@ -4,11 +4,7 @@ import {
   setModalView,
 } from '../../actions/action_modal';
 import {
-  setReviewToEdit,
-  fetchReviewToEdit,
-  editReview,
-  // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
-  // hasEditReviewFormOpened,
+  editReview
 } from '../../actions/action_reviews';
 import "../css/normalize_form.css";
 import "../css/common_button.css";
@@ -19,34 +15,15 @@ class EditReviewForm extends Component {
   constructor(props) {
     super(props);
 
+    // When component loads, place data into local state.
+    // This makes review date and review text appear in form when
+    // ReviewList.js edit button is clicked.
     this.state = {
       date: props.review.date,
       review: props.review.review
     };
 
   }
-
-  // // Overview - first time this component render:
-  // // 1) Fetch review to edit,
-  // // 2) populate the edit review form with returned review data.
-  // componentDidMount() {
-  //
-  //   // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
-  //   // this.props.hasEditReviewFormOpened(true);
-  //
-  //   const reviewToEditId = this.props.reviews.reviewToEditId;
-  //
-  //   if (!this.props.reviews.reviewToEdit) {
-  //     // 1) fetchReviewToEdit() fetches review to edit,
-  //     // 2) on fetchReviewToEditSuccess, the reviewToEdit is set in Redux.
-  //     this.props.fetchReviewToEdit(reviewToEditId)
-  //         .then(() => {
-  //           // Populate EditReviewForm with "Review To Be Edited" data.
-  //           const {date, review} = this.props.reviews.reviewToEdit;
-  //           this.setState({date: date, review:review});
-  //         })
-  //   }
-  // }
 
   handleCancel(e) {
     e.preventDefault();
@@ -57,8 +34,6 @@ class EditReviewForm extends Component {
     e.preventDefault();
 
     const userId = this.props.auth.userId;
-    // // orig
-    // const reviewToEditId = this.props.reviews.reviewToEditId;
     const reviewToEditId = this.props.review._id;
 
     const toUpdate = {
@@ -142,7 +117,6 @@ const mapStateToProps = (state) => {
     auth: state.auth,
     mapData: state.mapData,
     modal: state.modal,
-    reviews: state.reviews,
     review: state.reviews.reviewToEdit
   }
 };
@@ -150,9 +124,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps,
   {
     setModalView,
-    setReviewToEdit,
-    fetchReviewToEdit,
     editReview,
-    // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
-    // hasEditReviewFormOpened,
   })(EditReviewForm);

@@ -17,22 +17,8 @@ class ReviewList extends Component {
     this.props.setModalView('add_review_form');
   }
 
-  // // orig
-  // handleEditButtonClick(e, reviewToEditId) {
-  //   e.preventDefault();
-  //   // Set the id of the review to edit, so <EditReviewForm/> has access
-  //   // to this id when it fetches the "review to edit" from API.
-  //   // TODO - Ray EditReivewForm fix - setReviewToEdit (not setReviewTodEditId) => put reviewToEdit (not id) in Redux.
-  //   this.props.setReviewToEditId(reviewToEditId);
-  //   this.props.setModalView('edit_review_form');
-  // }
-
-  // refact
   handleEditButtonClick(e, reviewToEdit) {
     e.preventDefault();
-    // Set the id of the review to edit, so <EditReviewForm/> has access
-    // to this id when it fetches the "review to edit" from API.
-    // TODO - Ray EditReivewForm fix - setReviewToEdit (not setReviewTodEditId) => put reviewToEdit (not id) in Redux.
     this.props.setReviewToEdit(reviewToEdit);
     this.props.setModalView('edit_review_form');
   }
@@ -63,6 +49,7 @@ class ReviewList extends Component {
               <button
                 className="review_edit_button"
                 type="button"
+                // TODO - Ray EditReivewForm fix - delete loc below when refact done.
                 // onClick={(e) => this.handleEditButtonClick(e, review._id)}
                 onClick={(e) => this.handleEditButtonClick(e, review)}
               >Edit</button>
