@@ -10,6 +10,9 @@ import {
   CREATE_US_LOCATIONS_UI_LIST,
   CREATE_STATE_LOCATIONS_UI_LIST,
   SET_LOCATION_ID,
+
+  CLEAR_SELECTED_US_STATE_ABBR,
+  UPDATE_MARKERS_LOCATIONS_LIST,
 } from "../actions/action_locations";
 import mapConfig from '../configs/mapConfig';
 import stateNameToAbbr from '../configs/stateNameToAbbrConfig';
@@ -19,7 +22,8 @@ const initialState = {
   cachedLocations: [],
   displayedMapLocations: [],
   filteredListLocations: [],
-  locationId: '',  // locationId of clicked Map Marker.
+  selectedUsStateAbbr: '',    // needed for updateMarkersLocationList
+  locationId: '',             // locationId of clicked Map Marker.
   // default value set to US.
   uiListRecenterCoords: {
     lat: 37,
@@ -35,7 +39,7 @@ const initialState = {
 
 export default (state=initialState, action) => {
 
-  let lat, lon, zoom, usStateAbbr;
+  let lat, lon, zoom, locations, filteredLocations, visitedLocationsIds, processedLocations;
 
   switch (action.type) {
 
@@ -57,19 +61,19 @@ export default (state=initialState, action) => {
       //
       // When locations fetched from API,
       // process the fetched locations and set the "location.visited" to "true",
-      // when a location's id is in the state.visitedLocations array.
+      // when a location's id is in the state.visitedLocationsIds array.
 
       const fetchedLocations = action.locations;
 
-      // create array of visited locations from the reviews array.
-      const visitedLocations = action.reviews.map(review => {
+      // create array of visited locations Ids from the reviews array.
+      visitedLocationsIds = action.reviews.map(review => {
         return review.locationId;
       });
 
       // If User has visited a location/written a review,
       // set location.visited to "true".
-      const processedLocations = fetchedLocations.map((location) => {
-        if (visitedLocations.indexOf(location._id) >= 0) {
+      processedLocations = fetchedLocations.map((location) => {
+        if (visitedLocationsIds.indexOf(location._id) >= 0) {
           location.visited = true;
         }
         return location;
@@ -132,17 +136,17 @@ export default (state=initialState, action) => {
       };
 
     case CREATE_STATE_LOCATIONS_UI_LIST:
+      const usStateAbbr = stateNameToAbbr[action.stateName];
 
-      usStateAbbr = stateNameToAbbr[action.stateName];
-
-      const locations = state.cachedLocations.filter((location) => {
+      filteredLocations = state.cachedLocations.filter((location) => {
         return location.state === usStateAbbr;
       });
 
       return {
         ...state,
-        displayedMapLocations: locations,
-        filteredListLocations: locations,
+        displayedMapLocations: filteredLocations,
+        filteredListLocations: filteredLocations,
+        selectedUsStateAbbr: usStateAbbr,         // needed for UPDATE_MARKERS_LOCATIONS_LIST logic.
         mapCenterLat: mapConfig[usStateAbbr].lat,
         mapCenterLon: mapConfig[usStateAbbr].lon,
         mapZoom: mapConfig[usStateAbbr].zoom,
@@ -178,6 +182,50 @@ export default (state=initialState, action) => {
       return {
         ...state,
         locationId: action.locationId,
+      };
+
+    // selectedUsStateAbbr is cleared in FilterRadioButtons.js
+    // when USA radio button selected.
+    case CLEAR_SELECTED_US_STATE_ABBR:
+      return {
+        ...state,
+        selectedUsStateAbbr: ''
+      };
+
+    case UPDATE_MARKERS_LOCATIONS_LIST:
+      const reviews = action.reviews;
+
+      // create array of visited locations Ids from the reviews array.
+      visitedLocationsIds = reviews.map(review => {
+        return review.locationId;
+      });
+
+      // If User has visited a location/written a review,
+      // set location.visited to "true".
+      processedLocations = state.cachedLocations.map((location) => {
+        location.visited = false;
+        if (visitedLocationsIds.indexOf(location._id) >= 0) {
+          location.visited = true;
+        }
+        return location;
+      });
+
+      // If the User has selected a US State, cull the processedLocations
+      // to ensure filteredListLocation are that of the selected State.
+      // selectedUsStateAbbr is set in  reducer_locations.js CREATE_STATE_LOCATIONS_UI_LIST.
+      // selectedUsStateAbbr is cleared in FilterRadioButtons.js when USA radio button selected.
+      if ( state.selectedUsStateAbbr ) {
+        locations = processedLocations.filter((location) => {
+          return location.state === state.selectedUsStateAbbr;
+        });
+      } else {
+        locations = processedLocations
+      }
+
+      return {
+        ...state,
+        cachedLocations: processedLocations,
+        filteredListLocations: locations,
       };
 
     default:

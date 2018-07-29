@@ -1,3 +1,4 @@
+// import { store } from '../index';
 import {
   FETCH_REVIEWS_REQUEST,
   FETCH_REVIEWS_SUCCESS,
@@ -8,8 +9,6 @@ import {
   CREATE_REVIEW_SUCCESS,
 
   SET_REVIEW_TO_EDIT,
-
-
   EDIT_REVIEW_REQUEST,
   EDIT_REVIEW_SUCCESS,
   EDIT_REVIEW_ERROR,
@@ -19,10 +18,6 @@ import {
   DELETE_REVIEW_ERROR,
 
   SET_REVIEWS,
-  // TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
-  SET_RERENDER_MAP_BOOL
-  // // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
-  // HAS_EDIT_REVIEW_FORM_OPENED,
 } from '../actions/action_reviews';
 
 const initialState = {
@@ -34,7 +29,6 @@ const initialState = {
   createReviewErrorMessage: '',
   editReviewErrorMessage: '',
   deleteReviewsErrorMessage: '',
-  // rerenderMapBool: false, // TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
 };
 
 export default (state=initialState, action) => {
@@ -125,23 +119,6 @@ export default (state=initialState, action) => {
         ...state,
         reviews: action.reviews
       };
-
-    // TODO - SET_RERENDER_MAP_BOOL -> delete if not needed.
-    case SET_RERENDER_MAP_BOOL:
-      console.log('SET_RERENDER_MAP_BOOL action = ', action);
-      return {
-        ...state,
-        rerenderMapBool: action.bool
-      };
-
-    //   // TODO - HAS_EDIT_REVIEW_FORM_OPENED -> delete if not needed.
-    // // Controls re-populating EditReviewForm form the first time EditReviewForm
-    // // has been opened.
-    // case HAS_EDIT_REVIEW_FORM_OPENED:
-    //   return {
-    //     ...state,
-    //     hasEditReviewFormOpened: action.bool
-    //   };
 
     default:
       return state;

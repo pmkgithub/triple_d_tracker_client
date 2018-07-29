@@ -135,7 +135,31 @@ export const setLocationId = (locationId) => {
     locationId
   }
 };
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // other - END
 ///////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////
+// Update Markers and Locations List when review added/deleted - BEGIN
+///////////////////////////////////////////////////////////////////////////////
+export const CLEAR_SELECTED_US_STATE_ABBR = 'CLEAR_SELECTED_US_STATE_ABBR';
+export const clearSelectedUsStateAbbr = () => {
+  return {
+    type: CLEAR_SELECTED_US_STATE_ABBR,
+  }
+};
+
+// Called in action_reviews.js, createReview, deleteReview.
+// On Review CREATE/DELETE, updates Marker color, Locations List check-mark (if necessary).
+export const UPDATE_MARKERS_LOCATIONS_LIST = 'UPDATE_MARKERS_LOCATIONS_LIST';
+export const updateMarkersLocationsList = (reviews) => {
+  return {
+    type: UPDATE_MARKERS_LOCATIONS_LIST,
+    reviews
+  }
+};
+///////////////////////////////////////////////////////////////////////////////
+// Update Markers and Locations List when review added/deleted - END
+///////////////////////////////////////////////////////////////////////////////

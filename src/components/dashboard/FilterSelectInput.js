@@ -89,15 +89,16 @@ class FilterSelectInput extends Component {
     if (this.props.selectedRadioButton === radioButtonConfig.state) {
       // Case when "US States" radio button has been selected.
       const usStateName = e.target.value;
-      const selectedUsStateAbbr = stateNameToAbbrConfig[usStateName];
+      const usStateAbbr = stateNameToAbbrConfig[usStateName];
+
        uiListRecenterCoords  = {
-        lat: mapConfig[selectedUsStateAbbr].lat,
-        lon: mapConfig[selectedUsStateAbbr].lon,
-        zoom: mapConfig[selectedUsStateAbbr].zoom
+        lat: mapConfig[usStateAbbr].lat,
+        lon: mapConfig[usStateAbbr].lon,
+        zoom: mapConfig[usStateAbbr].zoom
       };
 
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);  // Store the selected US State's re-center coords.
-      this.props.createStateLocationsList(e.target.value);
+      this.props.createStateLocationsList(usStateName);
     }
 
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {

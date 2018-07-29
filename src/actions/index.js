@@ -53,7 +53,6 @@ export const signup = ( formProps, callback ) => dispatch => {
 // signin - fetch syntax - BEGIN
 /////////////////////////////////////////////////////////////////////////
 export const signin = ( formProps, callback ) => dispatch => {
-  console.log('signin formProps', formProps);
   dispatch(fetchSignupSigninRequest());
   fetch(`${ROOT_URL}/signin`, {
     method: "POST",

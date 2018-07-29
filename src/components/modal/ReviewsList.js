@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setModalView } from '../../actions/action_modal';
 import {
-  deleteReview,
-  setReviewToEdit
+  setReviewToEdit,
+  deleteReview
 } from '../../actions/action_reviews';
 import '../css/normalize_form.css';
 import '../css/common_button.css';
@@ -118,7 +118,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps,
-  { deleteReview,
-    setModalView,
+  { setModalView,
+    deleteReview,
     setReviewToEdit
   })(ReviewList);

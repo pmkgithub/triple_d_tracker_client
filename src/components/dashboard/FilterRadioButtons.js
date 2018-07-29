@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import {
   clearLocationsFromList,
   createUsLocationsList,
-  setLatLonZoomForUiList
+  setLatLonZoomForUiList,
+  clearSelectedUsStateAbbr
 } from '../../actions/action_locations';
 import {
   selectedRadioButton
@@ -24,6 +25,10 @@ class FilterRadioButtons extends Component {
     this.setState({selectedRadio: radioButtonValue});
 
     if (radioButtonValue === radioButtonConfig.us) {
+
+      // Empty the reducers_locations.js selectedUsStateAbbr.
+      // selectedUsStateAbbr is needed by UPDATE_MARKERS_LOCATIONS_LIST.
+      this.props.clearSelectedUsStateAbbr();
 
       const uiListRecenterCoords = {
         lat: mapConfig.US.lat,
@@ -97,5 +102,6 @@ export default connect(null, {
   setLatLonZoomForUiList,
   clearLocationsFromList,
   createUsLocationsList,
-  selectedRadioButton
+  selectedRadioButton,
+  clearSelectedUsStateAbbr
 })(FilterRadioButtons);
