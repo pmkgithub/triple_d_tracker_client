@@ -135,6 +135,17 @@ export const setLocationId = (locationId) => {
     locationId
   }
 };
+
+// Called in action_reviews.js, createReview, deleteReview.
+// On Review CREATE/DELETE, updates Marker color, Locations List check-mark (if necessary).
+export const UPDATE_MARKERS_LOCATIONS_LIST = 'UPDATE_MARKERS_LOCATIONS_LIST';
+export const updateMarkersLocationsList = (reviews) => {
+  return {
+    type: UPDATE_MARKERS_LOCATIONS_LIST,
+    reviews
+  }
+};
+
 ///////////////////////////////////////////////////////////////////////////////
 // other - END
 ///////////////////////////////////////////////////////////////////////////////

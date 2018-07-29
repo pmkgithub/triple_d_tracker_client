@@ -1,3 +1,4 @@
+import { updateMarkersLocationsList } from './action_locations';
 const ROOT_URL = 'http://localhost:8080/api';
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -37,8 +38,10 @@ export const fetchReviews = () => dispatch => {
       return res.json();
     })
     .then(response => {
-      dispatch(fetchReviewsSuccess());        // resets isFetching to false.
-      dispatch(setReviews(response.reviews)); // sets the fetched Reviews.
+      // resets isFetching to false.
+      dispatch(fetchReviewsSuccess());
+      // sets new set reviews to be rendered in ReviewsList.
+      dispatch(setReviews(response.reviews));
     })
     .catch(err => {
       dispatch(fetchReviewsError(err));
@@ -68,6 +71,7 @@ export const fetchReviewsError = (err) => ({
 // CREATE Review - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
 export const createReview = ( formData, callback ) => dispatch => {
+
   dispatch(createReviewRequest());
   fetch(`${ROOT_URL}/reviews/create`, {
     method: "POST",
@@ -91,10 +95,14 @@ export const createReview = ( formData, callback ) => dispatch => {
     return res.json();
   })
   .then(response => {
-    dispatch(createReviewSuccess());        // resets isFetching to false.
-    dispatch(setReviews(response.reviews)); // sets new set reviews.
+    // resets isFetching to false.
+    dispatch(createReviewSuccess());
+    // sets new set reviews to be rendered in ReviewsList.
+    dispatch(setReviews(response.reviews));
+    // updates Marker color, Locations List check-mark (if necessary).
+    dispatch(updateMarkersLocationsList( response.reviews));
 
-    // redirect to Location Details Modal.
+    // callback to redirect to Location Details Modal.
     callback();
   })
   .catch(err => {
@@ -158,10 +166,12 @@ export const editReview = ( userId, reviewToEditId, toUpdate, callback ) => disp
       return res.json();
     })
     .then(response => {
-      dispatch(editReviewSuccess());          // resets isFetching to false.
-      dispatch(setReviews(response.reviews)); // sets updated set reviews.
+      // resets isFetching to false.
+      dispatch(editReviewSuccess());
+      // sets new set reviews to be rendered in ReviewsList.
+      dispatch(setReviews(response.reviews));
 
-      // redirect to Location Details Modal.
+      // callback to redirect to Location Details Modal.
       callback();
     })
     .catch(err => {
@@ -193,6 +203,7 @@ export const editReviewError = (err) => ({
 // DELETE Review - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
 export const deleteReview = ( userId, reviewId, callback ) => dispatch => {
+
   dispatch(deleteReviewRequest());
   fetch(`${ROOT_URL}/reviews/delete/${userId}/${reviewId}`, {
     method: "DELETE",
@@ -215,10 +226,14 @@ export const deleteReview = ( userId, reviewId, callback ) => dispatch => {
       return res.json();
     })
     .then(response => {
-      dispatch(deleteReviewSuccess());        // resets isFetching to false.
-      dispatch(setReviews(response.reviews)); // sets reviews, minus the deleted review.
+      // resets isFetching to false.
+      dispatch(deleteReviewSuccess());
+      // sets new set reviews to be rendered in ReviewsList.
+      dispatch(setReviews(response.reviews));
+      // updates Marker color, Locations List check-mark (if necessary).
+      dispatch(updateMarkersLocationsList( response.reviews));
 
-      // redirect to Location Details Modal.
+      // callback to redirect to Location Details Modal.
       callback();
     })
     .catch(err => {
@@ -249,7 +264,8 @@ export const deleteReviewError = (err) => ({
 ///////////////////////////////////////////////////////////////////////////////
 // Other Action Creators - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
-// Called in Map.js each time the map renders.
+// setReviews called on Fetch, Save, Edit, Delete reviews action creators.
+// Reviews are available for rendering in ReviewsList.js.
 export const SET_REVIEWS = 'SET_REVIEWS';
 export const setReviews = (reviews) => {
   return {
@@ -257,6 +273,7 @@ export const setReviews = (reviews) => {
     reviews
   }
 };
+
 ///////////////////////////////////////////////////////////////////////////////
 // Other Action Creators - END
 ///////////////////////////////////////////////////////////////////////////////

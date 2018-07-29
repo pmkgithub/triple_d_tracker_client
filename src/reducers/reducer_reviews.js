@@ -1,3 +1,4 @@
+// import { store } from '../index';
 import {
   FETCH_REVIEWS_REQUEST,
   FETCH_REVIEWS_SUCCESS,
@@ -16,7 +17,7 @@ import {
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_ERROR,
 
-  SET_REVIEWS
+  SET_REVIEWS,
 } from '../actions/action_reviews';
 
 const initialState = {

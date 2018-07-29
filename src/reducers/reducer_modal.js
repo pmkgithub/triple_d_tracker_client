@@ -1,9 +1,6 @@
 import {
   SET_IS_MODAL_OPEN,
   SET_MODAL_VIEW,
-  // FETCH_CREATE_REVIEW_REQUEST,
-  // CREATE_REVIEW_ERROR,
-  // CREATE_REVIEW_SUCCESS,
 } from '../actions/action_modal';
 
 const initialState = {
