@@ -68,7 +68,6 @@ class Map extends Component {
   // markers - BEGIN
   handleOnClickMarker(markerObj, locationId) {
     //NOTE: markerObj supplied as first arg by react-google-maps, don't need it.
-    // console.log('Clicked Marker location id', locationId);
     this.props.setIsModalOpen(true);
     this.props.setLocationId(locationId);  // Needed by Modal's Location Detail.
   }
@@ -91,7 +90,6 @@ class Map extends Component {
     }
 
     return displayedMapLocations.map((location, index) => {
-      // console.log('Map.js renderMarkers location = ',location);
       const {lat, lon} = location.coords;
 
       let iconUrl;
