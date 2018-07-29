@@ -1,15 +1,21 @@
 /* wrappers - BEGIN */
 .map_filters_location_list_wrapper {
+  /* wraps radio button, filter select input, locations list  */
   width: 400px;
   margin-left: 20px;
 }
 .map_filters_wrapper {
+  /* wraps radio buttons, filter select input */
   padding: 10px;
   border: 1px solid black;
 }
 /* wrappers - END */
 
 /* Radio Buttons - BEGIN */
+.filter_radio_buttons_wrapper {
+  /* currently not used */
+}
+
 .filter_radio_button_header {
   font-size: 18px;
   font-weight: bold;

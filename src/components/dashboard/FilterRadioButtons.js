@@ -11,7 +11,7 @@ import {
 } from '../../actions/action_radio_button';
 import radioButtonConfig from '../../configs/radioButtonConfig';
 import mapConfig from '../../configs/mapConfig';
-import './filter_radio_buttons.css';
+import './filter_radio_buttons_select_input.css';
 
 class FilterRadioButtons extends Component {
 
@@ -56,7 +56,7 @@ class FilterRadioButtons extends Component {
 
   render()  {
     return (
-      <div>
+      <div className="filter_radio_buttons_wrapper">
         <div className="filter_radio_button_header">Filter By:</div>
         <form className="form_filter_radio_buttons">
           <div className="filter_radio_button">
