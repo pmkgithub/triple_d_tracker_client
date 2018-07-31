@@ -11,8 +11,6 @@ import {
   CREATE_VISIITED_LOCATIONS_UI_LIST,
   CREATE_STATE_LOCATIONS_UI_LIST,
   SET_LOCATION_ID,
-
-  CLEAR_SELECTED_US_STATE_ABBR,
   UPDATE_MARKERS_LOCATIONS_LIST,
 } from "../actions/action_locations";
 import mapConfig from '../configs/mapConfig';
@@ -22,7 +20,7 @@ const initialState = {
   locationsBeenFetched: false,
   cachedLocations: [],
   displayedMapLocations: [],
-  filteredListLocations: [],
+  filteredLocationsList: [],
   isUsRadioButtonSelected: false,       // for UPDATE_MARKERS_LOCATIONS_LIST - US case
   selectedUsStateAbbr: '',              // for UPDATE_MARKERS_LOCATIONS_LIST - US State case
   isVisitedRadioButtonSelected: false,  // for UPDATE_MARKERS_LOCATIONS_LIST - Visited case
@@ -87,7 +85,7 @@ export default (state=initialState, action) => {
         locationsBeenFetched: true,
         cachedLocations: processedLocations,
         displayedMapLocations: processedLocations,
-        filteredListLocations: processedLocations,
+        filteredLocationsList: processedLocations,
         isFetching: false,
         err: ""
       };
@@ -125,14 +123,14 @@ export default (state=initialState, action) => {
         mapCenterLon: mapConfig.US.lon,
         mapZoom: mapConfig.US.zoom,
         displayedMapLocations: [],
-        filteredListLocations: []
+        filteredLocationsList: []
       };
 
     case CREATE_US_LOCATIONS_UI_LIST:
       return {
         ...state,
         displayedMapLocations: state.cachedLocations,
-        filteredListLocations: state.cachedLocations,
+        filteredLocationsList: state.cachedLocations,
         isUsRadioButtonSelected: true,                // for UPDATE_MARKERS_LOCATIONS_LIST.
         selectedUsStateAbbr: '',                      // for UPDATE_MARKERS_LOCATIONS_LIST.
         isVisitedRadioButtonSelected: false,          // for UPDATE_MARKERS_LOCATIONS_LIST.
@@ -151,7 +149,7 @@ export default (state=initialState, action) => {
       return {
         ...state,
         displayedMapLocations: filteredLocations,
-        filteredListLocations: filteredLocations,
+        filteredLocationsList: filteredLocations,
         isUsRadioButtonSelected: false,           // for UPDATE_MARKERS_LOCATIONS_LIST.
         selectedUsStateAbbr: usStateAbbr,         // for UPDATE_MARKERS_LOCATIONS_LIST.
         isVisitedRadioButtonSelected: false,      // for UPDATE_MARKERS_LOCATIONS_LIST.
@@ -169,7 +167,7 @@ export default (state=initialState, action) => {
       return {
         ...state,
         displayedMapLocations: visitedLocations,
-        filteredListLocations: visitedLocations,
+        filteredLocationsList: visitedLocations,
         isUsRadioButtonSelected: false,           // for UPDATE_MARKERS_LOCATIONS_LIST.
         selectedUsStateAbbr: '',                  // for UPDATE_MARKERS_LOCATIONS_LIST.
         isVisitedRadioButtonSelected: true,       // for UPDATE_MARKERS_LOCATIONS_LIST.
@@ -197,7 +195,7 @@ export default (state=initialState, action) => {
         mapCenterLat: action.uiListRecenterCoords.lat,
         mapCenterLon: action.uiListRecenterCoords.lon,
         mapZoom: action.uiListRecenterCoords.zoom,
-        displayedMapLocations: state.filteredListLocations,
+        displayedMapLocations: state.filteredLocationsList,
       };
 
     // When User clicks a Map Maker, store the Location Id in Redux.
@@ -247,7 +245,7 @@ export default (state=initialState, action) => {
         ...state,
         cachedLocations: processedLocations,
         displayedMapLocations: locations,
-        filteredListLocations: locations,
+        filteredLocationsList: locations,
       };
 
     default:
