@@ -83,6 +83,7 @@ class FilterSelectInput extends Component {
       // height: "30px"
     });
     let uiListRecenterCoords  = {};
+
     // Note: Don't need an if stmt for USA, b/c USA Select Input is empty.
     // Note: this.props.setLatLonZoomForUiList(uiListRecenterCoords) for USA occurs in FilterRadioButton.js.
 
@@ -100,6 +101,13 @@ class FilterSelectInput extends Component {
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);  // Store the selected US State's re-center coords.
       this.props.createStateLocationsList(usStateName);
     }
+
+    // TODO - add visited locations radio button
+    if (this.props.selectedRadioButton === radioButtonConfig.visited) {
+
+
+    }
+
 
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
       // Case when "Nearme" radio button has been selected.

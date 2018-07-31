@@ -118,6 +118,13 @@ export const createUsLocationsList = () => {
   }
 };
 
+export const CREATE_VISIITED_LOCATIONS_UI_LIST = 'CREATE_VISIITED_LOCATIONS_UI_LIST';
+export const createVisitedLocationsUiList = () => {
+  return {
+    type: CREATE_VISIITED_LOCATIONS_UI_LIST
+  }
+};
+
 export const CREATE_STATE_LOCATIONS_UI_LIST = 'CREATE_STATE_LOCATIONS_UI_LIST';
 export const createStateLocationsList = (stateName) => {
   return {
@@ -144,13 +151,6 @@ export const setLocationId = (locationId) => {
 ///////////////////////////////////////////////////////////////////////////////
 // Update Markers and Locations List when review added/deleted - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
-export const CLEAR_SELECTED_US_STATE_ABBR = 'CLEAR_SELECTED_US_STATE_ABBR';
-export const clearSelectedUsStateAbbr = () => {
-  return {
-    type: CLEAR_SELECTED_US_STATE_ABBR,
-  }
-};
-
 // Called in action_reviews.js, createReview, deleteReview.
 // On Review CREATE/DELETE, updates Marker color, Locations List check-mark (if necessary).
 export const UPDATE_MARKERS_LOCATIONS_LIST = 'UPDATE_MARKERS_LOCATIONS_LIST';

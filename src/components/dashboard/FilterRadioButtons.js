@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import {
   clearLocationsFromList,
   createUsLocationsList,
-  setLatLonZoomForUiList,
-  clearSelectedUsStateAbbr
+  createVisitedLocationsUiList,
+  setLatLonZoomForUiList
 } from '../../actions/action_locations';
 import {
   selectedRadioButton
@@ -21,16 +21,13 @@ class FilterRadioButtons extends Component {
   }
 
   handleOnChange(e) {
+    let uiListRecenterCoords;
     const radioButtonValue = e.target.value;
     this.setState({selectedRadio: radioButtonValue});
 
     if (radioButtonValue === radioButtonConfig.us) {
 
-      // Empty the reducers_locations.js selectedUsStateAbbr.
-      // selectedUsStateAbbr is needed by UPDATE_MARKERS_LOCATIONS_LIST.
-      this.props.clearSelectedUsStateAbbr();
-
-      const uiListRecenterCoords = {
+      uiListRecenterCoords = {
         lat: mapConfig.US.lat,
         lon: mapConfig.US.lon,
         zoom: mapConfig.US.zoom
@@ -47,6 +44,21 @@ class FilterRadioButtons extends Component {
       // Note: for US States, setLatLonZoomForUiList() occurs when a US State is selected from Select Input.
       this.props.clearLocationsFromList();
     }
+
+    if (radioButtonValue === radioButtonConfig.visited) {
+
+      uiListRecenterCoords = {
+        lat: mapConfig.US.lat,
+        lon: mapConfig.US.lon,
+        zoom: mapConfig.US.zoom
+      };
+
+      this.props.selectedRadioButton(radioButtonValue);
+      this.props.setLatLonZoomForUiList(uiListRecenterCoords);
+      this.props.clearLocationsFromList();
+      this.props.createVisitedLocationsUiList();
+    }
+
     if (radioButtonValue === radioButtonConfig.nearme) {
       this.props.selectedRadioButton(radioButtonValue);
       // Note: for "nearme", setMapGeoCenter() occurs when a "nearme" distance is selected from Select Input.
@@ -83,6 +95,17 @@ class FilterRadioButtons extends Component {
           </div>
           <div className="filter_radio_button">
             <input
+              id="radio_visited"
+              type="radio"
+              name="filter_by"
+              value="visited"
+              checked={this.state.selectedRadio === radioButtonConfig.visited}
+              onChange={e => this.handleOnChange(e)}
+            />
+            <label htmlFor="radio_states">Visited</label>
+          </div>
+          <div className="filter_radio_button">
+            <input
               id="radio_nearme"
               type="radio"
               name="filter_by"
@@ -102,6 +125,6 @@ export default connect(null, {
   setLatLonZoomForUiList,
   clearLocationsFromList,
   createUsLocationsList,
-  selectedRadioButton,
-  clearSelectedUsStateAbbr
+  createVisitedLocationsUiList,
+  selectedRadioButton
 })(FilterRadioButtons);
