@@ -163,7 +163,6 @@ export default (state=initialState, action) => {
       const visitedLocations = state.cachedLocations.filter((location) => {
         return location.visited === true;
       });
-      console.log('CREATE_VISIITED_LOCATIONS_UI_LIST visitedLocation', visitedLocations);
       return {
         ...state,
         displayedMapLocations: visitedLocations,
