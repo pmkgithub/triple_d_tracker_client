@@ -33,7 +33,7 @@ class FilteredLocationsList extends Component {
   }
 
   renderList() {
-    return this.props.filteredListLocations.map((location, index) => {
+    return this.props.filteredLocationsList.map((location, index) => {
 
       let className;
       index % 2 === 1 ? className = "filtered_locations_li even" : className = "filtered_locations_li odd";
@@ -77,7 +77,7 @@ class FilteredLocationsList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    filteredListLocations: state.mapData.filteredListLocations,
+    filteredLocationsList: state.mapData.filteredLocationsList,
     uiListRecenterCoords: state.mapData.uiListRecenterCoords,
     selectedRadioButton: state.radioButton.selectedRadioButton
   }
