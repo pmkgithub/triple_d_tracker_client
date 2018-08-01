@@ -88,10 +88,10 @@ export const setMapLatLonCenter = (coords) => {
   }
 };
 
-export const MAP_SINGLE_LOCATIONS_FROM_UI_LIST = 'MAP_SINGLE_LOCATIONS_FROM_UI_LIST';
+export const MAP_SINGLE_LOCATION_FROM_UI_LIST = 'MAP_SINGLE_LOCATION_FROM_UI_LIST';
 export const mapSingleLocationFromList = (singleLocationData) => {
   return {
-    type: MAP_SINGLE_LOCATIONS_FROM_UI_LIST,
+    type: MAP_SINGLE_LOCATION_FROM_UI_LIST,
     singleLocationData
   }
 };

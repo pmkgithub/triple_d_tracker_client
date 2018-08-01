@@ -4,7 +4,7 @@ import {
   FETCH_LOCATIONS_ERROR,
   SET_LAT_LON_ZOOM_FOR_UI_LIST,
   SET_MAP_LAT_LON_CENTER,
-  MAP_SINGLE_LOCATIONS_FROM_UI_LIST,
+  MAP_SINGLE_LOCATION_FROM_UI_LIST,
   MAP_ALL_LOCATIONS_FROM_UI_LIST,
   CLEAR_LOCATIONS_FROM_UI_LIST,
   CREATE_US_LOCATIONS_UI_LIST,
@@ -23,6 +23,8 @@ const initialState = {
   isUsRadioButtonSelected: false,       // for UPDATE_MARKERS_LOCATIONS_LIST - US case
   selectedUsStateAbbr: '',              // for UPDATE_MARKERS_LOCATIONS_LIST - US State case
   isVisitedRadioButtonSelected: false,  // for UPDATE_MARKERS_LOCATIONS_LIST - Visited case
+  isMappingSingleLocation: false,       // for UPDATE_MARKERS_LOCATIONS_LIST - Single Location view case
+  singleLocationData: {},               // for UPDATE_MARKERS_LOCATIONS_LIST - Single Location view case
   locationId: '',                       // locationId of clicked Map Marker.
   // default value set to US.
   uiListRecenterCoords: {
@@ -174,13 +176,30 @@ export default (state=initialState, action) => {
         mapZoom: mapConfig.US.zoom,
       };
 
-    case MAP_SINGLE_LOCATIONS_FROM_UI_LIST:
+    // // TODO - orig - fix single location
+    // case MAP_SINGLE_LOCATION_FROM_UI_LIST:
+    //   const location = state.cachedLocations.find(location => {
+    //       return (location.name === action.singleLocationData.name)
+    //     }
+    //   );
+    //   return {
+    //     ...state,
+    //     displayedMapLocations: [location],
+    //     mapCenterLat: action.singleLocationData.lat,
+    //     mapCenterLon: action.singleLocationData.lon,
+    //     mapZoom: action.singleLocationData.zoom,
+    //   };
+
+    // TODO - refact - fix single location
+    case MAP_SINGLE_LOCATION_FROM_UI_LIST:
       const location = state.cachedLocations.find(location => {
           return (location.name === action.singleLocationData.name)
         }
       );
       return {
         ...state,
+        isMappingSingleLocation: true,                  // for UPDATE_MARKERS_LOCATIONS_LIST.
+        singleLocationData: action.singleLocationData,  // for UPDATE_MARKERS_LOCATIONS_LIST.
         displayedMapLocations: [location],
         mapCenterLat: action.singleLocationData.lat,
         mapCenterLon: action.singleLocationData.lon,
@@ -239,6 +258,26 @@ export default (state=initialState, action) => {
         });
       }
 
+      // // make this the last if stmt b/c "locations" variable is set
+      // // by one of the above if stmts.
+      // if ( state.isMappingSingleLocation ) {
+      //   const singleLocation = state.cachedLocations.find(location => {
+      //     return (location.name === state.singleLocationData.name);
+      //   });
+      //   console.log('reducer_locations.js UPDATE_MARKERS_LOCATIONS_LIST if ( state.isMappingSingleLocation ) singleLocation = ', singleLocation);
+      //
+      //   // "locations" assigned to filterLocationsList
+      //   //  is set in one of the above if stmt's.
+      //   return {
+      //     ...state,
+      //     isMappingSingleLocation: false,
+      //     cachedLocations: processedLocations,
+      //     displayedMapLocations: [singleLocation],
+      //     filteredLocationsList: locations,
+      //   };
+      // }
+
+      // return stmt for isUsRadioButtonSelected, selectedUsStateAbbr, isVisitedRadioButtonSelected
       return {
         ...state,
         cachedLocations: processedLocations,
