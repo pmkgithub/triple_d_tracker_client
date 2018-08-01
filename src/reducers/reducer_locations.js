@@ -14,7 +14,6 @@ import {
   UPDATE_MARKERS_LOCATIONS_LIST,
 } from "../actions/action_locations";
 import mapConfig from '../configs/mapConfig';
-import stateNameToAbbr from '../configs/stateNameToAbbrConfig';
 
 const initialState = {
   locationsBeenFetched: false,
@@ -140,7 +139,7 @@ export default (state=initialState, action) => {
       };
 
     case CREATE_STATE_LOCATIONS_UI_LIST:
-      const usStateAbbr = stateNameToAbbr[action.stateName];
+      const usStateAbbr = action.usStateAbbr;
 
       filteredLocations = state.cachedLocations.filter((location) => {
         return location.state === usStateAbbr;

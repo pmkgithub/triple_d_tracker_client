@@ -75,6 +75,50 @@ class FilterSelectInput extends Component {
     }
   }
 
+  // // TODO - orig - refact setLatLonZoomFoUiList
+  // // TODO - orig - refact createStateLocationsList - refact done.
+  // handleOnChangeSelect(e) {
+  //   // Note: On a State Select Input, e.target.value = the State's name (e.g. "Arizona").
+  //   this.setState({
+  //     value: e.target.value,
+  //     // size: "0",
+  //     // height: "30px"
+  //   });
+  //   let uiListRecenterCoords  = {};
+  //
+  //   // Note: Don't need an if stmt for USA, b/c USA Select Input is empty.
+  //   // Note: this.props.setLatLonZoomForUiList(uiListRecenterCoords) for USA occurs in FilterRadioButton.js.
+  //
+  //   if (this.props.selectedRadioButton === radioButtonConfig.state) {
+  //     // Case when "US States" radio button has been selected.
+  //     const usStateName = e.target.value;
+  //     const usStateAbbr = stateNameToAbbrConfig[usStateName];
+  //
+  //      uiListRecenterCoords  = {
+  //       lat: mapConfig[usStateAbbr].lat,
+  //       lon: mapConfig[usStateAbbr].lon,
+  //       zoom: mapConfig[usStateAbbr].zoom
+  //     };
+  //
+  //     this.props.setLatLonZoomForUiList(uiListRecenterCoords);  // Store the selected US State's re-center coords.
+  //     this.props.createStateLocationsList(usStateName);
+  //   }
+  //
+  //   // TODO - add visited locations radio button
+  //   if (this.props.selectedRadioButton === radioButtonConfig.visited) {
+  //
+  //
+  //   }
+  //
+  //
+  //   if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
+  //     // Case when "Nearme" radio button has been selected.
+  //   }
+  //
+  // }
+
+
+  // TODO - refact - refact createStateLocationsList
   handleOnChangeSelect(e) {
     // Note: On a State Select Input, e.target.value = the State's name (e.g. "Arizona").
     this.setState({
@@ -92,28 +136,28 @@ class FilterSelectInput extends Component {
       const usStateName = e.target.value;
       const usStateAbbr = stateNameToAbbrConfig[usStateName];
 
-       uiListRecenterCoords  = {
+      uiListRecenterCoords  = {
         lat: mapConfig[usStateAbbr].lat,
         lon: mapConfig[usStateAbbr].lon,
         zoom: mapConfig[usStateAbbr].zoom
       };
 
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);  // Store the selected US State's re-center coords.
-      this.props.createStateLocationsList(usStateName);
+      this.props.createStateLocationsList(usStateAbbr);
     }
 
-    // TODO - add visited locations radio button
+    // TODO - add visited locations radio button - is this needed?
     if (this.props.selectedRadioButton === radioButtonConfig.visited) {
 
-
     }
-
 
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
       // Case when "Nearme" radio button has been selected.
     }
 
   }
+
+
 
   // handleOnFocus() {
   //   console.log('this.props.selectedRadioButton = ', this.props.selectedRadioButton);
