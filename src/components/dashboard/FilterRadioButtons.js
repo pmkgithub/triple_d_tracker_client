@@ -34,6 +34,8 @@ class FilterRadioButtons extends Component {
       };
 
       this.props.selectedRadioButton(radioButtonValue); // controls Map Filter Select Input.
+      // Store the US's re-center coords.
+      // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
       this.props.clearLocationsFromList();
       this.props.createUsLocationsList();
@@ -54,6 +56,8 @@ class FilterRadioButtons extends Component {
       };
 
       this.props.selectedRadioButton(radioButtonValue);
+      // Store the US's re-center coords.
+      // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
       this.props.clearLocationsFromList();
       this.props.createVisitedLocationsUiList();
@@ -61,7 +65,7 @@ class FilterRadioButtons extends Component {
 
     if (radioButtonValue === radioButtonConfig.nearme) {
       this.props.selectedRadioButton(radioButtonValue);
-      // Note: for "nearme", setMapGeoCenter() occurs when a "nearme" distance is selected from Select Input.
+      // Note: for "nearme", setLatLonZoomForUiList() occurs when a "nearme" distance is selected from Select Input.
       this.props.clearLocationsFromList();
     }
   }

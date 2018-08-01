@@ -97,10 +97,9 @@ export const mapSingleLocationFromList = (singleLocationData) => {
 };
 
 export const MAP_ALL_LOCATIONS_FROM_UI_LIST = 'MAP_ALL_LOCATIONS_FROM_UI_LIST';
-export const mapAllLocationsFromList = (uiListRecenterCoords) => {
+export const mapAllLocationsFromList = () => {
   return {
-    type: MAP_ALL_LOCATIONS_FROM_UI_LIST,
-    uiListRecenterCoords
+    type: MAP_ALL_LOCATIONS_FROM_UI_LIST
   }
 };
 

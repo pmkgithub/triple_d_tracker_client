@@ -190,9 +190,9 @@ export default (state=initialState, action) => {
     case MAP_ALL_LOCATIONS_FROM_UI_LIST:
       return {
         ...state,
-        mapCenterLat: action.uiListRecenterCoords.lat,
-        mapCenterLon: action.uiListRecenterCoords.lon,
-        mapZoom: action.uiListRecenterCoords.zoom,
+        mapCenterLat: state.uiListRecenterCoords.lat,
+        mapCenterLon: state.uiListRecenterCoords.lon,
+        mapZoom: state.uiListRecenterCoords.zoom,
         displayedMapLocations: state.filteredLocationsList,
       };
 
