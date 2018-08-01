@@ -25,11 +25,10 @@ class FilteredLocationsList extends Component {
   }
 
   handleOnClickButton(e) {
-    // Note: Clicking on Map All Locations From List button will:
-    //       will redisplay all markers for the UI List Locations.
-    //       for US List, selected US State List, or selected Near Me List.
     e.preventDefault();
-    this.props.mapAllLocationsFromList(this.props.uiListRecenterCoords);
+    // Note: Clicking on "Map All Listed Locations" button will
+    //       redisplay all markers found in the UI Locations List.
+    this.props.mapAllLocationsFromList();
   }
 
   renderList() {
@@ -78,7 +77,6 @@ class FilteredLocationsList extends Component {
 const mapStateToProps = (state) => {
   return {
     filteredLocationsList: state.mapData.filteredLocationsList,
-    uiListRecenterCoords: state.mapData.uiListRecenterCoords,
     selectedRadioButton: state.radioButton.selectedRadioButton
   }
 };
