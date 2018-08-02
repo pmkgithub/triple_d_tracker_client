@@ -35,9 +35,23 @@ class ReviewList extends Component {
   renderList() {
     // get locationId of clicked Marker.
     const locationId = this.props.mapData.locationId;
+    let reviews = this.props.reviews;
+
+    // Sort reviews. Most recent at top of list.
+    const compare = (a, b) => {
+      let comparison = 0;
+      if ( a.date > b.date ) {
+        comparison = -1;
+      } else if ( a.date < b.date ) {
+        comparison = 1
+      }
+      return comparison;
+    };
+
+    reviews.sort(compare);
 
     // Find User review(s) which match the clicked Marker's location id.
-    return this.props.reviews.map((review, index) => {
+    return reviews.map((review, index) => {
 
       if (review.locationId === locationId) {
         return (
@@ -49,8 +63,6 @@ class ReviewList extends Component {
               <button
                 className="review_edit_button"
                 type="button"
-                // TODO - Ray EditReivewForm fix - delete loc below when refact done.
-                // onClick={(e) => this.handleEditButtonClick(e, review._id)}
                 onClick={(e) => this.handleEditButtonClick(e, review)}
               >Edit</button>
               <button
