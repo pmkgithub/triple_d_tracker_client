@@ -122,7 +122,6 @@ export default (state=initialState, action) => {
     // on map onDragEnd, set the map's lat/lon.
     // on map zoom, set the map's lat/lon.
     case SET_MAP_LAT_LON_CENTER:
-      console.log('reducers_locations.js SET_MAP_LAT_LON_CENTER ran, action = ', action);
 
        lat = action.coords.lat;
        lon = action.coords.lng;
@@ -294,7 +293,6 @@ export default (state=initialState, action) => {
     // Update Markers and Locations List - END
     ///////////////////////////////////////////////////////////////////////////
 
-    // TODO - nearme
     ///////////////////////////////////////////////////////////////////////////
     // Nearme - BEGIN
     ///////////////////////////////////////////////////////////////////////////

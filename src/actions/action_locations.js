@@ -167,7 +167,6 @@ export const updateMarkersLocationsList = (reviews) => {
 ///////////////////////////////////////////////////////////////////////////////
 
 
-// TODO - nearme
 ///////////////////////////////////////////////////////////////////////////////
 // Near Me - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
@@ -180,13 +179,11 @@ export const setUsersNearmeData = (usersNearmeData) => {
 };
 
 export const fetchNearmeLocations = (usersNearmeData) => dispatch => {
-  console.log('action_locations fetchNearmeLocations ran');
   // Get User's reviews directly from Redux store.
   // Note: By the time fetchNearmeLocations runs, reviews have been fetched
   //       when the App initially loads.
   reviews = store.getState().reviews.reviews;
   const { lat, lon, distanceMeters } = usersNearmeData;
-  console.log('fetchNearmeLocations usersNearmeData lat, lon, distanceMeters= ', lat, lon, distanceMeters);
 
   dispatch(fetchNearmeLocationsRequest);
 
@@ -203,7 +200,6 @@ export const fetchNearmeLocations = (usersNearmeData) => dispatch => {
       return res.json();
     })
     .then(locations => {
-      console.log('fetchNearmeLocations locations = ', locations); // working.
       dispatch(fetchNearmeLocationsSuccess(locations, reviews))
     })
     .catch(err => {

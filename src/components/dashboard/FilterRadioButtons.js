@@ -67,7 +67,6 @@ class FilterRadioButtons extends Component {
       this.props.createVisitedLocationsUiList();  // when User re-clicks Visited button.
     }
 
-    // TODO - nearme
     if (radioButtonValue === radioButtonConfig.nearme) {
       this.props.selectedRadioButton(radioButtonValue);
       // Note 1:

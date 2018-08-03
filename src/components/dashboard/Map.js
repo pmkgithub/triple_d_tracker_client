@@ -61,6 +61,8 @@ class Map extends Component {
   // When map is zoomed by User, reset the map center lat/lon.
   // This keeps map from "jumping" when marker's are hovered.
   handleOnZoomChanged(e) {
+    // NOTE: for whatever reason, handleOnZoomChanged() gets called
+    //       when App initially loads.
     const coordsString = JSON.stringify(this.state.map.getCenter());
     const coords = JSON.parse(coordsString);
     this.props.setMapLatLonCenter(coords);
@@ -82,78 +84,6 @@ class Map extends Component {
     this.setState({isInfoWindowOpen: !this.state.isInfoWindowOpen});
   }
 
-  // // TODO - orig - nearme display both User Location/nearme Locations
-  // renderMarkers() {
-  //   const { displayedMapLocations } = this.props.mapData;
-  //
-  //   if ( this.props.mapData.isFetching ) {
-  //     // console.log('data is loading');
-  //     return false;
-  //   }
-  //
-  //   // TODO - nearme - BEGIN
-  //   if ( this.props.selectedRadioButton === 'nearme' && this.props.usersNearmeData.lat ) {
-  //     console.log('Map.js render users location marker');
-  //     const distance = this.props.usersNearmeData.distance;
-  //     const usersLat = this.props.usersNearmeData.lat;
-  //     const usersLon = this.props.usersNearmeData.lon;
-  //
-  //     const iconUrl = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
-  //     console.log('Map.js render users location marker distance, usersLat, usersLon, zoom', distance, usersLat, usersLon);
-  //
-  //     return (
-  //       <Marker
-  //         key={distance}
-  //         position={{ lat: usersLat, lng: usersLon }}
-  //         icon={{url: iconUrl}}
-  //       >
-  //       </Marker>
-  //     )
-  //   }
-  //   // TODO - nearme - END
-  //
-  //   return displayedMapLocations.map((location, index) => {
-  //     const {lat, lon} = location.coords;
-  //
-  //     let iconUrl;
-  //     const blueMarker = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
-  //     const redMarker = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-  //     const greenMarker = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-  //
-  //     if (location.outOfBusiness === false && location.visited === false) {
-  //       iconUrl = blueMarker;
-  //     }
-  //
-  //     if (location.outOfBusiness === false && location.visited === true ) {
-  //       iconUrl = greenMarker;
-  //     }
-  //
-  //     if (location.outOfBusiness === true) {
-  //       iconUrl = redMarker;
-  //     }
-  //
-  //     return (
-  //       <Marker
-  //         key={index}
-  //         position={{ lat: lat, lng: lon }}
-  //         onClick={(markerObj) => this.handleOnClickMarker(markerObj, location._id)}
-  //         onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, index, location.coords)}
-  //         onMouseOut={(markerObj) => this.mouseOutMarker()}
-  //         icon={{url: iconUrl}}
-  //       >
-  //         {this.state.isInfoWindowOpen && this.state.markerId === index && <InfoWindow
-  //           key={index}
-  //           // options={{disableAutoPan: true}}
-  //           // onCloseClick={() => this.handleOnClickMarker()}
-  //         ><div>{location.name}</div></InfoWindow>}
-  //       </Marker>
-  //     )
-  //   })
-  //
-  // }
-
-
-  // TODO - refact - nearme display both User Location/nearme Locations
   renderMarkers() {
     const { displayedMapLocations } = this.props.mapData;
     let markers;
@@ -203,21 +133,21 @@ class Map extends Component {
 
     // If "Nearme" radio button selected, push User's Location Marker onto "markers".
     if ( this.props.selectedRadioButton === 'nearme' && this.props.usersNearmeData.lat ) {
-      const distance = this.props.usersNearmeData.distance;
+      const distanceMeters = this.props.usersNearmeData.distanceMeters;
       const usersLat = this.props.usersNearmeData.lat;
       const usersLon = this.props.usersNearmeData.lon;
       const iconUrl = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
 
       markers.push((
         <Marker
-          key={distance}
+          key={distanceMeters}
           position={{ lat: usersLat, lng: usersLon }}
-          onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, distance)}
+          onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, distanceMeters)}
           onMouseOut={(markerObj) => this.mouseOutMarker()}
           icon={{url: iconUrl}}
         >
-          {this.state.isInfoWindowOpen && this.state.markerId === distance && <InfoWindow
-            key={distance}
+          {this.state.isInfoWindowOpen && this.state.markerId === distanceMeters && <InfoWindow
+            key={distanceMeters}
           ><div>{"Your Location"}</div></InfoWindow>}
         </Marker>)
       )

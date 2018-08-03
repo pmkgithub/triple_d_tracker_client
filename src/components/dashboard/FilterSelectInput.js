@@ -4,8 +4,7 @@ import {
   createStateLocationsList,
   setLatLonZoomForUiList,
   setUsersNearmeData,
-  fetchNearmeLocations,
-  setMapLatLonCenter
+  fetchNearmeLocations
 } from '../../actions/action_locations';
 import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
 import radioButtonConfig from '../../configs/radioButtonConfig';
@@ -112,7 +111,6 @@ class FilterSelectInput extends Component {
       this.props.createStateLocationsList(usStateAbbr);
     }
 
-    // TODO - nearme
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => this.onGeolocateSuccess(position), (error) => this.onGeolocateError(error));
@@ -121,12 +119,9 @@ class FilterSelectInput extends Component {
   }
 
   onGeolocateSuccess(coordinates) {
-    console.log('onGeolocateSuccess ran');
     let zoom;
     const { latitude, longitude } = coordinates.coords;
     const selectedDistanceMiles = this.state.value;
-    console.log('onGeolocateSuccess Found coordinates: ', latitude, longitude);
-    console.log('onGeolocateSuccess selectedDistanceMiles = ', selectedDistanceMiles);
 
     if ( selectedDistanceMiles === '20' ) {
       zoom = mapSelectInputConfig.nearmeZoom["20"];
@@ -142,13 +137,12 @@ class FilterSelectInput extends Component {
     // mongoose $geoNear requires meters.
     const selectedDistanceMeters = selectedDistanceMiles * 1.60934 * 1000;
 
+    // usersNearmeData needed by Map.js to create User's Location Marker.
     const usersNearmeData = {
       distanceMeters: selectedDistanceMeters,
       lat: latitude,
       lon: longitude
     };
-    console.log('onGeolocateSuccess usersNearmeData = ', usersNearmeData);
-    // usersNearmeData (lat, lon) needed by Maps.js to produce Yellow User's Location Marker.
     this.props.setUsersNearmeData(usersNearmeData);
 
     // For clicking "Map All Listed Locations" button - BEGIN.
@@ -214,6 +208,5 @@ export default connect(mapStateToProps, {
   createStateLocationsList,
   setLatLonZoomForUiList,
   setUsersNearmeData,
-  fetchNearmeLocations, // for nearme
-  setMapLatLonCenter    // for nearme
+  fetchNearmeLocations,
 })(FilterSelectInput);
