@@ -1,14 +1,17 @@
 import { store } from '../index';
 const ROOT_URL = 'http://localhost:8080/api';
+let reviews;
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // fetchLocations - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
 export const fetchLocations = () => dispatch => {
+  // In Map.js componentDidMount() reviews are fetched first,
+  // then fetchLocations() is invoked once review fetch is complete.
   // Get User's reviews directly from Redux store.
-  // Note: By the time this code runs, reviews have been fetched.
-  const reviews = store.getState().reviews.reviews;
+  // By the time fetchLocations runs, reviews have been fetched.
+  reviews = store.getState().reviews.reviews;
 
   dispatch(fetchLocationsRequest);
 
@@ -161,4 +164,71 @@ export const updateMarkersLocationsList = (reviews) => {
 };
 ///////////////////////////////////////////////////////////////////////////////
 // Update Markers and Locations List when review added/deleted - END
+///////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Near Me - BEGIN
+///////////////////////////////////////////////////////////////////////////////
+export const SET_USERS_NEARME_DATA = 'SET_USERS_NEARME_DATA';
+export const setUsersNearmeData = (usersNearmeData) => {
+  return {
+    type: SET_USERS_NEARME_DATA,
+    usersNearmeData
+  }
+};
+
+export const fetchNearmeLocations = (usersNearmeData) => dispatch => {
+  // Get User's reviews directly from Redux store.
+  // Note: By the time fetchNearmeLocations runs, reviews have been fetched
+  //       when the App initially loads.
+  reviews = store.getState().reviews.reviews;
+  const { lat, lon, distanceMeters } = usersNearmeData;
+
+  dispatch(fetchNearmeLocationsRequest);
+
+  fetch(`${ROOT_URL}/locations/nearme?lat=${lat}&lon=${lon}&distanceMeters=${distanceMeters}`, {
+    method: "GET",
+    headers: {
+      "authorization": localStorage.getItem('token')
+    },
+  })
+    .then(res => {
+      if(!res.ok) {
+        return Promise.reject(res.statusText)
+      }
+      return res.json();
+    })
+    .then(locations => {
+      dispatch(fetchNearmeLocationsSuccess(locations, reviews))
+    })
+    .catch(err => {
+      dispatch(fetchNearmeLocationsError(err))
+    })
+
+};
+
+export const FETCH_NEARME_LOCATIONS_REQUEST = 'FETCH_NEARME_LOCATIONS_REQUEST';
+export const fetchNearmeLocationsRequest = () => ({
+  type: FETCH_NEARME_LOCATIONS_REQUEST,
+});
+
+export const FETCH_NEARME_LOCATIONS_SUCCESS = 'FETCH_NEARME_LOCATIONS_SUCCESS';
+export const fetchNearmeLocationsSuccess = (locations, reviews) => {
+  return {
+    type: FETCH_NEARME_LOCATIONS_SUCCESS,
+    locations,
+    reviews
+  }
+};
+
+export const FETCH_NEARME_LOCATIONS_ERROR = 'FETCH_NEARME_LOCATIONS_ERROR';
+export const fetchNearmeLocationsError = (err) => {
+  return {
+    type: FETCH_NEARME_LOCATIONS_ERROR,
+    err
+  }
+};
+///////////////////////////////////////////////////////////////////////////////
+// Near Me - END
 ///////////////////////////////////////////////////////////////////////////////

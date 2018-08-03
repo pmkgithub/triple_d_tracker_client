@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   createStateLocationsList,
-  setLatLonZoomForUiList
+  setLatLonZoomForUiList,
+  setUsersNearmeData,
+  fetchNearmeLocations
 } from '../../actions/action_locations';
 import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
 import radioButtonConfig from '../../configs/radioButtonConfig';
@@ -17,7 +19,7 @@ class FilterSelectInput extends Component {
     super(props);
     this.state = {
       value: "",
-      size: "0"
+      size: "0",
     }
   }
 
@@ -90,42 +92,88 @@ class FilterSelectInput extends Component {
     // Note: Don't need an if stmt for "Visited", b/c "Visited" Select Input is empty.
     // Note: this.props.setLatLonZoomForUiList(uiListRecenterCoords) for "Visited" occurs in FilterRadioButton.js.
 
+    // US STATE - Select Input
     if (this.props.selectedRadioButton === radioButtonConfig.state) {
       // Case when "US States" radio button has been selected.
       const usStateName = e.target.value;
       const usStateAbbr = stateNameToAbbrConfig[usStateName];
 
+      // For clicking "Map All Listed Locations" button - BEGIN.
+      // Store the selected US State's re-center coords.
+      // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       uiListRecenterCoords  = {
         lat: mapConfig[usStateAbbr].lat,
         lon: mapConfig[usStateAbbr].lon,
         zoom: mapConfig[usStateAbbr].zoom
       };
-
-      // Store the selected US State's re-center coords.
-      // uiListRecenterCoords needed when User clicks "Map All Listed Locationss" button.
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
+      // For clicking "Map All Listed Locations" button - END.
+
       this.props.createStateLocationsList(usStateAbbr);
     }
 
-    // TODO - stub for "nearme" logic.
+    // NEARME - Select Input.
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
-      // Case when "Nearme" radio button has been selected.
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => this.onGeolocateSuccess(position), (error) => this.onGeolocateError(error));
+      }
     }
+  }
+
+  onGeolocateSuccess(coordinates) {
+    let zoom;
+    const { latitude, longitude } = coordinates.coords;
+    const selectedDistanceMiles = this.state.value;
+
+    if ( selectedDistanceMiles === '20' ) {
+      zoom = mapSelectInputConfig.nearmeZoom["20"];
+    }
+    if ( selectedDistanceMiles === '50' ) {
+      zoom = mapSelectInputConfig.nearmeZoom["50"];
+    }
+    if ( selectedDistanceMiles === '100' ) {
+      zoom = mapSelectInputConfig.nearmeZoom["100"];
+    }
+
+    // Convert selectedDistance (miles) to meters.
+    // mongoose $geoNear requires meters.
+    const selectedDistanceMeters = selectedDistanceMiles * 1.60934 * 1000;
+
+    // usersNearmeData needed by Map.js to create User's Location Marker.
+    const usersNearmeData = {
+      distanceMeters: selectedDistanceMeters,
+      lat: latitude,
+      lon: longitude
+    };
+    this.props.setUsersNearmeData(usersNearmeData);
+
+    // For clicking "Map All Listed Locations" button - BEGIN.
+    // Store the selected Near Me re-center coords.
+    // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
+    const uiListRecenterCoords = {
+      lat: latitude,
+      lon: longitude,
+      zoom: zoom
+    };
+    this.props.setLatLonZoomForUiList(uiListRecenterCoords);
+    // for clicking "Map All Listed Locations" button - END.
+
+    // Fetch Nearme Locations from API.
+    this.props.fetchNearmeLocations(usersNearmeData);
 
   }
 
-  // handleOnFocus() {
-  //   console.log('this.props.selectedRadioButton = ', this.props.selectedRadioButton);
-  //   if(this.props.selectedRadioButton !== radioButtonConfig.us) {
-  //     this.setState({size: "5", height: "100px"});
-  //   }
-  // }
-  //
-  // handleOnBlur() {
-  //   if(this.props.selectedRadioButton !== radioButtonConfig.us) {
-  //     this.setState({size: "0", height: "30px"});
-  //   }
-  // }
+  onGeolocateError(error) {
+    console.warn(error.code, error.message);
+
+    if (error.code === 1) {
+      // they said no
+    } else if (error.code === 2) {
+      // position unavailable
+    } else if (error.code === 3) {
+      // timeout
+    }
+  }
 
   render() {
     return (
@@ -137,13 +185,11 @@ class FilterSelectInput extends Component {
             onChange={(e) => {this.handleOnChangeSelect(e)}}
             size={this.state.size}
             height={this.state.height}
-            // onFocus={() => {this.handleOnFocus()}}
-            // onBlur={() => {this.handleOnBlur()}}
           >
             {this.props.selectedRadioButton === 'us'? <option value="choose_country" selected disabled>Not Applicable for Filter By: USA</option> : ''}
             {this.props.selectedRadioButton === 'state'? <option value="choose_us_state" disabled>Choose a US State</option> : ''}
             {this.props.selectedRadioButton === 'visited'? <option value="choose_visited" selected disabled>Not Applicable for Filter By: Visited</option> : ''}
-            {this.props.selectedRadioButton === 'nearme'? <option value="choose_nearme" disabled>Choose a Near Me Distance</option> : ''}
+            {this.props.selectedRadioButton === 'nearme'? <option value="choose_nearme" disabled>Choose a Near Me Distance (Miles)</option> : ''}
 
             {this.buildOptions()}
             </select>
@@ -162,5 +208,7 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   createStateLocationsList,
-  setLatLonZoomForUiList
+  setLatLonZoomForUiList,
+  setUsersNearmeData,
+  fetchNearmeLocations,
 })(FilterSelectInput);

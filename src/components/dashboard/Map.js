@@ -53,6 +53,7 @@ class Map extends Component {
   // This keeps map from "jumping" when marker's are hovered.
   handleOnDragEnd(e) {
     const coordsString = JSON.stringify(this.state.map.getCenter());
+    // NOTE: below, coords are Numbers.
     const coords = JSON.parse(coordsString);
     this.props.setMapLatLonCenter(coords);
   }
@@ -60,6 +61,8 @@ class Map extends Component {
   // When map is zoomed by User, reset the map center lat/lon.
   // This keeps map from "jumping" when marker's are hovered.
   handleOnZoomChanged(e) {
+    // NOTE: for whatever reason, handleOnZoomChanged() gets called
+    //       when App initially loads.
     const coordsString = JSON.stringify(this.state.map.getCenter());
     const coords = JSON.parse(coordsString);
     this.props.setMapLatLonCenter(coords);
@@ -83,13 +86,14 @@ class Map extends Component {
 
   renderMarkers() {
     const { displayedMapLocations } = this.props.mapData;
+    let markers;
 
     if ( this.props.mapData.isFetching ) {
       // console.log('data is loading');
       return false;
     }
 
-    return displayedMapLocations.map((location, index) => {
+    markers = displayedMapLocations.map((location, index) => {
       const {lat, lon} = location.coords;
 
       let iconUrl;
@@ -125,7 +129,31 @@ class Map extends Component {
           ><div>{location.name}</div></InfoWindow>}
         </Marker>
       )
-    })
+    });
+
+    // If "Nearme" radio button selected, push User's Location Marker onto "markers".
+    if ( this.props.selectedRadioButton === 'nearme' && this.props.usersNearmeData.lat ) {
+      const distanceMeters = this.props.usersNearmeData.distanceMeters;
+      const usersLat = this.props.usersNearmeData.lat;
+      const usersLon = this.props.usersNearmeData.lon;
+      const iconUrl = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+
+      markers.push((
+        <Marker
+          key={distanceMeters}
+          position={{ lat: usersLat, lng: usersLon }}
+          onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, distanceMeters)}
+          onMouseOut={(markerObj) => this.mouseOutMarker()}
+          icon={{url: iconUrl}}
+        >
+          {this.state.isInfoWindowOpen && this.state.markerId === distanceMeters && <InfoWindow
+            key={distanceMeters}
+          ><div>{"My Location"}</div></InfoWindow>}
+        </Marker>)
+      )
+    }
+
+    return markers;
 
   }
   // markers - END
@@ -153,7 +181,9 @@ class Map extends Component {
 const mapStateToProps = (state) => {
   return {
     mapData: state.mapData,
-    reviews: state.reviews
+    selectedRadioButton: state.radioButton.selectedRadioButton,
+    reviews: state.reviews,
+    usersNearmeData: state.mapData.usersNearmeData
   };
 };
 

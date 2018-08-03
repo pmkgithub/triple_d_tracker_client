@@ -2,6 +2,7 @@ import {
   FETCH_LOCATIONS_REQUEST,
   FETCH_LOCATIONS_SUCCESS,
   FETCH_LOCATIONS_ERROR,
+
   SET_LAT_LON_ZOOM_FOR_UI_LIST,
   SET_MAP_LAT_LON_CENTER,
   MAP_SINGLE_LOCATION_FROM_UI_LIST,
@@ -12,6 +13,11 @@ import {
   CREATE_STATE_LOCATIONS_UI_LIST,
   SET_LOCATION_ID,
   UPDATE_MARKERS_LOCATIONS_LIST,
+
+  SET_USERS_NEARME_DATA,
+  FETCH_NEARME_LOCATIONS_REQUEST,
+  FETCH_NEARME_LOCATIONS_SUCCESS,
+  FETCH_NEARME_LOCATIONS_ERROR
 } from "../actions/action_locations";
 import mapConfig from '../configs/mapConfig';
 
@@ -22,9 +28,10 @@ const initialState = {
   filteredLocationsList: [],
   // default isUsRadioButtonSelected to "true"
   // b/c USA radio button is pre-selected on App launch.
-  isUsRadioButtonSelected: true,       // for UPDATE_MARKERS_LOCATIONS_LIST - US case
+  isUsRadioButtonSelected: true,        // for UPDATE_MARKERS_LOCATIONS_LIST - US case
   selectedUsStateAbbr: '',              // for UPDATE_MARKERS_LOCATIONS_LIST - US State case
   isVisitedRadioButtonSelected: false,  // for UPDATE_MARKERS_LOCATIONS_LIST - Visited case
+  isNearmeRadioButtonSelected: false,   // for UPDATE_MARKERS_LOCATIONS_LIST - Visited case
   isMappingSingleLocation: false,       // for UPDATE_MARKERS_LOCATIONS_LIST - Single Location view case
   singleLocationData: {},               // for UPDATE_MARKERS_LOCATIONS_LIST - Single Location view case
   locationId: '',                       // locationId of clicked Map Marker.
@@ -38,7 +45,14 @@ const initialState = {
   mapCenterLon: mapConfig.US.lon,
   mapZoom: mapConfig.US.zoom,
   isFetching: false,
-  err: ""
+  err: "",
+  usersNearmeData: {
+    distanceMeters: '',
+    lat: '',
+    lon: '',
+    zoom: ''
+  },
+  currentNearmeLocations: []
 };
 
 export default (state=initialState, action) => {
@@ -137,6 +151,7 @@ export default (state=initialState, action) => {
         isUsRadioButtonSelected: true,                // for UPDATE_MARKERS_LOCATIONS_LIST.
         selectedUsStateAbbr: '',                      // for UPDATE_MARKERS_LOCATIONS_LIST.
         isVisitedRadioButtonSelected: false,          // for UPDATE_MARKERS_LOCATIONS_LIST.
+        isNearmeRadioButtonSelected: false,           // for UPDATE_MARKERS_LOCATIONS_LIST.
         mapCenterLat: mapConfig.US.lat,
         mapCenterLon: mapConfig.US.lon,
         mapZoom: mapConfig.US.zoom,
@@ -156,6 +171,7 @@ export default (state=initialState, action) => {
         isUsRadioButtonSelected: false,           // for UPDATE_MARKERS_LOCATIONS_LIST.
         selectedUsStateAbbr: usStateAbbr,         // for UPDATE_MARKERS_LOCATIONS_LIST.
         isVisitedRadioButtonSelected: false,      // for UPDATE_MARKERS_LOCATIONS_LIST.
+        isNearmeRadioButtonSelected: false,       // for UPDATE_MARKERS_LOCATIONS_LIST.
         mapCenterLat: mapConfig[usStateAbbr].lat,
         mapCenterLon: mapConfig[usStateAbbr].lon,
         mapZoom: mapConfig[usStateAbbr].zoom,
@@ -173,6 +189,7 @@ export default (state=initialState, action) => {
         isUsRadioButtonSelected: false,           // for UPDATE_MARKERS_LOCATIONS_LIST.
         selectedUsStateAbbr: '',                  // for UPDATE_MARKERS_LOCATIONS_LIST.
         isVisitedRadioButtonSelected: true,       // for UPDATE_MARKERS_LOCATIONS_LIST.
+        isNearmeRadioButtonSelected: false,       // for UPDATE_MARKERS_LOCATIONS_LIST.
         mapCenterLat: mapConfig.US.lat,
         mapCenterLon: mapConfig.US.lon,
         mapZoom: mapConfig.US.zoom,
@@ -200,6 +217,7 @@ export default (state=initialState, action) => {
         mapCenterLon: state.uiListRecenterCoords.lon,
         mapZoom: state.uiListRecenterCoords.zoom,
         displayedMapLocations: state.filteredLocationsList,
+        isMappingSingleLocation: false
       };
 
     // When User clicks a Map Maker, store the Location Id in Redux.
@@ -210,6 +228,9 @@ export default (state=initialState, action) => {
         locationId: action.locationId,
       };
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Update Markers and Locations List - BEGIN
+    ///////////////////////////////////////////////////////////////////////////
     case UPDATE_MARKERS_LOCATIONS_LIST:
       const reviews = action.reviews;
 
@@ -246,6 +267,17 @@ export default (state=initialState, action) => {
         });
       }
 
+      // TODO - fix nearme
+      if ( state.isNearmeRadioButtonSelected ) {
+        locations = state.currentNearmeLocations.map((location) => {
+          location.visited = false;
+          if (visitedLocationsIds.indexOf(location._id) >= 0) {
+            location.visited = true;
+          }
+          return location;
+        });
+      }
+
       // Make this the last if stmt b/c "locations" variable is set
       // by one of the above if stmts.
       if ( state.isMappingSingleLocation ) {
@@ -271,6 +303,81 @@ export default (state=initialState, action) => {
         displayedMapLocations: locations,
         filteredLocationsList: locations,
       };
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Update Markers and Locations List - END
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Nearme - BEGIN
+    ///////////////////////////////////////////////////////////////////////////
+    case SET_USERS_NEARME_DATA:
+      return {
+        ...state,
+        usersNearmeData: action.usersNearmeData
+      };
+
+    case FETCH_NEARME_LOCATIONS_REQUEST:
+      return {
+        ...state,
+        isFetching: true
+      };
+
+    case FETCH_NEARME_LOCATIONS_SUCCESS:
+      // Fetched locations from API are "single source of truth" - all User's get this set of
+      // locations from API.
+      //
+      // Different User's will see different "green" markers depending whether or not
+      // they have personally visited / written a review a location.
+      //
+      // Visited location's reviews are stored in the UserSchema and placed into Redux state
+      // when the User signs-in, AND upon Browser refresh.
+      //
+      // When locations fetched from API,
+      // process the fetched locations and set the "location.visited" to "true",
+      // when a location's id is in the state.visitedLocationsIds array.
+
+      const fetchedNearmeLocations = action.locations;
+
+      // create array of visited locations Ids from the reviews array.
+      visitedLocationsIds = action.reviews.map(review => {
+        return review.locationId;
+      });
+
+      // If User has visited a location/written a review,
+      // set location.visited to "true".
+      processedLocations = fetchedNearmeLocations.map((location) => {
+        if (visitedLocationsIds.indexOf(location._id) >= 0) {
+          location.visited = true;
+        }
+        return location;
+      });
+
+      return {
+        ...state,
+        // locationsBeenFetched: true,
+        // cachedLocations: processedLocations,
+        displayedMapLocations: processedLocations,
+        filteredLocationsList: processedLocations,
+        currentNearmeLocations: processedLocations,  // for UPDATE_MARKERS_LOCATIONS_LIST.
+        isNearmeRadioButtonSelected: true,
+        mapCenterLat: state.uiListRecenterCoords.lat,
+        mapCenterLon: state.uiListRecenterCoords.lon,
+        mapZoom: state.uiListRecenterCoords.zoom,
+        isFetching: false,
+        err: ""
+      };
+
+    case FETCH_NEARME_LOCATIONS_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        err: action.err
+      };
+    ///////////////////////////////////////////////////////////////////////////
+    // Nearme - END
+    ///////////////////////////////////////////////////////////////////////////
+
 
     default:
       return state;
