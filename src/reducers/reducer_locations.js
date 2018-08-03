@@ -158,7 +158,6 @@ export default (state=initialState, action) => {
       };
 
     case CREATE_STATE_LOCATIONS_UI_LIST:
-      console.log('reducer_locations.js CREATE_STATE_LOCATIONS_UI_LIST ran');
       const usStateAbbr = action.usStateAbbr;
 
       filteredLocations = state.cachedLocations.filter((location) => {
@@ -233,7 +232,6 @@ export default (state=initialState, action) => {
     // Update Markers and Locations List - BEGIN
     ///////////////////////////////////////////////////////////////////////////
     case UPDATE_MARKERS_LOCATIONS_LIST:
-      console.log('reducer_locations.js UPDATE_MARKERS_LOCATIONS_LIST ran');
       const reviews = action.reviews;
 
       // create array of visited locations Ids from the reviews array.

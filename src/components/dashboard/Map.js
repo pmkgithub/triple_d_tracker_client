@@ -148,7 +148,7 @@ class Map extends Component {
         >
           {this.state.isInfoWindowOpen && this.state.markerId === distanceMeters && <InfoWindow
             key={distanceMeters}
-          ><div>{"Your Location"}</div></InfoWindow>}
+          ><div>{"My Location"}</div></InfoWindow>}
         </Marker>)
       )
     }

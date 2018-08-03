@@ -92,6 +92,7 @@ class FilterSelectInput extends Component {
     // Note: Don't need an if stmt for "Visited", b/c "Visited" Select Input is empty.
     // Note: this.props.setLatLonZoomForUiList(uiListRecenterCoords) for "Visited" occurs in FilterRadioButton.js.
 
+    // US STATE - Select Input
     if (this.props.selectedRadioButton === radioButtonConfig.state) {
       // Case when "US States" radio button has been selected.
       const usStateName = e.target.value;
@@ -111,6 +112,7 @@ class FilterSelectInput extends Component {
       this.props.createStateLocationsList(usStateAbbr);
     }
 
+    // NEARME - Select Input.
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => this.onGeolocateSuccess(position), (error) => this.onGeolocateError(error));
