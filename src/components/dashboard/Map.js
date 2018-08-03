@@ -89,6 +89,25 @@ class Map extends Component {
       return false;
     }
 
+    // TODO - nearme
+    if ( this.props.selectedRadioButton === 'nearme' && this.props.usersNearmeData.lat ) {
+      console.log('Map.js render users location marker');
+      const usersLat = this.props.usersNearmeData.lat;
+      const usersLon = this.props.usersNearmeData.lon;
+      const distance = this.props.usersNearmeData.distance;
+      const iconUrl = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+      console.log('Map.js render users location marker usersLat, usersLon, distance', usersLat, usersLon, distance);
+
+      return (
+        <Marker
+          key={distance}
+          position={{ lat: usersLat, lng: usersLon }}
+          icon={{url: iconUrl}}
+        >
+        </Marker>
+      )
+    }
+
     return displayedMapLocations.map((location, index) => {
       const {lat, lon} = location.coords;
 
@@ -153,7 +172,9 @@ class Map extends Component {
 const mapStateToProps = (state) => {
   return {
     mapData: state.mapData,
-    reviews: state.reviews
+    selectedRadioButton: state.radioButton.selectedRadioButton,
+    reviews: state.reviews,
+    usersNearmeData: state.mapData.usersNearmeData
   };
 };
 

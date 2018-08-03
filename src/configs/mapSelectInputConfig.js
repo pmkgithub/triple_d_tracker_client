@@ -1,3 +1,3 @@
 export default {
-  nearmeDistance: [10, 50, 100]
+  nearmeDistance: [20, 50, 100]
 }

@@ -12,6 +12,7 @@ import {
   CREATE_STATE_LOCATIONS_UI_LIST,
   SET_LOCATION_ID,
   UPDATE_MARKERS_LOCATIONS_LIST,
+  SET_USERS_NEARME_DATA,
 } from "../actions/action_locations";
 import mapConfig from '../configs/mapConfig';
 
@@ -38,7 +39,9 @@ const initialState = {
   mapCenterLon: mapConfig.US.lon,
   mapZoom: mapConfig.US.zoom,
   isFetching: false,
-  err: ""
+  err: "",
+  usersNearmeData: {},
+  nearmeLocations: []
 };
 
 export default (state=initialState, action) => {
@@ -210,6 +213,9 @@ export default (state=initialState, action) => {
         locationId: action.locationId,
       };
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Update Markers and Locations List - BEGIN
+    ///////////////////////////////////////////////////////////////////////////
     case UPDATE_MARKERS_LOCATIONS_LIST:
       const reviews = action.reviews;
 
@@ -271,6 +277,25 @@ export default (state=initialState, action) => {
         displayedMapLocations: locations,
         filteredLocationsList: locations,
       };
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Update Markers and Locations List - END
+    ///////////////////////////////////////////////////////////////////////////
+
+    // TODO - nearme
+    ///////////////////////////////////////////////////////////////////////////
+    // Nearme - BEGIN
+    ///////////////////////////////////////////////////////////////////////////
+    case SET_USERS_NEARME_DATA:
+      return {
+        ...state,
+        usersNearmeData: action.usersNearmeData
+      };
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Nearme - END
+    ///////////////////////////////////////////////////////////////////////////
+
 
     default:
       return state;

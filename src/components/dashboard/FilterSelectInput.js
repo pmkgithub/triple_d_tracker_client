@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   createStateLocationsList,
-  setLatLonZoomForUiList
+  setLatLonZoomForUiList,
+  setUsersNearmeData,
+  fetchNearmeLocations
 } from '../../actions/action_locations';
 import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
 import radioButtonConfig from '../../configs/radioButtonConfig';
@@ -17,7 +19,7 @@ class FilterSelectInput extends Component {
     super(props);
     this.state = {
       value: "",
-      size: "0"
+      size: "0",
     }
   }
 
@@ -107,12 +109,57 @@ class FilterSelectInput extends Component {
       this.props.createStateLocationsList(usStateAbbr);
     }
 
-    // TODO - stub for "nearme" logic.
+    // TODO - nearme
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
-      // Case when "Nearme" radio button has been selected.
+      // Get User's geolocation position (e.g. lat, lon).
+      if (navigator.geolocation) {
+        // console.log('if (navigator.geolocation) ran');
+        navigator.geolocation.getCurrentPosition((position) => this.onGeolocateSuccess(position), (error) => this.onGeolocateError(error));
+      }
     }
+  }
+
+  onGeolocateSuccess(coordinates) {
+    const { latitude, longitude } = coordinates.coords;
+    const distance = this.state.value;
+    console.log('onGeolocateSuccess Found coordinates: ', latitude, longitude);
+    console.log('onGeolocateSuccess Selected Distance = ', distance);
+    const usersNearmeData = {
+      distance: distance,
+      lat: latitude,
+      lon: longitude
+    };
+    console.log('usersNearmeData = ', usersNearmeData);
+    // usersNearmeData needed by Maps.js to produce Yellow User's Location Marker.
+    this.props.setUsersNearmeData(usersNearmeData);
+    // Fetch Nearme Locations from API.
+    this.props.fetchNearmeLocations(usersNearmeData);
 
   }
+
+  onGeolocateError(error) {
+    console.warn(error.code, error.message);
+
+    if (error.code === 1) {
+      // they said no
+    } else if (error.code === 2) {
+      // position unavailable
+    } else if (error.code === 3) {
+      // timeout
+    }
+  }
+
+  // getUsersLocation() {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(showPosition);
+  //   } else {
+  //     x.innerHTML = "Geolocation is not supported by this browser.";
+  //   }
+  // }
+  // showPosition(position) {
+  //   x.innerHTML = "Latitude: " + position.coords.latitude +
+  //     "<br>Longitude: " + position.coords.longitude;
+  // }
 
   // handleOnFocus() {
   //   console.log('this.props.selectedRadioButton = ', this.props.selectedRadioButton);
@@ -143,7 +190,7 @@ class FilterSelectInput extends Component {
             {this.props.selectedRadioButton === 'us'? <option value="choose_country" selected disabled>Not Applicable for Filter By: USA</option> : ''}
             {this.props.selectedRadioButton === 'state'? <option value="choose_us_state" disabled>Choose a US State</option> : ''}
             {this.props.selectedRadioButton === 'visited'? <option value="choose_visited" selected disabled>Not Applicable for Filter By: Visited</option> : ''}
-            {this.props.selectedRadioButton === 'nearme'? <option value="choose_nearme" disabled>Choose a Near Me Distance</option> : ''}
+            {this.props.selectedRadioButton === 'nearme'? <option value="choose_nearme" disabled>Choose a Near Me Distance (Miles)</option> : ''}
 
             {this.buildOptions()}
             </select>
@@ -162,5 +209,7 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   createStateLocationsList,
-  setLatLonZoomForUiList
+  setLatLonZoomForUiList,
+  setUsersNearmeData,
+  fetchNearmeLocations
 })(FilterSelectInput);
