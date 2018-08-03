@@ -4,7 +4,8 @@ import {
   clearLocationsFromList,
   createUsLocationsList,
   createVisitedLocationsUiList,
-  setLatLonZoomForUiList
+  setLatLonZoomForUiList,
+  setUsersNearmeData,
 } from '../../actions/action_locations';
 import {
   selectedRadioButton
@@ -26,17 +27,17 @@ class FilterRadioButtons extends Component {
     this.setState({selectedRadio: radioButtonValue});
 
     if (radioButtonValue === radioButtonConfig.us) {
-
+      this.props.selectedRadioButton(radioButtonValue); // controls Map Filter Select Input.
+      // Store the US's re-center coords.
+      // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       uiListRecenterCoords = {
         lat: mapConfig.US.lat,
         lon: mapConfig.US.lon,
         zoom: mapConfig.US.zoom
       };
-
-      this.props.selectedRadioButton(radioButtonValue); // controls Map Filter Select Input.
-      // Store the US's re-center coords.
-      // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
+      // For clicking "Map All Listed Locations" button - END.
+
       this.props.clearLocationsFromList();
       this.props.createUsLocationsList();  // when User re-clicks USA button.
     }
@@ -49,27 +50,45 @@ class FilterRadioButtons extends Component {
 
     if (radioButtonValue === radioButtonConfig.visited) {
 
+      this.props.selectedRadioButton(radioButtonValue);
+
+      // For clicking "Map All Listed Locations" button - BEGIN.
+      // Store the US's re-center coords.
+      // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       uiListRecenterCoords = {
         lat: mapConfig.US.lat,
         lon: mapConfig.US.lon,
         zoom: mapConfig.US.zoom
       };
-
-      this.props.selectedRadioButton(radioButtonValue);
-      // Store the US's re-center coords.
-      // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
+      // For clicking "Map All Listed Locations" button - END.
+
       this.props.clearLocationsFromList();
-      this.props.createVisitedLocationsUiList();
+      this.props.createVisitedLocationsUiList();  // when User re-clicks Visited button.
     }
 
     // TODO - nearme
     if (radioButtonValue === radioButtonConfig.nearme) {
       this.props.selectedRadioButton(radioButtonValue);
-      // Note: for "nearme", setLatLonZoomForUiList() occurs when a "nearme" distance is selected from Select Input.
+      // Note 1:
+      //    "nearme", values for setLatLonZoomForUiList()
+      //    are set when a "nearme" distance is selected from Select Input.
+
+      // NOTE 2:
+      //    Each time the "nearme" radio button is clicked,
+      //    setUsersNearmeData() needs to be called and data cleared,
+      //    so the User's Location marker doesn't display when User
+      //    re-selects the "nearme" button.
+      const usersNearmeData = {
+        distanceMeters: '',
+        lat: '',
+        lon: ''
+      };
+      this.props.setUsersNearmeData(usersNearmeData);
+
       this.props.clearLocationsFromList();
       // NOTE: No need to createNearmeLocationsUiList action/reducer b/c this
-      //       data is refectched on each Select Input selection.
+      //       list data is re-fectched on each "nearme" Select Input selection.
     }
   }
 
@@ -133,5 +152,6 @@ export default connect(null, {
   clearLocationsFromList,
   createUsLocationsList,
   createVisitedLocationsUiList,
-  selectedRadioButton
+  selectedRadioButton,
+  setUsersNearmeData
 })(FilterRadioButtons);

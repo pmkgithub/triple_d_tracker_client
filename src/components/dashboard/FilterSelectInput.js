@@ -98,23 +98,23 @@ class FilterSelectInput extends Component {
       const usStateName = e.target.value;
       const usStateAbbr = stateNameToAbbrConfig[usStateName];
 
+      // For clicking "Map All Listed Locations" button - BEGIN.
+      // Store the selected US State's re-center coords.
+      // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       uiListRecenterCoords  = {
         lat: mapConfig[usStateAbbr].lat,
         lon: mapConfig[usStateAbbr].lon,
         zoom: mapConfig[usStateAbbr].zoom
       };
-
-      // Store the selected US State's re-center coords.
-      // uiListRecenterCoords needed when User clicks "Map All Listed Locationss" button.
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
+      // For clicking "Map All Listed Locations" button - END.
+
       this.props.createStateLocationsList(usStateAbbr);
     }
 
     // TODO - nearme
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
-      // Get User's geolocation position (e.g. lat, lon).
       if (navigator.geolocation) {
-        // console.log('if (navigator.geolocation) ran');
         navigator.geolocation.getCurrentPosition((position) => this.onGeolocateSuccess(position), (error) => this.onGeolocateError(error));
       }
     }
@@ -138,7 +138,7 @@ class FilterSelectInput extends Component {
       zoom = mapSelectInputConfig.nearmeZoom["100"];
     }
 
-    // convert selectedDistance (miles) to meters.
+    // Convert selectedDistance (miles) to meters.
     // mongoose $geoNear requires meters.
     const selectedDistanceMeters = selectedDistanceMiles * 1.60934 * 1000;
 
@@ -151,7 +151,9 @@ class FilterSelectInput extends Component {
     // usersNearmeData (lat, lon) needed by Maps.js to produce Yellow User's Location Marker.
     this.props.setUsersNearmeData(usersNearmeData);
 
-    // for clicking "Map All Listed Locations" button - BEGIN.
+    // For clicking "Map All Listed Locations" button - BEGIN.
+    // Store the selected Near Me re-center coords.
+    // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
     const uiListRecenterCoords = {
       lat: latitude,
       lon: longitude,
@@ -177,19 +179,6 @@ class FilterSelectInput extends Component {
     }
   }
 
-  // handleOnFocus() {
-  //   console.log('this.props.selectedRadioButton = ', this.props.selectedRadioButton);
-  //   if(this.props.selectedRadioButton !== radioButtonConfig.us) {
-  //     this.setState({size: "5", height: "100px"});
-  //   }
-  // }
-  //
-  // handleOnBlur() {
-  //   if(this.props.selectedRadioButton !== radioButtonConfig.us) {
-  //     this.setState({size: "0", height: "30px"});
-  //   }
-  // }
-
   render() {
     return (
       <div>
@@ -200,8 +189,6 @@ class FilterSelectInput extends Component {
             onChange={(e) => {this.handleOnChangeSelect(e)}}
             size={this.state.size}
             height={this.state.height}
-            // onFocus={() => {this.handleOnFocus()}}
-            // onBlur={() => {this.handleOnBlur()}}
           >
             {this.props.selectedRadioButton === 'us'? <option value="choose_country" selected disabled>Not Applicable for Filter By: USA</option> : ''}
             {this.props.selectedRadioButton === 'state'? <option value="choose_us_state" disabled>Choose a US State</option> : ''}
