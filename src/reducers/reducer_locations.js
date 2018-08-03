@@ -28,9 +28,10 @@ const initialState = {
   filteredLocationsList: [],
   // default isUsRadioButtonSelected to "true"
   // b/c USA radio button is pre-selected on App launch.
-  isUsRadioButtonSelected: true,       // for UPDATE_MARKERS_LOCATIONS_LIST - US case
+  isUsRadioButtonSelected: true,        // for UPDATE_MARKERS_LOCATIONS_LIST - US case
   selectedUsStateAbbr: '',              // for UPDATE_MARKERS_LOCATIONS_LIST - US State case
   isVisitedRadioButtonSelected: false,  // for UPDATE_MARKERS_LOCATIONS_LIST - Visited case
+  isNearmeRadioButtonSelected: false,   // for UPDATE_MARKERS_LOCATIONS_LIST - Visited case
   isMappingSingleLocation: false,       // for UPDATE_MARKERS_LOCATIONS_LIST - Single Location view case
   singleLocationData: {},               // for UPDATE_MARKERS_LOCATIONS_LIST - Single Location view case
   locationId: '',                       // locationId of clicked Map Marker.
@@ -51,7 +52,7 @@ const initialState = {
     lon: '',
     zoom: ''
   },
-  nearmeLocations: []
+  currentNearmeLocations: []
 };
 
 export default (state=initialState, action) => {
@@ -150,6 +151,7 @@ export default (state=initialState, action) => {
         isUsRadioButtonSelected: true,                // for UPDATE_MARKERS_LOCATIONS_LIST.
         selectedUsStateAbbr: '',                      // for UPDATE_MARKERS_LOCATIONS_LIST.
         isVisitedRadioButtonSelected: false,          // for UPDATE_MARKERS_LOCATIONS_LIST.
+        isNearmeRadioButtonSelected: false,           // for UPDATE_MARKERS_LOCATIONS_LIST.
         mapCenterLat: mapConfig.US.lat,
         mapCenterLon: mapConfig.US.lon,
         mapZoom: mapConfig.US.zoom,
@@ -170,6 +172,7 @@ export default (state=initialState, action) => {
         isUsRadioButtonSelected: false,           // for UPDATE_MARKERS_LOCATIONS_LIST.
         selectedUsStateAbbr: usStateAbbr,         // for UPDATE_MARKERS_LOCATIONS_LIST.
         isVisitedRadioButtonSelected: false,      // for UPDATE_MARKERS_LOCATIONS_LIST.
+        isNearmeRadioButtonSelected: false,       // for UPDATE_MARKERS_LOCATIONS_LIST.
         mapCenterLat: mapConfig[usStateAbbr].lat,
         mapCenterLon: mapConfig[usStateAbbr].lon,
         mapZoom: mapConfig[usStateAbbr].zoom,
@@ -187,6 +190,7 @@ export default (state=initialState, action) => {
         isUsRadioButtonSelected: false,           // for UPDATE_MARKERS_LOCATIONS_LIST.
         selectedUsStateAbbr: '',                  // for UPDATE_MARKERS_LOCATIONS_LIST.
         isVisitedRadioButtonSelected: true,       // for UPDATE_MARKERS_LOCATIONS_LIST.
+        isNearmeRadioButtonSelected: false,       // for UPDATE_MARKERS_LOCATIONS_LIST.
         mapCenterLat: mapConfig.US.lat,
         mapCenterLon: mapConfig.US.lon,
         mapZoom: mapConfig.US.zoom,
@@ -214,6 +218,7 @@ export default (state=initialState, action) => {
         mapCenterLon: state.uiListRecenterCoords.lon,
         mapZoom: state.uiListRecenterCoords.zoom,
         displayedMapLocations: state.filteredLocationsList,
+        isMappingSingleLocation: false
       };
 
     // When User clicks a Map Maker, store the Location Id in Redux.
@@ -228,6 +233,7 @@ export default (state=initialState, action) => {
     // Update Markers and Locations List - BEGIN
     ///////////////////////////////////////////////////////////////////////////
     case UPDATE_MARKERS_LOCATIONS_LIST:
+      console.log('reducer_locations.js UPDATE_MARKERS_LOCATIONS_LIST ran');
       const reviews = action.reviews;
 
       // create array of visited locations Ids from the reviews array.
@@ -260,6 +266,17 @@ export default (state=initialState, action) => {
       if ( state.isVisitedRadioButtonSelected ) {
         locations = processedLocations.filter((location) => {
           return location.visited === true;
+        });
+      }
+
+      // TODO - fix nearme
+      if ( state.isNearmeRadioButtonSelected ) {
+        locations = state.currentNearmeLocations.map((location) => {
+          location.visited = false;
+          if (visitedLocationsIds.indexOf(location._id) >= 0) {
+            location.visited = true;
+          }
+          return location;
         });
       }
 
@@ -344,6 +361,8 @@ export default (state=initialState, action) => {
         // cachedLocations: processedLocations,
         displayedMapLocations: processedLocations,
         filteredLocationsList: processedLocations,
+        currentNearmeLocations: processedLocations,  // for UPDATE_MARKERS_LOCATIONS_LIST.
+        isNearmeRadioButtonSelected: true,
         mapCenterLat: state.uiListRecenterCoords.lat,
         mapCenterLon: state.uiListRecenterCoords.lon,
         mapZoom: state.uiListRecenterCoords.zoom,
