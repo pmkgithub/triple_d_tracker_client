@@ -38,7 +38,7 @@ class FilterRadioButtons extends Component {
       // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
       this.props.clearLocationsFromList();
-      this.props.createUsLocationsList();
+      this.props.createUsLocationsList();  // when User re-clicks USA button.
     }
 
     if (radioButtonValue === radioButtonConfig.state) {
@@ -63,10 +63,13 @@ class FilterRadioButtons extends Component {
       this.props.createVisitedLocationsUiList();
     }
 
+    // TODO - nearme
     if (radioButtonValue === radioButtonConfig.nearme) {
       this.props.selectedRadioButton(radioButtonValue);
       // Note: for "nearme", setLatLonZoomForUiList() occurs when a "nearme" distance is selected from Select Input.
       this.props.clearLocationsFromList();
+      // NOTE: No need to createNearmeLocationsUiList action/reducer b/c this
+      //       data is refectched on each Select Input selection.
     }
   }
 

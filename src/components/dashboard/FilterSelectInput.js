@@ -4,7 +4,8 @@ import {
   createStateLocationsList,
   setLatLonZoomForUiList,
   setUsersNearmeData,
-  fetchNearmeLocations
+  fetchNearmeLocations,
+  setMapLatLonCenter
 } from '../../actions/action_locations';
 import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
 import radioButtonConfig from '../../configs/radioButtonConfig';
@@ -120,18 +121,45 @@ class FilterSelectInput extends Component {
   }
 
   onGeolocateSuccess(coordinates) {
+    console.log('onGeolocateSuccess ran');
+    let zoom;
     const { latitude, longitude } = coordinates.coords;
-    const distance = this.state.value;
+    const selectedDistanceMiles = this.state.value;
     console.log('onGeolocateSuccess Found coordinates: ', latitude, longitude);
-    console.log('onGeolocateSuccess Selected Distance = ', distance);
+    console.log('onGeolocateSuccess selectedDistanceMiles = ', selectedDistanceMiles);
+
+    if ( selectedDistanceMiles === '20' ) {
+      zoom = mapSelectInputConfig.nearmeZoom["20"];
+    }
+    if ( selectedDistanceMiles === '50' ) {
+      zoom = mapSelectInputConfig.nearmeZoom["50"];
+    }
+    if ( selectedDistanceMiles === '100' ) {
+      zoom = mapSelectInputConfig.nearmeZoom["100"];
+    }
+
+    // convert selectedDistance (miles) to meters.
+    // mongoose $geoNear requires meters.
+    const selectedDistanceMeters = selectedDistanceMiles * 1.60934 * 1000;
+
     const usersNearmeData = {
-      distance: distance,
+      distanceMeters: selectedDistanceMeters,
       lat: latitude,
       lon: longitude
     };
-    console.log('usersNearmeData = ', usersNearmeData);
-    // usersNearmeData needed by Maps.js to produce Yellow User's Location Marker.
+    console.log('onGeolocateSuccess usersNearmeData = ', usersNearmeData);
+    // usersNearmeData (lat, lon) needed by Maps.js to produce Yellow User's Location Marker.
     this.props.setUsersNearmeData(usersNearmeData);
+
+    // for clicking "Map All Listed Locations" button - BEGIN.
+    const uiListRecenterCoords = {
+      lat: latitude,
+      lon: longitude,
+      zoom: zoom
+    };
+    this.props.setLatLonZoomForUiList(uiListRecenterCoords);
+    // for clicking "Map All Listed Locations" button - END.
+
     // Fetch Nearme Locations from API.
     this.props.fetchNearmeLocations(usersNearmeData);
 
@@ -148,18 +176,6 @@ class FilterSelectInput extends Component {
       // timeout
     }
   }
-
-  // getUsersLocation() {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(showPosition);
-  //   } else {
-  //     x.innerHTML = "Geolocation is not supported by this browser.";
-  //   }
-  // }
-  // showPosition(position) {
-  //   x.innerHTML = "Latitude: " + position.coords.latitude +
-  //     "<br>Longitude: " + position.coords.longitude;
-  // }
 
   // handleOnFocus() {
   //   console.log('this.props.selectedRadioButton = ', this.props.selectedRadioButton);
@@ -211,5 +227,6 @@ export default connect(mapStateToProps, {
   createStateLocationsList,
   setLatLonZoomForUiList,
   setUsersNearmeData,
-  fetchNearmeLocations
+  fetchNearmeLocations, // for nearme
+  setMapLatLonCenter    // for nearme
 })(FilterSelectInput);

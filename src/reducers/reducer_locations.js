@@ -2,6 +2,7 @@ import {
   FETCH_LOCATIONS_REQUEST,
   FETCH_LOCATIONS_SUCCESS,
   FETCH_LOCATIONS_ERROR,
+
   SET_LAT_LON_ZOOM_FOR_UI_LIST,
   SET_MAP_LAT_LON_CENTER,
   MAP_SINGLE_LOCATION_FROM_UI_LIST,
@@ -12,7 +13,11 @@ import {
   CREATE_STATE_LOCATIONS_UI_LIST,
   SET_LOCATION_ID,
   UPDATE_MARKERS_LOCATIONS_LIST,
+
   SET_USERS_NEARME_DATA,
+  FETCH_NEARME_LOCATIONS_REQUEST,
+  FETCH_NEARME_LOCATIONS_SUCCESS,
+  FETCH_NEARME_LOCATIONS_ERROR
 } from "../actions/action_locations";
 import mapConfig from '../configs/mapConfig';
 
@@ -40,7 +45,12 @@ const initialState = {
   mapZoom: mapConfig.US.zoom,
   isFetching: false,
   err: "",
-  usersNearmeData: {},
+  usersNearmeData: {
+    distanceMeters: '',
+    lat: '',
+    lon: '',
+    zoom: ''
+  },
   nearmeLocations: []
 };
 
@@ -112,6 +122,7 @@ export default (state=initialState, action) => {
     // on map onDragEnd, set the map's lat/lon.
     // on map zoom, set the map's lat/lon.
     case SET_MAP_LAT_LON_CENTER:
+      console.log('reducers_locations.js SET_MAP_LAT_LON_CENTER ran, action = ', action);
 
        lat = action.coords.lat;
        lon = action.coords.lng;
@@ -146,6 +157,7 @@ export default (state=initialState, action) => {
       };
 
     case CREATE_STATE_LOCATIONS_UI_LIST:
+      console.log('reducer_locations.js CREATE_STATE_LOCATIONS_UI_LIST ran');
       const usStateAbbr = action.usStateAbbr;
 
       filteredLocations = state.cachedLocations.filter((location) => {
@@ -292,6 +304,61 @@ export default (state=initialState, action) => {
         usersNearmeData: action.usersNearmeData
       };
 
+    case FETCH_NEARME_LOCATIONS_REQUEST:
+      return {
+        ...state,
+        isFetching: true
+      };
+
+    case FETCH_NEARME_LOCATIONS_SUCCESS:
+      // Fetched locations from API are "single source of truth" - all User's get this set of
+      // locations from API.
+      //
+      // Different User's will see different "green" markers depending whether or not
+      // they have personally visited / written a review a location.
+      //
+      // Visited location's reviews are stored in the UserSchema and placed into Redux state
+      // when the User signs-in, AND upon Browser refresh.
+      //
+      // When locations fetched from API,
+      // process the fetched locations and set the "location.visited" to "true",
+      // when a location's id is in the state.visitedLocationsIds array.
+
+      const fetchedNearmeLocations = action.locations;
+
+      // create array of visited locations Ids from the reviews array.
+      visitedLocationsIds = action.reviews.map(review => {
+        return review.locationId;
+      });
+
+      // If User has visited a location/written a review,
+      // set location.visited to "true".
+      processedLocations = fetchedNearmeLocations.map((location) => {
+        if (visitedLocationsIds.indexOf(location._id) >= 0) {
+          location.visited = true;
+        }
+        return location;
+      });
+
+      return {
+        ...state,
+        // locationsBeenFetched: true,
+        // cachedLocations: processedLocations,
+        displayedMapLocations: processedLocations,
+        filteredLocationsList: processedLocations,
+        mapCenterLat: state.uiListRecenterCoords.lat,
+        mapCenterLon: state.uiListRecenterCoords.lon,
+        mapZoom: state.uiListRecenterCoords.zoom,
+        isFetching: false,
+        err: ""
+      };
+
+    case FETCH_NEARME_LOCATIONS_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        err: action.err
+      };
     ///////////////////////////////////////////////////////////////////////////
     // Nearme - END
     ///////////////////////////////////////////////////////////////////////////

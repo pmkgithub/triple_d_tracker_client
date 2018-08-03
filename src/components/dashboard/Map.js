@@ -53,6 +53,7 @@ class Map extends Component {
   // This keeps map from "jumping" when marker's are hovered.
   handleOnDragEnd(e) {
     const coordsString = JSON.stringify(this.state.map.getCenter());
+    // NOTE: below, coords are Numbers.
     const coords = JSON.parse(coordsString);
     this.props.setMapLatLonCenter(coords);
   }
@@ -89,24 +90,26 @@ class Map extends Component {
       return false;
     }
 
-    // TODO - nearme
-    if ( this.props.selectedRadioButton === 'nearme' && this.props.usersNearmeData.lat ) {
-      console.log('Map.js render users location marker');
-      const usersLat = this.props.usersNearmeData.lat;
-      const usersLon = this.props.usersNearmeData.lon;
-      const distance = this.props.usersNearmeData.distance;
-      const iconUrl = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
-      console.log('Map.js render users location marker usersLat, usersLon, distance', usersLat, usersLon, distance);
-
-      return (
-        <Marker
-          key={distance}
-          position={{ lat: usersLat, lng: usersLon }}
-          icon={{url: iconUrl}}
-        >
-        </Marker>
-      )
-    }
+    // // TODO - nearme - BEGIN
+    // if ( this.props.selectedRadioButton === 'nearme' && this.props.usersNearmeData.lat ) {
+    //   console.log('Map.js render users location marker');
+    //   const distance = this.props.usersNearmeData.distance;
+    //   const usersLat = this.props.usersNearmeData.lat;
+    //   const usersLon = this.props.usersNearmeData.lon;
+    //
+    //   const iconUrl = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+    //   console.log('Map.js render users location marker distance, usersLat, usersLon, zoom', distance, usersLat, usersLon);
+    //
+    //   return (
+    //     <Marker
+    //       key={distance}
+    //       position={{ lat: usersLat, lng: usersLon }}
+    //       icon={{url: iconUrl}}
+    //     >
+    //     </Marker>
+    //   )
+    // }
+    // // TODO - nearme - END
 
     return displayedMapLocations.map((location, index) => {
       const {lat, lon} = location.coords;

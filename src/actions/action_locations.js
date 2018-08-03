@@ -1,14 +1,17 @@
 import { store } from '../index';
 const ROOT_URL = 'http://localhost:8080/api';
+let reviews;
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // fetchLocations - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
 export const fetchLocations = () => dispatch => {
+  // In Map.js componentDidMount() reviews are fetched first,
+  // then fetchLocations() is invoked once review fetch is complete.
   // Get User's reviews directly from Redux store.
-  // Note: By the time this code runs, reviews have been fetched.
-  const reviews = store.getState().reviews.reviews;
+  // By the time fetchLocations runs, reviews have been fetched.
+  reviews = store.getState().reviews.reviews;
 
   dispatch(fetchLocationsRequest);
 
@@ -179,14 +182,15 @@ export const setUsersNearmeData = (usersNearmeData) => {
 export const fetchNearmeLocations = (usersNearmeData) => dispatch => {
   console.log('action_locations fetchNearmeLocations ran');
   // Get User's reviews directly from Redux store.
-  // Note: By the time this code runs, reviews have been fetched.
-  const reviews = store.getState().reviews.reviews;
-  const { lat, lon, distance } = usersNearmeData;
-  console.log('fetchNearmeLocations usersNearmeData = ', lat, lon, distance);
+  // Note: By the time fetchNearmeLocations runs, reviews have been fetched
+  //       when the App initially loads.
+  reviews = store.getState().reviews.reviews;
+  const { lat, lon, distanceMeters } = usersNearmeData;
+  console.log('fetchNearmeLocations usersNearmeData lat, lon, distanceMeters= ', lat, lon, distanceMeters);
 
   dispatch(fetchNearmeLocationsRequest);
 
-  fetch(`${ROOT_URL}/locations/nearme?lat=${lat}&lon=${lon}&distance=${distance}`, {
+  fetch(`${ROOT_URL}/locations/nearme?lat=${lat}&lon=${lon}&distanceMeters=${distanceMeters}`, {
     method: "GET",
     headers: {
       "authorization": localStorage.getItem('token')
@@ -199,6 +203,7 @@ export const fetchNearmeLocations = (usersNearmeData) => dispatch => {
       return res.json();
     })
     .then(locations => {
+      console.log('fetchNearmeLocations locations = ', locations); // working.
       dispatch(fetchNearmeLocationsSuccess(locations, reviews))
     })
     .catch(err => {
