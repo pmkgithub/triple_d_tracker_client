@@ -9,3 +9,8 @@
   height: 530px;
   width: 780px;
 }
+
+/* https://github.com/google-map-react/google-map-react/issues/377 */
+/*.gm-style:first-of-type > div:nth-child(1) {*/
+  /*cursor: default !important;*/
+/*}*/
