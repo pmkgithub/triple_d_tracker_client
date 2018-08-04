@@ -116,6 +116,7 @@ class Map extends Component {
       return (
         <Marker
           key={index}
+          draggable={false}
           position={{ lat: lat, lng: lon }}
           onClick={(markerObj) => this.handleOnClickMarker(markerObj, location._id)}
           onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, index, location.coords)}
@@ -141,6 +142,8 @@ class Map extends Component {
       markers.push((
         <Marker
           key={distanceMeters}
+          draggable={false}
+          cursor={"default"}
           position={{ lat: usersLat, lng: usersLon }}
           onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, distanceMeters)}
           onMouseOut={(markerObj) => this.mouseOutMarker()}
