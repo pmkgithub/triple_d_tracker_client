@@ -121,23 +121,13 @@ class FilterSelectInput extends Component {
   }
 
   onGeolocateSuccess(coordinates) {
-    let zoom;
+
     const { latitude, longitude } = coordinates.coords;
     const selectedDistanceMiles = this.state.value;
-
-    if ( selectedDistanceMiles === '20' ) {
-      zoom = mapSelectInputConfig.nearmeZoom["20"];
-    }
-    if ( selectedDistanceMiles === '50' ) {
-      zoom = mapSelectInputConfig.nearmeZoom["50"];
-    }
-    if ( selectedDistanceMiles === '100' ) {
-      zoom = mapSelectInputConfig.nearmeZoom["100"];
-    }
-
     // Convert selectedDistance (miles) to meters.
     // mongoose $geoNear requires meters.
     const selectedDistanceMeters = selectedDistanceMiles * 1.60934 * 1000;
+    const zoom = mapSelectInputConfig.nearmeZoom[selectedDistanceMiles];
 
     // usersNearmeData needed by Map.js to create User's Location Marker.
     const usersNearmeData = {
