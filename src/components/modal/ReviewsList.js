@@ -47,6 +47,7 @@ class ReviewList extends Component {
 
     // Get locationId of clicked Marker.
     const locationId = this.props.mapData.locationId;
+    console.log('renderList this.props = ', this.props);
 
     // Filter the User's reviews for only those
     // which match the clicked Marker's locationId.
@@ -66,12 +67,15 @@ class ReviewList extends Component {
     };
     filteredReviews.sort(compare);
 
+    // TODO - refact to make setState pure.
     // Determine number of reviews.
     // NOTE 1: if stmt prevents endless loop.
-    // NOTE 2: this.state.reviewCount + 1 makes setState PURE.
+    // NOTE 2: this.prevState.reviewCount + 1 makes setState PURE
     // NOTE 3: this.setState({ reviewCount: filteredReviews.length }) IS NOT PURE.
     if ( this.state.reviewCount !== filteredReviews.length ) {
-      this.setState({ reviewCount: this.state.reviewCount + 1 });
+      this.setState(prevState => ({
+        reviewCount: prevState.reviewCount + 1
+      }));
     }
 
     // Create and return HTML.
