@@ -65,29 +65,48 @@ export const fetchLocationsError = (err) => {
 ///////////////////////////////////////////////////////////////////////////////
 // other - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
+// On map onDragEnd, set the map's lat/lon.
+// Needed if User clicks "Map All Listed Locations" button.
+// When User clicks "Map All Listed Locations" button,
+// the Redux State is changed back to values in uiListRecenterCoords,
+// and the map re-centers to the Redux uiListRecenterCoords.
+export const SET_MAP_LAT_LON_CENTER = 'SET_MAP_LAT_LON_CENTER';
+export const setMapLatLonCenter = (coords) => {
+  return {
+    type: SET_MAP_LAT_LON_CENTER,
+    coords
+  }
+};
+
+// On map zoom (via Google Map Zoom Control, etc.), set the map's zoom.
+// Needed if User clicks "Map All Listed Locations" button.
+// When User clicks "Map All Listed Locations" button,
+// the Redux State is changed back to values in uiListRecenterCoords,
+// and the map returns to the zoom in Redux uiListRecenterCoords.
+export const SET_MAP_ZOOM = 'SET_MAP_ZOOM';
+export const setMapZoom = (zoom) => {
+  console.log('action_locations.js SET_MAP_ZOOM zoom = ', zoom );
+  console.log('action_locations.js SET_MAP_ZOOM typeof zoom = ', zoom );
+  return {
+    type: SET_MAP_ZOOM,
+    zoom
+  }
+};
+
 
 // SET_LAT_LON_ZOOM_FOR_UI_LIST pertains to re-centering map when "Map All Listed Locations" button clicked.
 // This Action Creator called when:
 // 1) US Radio button selected, set US lat/lon/zoom.
 // 2) a US State is selected from drop down list.
 // 3) For "nearme", it is a two part process.
-//    "Nearme" Radio button is selected ,
+//    "Nearme" Radio button is selected,
 //    and User selects a "nearme" distance from drop down list.
+// 4) Visited button selected, set US lat/lon/zoom.
 export const SET_LAT_LON_ZOOM_FOR_UI_LIST = 'SET_LAT_LON_ZOOM_FOR_UI_LIST';
 export const setLatLonZoomForUiList = (uiListRecenterCoords) => {
   return {
     type: SET_LAT_LON_ZOOM_FOR_UI_LIST,
     uiListRecenterCoords
-  }
-};
-
-// on map onDragEnd, set the map's lat/lon.
-// on map zoom, set the map's lat/lon.
-export const SET_MAP_LAT_LON_CENTER = 'SET_MAP_LAT_LON_CENTER';
-export const setMapLatLonCenter = (coords) => {
-  return {
-    type: SET_MAP_LAT_LON_CENTER,
-    coords
   }
 };
 
@@ -120,10 +139,10 @@ export const createUsLocationsList = () => {
   }
 };
 
-export const CREATE_VISIITED_LOCATIONS_UI_LIST = 'CREATE_VISIITED_LOCATIONS_UI_LIST';
+export const CREATE_VISITED_LOCATIONS_UI_LIST = 'CREATE_VISITED_LOCATIONS_UI_LIST';
 export const createVisitedLocationsUiList = () => {
   return {
-    type: CREATE_VISIITED_LOCATIONS_UI_LIST
+    type: CREATE_VISITED_LOCATIONS_UI_LIST
   }
 };
 
@@ -144,7 +163,6 @@ export const setLocationId = (locationId) => {
     locationId
   }
 };
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // other - END

@@ -3,15 +3,18 @@ import {
   FETCH_LOCATIONS_SUCCESS,
   FETCH_LOCATIONS_ERROR,
 
-  SET_LAT_LON_ZOOM_FOR_UI_LIST,
   SET_MAP_LAT_LON_CENTER,
+  SET_MAP_ZOOM,
+
+  SET_LAT_LON_ZOOM_FOR_UI_LIST,
   MAP_SINGLE_LOCATION_FROM_UI_LIST,
   MAP_ALL_LOCATIONS_FROM_UI_LIST,
   CLEAR_LOCATIONS_FROM_UI_LIST,
   CREATE_US_LOCATIONS_UI_LIST,
-  CREATE_VISIITED_LOCATIONS_UI_LIST,
+  CREATE_VISITED_LOCATIONS_UI_LIST,
   CREATE_STATE_LOCATIONS_UI_LIST,
   SET_LOCATION_ID,
+
   UPDATE_MARKERS_LOCATIONS_LIST,
 
   SET_USERS_NEARME_DATA,
@@ -114,23 +117,39 @@ export default (state=initialState, action) => {
         err: action.err
       };
 
-    case SET_LAT_LON_ZOOM_FOR_UI_LIST:
-      return {
-        ...state,
-        uiListRecenterCoords: action.uiListRecenterCoords
-      };
-
-    // on map onDragEnd, set the map's lat/lon.
-    // on map zoom, set the map's lat/lon.
+    // On map onDragEnd, set the map's lat/lon.
+    // Needed if User clicks "Map All Listed Locations" button.
+    // When User clicks "Map All Listed Locations" button,
+    // the Redux State is changed back to values in uiListRecenterCoords,
+    // and the map re-centers to the Redux uiListRecenterCoords.
     case SET_MAP_LAT_LON_CENTER:
 
-       lat = action.coords.lat;
-       lon = action.coords.lng;
+      lat = action.coords.lat;
+      lon = action.coords.lng;
 
       return {
         ...state,
         mapCenterLat: lat,
         mapCenterLon: lon
+      };
+
+    // On map zoom (via Google Map Zoom Control, etc.), set the map's zoom.
+    // Needed if User clicks "Map All Listed Locations" button.
+    // When User clicks "Map All Listed Locations" button,
+    // the Redux State is changed back to values in uiListRecenterCoords,
+    // and the map returns to the zoom in Redux uiListRecenterCoords.
+    case SET_MAP_ZOOM:
+      zoom = action.zoom;
+
+      return {
+        ...state,
+        mapZoom: zoom
+      };
+
+    case SET_LAT_LON_ZOOM_FOR_UI_LIST:
+      return {
+        ...state,
+        uiListRecenterCoords: action.uiListRecenterCoords
       };
 
     case CLEAR_LOCATIONS_FROM_UI_LIST:
@@ -177,7 +196,7 @@ export default (state=initialState, action) => {
         mapZoom: mapConfig[usStateAbbr].zoom,
       };
 
-    case CREATE_VISIITED_LOCATIONS_UI_LIST:
+    case CREATE_VISITED_LOCATIONS_UI_LIST:
       // Find only locations with visited === true.
       const visitedLocations = state.cachedLocations.filter((location) => {
         return location.visited === true;
@@ -211,6 +230,7 @@ export default (state=initialState, action) => {
       };
 
     case MAP_ALL_LOCATIONS_FROM_UI_LIST:
+      console.log('reducer_locations.js MAP_ALL_LOCATIONS_FROM_UI_LIST state.uiListRecenterCoords = ', state.uiListRecenterCoords);
       return {
         ...state,
         mapCenterLat: state.uiListRecenterCoords.lat,
