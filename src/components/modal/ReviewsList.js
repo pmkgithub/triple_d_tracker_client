@@ -47,7 +47,6 @@ class ReviewList extends Component {
 
     // Get locationId of clicked Marker.
     const locationId = this.props.mapData.locationId;
-    console.log('renderList this.props = ', this.props);
 
     // Filter the User's reviews for only those
     // which match the clicked Marker's locationId.
