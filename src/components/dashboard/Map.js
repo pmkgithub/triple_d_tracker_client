@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { MAP } from 'react-google-maps/lib/constants';
 import {
   fetchLocations,
@@ -134,7 +135,7 @@ class Map extends Component {
       )
     });
 
-    // If "Nearme" radio button selected, push User's Location Marker onto "markers".
+    // If "Nearme" radio button selected, push User's Location Marker onto "markers" array.
     if ( this.props.selectedRadioButton === 'nearme' && this.props.usersNearmeData.lat ) {
       const distanceMeters = this.props.usersNearmeData.distanceMeters;
       const usersLat = this.props.usersNearmeData.lat;
@@ -163,6 +164,15 @@ class Map extends Component {
   }
   // markers - END
 
+  renderIsGeolocatingSpinner() {
+    return (
+      <div className="map_is_geolocating_spinner_wrapper">
+        <div className="map_is_geolocating_spinner_message">Geolocating User's Location...</div>
+        <div className="map_is_geolocating_spinner"><FontAwesomeIcon className="map_is_geolocating_spinner fa-spin" icon="spinner"/></div>
+      </div>
+    )
+  }
+
   // Component's render()
   render() {
 
@@ -176,6 +186,7 @@ class Map extends Component {
           onDragEnd={(e) => this.handleOnDragEnd(e)}
           onZoomChanged={(e) => this.handleOnZoomChanged(e)}
         >
+          {this.props.mapData.isGeolocating && this.renderIsGeolocatingSpinner()}
           {this.props.isMarkerShown && <div>{this.renderMarkers()}</div>}
         </GoogleMap>
       </div>

@@ -49,7 +49,6 @@ class AddReviewForm extends Component {
   }
 
   onTextareaChange(e) {
-    // console.log(event.target.value);
     this.setState({review: e.target.value});
   }
 

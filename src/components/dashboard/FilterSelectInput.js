@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
   createStateLocationsList,
   setLatLonZoomForUiList,
+  setIsGeolocating,
   setUsersNearmeData,
   fetchNearmeLocations
 } from '../../actions/action_locations';
@@ -115,19 +116,25 @@ class FilterSelectInput extends Component {
     // NEARME - Select Input.
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
       if (navigator.geolocation) {
+        // set isGeolocationg to true.
+        this.props.setIsGeolocating(true);
+
+        // get User's position.
         navigator.geolocation.getCurrentPosition((position) => this.onGeolocateSuccess(position), (error) => this.onGeolocateError(error));
       }
     }
   }
 
   onGeolocateSuccess(coordinates) {
-
     const { latitude, longitude } = coordinates.coords;
     const selectedDistanceMiles = this.state.value;
     // Convert selectedDistance (miles) to meters.
     // mongoose $geoNear requires meters.
     const selectedDistanceMeters = selectedDistanceMiles * 1.60934 * 1000;
     const zoom = mapSelectInputConfig.nearmeZoom[selectedDistanceMiles];
+
+    // set isGeolocating to false, remove spinner from Map.js
+    this.props.setIsGeolocating(false);
 
     // usersNearmeData needed by Map.js to create User's Location Marker.
     const usersNearmeData = {
@@ -199,6 +206,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   createStateLocationsList,
   setLatLonZoomForUiList,
+  setIsGeolocating,
   setUsersNearmeData,
   fetchNearmeLocations,
 })(FilterSelectInput);
