@@ -287,7 +287,6 @@ export default (state=initialState, action) => {
         });
       }
 
-      // TODO - fix nearme
       if ( state.isNearmeRadioButtonSelected ) {
         locations = state.currentNearmeLocations.map((location) => {
           location.visited = false;
