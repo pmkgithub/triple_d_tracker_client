@@ -40,13 +40,19 @@ class ReviewList extends Component {
     })
   }
 
+  // Create and return <li> HTML.
   renderList() {
-    console.log('renderList ran');
-    // get locationId of clicked Marker.
+    // NOTE: this.props.allReviews is array containing all of a particular
+    // User's reviews for all locations that User has visited.
+
+    // Get locationId of clicked Marker.
     const locationId = this.props.mapData.locationId;
-    // reviews is array containing all of a particular User's reviews
-    // for all visited locations.
-    let reviews = this.props.reviews;
+
+    // Filter the User's reviews for only those
+    // which match the clicked Marker's locationId.
+    const filteredReviews = this.props.allReviews.filter((review) => {
+      return review.locationId === locationId
+    });
 
     // Sort reviews. Most recent at top of list.
     const compare = (a, b) => {
@@ -58,87 +64,46 @@ class ReviewList extends Component {
       }
       return comparison;
     };
+    filteredReviews.sort(compare);
 
-    reviews.sort(compare);
-
-    // TODO refact - add reviewCount - BEGIN
-    const filteredReviews = reviews.filter((review) => {
-      return review.locationId === locationId
-    });
-
-    console.log('filteredReviews = ', filteredReviews);
+    // Set local state reviewCount.
+    // NOTE 1: if stmt prevents endless loop.
+    // NOTE 2: this.state.reviewCount + 1 makes setState PURE.
+    // NOTE 3: this.setState({ reviewCount: filteredReviews.length }) IS NOT PURE.
     if ( this.state.reviewCount !== filteredReviews.length ) {
-      this.setState({ reviewCount: filteredReviews.length });
+      this.setState({ reviewCount: this.state.reviewCount + 1 });
     }
 
-    // Find User review(s) which match the clicked Marker's location id.
+    // Create and return HTML.
     return filteredReviews.map((review, index) => {
+      return (
+        <li
+          key={index}
+          className="review_list_li"
+        >
+          <div className="review_buttons_wrapper">
+            <button
+              className="review_edit_button"
+              type="button"
+              onClick={(e) => this.handleEditButtonClick(e, review)}
+            >Edit</button>
+            <button
+              className="review_delete_button"
+              type="button"
+              onClick={(e) => this.handleDeleteButtonClick(e, review._id)}
+            >Delete</button>
+          </div>
 
-      if (review.locationId === locationId) {
-        return (
-          <li
-            key={index}
-            className="review_list_li"
-          >
-            <div className="review_buttons_wrapper">
-              <button
-                className="review_edit_button"
-                type="button"
-                onClick={(e) => this.handleEditButtonClick(e, review)}
-              >Edit</button>
-              <button
-                className="review_delete_button"
-                type="button"
-                onClick={(e) => this.handleDeleteButtonClick(e, review._id)}
-              >Delete</button>
-            </div>
-
-            <div className="review_date">Date Visited:<span>{review.date}</span></div>
-            <div className="review_header">Review:</div>
-            <div className="review_review">{review.review}</div>
-          </li>
-        )
-      }
-      return false;
+          <div className="review_date">Date Visited:<span>{review.date}</span></div>
+          <div className="review_header">Review:</div>
+          <div className="review_review">{review.review}</div>
+        </li>
+      )
     });
-    // TODO refact - add reviewCount - BEGIN
-
-
-    // // TODO orig - add reviewCount - BEGIN
-    // // Find User review(s) which match the clicked Marker's location id.
-    // return reviews.map((review, index) => {
-    //
-    //   if (review.locationId === locationId) {
-    //     return (
-    //       <li
-    //         key={index}
-    //         className="review_list_li"
-    //       >
-    //         <div className="review_buttons_wrapper">
-    //           <button
-    //             className="review_edit_button"
-    //             type="button"
-    //             onClick={(e) => this.handleEditButtonClick(e, review)}
-    //           >Edit</button>
-    //           <button
-    //             className="review_delete_button"
-    //             type="button"
-    //             onClick={(e) => this.handleDeleteButtonClick(e, review._id)}
-    //           >Delete</button>
-    //         </div>
-    //
-    //         <div className="review_date">Date Visited:<span>{review.date}</span></div>
-    //         <div className="review_header">Review:</div>
-    //         <div className="review_review">{review.review}</div>
-    //       </li>
-    //     )
-    //   }
-    //   return false;
-    // });
-    // // TODO orig - add reviewCount - END
 
   }
 
+  // Main render.
   render() {
 
     // On first React render,
@@ -182,7 +147,7 @@ const mapStateToProps = (state) => {
   return {
     auth: state.auth,
     mapData: state.mapData,
-    reviews: state.reviews.reviews
+    allReviews: state.reviews.reviews
   }
 };
 
