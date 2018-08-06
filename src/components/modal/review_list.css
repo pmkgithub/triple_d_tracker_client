@@ -1,7 +1,4 @@
 .review_list_wrapper {
-  min-height: 80px;
-  max-height: 360px;
-  overflow-y: auto;
   border: 1px solid black;
   padding: 10px 20px;
   margin: 10px;
@@ -20,8 +17,8 @@
 .review_list_ul {
   list-style-type: none;
   padding: 0;
-  margin: 0;
-  overflow: auto;
+  max-height: 150px;
+  overflow-y: auto;
 }
 .review_list_li {
   border: 1px solid black;

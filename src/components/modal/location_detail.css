@@ -1,5 +1,6 @@
 .location_detail_wrapper {
   position: relative;
+  /*min-height: */
   border: 1px solid black;
   padding: 20px;
   margin: 10px;
@@ -24,12 +25,15 @@
 .location_url {
   color: blue;
 }
-.location_about_wrapper {
-
+.location_about_wrapper .location_about_content {
+  max-height: 100px;
+  overflow-y: auto;
+}
+.location_about_wrapper p {
+  margin: 0;
 }
 .location_about {
-  margin-top: 30px;
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 .location_about_wrapper p {
   line-height: 1.6;

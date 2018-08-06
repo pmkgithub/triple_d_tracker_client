@@ -17,6 +17,7 @@ class LocationDetail extends Component {
       return location._id === this.props.mapData.locationId;
     });
 
+    // TODO - fix location detail scroll
     return (
       <div className="location_detail_wrapper">
 
@@ -39,7 +40,9 @@ class LocationDetail extends Component {
         </div>
         <div className="location_about_wrapper">
           <h3 className="location_about">About:</h3>
-          <p>{location.about}</p>
+          <div className="location_about_content">
+            <p>{location.about}</p>
+          </div>
         </div>
       </div>
     )
