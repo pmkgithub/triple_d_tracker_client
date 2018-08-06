@@ -6,6 +6,7 @@ import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
 import {
   fetchLocations,
   setMapLatLonCenter,
+  setMapZoom,
   setLocationId
 } from "../../actions/action_locations";
 import {
@@ -49,8 +50,9 @@ class Map extends Component {
 
   }
 
-  // When map is panned by User, reset the map center lat/lon.
-  // This keeps map from "jumping" when marker's are hovered.
+  // When map is panned by User, set the map center lat/lon.
+  // Then later, if User clicks "Map All Listed Locations" button,
+  // there will be a state change, and map re-centers properly.
   handleOnDragEnd(e) {
     const coordsString = JSON.stringify(this.state.map.getCenter());
     // NOTE: below, coords are Numbers.
@@ -58,14 +60,14 @@ class Map extends Component {
     this.props.setMapLatLonCenter(coords);
   }
 
-  // When map is zoomed by User, reset the map center lat/lon.
-  // This keeps map from "jumping" when marker's are hovered.
+  // When map is zoomed by User, set the map's zoom.
+  // Then later, if User clicks "Map All Listed Locations" button,
+  // there will be a state change, and map re-centers properly.
   handleOnZoomChanged(e) {
     // NOTE: for whatever reason, handleOnZoomChanged() gets called
     //       when App initially loads.
-    const coordsString = JSON.stringify(this.state.map.getCenter());
-    const coords = JSON.parse(coordsString);
-    this.props.setMapLatLonCenter(coords);
+    const zoom = this.state.map.getZoom();
+    this.props.setMapZoom(zoom);
   }
 
   // markers - BEGIN
@@ -198,6 +200,7 @@ export default compose (
     fetchLocations,
     fetchReviews,
     setMapLatLonCenter,
+    setMapZoom,
     setIsModalOpen,
     setLocationId
   }),
