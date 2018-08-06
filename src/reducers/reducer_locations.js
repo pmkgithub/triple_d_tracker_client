@@ -17,6 +17,7 @@ import {
 
   UPDATE_MARKERS_LOCATIONS_LIST,
 
+  SET_IS_GEOLOCATING,
   SET_USERS_NEARME_DATA,
   FETCH_NEARME_LOCATIONS_REQUEST,
   FETCH_NEARME_LOCATIONS_SUCCESS,
@@ -49,6 +50,7 @@ const initialState = {
   mapZoom: mapConfig.US.zoom,
   isFetching: false,
   err: "",
+  isGeolocating: false,
   usersNearmeData: {
     distanceMeters: '',
     lat: '',
@@ -329,6 +331,12 @@ export default (state=initialState, action) => {
     ///////////////////////////////////////////////////////////////////////////
     // Nearme - BEGIN
     ///////////////////////////////////////////////////////////////////////////
+    case SET_IS_GEOLOCATING:
+      return {
+        ...state,
+        isGeolocating: action.bool
+      }
+
     case SET_USERS_NEARME_DATA:
       return {
         ...state,

@@ -85,7 +85,6 @@ export const setMapLatLonCenter = (coords) => {
 // and the map returns to the zoom in Redux uiListRecenterCoords.
 export const SET_MAP_ZOOM = 'SET_MAP_ZOOM';
 export const setMapZoom = (zoom) => {
-  console.log('test');
   return {
     type: SET_MAP_ZOOM,
     zoom
@@ -186,6 +185,14 @@ export const updateMarkersLocationsList = (reviews) => {
 ///////////////////////////////////////////////////////////////////////////////
 // Near Me - BEGIN
 ///////////////////////////////////////////////////////////////////////////////
+export const SET_IS_GEOLOCATING = 'SET_IS_GEOLOCATING';
+export const setIsGeolocating = (bool) => {
+  return {
+    type: SET_IS_GEOLOCATING,
+    bool
+  }
+};
+
 export const SET_USERS_NEARME_DATA = 'SET_USERS_NEARME_DATA';
 export const setUsersNearmeData = (usersNearmeData) => {
   return {
