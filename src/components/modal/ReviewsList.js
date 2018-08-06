@@ -66,7 +66,7 @@ class ReviewList extends Component {
     };
     filteredReviews.sort(compare);
 
-    // Set local state reviewCount.
+    // Determine number of reviews.
     // NOTE 1: if stmt prevents endless loop.
     // NOTE 2: this.state.reviewCount + 1 makes setState PURE.
     // NOTE 3: this.setState({ reviewCount: filteredReviews.length }) IS NOT PURE.
@@ -122,7 +122,6 @@ class ReviewList extends Component {
         {!isLocationClosed ?
           <div className="review_list_wrapper">
             <div className="review_list_header">
-              {/*<h2>Reviews ():</h2>*/}
               <h2>Reviews ({this.state.reviewCount}):</h2>
               <div className="review_list_add_review_button_wrapper">
                 <button
