@@ -85,14 +85,12 @@ export const setMapLatLonCenter = (coords) => {
 // and the map returns to the zoom in Redux uiListRecenterCoords.
 export const SET_MAP_ZOOM = 'SET_MAP_ZOOM';
 export const setMapZoom = (zoom) => {
-  console.log('action_locations.js SET_MAP_ZOOM zoom = ', zoom );
-  console.log('action_locations.js SET_MAP_ZOOM typeof zoom = ', zoom );
+  console.log('test');
   return {
     type: SET_MAP_ZOOM,
     zoom
   }
 };
-
 
 // SET_LAT_LON_ZOOM_FOR_UI_LIST pertains to re-centering map when "Map All Listed Locations" button clicked.
 // This Action Creator called when:

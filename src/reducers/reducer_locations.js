@@ -230,7 +230,6 @@ export default (state=initialState, action) => {
       };
 
     case MAP_ALL_LOCATIONS_FROM_UI_LIST:
-      console.log('reducer_locations.js MAP_ALL_LOCATIONS_FROM_UI_LIST state.uiListRecenterCoords = ', state.uiListRecenterCoords);
       return {
         ...state,
         mapCenterLat: state.uiListRecenterCoords.lat,
