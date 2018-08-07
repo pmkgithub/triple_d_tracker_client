@@ -39,6 +39,10 @@
   margin-bottom: 10px;
 }
 .review_review {
+  outline: none;
+  resize: none;
+  /* note: textarea height also set in add_edit_review_form.css */
+  height: 100px;
   padding: 10px;
   border: 1px solid black;
 }
