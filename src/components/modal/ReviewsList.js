@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactDom from 'react-dom';
 import { setModalView } from '../../actions/action_modal';
 import {
   setReviewToEdit,
@@ -11,16 +10,7 @@ import '../css/common_button.css';
 import './review_list.css';
 
 
-
 class ReviewList extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      reviewCount: 0
-    }
-  }
 
   handleAddReview(e) {
     e.preventDefault();
@@ -44,7 +34,7 @@ class ReviewList extends Component {
   }
 
   // Create and return <li> HTML.
-  renderList() {
+  renderReviews() {
     // NOTE: this.props.allReviews is array containing all of a particular
     // User's reviews for all locations that User has visited.
 
@@ -68,17 +58,6 @@ class ReviewList extends Component {
       return comparison;
     };
     filteredReviews.sort(compare);
-
-    // TODO - refact to make setState pure.
-    // Determine number of reviews.
-    // NOTE 1: if stmt prevents endless loop.
-    // NOTE 2: this.prevState.reviewCount + 1 makes setState PURE
-    // NOTE 3: this.setState({ reviewCount: filteredReviews.length }) IS NOT PURE.
-    if ( this.state.reviewCount !== filteredReviews.length ) {
-      this.setState(prevState => ({
-        reviewCount: prevState.reviewCount + 1
-      }));
-    }
 
     // Create and return HTML.
     return filteredReviews.map((review, index) => {
@@ -107,7 +86,6 @@ class ReviewList extends Component {
         </li>
       )
     });
-
   }
 
   // Main render.
@@ -124,12 +102,20 @@ class ReviewList extends Component {
     });
     const isLocationClosed = location.outOfBusiness;
 
+    // Determine number of reviews, place review count in HTML.
+    // Filter the User's reviews for only those
+    // which match the clicked Marker's locationId.
+    const filteredReviews = this.props.allReviews.filter((review) => {
+      return review.locationId === this.props.mapData.locationId;
+    });
+    const reviewCount = filteredReviews.length;
+
     return (
       <div>
         {!isLocationClosed ?
           <div className="review_list_wrapper">
             <div className="review_list_header">
-              <h2>Reviews ({this.state.reviewCount}):</h2>
+              <h2>Reviews ({reviewCount}):</h2>
               <div className="review_list_add_review_button_wrapper">
                 <button
                   className="review_list_add_review_button"
@@ -139,7 +125,7 @@ class ReviewList extends Component {
               </div>
             </div>
             <ul className="review_list_ul">
-              {this.renderList()}
+              {this.renderReviews()}
             </ul>
           </div>
           : ""
