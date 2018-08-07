@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReactDom from 'react-dom';
 import { setModalView } from '../../actions/action_modal';
 import {
   setReviewToEdit,
@@ -8,6 +9,8 @@ import {
 import '../css/normalize_form.css';
 import '../css/common_button.css';
 import './review_list.css';
+
+
 
 class ReviewList extends Component {
 
@@ -99,7 +102,8 @@ class ReviewList extends Component {
 
           <div className="review_date">Date Visited:<span>{review.date}</span></div>
           <div className="review_header">Review:</div>
-          <div className="review_review">{review.review}</div>
+          {/*<div className="review_review">{review.review}</div>*/}
+          <textarea className="review_review" readOnly>{review.review}</textarea>
         </li>
       )
     });
