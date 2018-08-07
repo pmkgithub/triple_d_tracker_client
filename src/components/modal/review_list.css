@@ -56,3 +56,50 @@
 .review_delete_button {
   margin-left: 5px;
 }
+
+/* Confirm Delete Review Popup - BEGIN */
+.review_confirm_delete_popup_wrapper {
+  position: absolute;
+  height: 250px;
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  z-index: 10;
+}
+.review_confirm_delete_popup_border {
+  height: 230px;
+  margin: 10px;
+  border: 1px solid black;
+}
+.review_confirm_delete_popup_header {
+  text-align: center;
+  color: red;
+  margin-bottom: 0;
+}
+.review_confirm_delete_popup_review_date {
+  font-weight: bold;
+  margin-left: 10px;
+}
+.review_confirm_delete_popup_review_date span {
+  display: inline-block;
+  margin-left: 10px;
+}
+.review_confirm_delete_popup_review_wrapper {
+  padding: 10px;
+}
+.review_confirm_delete_popup_review {
+  outline: none;
+  resize: none;
+  height: 100px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid black;
+}
+.review_confirm_delete_popup_button_wrapper {
+  text-align: center;
+}
+.review_confirm_delete_popup_delete {
+  margin-left: 20px;
+}
+/* Confirm Delete Review Popup - END */

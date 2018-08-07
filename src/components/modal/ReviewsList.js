@@ -12,6 +12,15 @@ import './review_list.css';
 
 class ReviewList extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isConfirmDeleteReviewPopupOpen: false,
+      reviewToDelete: {}
+    }
+  }
+
   handleAddReview(e) {
     e.preventDefault();
     // Change Modal's view to "AddReviewForm".
@@ -24,12 +33,53 @@ class ReviewList extends Component {
     this.props.setModalView('edit_review_form');
   }
 
-  handleDeleteButtonClick(e, reviewId) {
+  handleDeleteButtonClick(e, review) {
+    e.preventDefault();
+    this.setState({
+      isConfirmDeleteReviewPopupOpen: true,
+      reviewToDelete: review
+    });
+  }
+
+  renderConfirmDeleteReviewPopup() {
+    const reviewToDelete = this.state.reviewToDelete;
+    return (
+      <div className="review_confirm_delete_popup_wrapper">
+        <div className="review_confirm_delete_popup_border">
+          <h3 className="review_confirm_delete_popup_header">Confirm Review Delete</h3>
+          <div className="review_confirm_delete_popup_review_date">Date Visited:<span>{reviewToDelete.date}</span></div>
+          <div className="review_confirm_delete_popup_review_wrapper">
+            <textarea className="review_confirm_delete_popup_review" readOnly>{reviewToDelete.review}</textarea>
+          </div>
+
+          <div className="review_confirm_delete_popup_button_wrapper">
+            <button
+              className="review_confirm_delete_popup_cancel"
+              type="button"
+              onClick={() => this.setState({isConfirmDeleteReviewPopupOpen: false})}
+            >Cancel</button>
+            <button
+              className="review_confirm_delete_popup_delete"
+              type="button"
+              onClick={(e) => this.handlePopupDeleteButtonClick(e)}
+            >Delete</button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  handlePopupDeleteButtonClick(e) {
     e.preventDefault();
     const userId = this.props.auth.userId;
+    const reviewId = this.state.reviewToDelete._id;
     this.props.deleteReview(userId, reviewId, () => {
       // redirect to Location Detail Modal view.
       this.props.setModalView('location_detail');
+      this.setState({
+        isConfirmDeleteReviewPopupOpen: false,
+        reviewToDeleteId: {}
+      })
     })
   }
 
@@ -75,7 +125,8 @@ class ReviewList extends Component {
             <button
               className="review_delete_button"
               type="button"
-              onClick={(e) => this.handleDeleteButtonClick(e, review._id)}
+              // onClick={(e) => this.handleDeleteButtonClick(e, review._id)}
+              onClick={(e) => this.handleDeleteButtonClick(e, review)}
             >Delete</button>
           </div>
 
@@ -90,7 +141,6 @@ class ReviewList extends Component {
 
   // Main render.
   render() {
-
     // On first React render,
     // "this.props.mapData.locationId" is undefined. Thus return early.
     if (!this.props.mapData.locationId) {return false;}
@@ -112,6 +162,7 @@ class ReviewList extends Component {
 
     return (
       <div>
+        {this.state.isConfirmDeleteReviewPopupOpen && this.renderConfirmDeleteReviewPopup()}
         {!isLocationClosed ?
           <div className="review_list_wrapper">
             <div className="review_list_header">
