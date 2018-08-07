@@ -42,7 +42,10 @@
   outline: none;
   resize: none;
   /* note: textarea height also set in add_edit_review_form.css */
+  /*min-height: 50px;*/
+  /*max-height: 100px;*/
   height: 100px;
+  width: 100%;
   padding: 10px;
   border: 1px solid black;
 }

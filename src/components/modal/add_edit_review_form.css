@@ -29,7 +29,8 @@ input[type=date] {
   font-size: 18px;
   margin-bottom: 10px;
 }
-textarea {
+.add_review_form_wrapper textarea,
+.edit_review_form_wrapper textarea {
   height: 100px;
   width: 100%;
   font-size: 16px;
