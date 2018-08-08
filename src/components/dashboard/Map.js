@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import { withGoogleMap, GoogleMap, Marker, InfoWindow, Circle } from 'react-google-maps';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { MAP } from 'react-google-maps/lib/constants';
 import {
@@ -68,6 +68,7 @@ class Map extends Component {
     // NOTE: for whatever reason, handleOnZoomChanged() gets called
     //       when App initially loads.
     const zoom = this.state.map.getZoom();
+    console.log('zoom = ', zoom);
     this.props.setMapZoom(zoom);
   }
 
@@ -137,7 +138,7 @@ class Map extends Component {
 
     // If "Nearme" radio button selected, push User's Location Marker onto "markers" array.
     if ( this.props.selectedRadioButton === 'nearme' && this.props.usersNearmeData.lat ) {
-      const distanceMeters = this.props.usersNearmeData.distanceMeters;
+      const distanceMeters = this.props.usersNearmeData.distanceMeters; // just using this as the key, no other functionality.
       const usersLat = this.props.usersNearmeData.lat;
       const usersLon = this.props.usersNearmeData.lon;
       const iconUrl = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
@@ -187,6 +188,21 @@ class Map extends Component {
           onZoomChanged={(e) => this.handleOnZoomChanged(e)}
         >
           {this.props.mapData.isGeolocating && this.renderIsGeolocatingSpinner()}
+          {!this.props.mapData.isGeolocating &&
+            this.props.selectedRadioButton === 'nearme' &&
+            this.props.usersNearmeData.lat &&
+            <Circle
+              center={{lat: this.props.usersNearmeData.lat, lng: this.props.usersNearmeData.lon }}
+              radius={this.props.usersNearmeData.distanceMeters}
+              options={{
+                strokeColor: '#FFFF00',
+                strokeWeight: 2,
+                fillColor: '',
+                fillOpacity: 0.0
+              }}
+
+            />
+          }
           {this.props.isMarkerShown && <div>{this.renderMarkers()}</div>}
         </GoogleMap>
       </div>
