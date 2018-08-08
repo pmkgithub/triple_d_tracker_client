@@ -68,7 +68,6 @@ class Map extends Component {
     // NOTE: for whatever reason, handleOnZoomChanged() gets called
     //       when App initially loads.
     const zoom = this.state.map.getZoom();
-    console.log('zoom = ', zoom);
     this.props.setMapZoom(zoom);
   }
 
@@ -200,7 +199,6 @@ class Map extends Component {
                 fillColor: '',
                 fillOpacity: 0.0
               }}
-
             />
           }
           {this.props.isMarkerShown && <div>{this.renderMarkers()}</div>}
