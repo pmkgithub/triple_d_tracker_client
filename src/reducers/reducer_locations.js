@@ -335,7 +335,7 @@ export default (state=initialState, action) => {
       return {
         ...state,
         isGeolocating: action.bool
-      }
+      };
 
     case SET_USERS_NEARME_DATA:
       return {

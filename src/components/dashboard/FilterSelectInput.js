@@ -126,6 +126,8 @@ class FilterSelectInput extends Component {
   }
 
   onGeolocateSuccess(coordinates) {
+    // NOTE: mapCenterLat, mapCenterLon is set in FETCH_NEARME_LOCATIONS_SUCCESS.
+
     const { latitude, longitude } = coordinates.coords;
     const selectedDistanceMiles = this.state.value;
     // Convert selectedDistance (miles) to meters.
