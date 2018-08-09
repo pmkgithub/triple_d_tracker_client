@@ -185,6 +185,9 @@ export default (state=initialState, action) => {
         return location.state === usStateAbbr;
       });
 
+      // KEEP.  For logging to console.
+      console.log(`${usStateAbbr} has ${filteredLocations.length} restaurants in DB`);
+
       return {
         ...state,
         displayedMapLocations: filteredLocations,
