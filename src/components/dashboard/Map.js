@@ -128,7 +128,7 @@ class Map extends Component {
         >
           {this.state.isInfoWindowOpen && this.state.markerId === index && <InfoWindow
             key={index}
-            // options={{disableAutoPan: true}}
+            options={{disableAutoPan: true}}
             // onCloseClick={() => this.handleOnClickMarker()}
           ><div>{location.name}</div></InfoWindow>}
         </Marker>
@@ -172,6 +172,34 @@ class Map extends Component {
       </div>
     )
   }
+  
+  renderMapLegend() {
+    const greenMarker = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+    const blueMarker = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+    const redMarker = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+    const yellowMarker = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+    return (
+      <div className="map_legend_wrapper">
+        <div className="map_legend_header">Map Legend</div>
+        <div className="map_legend_row">
+          <img className="map_legend_icon" src={greenMarker} alt=""/>
+          <div className="map_legend_icon_desc">Visited Location</div>
+        </div>
+        <div className="map_legend_row">
+          <img className="map_legend_icon" src={blueMarker} alt=""/>
+          <div className="map_legend_icon_desc">Not Visited Location</div>
+        </div>
+        <div className="map_legend_row">
+          <img className="map_legend_icon" src={redMarker} alt=""/>
+          <div className="map_legend_icon_desc">Out of Business</div>
+        </div>
+        <div className="map_legend_row">
+          <img className="map_legend_icon" src={yellowMarker} alt=""/>
+          <div className="map_legend_icon_desc">My Nearme Location</div>
+        </div>
+      </div>
+    )
+  }
 
   // Component's render()
   render() {
@@ -186,6 +214,7 @@ class Map extends Component {
           onDragEnd={(e) => this.handleOnDragEnd(e)}
           onZoomChanged={(e) => this.handleOnZoomChanged(e)}
         >
+          {this.renderMapLegend()}
           {this.props.mapData.isGeolocating && this.renderIsGeolocatingSpinner()}
           {!this.props.mapData.isGeolocating &&
             this.props.selectedRadioButton === 'nearme' &&
