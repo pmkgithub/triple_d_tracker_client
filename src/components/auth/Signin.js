@@ -41,7 +41,9 @@ class Signin extends Component {
   // Arrow Function allows us not to need binding this.
   onSubmit = (formProps) => {
     this.props.signin(formProps, () => {
-      this.props.history.push('/feature');
+      // TODO - orig - refact layout - LOC below.
+      // this.props.history.push('/feature');
+      this.props.history.push('/dashboard');
     });
   };
 
