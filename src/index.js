@@ -53,8 +53,8 @@ ReactDom.render(
   <Provider store={store}>
     <BrowserRouter>
       <App>
-        {/*<Route exact path="/" component={LandingPage} />*/}
-        <Route exact path="/" component={Signin} />
+        <Route exact path="/" component={LandingPage} />
+        {/*<Route exact path="/" component={Signin} />*/}
         <Route exact path="/about" component={About} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/signup" component={Signup} />

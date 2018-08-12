@@ -5,6 +5,7 @@ import locationsReducer from './reducer_locations';
 import radioButtonReducer from './reducer_radio_button';
 import modalReducer from './reducer_modal';
 import reviewsReducer from './reducer_reviews';
+import currentRouteReducer from './reducer_route';
 
 export default combineReducers({
   auth: authReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   radioButton: radioButtonReducer,
   modal: modalReducer,
   reviews: reviewsReducer,
+  route: currentRouteReducer,
   form: formReducer
 });

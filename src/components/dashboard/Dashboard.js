@@ -66,5 +66,6 @@ class Dashboard extends Component {
   }
 }
 
+// export default Dashboard;
 export default requireAuth(Dashboard);
 // TODO - refact - refact-layout - END
