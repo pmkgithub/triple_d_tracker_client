@@ -7,11 +7,11 @@ import reduxThunk from 'redux-thunk';
 
 import reducers from './reducers';
 import App from './components/App';
-import Dashboard from './components/dashboard/Dashboard';
 import Signup from './components/auth/Signup';
 import Signin from './components/auth/Signin';
 import Signout from './components/auth/Signout';
-import Feature from './components/Feature';
+import About from './components/About';
+import Dashboard from './components/dashboard/Dashboard';
 
 // NOTE store is imported into action_locations.js to have access to reviews.
 export const store = createStore(
@@ -25,11 +25,12 @@ ReactDom.render(
   <Provider store={store}>
     <BrowserRouter>
       <App>
-        <Route exact path="/" component={Dashboard} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/feature" component={Feature} />
-        <Route path="/signout" component={Signout} />
-        <Route path="/signin" component={Signin} />
+        <Route exact path="/" component={Signup} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/signin" component={Signin} />
+        <Route exact path="/signout" component={Signout} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/dashboard" component={Dashboard} />
       </App>
     </BrowserRouter>
   </Provider>,
