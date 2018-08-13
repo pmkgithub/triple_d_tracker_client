@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './Header';
+import Nav from './Nav';
 // Font Awesome - BEGIN
 import { library as faLibrary} from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' // do this in Component
@@ -10,7 +10,7 @@ faLibrary.add(faCheck, faSpinner);
 export default ({children}) => {
   return (
     <div>
-      <Header />
+      <Nav />
       {children}
     </div>
   );

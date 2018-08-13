@@ -1,17 +1,16 @@
-import { SET_CURRENT_ROUTE } from '../actions/action_route';
+import { SET_CURRENT_ROUTE } from '../actions/action_currentRoute';
 
 const initialState = {
-  currentRoute: null
+  currentRoute: '/'
 };
 
 export default (state=initialState, action) => {
 
   switch(action.type) {
     case SET_CURRENT_ROUTE:
-      console.log('action = ', action);
       return {
         ...state,
-        currentRoute: action.route
+        currentRoute: action.currentRoute
       };
 
     default:

@@ -259,5 +259,5 @@ export default compose (
     setLocationId
   }),
   withGoogleMap
-)(Map)
+)(Map);
 

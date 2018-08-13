@@ -3,7 +3,9 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom'
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+// import * as actions from '../../actions'; // alternate syntax, but doesn't work with compose().
+import { signin, authError } from "../../actions/index";
+import { setCurrentRoute } from "../../actions/action_currentRoute";
 import './signup_signin.css';
 
 class Signin extends Component {
@@ -11,6 +13,10 @@ class Signin extends Component {
   componentDidMount() {
     // Call authError Action Creator to clear any lingering error messages.
     this.props.authError("");
+  }
+
+  componentWillMount() {
+    this.props.setCurrentRoute(window.location.pathname);  // for Nav.js links logic.
   }
 
   renderField(field) {
@@ -41,8 +47,6 @@ class Signin extends Component {
   // Arrow Function allows us not to need binding this.
   onSubmit = (formProps) => {
     this.props.signin(formProps, () => {
-      // TODO - orig - refact layout - LOC below.
-      // this.props.history.push('/feature');
       this.props.history.push('/dashboard');
     });
   };
@@ -127,7 +131,7 @@ const mapStateToProps = (state) => {
 
 // syntax USING compose -> allows us to pass in multiple HOC's.
 export default compose(
-  connect(mapStateToProps, actions),
+  connect(mapStateToProps, { signin, authError, setCurrentRoute} ),
   reduxForm({
     form: 'signin',
     validate: validate
