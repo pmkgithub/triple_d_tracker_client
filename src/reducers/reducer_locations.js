@@ -186,7 +186,7 @@ export default (state=initialState, action) => {
       });
 
       // KEEP.  For logging to console.
-      console.log(`${usStateAbbr} has ${filteredLocations.length} restaurants in DB`);
+      // console.log(`${usStateAbbr} has ${filteredLocations.length} restaurants in DB`);
 
       return {
         ...state,
