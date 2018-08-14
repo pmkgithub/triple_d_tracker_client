@@ -17,7 +17,6 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log('Dashboord.js render ran...');
     return (
       <div>
         <h3>Dashboard</h3>
