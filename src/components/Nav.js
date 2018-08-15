@@ -7,8 +7,6 @@ import './nav.css';
 class Nav extends Component {
 
   renderLinks() {
-    // console.log('Nav.js this.props.authenticated = ', this.props.authenticated);
-    console.log('Nav.js this.props.currentRoute = ', this.props.currentRoute);
 
     if (!this.props.authenticated && this.props.currentRoute === '/') {
       return (
@@ -47,7 +45,6 @@ class Nav extends Component {
     }
 
     if (this.props.authenticated && this.props.currentRoute === '/dashboard') {
-      console.log('if (this.props.authenticated && this.props.currentRoute === \'/dashboard\') ran');
       return (
         <div className="nav_links_wrapper">
           <Link to="/about">About</Link>
@@ -57,7 +54,6 @@ class Nav extends Component {
     }
 
     if (this.props.authenticated && this.props.currentRoute === '/about') {
-      console.log('if (this.props.authenticated && this.props.currentRoute === \'/about\') ran');
       return (
         <div className="nav_links_wrapper">
           <Link to="/dashboard">Dashboard</Link>
