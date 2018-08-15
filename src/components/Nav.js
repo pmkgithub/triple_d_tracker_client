@@ -9,7 +9,7 @@ class Header extends Component {
 
     if (!this.props.authenticated && this.props.currentRoute === '/') {
       return (
-        <div>
+        <div className="nav_links_wrapper">
           <Link to="/about">About</Link>
           <Link to="/signin">Sign In</Link>
         </div>
@@ -18,7 +18,7 @@ class Header extends Component {
 
     if (!this.props.authenticated && this.props.currentRoute === '/signup') {
       return (
-        <div>
+        <div className="nav_links_wrapper">
           <Link to="/about">About</Link>
           <Link to="/signin">Sign In</Link>
         </div>
@@ -27,7 +27,7 @@ class Header extends Component {
 
     if (!this.props.authenticated && this.props.currentRoute === '/signin') {
       return (
-        <div>
+        <div className="nav_links_wrapper">
           <Link to="/about">About</Link>
           <Link to="/signup">Sign Up</Link>
         </div>
@@ -36,7 +36,7 @@ class Header extends Component {
 
     if (!this.props.authenticated && this.props.currentRoute === '/about') {
       return (
-        <div>
+        <div className="nav_links_wrapper">
           <Link to="/signup">Sign Up</Link>
           <Link to="/signin">Sign In</Link>
         </div>
@@ -45,7 +45,7 @@ class Header extends Component {
 
     if (this.props.authenticated && this.props.currentRoute === '/dashboard') {
       return (
-        <div>
+        <div className="nav_links_wrapper">
           <Link to="/about">About</Link>
           <Link to="/signout">Sign Out</Link>
         </div>
@@ -54,7 +54,7 @@ class Header extends Component {
 
     if (this.props.authenticated && this.props.currentRoute === '/about') {
       return (
-        <div>
+        <div className="nav_links_wrapper">
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/signout">Sign Out</Link>
         </div>
@@ -65,7 +65,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="header">
+      <div className="nav">
         {this.renderLinks()}
       </div>
     );

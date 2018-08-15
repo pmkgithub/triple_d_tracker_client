@@ -5,7 +5,8 @@ import {
   setLatLonZoomForUiList,
   setIsGeolocating,
   setUsersNearmeData,
-  fetchNearmeLocations
+  fetchNearmeLocations,
+  clearLocationsFromList
 } from '../../actions/action_locations';
 import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
 import radioButtonConfig from '../../configs/radioButtonConfig';
@@ -116,6 +117,9 @@ class FilterSelectInput extends Component {
     // NEARME - Select Input.
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
       if (navigator.geolocation) {
+        // clear Locations List (and displayed map locations)
+        this.props.clearLocationsFromList();
+
         // set isGeolocationg to true.
         this.props.setIsGeolocating(true);
 
@@ -211,4 +215,5 @@ export default connect(mapStateToProps, {
   setIsGeolocating,
   setUsersNearmeData,
   fetchNearmeLocations,
+  clearLocationsFromList
 })(FilterSelectInput);

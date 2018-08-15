@@ -1,8 +1,16 @@
-.header {
+.nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  /*height: 30px;*/
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
-
-.header a {
-  margin: 0 10px;
+.nav a {
+  padding: 10px;
+  margin: 10px 10px 0 0;
+  text-decoration: none;
+}
+.nav a:hover {
+  color: white;
+  background-color: cornflowerblue;
 }
