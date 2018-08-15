@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentRoute } from "../actions/action_currentRoute";
+import demoimg from '../images/demo.png';
 
 class About extends Component {
 
@@ -14,6 +15,7 @@ class About extends Component {
         <div>Overview:</div>
         <div>Create a User Account:</div>
         <div>Create, Edit, Delete a Review:</div>
+        <img src={demoimg} alt=""/>
       </div>
     )
   }

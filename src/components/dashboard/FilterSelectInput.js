@@ -5,7 +5,8 @@ import {
   setLatLonZoomForUiList,
   setIsGeolocating,
   setUsersNearmeData,
-  fetchNearmeLocations
+  fetchNearmeLocations,
+  clearLocationsFromList
 } from '../../actions/action_locations';
 import mapSelectInputConfig from '../../configs/mapSelectInputConfig';
 import radioButtonConfig from '../../configs/radioButtonConfig';
@@ -116,7 +117,10 @@ class FilterSelectInput extends Component {
     // NEARME - Select Input.
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
       if (navigator.geolocation) {
-        // set isGeolocationg to true.
+        // clear Locations List (and displayed map locations).
+        this.props.clearLocationsFromList();
+
+        // set isGeolocationg to true so the Finding Nearme Spinner displays.
         this.props.setIsGeolocating(true);
 
         // get User's position.
@@ -211,4 +215,5 @@ export default connect(mapStateToProps, {
   setIsGeolocating,
   setUsersNearmeData,
   fetchNearmeLocations,
+  clearLocationsFromList
 })(FilterSelectInput);

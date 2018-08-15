@@ -167,4 +167,3 @@ export default compose(
     validate: validate
   })
 )(Signup);
-

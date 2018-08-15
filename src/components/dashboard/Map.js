@@ -165,9 +165,10 @@ class Map extends Component {
   // markers - END
 
   renderIsGeolocatingSpinner() {
+
     return (
       <div className="map_is_geolocating_spinner_wrapper">
-        <div className="map_is_geolocating_spinner_message">Geolocating User's Location...</div>
+        <div className="map_is_geolocating_spinner_message">Finding Nearme Locations...</div>
         <div className="map_is_geolocating_spinner"><FontAwesomeIcon className="map_is_geolocating_spinner fa-spin" icon="spinner"/></div>
       </div>
     )
@@ -223,7 +224,8 @@ class Map extends Component {
               center={{lat: this.props.usersNearmeData.lat, lng: this.props.usersNearmeData.lon }}
               radius={this.props.usersNearmeData.distanceMeters}
               options={{
-                strokeColor: '#FFFF00',
+                // strokeColor: '#FFFF00', // yellow.
+                strokeColor: '#3366FF', // blue.
                 strokeWeight: 2,
                 fillColor: '',
                 fillOpacity: 0.0

@@ -20,7 +20,7 @@ html {
   width: 400px;
   background-color: white;
   margin: 0 auto;
-  padding: 40px;
+  padding: 40px 40px 20px 40px;
 }
 .signin-form fieldset,
 .signup-form fieldset {
