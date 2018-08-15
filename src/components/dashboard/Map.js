@@ -224,7 +224,8 @@ class Map extends Component {
               center={{lat: this.props.usersNearmeData.lat, lng: this.props.usersNearmeData.lon }}
               radius={this.props.usersNearmeData.distanceMeters}
               options={{
-                strokeColor: '#FFFF00',
+                // strokeColor: '#FFFF00', // yellow.
+                strokeColor: '#3366FF', // blue.
                 strokeWeight: 2,
                 fillColor: '',
                 fillOpacity: 0.0

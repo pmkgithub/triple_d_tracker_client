@@ -19,6 +19,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
+        <h4>Dashboard</h4>
         <div className="dashboard_wrapper">
           <Map
             containerElement={<div className="map_wrapper" />}

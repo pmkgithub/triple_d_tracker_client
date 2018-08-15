@@ -117,10 +117,10 @@ class FilterSelectInput extends Component {
     // NEARME - Select Input.
     if (this.props.selectedRadioButton === radioButtonConfig.nearme) {
       if (navigator.geolocation) {
-        // clear Locations List (and displayed map locations)
+        // clear Locations List (and displayed map locations).
         this.props.clearLocationsFromList();
 
-        // set isGeolocationg to true.
+        // set isGeolocationg to true so the Finding Nearme Spinner displays.
         this.props.setIsGeolocating(true);
 
         // get User's position.
