@@ -1,3 +1,19 @@
+.dashboard_title {
+  /*font-family: 'klinkomite', Times, serif;*/
+  font-family: 'Acme', Times, serif;
+  /*font-family: 'Cherry+Cream+Soda', Times, serif;*/
+  font-size: 40px;
+  font-style: italic;
+  color: #fff;
+  /*color: paleturquoise;*/
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
 .dashboard_wrapper {
   display: flex;
+  background-color: white;
+  padding: 20px;
+  margin-top: 30px;
 }
