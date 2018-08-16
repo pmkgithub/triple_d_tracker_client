@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import image from '../images/corks01_john_murzaku_269690_unsplash.jpg';
+// import image from '../images/corks01_john_murzaku_269690_unsplash.jpg';
+// import image from '../images/fre-sonneveld-315-unsplash.jpg';
+// import image from '../images/adrian-502592-unsplash.jpg';
+import image from '../images/r-mac-wheeler-650214-unsplash.jpg';
 import './BackgroundImage01.css'
 
-// // WAY 1 -
+// // WAY 1 - not successful getting overlay blackening effect to work.
 // class BackgroundImage01 extends Component {
 //   render() {
 //     return (
@@ -16,7 +19,7 @@ import './BackgroundImage01.css'
 //
 // }
 
-// WAY 2 - with blackout effect.
+// WAY 2 - with blackening tone effect.
 const divStyle = {
   backgroundImage: `url(${image})`
 };

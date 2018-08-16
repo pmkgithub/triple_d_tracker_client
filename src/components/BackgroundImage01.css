@@ -44,7 +44,7 @@
   background-size: cover;
 
   /*/* blackout effect - begin */
-  background-color: rgba(0,0,0, 0.3);
+  background-color: rgba(0,0,0, 0.1);
   background-blend-mode: multiply;
   /*/* blackout effect - begin */
 
