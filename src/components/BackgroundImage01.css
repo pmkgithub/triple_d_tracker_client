@@ -1,0 +1,52 @@
+
+/*!* WAY 1 - works except for blackout effect *!*/
+/*.bg01 {*/
+  /*display: block;*/
+  /*width: 100%;*/
+  /*height: 100%;*/
+
+  /*!* Set up positioning *!*/
+  /*position: fixed;*/
+  /*top: 0;*/
+  /*left: 0;*/
+
+  /*background-image: url("/images/corks01_john_murzaku_269690_unsplash.jpg");*/
+  /*background-repeat: no-repeat;*/
+  /*background-attachment: fixed;*/
+  /*background-size: cover;*/
+  /*opacity: 1;*/
+
+  /*!*!* blackout effect - begin *!*/
+  /*background-color: rgba(0,0,0, 0.6);*/
+  /*background-blend-mode: multiply;*/
+  /*!*!* blackout effect - begin *!*/
+
+  /*margin: 0;*/
+  /*padding: 0;*/
+  /*z-index: -1;*/
+/*}*/
+
+
+/* WAY 2 */
+.bg01 {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  /* sizes background image */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+  /*/* blackout effect - begin */
+  background-color: rgba(0,0,0, 0.1);
+  background-blend-mode: multiply;
+  /*/* blackout effect - begin */
+
+  z-index: -1;
+}
