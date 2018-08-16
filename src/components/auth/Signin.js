@@ -91,9 +91,9 @@ class Signin extends Component {
           </fieldset>
           <button className="signin-button" type="submit">Sign In!</button>
         </form>
-        <div className="link-wrapper">Don't have an account?
-          <Link className="signup-link" to="/signup">Sign Up</Link>
-        </div>
+        {/*<div className="link-wrapper">Don't have an account?*/}
+          {/*<Link className="signup-link" to="/signup">Sign Up</Link>*/}
+        {/*</div>*/}
       </div>
 
     );

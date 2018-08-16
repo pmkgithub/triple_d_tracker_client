@@ -1,4 +1,9 @@
-
+@font-face
+{
+  font-family: klinkomite;
+  src: url('../fonts_custom/klinkomite.tff'),
+  url('../fonts_custom/klinkomite.tff');
+}
 /*!* WAY 1 - works except for blackout effect *!*/
 /*.bg01 {*/
   /*display: block;*/
@@ -49,4 +54,17 @@
   /*/* blackout effect - begin */
 
   z-index: -1;
+}
+.bg01_title {
+  /*font-family: 'klinkomite', Times, serif;*/
+  font-family: 'Acme', Times, serif;
+  /*font-family: 'Cherry+Cream+Soda', Times, serif;*/
+  font-size: 40px;
+  font-style: italic;
+  color: #fff;
+  /*color: paleturquoise;*/
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }

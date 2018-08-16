@@ -27,10 +27,15 @@ class BackgroundImage01 extends Component {
 
   render() {
     return (
-      <div
-        className="bg01"
-        style={divStyle}
-      >
+      <div className="bg01_wrapper">
+        <div className="bg01_title_wrapper">
+          <div className="bg01_title">Diners Drive-ins and Dives Tracker</div>
+        </div>
+        <div
+          className="bg01"
+          style={divStyle}
+        >
+        </div>
       </div>
     )
   }
