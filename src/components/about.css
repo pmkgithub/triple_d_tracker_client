@@ -1,0 +1,95 @@
+.about_title {
+  /*font-family: 'klinkomite', Times, serif;*/
+  font-family: 'Acme', Times, serif;
+  font-size: 40px;
+  font-style: italic;
+  color: #fff;
+  /*color: paleturquoise;*/
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+.about_sections_wrapper {
+  height: 90vh;
+  overflow-y: auto;
+  padding: 0 20px 20px 20px;
+}
+
+.about_overview_section_title,
+.about_dashboard_section_title,
+.about_review_section_title {
+  font-family: 'Acme', Times, serif;
+  font-size: 30px;
+  font-style: italic;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+.about_overview_content_title,
+.about_dashboard_content_title,
+.about_review_content_title {
+  font-family: 'Acme', Times, serif;
+  font-size: 30px;
+  font-style: italic;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+/* ///////////////////////////////////////////////////////////////////////// */
+/* Overview -BEGIN  //////////////////////////////////////////////////////// */
+.about_overview_section {
+  margin-top: 10px;
+}
+.about_overview_article {
+  display: flex;
+  background-color: #5BA3D7;
+}
+.about_overview_content_wrapper{
+  padding: 20px;
+}
+.about_overview_content p {
+  font-size: 20px;
+  color: white;
+  /*text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;*/
+}
+/* Overview - END  ///////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/* Dashboard - BEGIN  ////////////////////////////////////////////////////// */
+.about_dashboard_section,
+.about_review_section {
+  margin-top: 40px;
+}
+.about_dashboard_article,
+.about_review_article {
+  display: flex;
+  background-color: #5BA3D7;
+  margin-bottom: 15px;
+}
+.about_review_article {
+  display: flex;
+  background-color: #5BA3D7;
+}
+.about_dashboard_content_wrapper,
+.about_review_content_wrapper {
+  padding: 20px;
+}
+.about_dashboard_article_image {
+  height: 375px;
+  min-width: 800px;
+  width: 800px;
+}
+.about_review_article_image {
+  height: 450px;
+  min-width: 800px;
+  width: 800px;
+}
+.about_dashboard_content p,
+.about_review_content p {
+  font-size: 20px;
+  color: white;
+  /*text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;*/
+}
+/* ///////////////////////////////////////////////////////////////////////// */
+/* Dashboard - END  //////////////////////////////////////////////////////// */
