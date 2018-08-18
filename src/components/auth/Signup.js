@@ -113,9 +113,9 @@ class Signup extends Component {
           </fieldset>
           <button className="signup-button" type="submit">Sign Up!</button>
         </form>
-        <div className="link-wrapper">Already have an account?
-            <Link className="signin-link" to="/signin">Sign In</Link>
-        </div>
+        {/*<div className="link-wrapper">Already have an account?*/}
+            {/*<Link className="signin-link" to="/signin">Sign In</Link>*/}
+        {/*</div>*/}
       </div>
     );
   }

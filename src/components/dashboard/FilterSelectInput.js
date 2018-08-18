@@ -132,7 +132,13 @@ class FilterSelectInput extends Component {
   onGeolocateSuccess(coordinates) {
     // NOTE: mapCenterLat, mapCenterLon is set in FETCH_NEARME_LOCATIONS_SUCCESS.
 
-    const { latitude, longitude } = coordinates.coords;
+    let { latitude, longitude } = coordinates.coords;
+
+    // // For making Nearme Map screen captures.
+    // // LA lat, lon: 34.0522° N, 118.2437° W
+    // latitude = 34.0522;
+    // longitude = -118.2437;
+
     const selectedDistanceMiles = this.state.value;
     // Convert selectedDistance (miles) to meters.
     // mongoose $geoNear requires meters.
