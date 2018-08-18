@@ -7,7 +7,6 @@ import map_state from '../images/about_page/map_state.png';
 import map_nearme from '../images/about_page/map_nearme.png';
 import map_visited from '../images/about_page/map_visited.png';
 import review from '../images/about_page/review.png';
-
 import './about.css';
 
 class About extends Component {
@@ -50,7 +49,7 @@ class About extends Component {
                   <div className="about_dashboard_content_title">Filter By: USA</div>
                   <div className="about_dashboard_content">
                     <p>When the Diners Drive-ins and Dives Tracker application loads, the User is presented with all Triple D locations in the Lower 48 states.</p>
-                    <p>Alaksa and Hawaii Triple D locations can be found via the US State Filter (see below).</p>
+                    <p>Alaska and Hawaii Triple D locations can be found via the US State Filter (see below).</p>
                   </div>
                 </div>
             </article>
@@ -61,8 +60,8 @@ class About extends Component {
                 <div className="about_dashboard_content_title">Filter By: States</div>
                 <div className="about_dashboard_content">
                   <p>Find Triple D locations by State.</p>
-                  <p>In any Filtered view, you can click a listed Location and zoom into that particular location on the map.</p>
-                  <p>Clicking the "Map All Listed Locations" button will zoom back out to display all locations in the current list.</p>
+                  <p>In any Filtered View, you can click a listed Location and zoom into that particular location on the map.</p>
+                  <p>Clicking the "Map All Listed Locations" button will zoom back out to display all locations in the current Locations list.</p>
                 </div>
               </div>
             </article>
@@ -70,7 +69,7 @@ class About extends Component {
             <article className="about_dashboard_article">
               <img className="about_dashboard_article_image" src={map_nearme} alt=""/>
               <div className="about_dashboard_content_wrapper">
-                <div className="about_dashboard_content_title">Filter By: Nearme</div>
+                <div className="about_dashboard_content_title">Filter By: Near Me</div>
                 <div className="about_dashboard_content">
                   <p>When road tripping, Filter By Nearme comes in super handy.</p>
                   <p>Find locations within 20, 50, 100, 200 or 300 mile radii.</p>
@@ -97,12 +96,12 @@ class About extends Component {
             <article className="about_review_article">
               <img className="about_review_article_image" src={review} alt=""/>
               <div className="about_review_content_wrapper">
-                <div className="about_review_content_title">Write a review.</div>
+                <div className="about_review_content_title">Reviews</div>
                 <div className="about_review_content">
                   <p>As you visit Triple D locations, write a review.</p>
-                  <p>When the review is saved, the location Marker will turn green to let you know you have "been there and done that".</p>
+                  <p>When the review is saved, the Location Marker will turn green to let you know you have "been there and done that".</p>
                   <p>Your Reviews are private to you and only you.</p>
-                  <p>Not only can you Edit and Delete any review, you can also save multiple reviews for each time you visit a Triple D location.</p>
+                  <p>Not only can you Edit and Delete any review, you may also save multiple reviews for each time you visit a Triple D location.</p>
                 </div>
               </div>
             </article>

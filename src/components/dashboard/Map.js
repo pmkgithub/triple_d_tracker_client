@@ -196,7 +196,7 @@ class Map extends Component {
         </div>
         <div className="map_legend_row">
           <img className="map_legend_icon" src={yellowMarker} alt=""/>
-          <div className="map_legend_icon_desc">My Nearme Location</div>
+          <div className="map_legend_icon_desc">My Near Me Location</div>
         </div>
       </div>
     )
