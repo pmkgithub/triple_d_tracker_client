@@ -1,7 +1,7 @@
-export const SELECTED_RADIO_BUTTON = 'SELECTED_RADIO_BUTTON';
-export const selectedRadioButton = (selectedRadioButton) => {
+export const SET_SELECTED_RADIO_BUTTON = 'SET_SELECTED_RADIO_BUTTON';
+export const setSelectedRadioButton = (selectedRadioButton) => {
   return {
-    type: SELECTED_RADIO_BUTTON,
+    type: SET_SELECTED_RADIO_BUTTON,
     selectedRadioButton
   }
 };

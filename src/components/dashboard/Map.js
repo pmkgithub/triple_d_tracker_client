@@ -168,7 +168,7 @@ class Map extends Component {
 
     return (
       <div className="map_is_geolocating_spinner_wrapper">
-        <div className="map_is_geolocating_spinner_message">Finding Nearme Locations...</div>
+        <div className="map_is_geolocating_spinner_message">Finding Near Me Locations</div>
         <div className="map_is_geolocating_spinner"><FontAwesomeIcon className="map_is_geolocating_spinner fa-spin" icon="spinner"/></div>
       </div>
     )

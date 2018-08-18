@@ -1,5 +1,5 @@
 import {
-  SELECTED_RADIO_BUTTON
+  SET_SELECTED_RADIO_BUTTON
 } from "../actions/action_radio_button";
 import radioButtonConfig from '../configs/radioButtonConfig';
 
@@ -10,7 +10,7 @@ const initialState = {
 export default (state=initialState, action) => {
   switch (action.type) {
 
-    case SELECTED_RADIO_BUTTON:
+    case SET_SELECTED_RADIO_BUTTON:
       return {
         ...state,
         selectedRadioButton: action.selectedRadioButton

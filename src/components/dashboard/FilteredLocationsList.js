@@ -3,11 +3,31 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   mapSingleLocationFromList,
-  mapAllLocationsFromList
+  mapAllLocationsFromList,
+  clearLocationsFromList,
+  createUsLocationsList
 } from '../../actions/action_locations';
+import { setSelectedRadioButton } from '../../actions/action_radio_button';
 import './filtered_locations_list.css';
 
 class FilteredLocationsList extends Component {
+
+  componentWillMount() {
+
+    // When User navigates from /about to /dashboard, change Locations List, Map, Radio Button
+    // and SelectInput value back to US:
+    // 1) the Filter By radio button will go back to USA
+    //    (via the FilterRadioButtons.js component's local state).
+    // 2) the FilterSelectInput changes back to "Not Applicable for Filter By: USA"
+    //    via this.props.setSelectedRadioButton('us') below, and FilterSelectInput render() logic.
+    // 3) The this.props.clearLocationsFromList() and this.props.createUsLocationsList below
+    //    makes the Locations List display all of the US Locations.
+    if (this.props.selectedRadioButton !== 'us') {
+      this.props.setSelectedRadioButton('us');
+      this.props.clearLocationsFromList();
+      this.props.createUsLocationsList();
+    }
+  }
 
   // click on list item.
   handleOnClickListItem(event, location) {
@@ -32,6 +52,7 @@ class FilteredLocationsList extends Component {
   }
 
   renderList() {
+
     return this.props.filteredLocationsList.map((location, index) => {
 
       let className;
@@ -84,5 +105,8 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps,
   {
     mapSingleLocationFromList,
-    mapAllLocationsFromList
+    mapAllLocationsFromList,
+    setSelectedRadioButton,
+    clearLocationsFromList,
+    createUsLocationsList
   })(FilteredLocationsList);
