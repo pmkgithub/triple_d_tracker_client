@@ -8,7 +8,7 @@ import {
   setUsersNearmeData,
 } from '../../actions/action_locations';
 import {
-  selectedRadioButton
+  setSelectedRadioButton
 } from '../../actions/action_radio_button';
 import radioButtonConfig from '../../configs/radioButtonConfig';
 import mapConfig from '../../configs/mapConfig';
@@ -28,7 +28,8 @@ class FilterRadioButtons extends Component {
 
     // USA radio button.
     if (radioButtonValue === radioButtonConfig.us) {
-      this.props.selectedRadioButton(radioButtonValue); // controls Map Filter Select Input.
+
+      this.props.setSelectedRadioButton(radioButtonValue); // controls Map Filter Select Input.
       // Store the US's re-center coords.
       // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       uiListRecenterCoords = {
@@ -45,14 +46,15 @@ class FilterRadioButtons extends Component {
 
     // US STATE radio button.
     if (radioButtonValue === radioButtonConfig.state) {
-      this.props.selectedRadioButton(radioButtonValue);
+      this.props.setSelectedRadioButton(radioButtonValue);
       // Note: for US States, setLatLonZoomForUiList() occurs when a US State is selected from Select Input.
       this.props.clearLocationsFromList();
     }
 
     // NEARME radio button.
     if (radioButtonValue === radioButtonConfig.nearme) {
-      this.props.selectedRadioButton(radioButtonValue);
+
+      this.props.setSelectedRadioButton(radioButtonValue);
       // Note 1:
       //    "nearme", values for setLatLonZoomForUiList()
       //    are set when a "nearme" distance is selected from Select Input.
@@ -77,7 +79,7 @@ class FilterRadioButtons extends Component {
     // VISITED radio button.
     if (radioButtonValue === radioButtonConfig.visited) {
 
-      this.props.selectedRadioButton(radioButtonValue);
+      this.props.setSelectedRadioButton(radioButtonValue);
 
       // For clicking "Map All Listed Locations" button - BEGIN.
       // Store the US's re-center coords.
@@ -155,6 +157,6 @@ export default connect(null, {
   clearLocationsFromList,
   createUsLocationsList,
   createVisitedLocationsUiList,
-  selectedRadioButton,
+  setSelectedRadioButton,
   setUsersNearmeData
 })(FilterRadioButtons);
