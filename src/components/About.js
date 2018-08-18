@@ -98,7 +98,7 @@ class About extends Component {
               <div className="about_review_content_wrapper">
                 <div className="about_review_content_title">Reviews</div>
                 <div className="about_review_content">
-                  <p>Double-click Map Markers to view restaurant detail and reviews.</p>
+                  <p>Click Map Markers to view restaurant detail and reviews.</p>
                   <p>As you visit Triple D locations, write a review.  Your Reviews are private to you and only you.</p>
                   <p>When a review is saved, the Map Marker turns green indicating you have "been there and done that".</p>
                   <p>Not only can you Edit and Delete any review, you may also save multiple reviews for each time you visit a Triple D location.</p>
