@@ -39,7 +39,6 @@ class About extends Component {
 
           </section>
 
-
           <section className="about_dashboard_section">
             <div className="about_dashboard_section_title">The Dashboard</div>
 
