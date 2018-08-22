@@ -70,9 +70,8 @@
 /* ///////////////////////////////////////////////////////////////////////// */
 /* screen greater than or equal to 1200px - BEGIN  ///////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////// */
-
-/* non-mobile - no special CSS needed.  Flexbox CSS creates side by side columns  */
-/* greater than or equal to 1200px  */
+/* non-mobile - no special CSS needed.
+   Flexbox CSS creates side by side columns  */
 @media only screen and (min-width: 1200px) {
   .about_overview_article_image {
 
@@ -104,7 +103,6 @@
 /* ///////////////////////////////////////////////////////////////////////// */
 /* screen less than or equal to 1200px - BEGIN  //////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////// */
-/* less than or equal to 1200px */
 @media only screen and (max-width: 1200px) {
   .about_overview_article,
   .about_dashboard_article,
