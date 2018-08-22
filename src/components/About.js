@@ -71,8 +71,8 @@ class About extends Component {
                 <div className="about_dashboard_content_title">Filter By: Near Me</div>
                 <div className="about_dashboard_content">
                   <p>When road tripping, Filter By Near Me comes in super handy.</p>
-                  <p>Find locations within 20, 50, 100, 200 or 300 mile radii.</p>
-                  <p>For this feature to work, one must allow the Browser to access your current location.</p>
+                  <p>Find locations within 20, 50, 100, 200 or 300 mile radii of your current location.</p>
+                  <p>For this feature to work, one must allow the Browser to access your location.</p>
                 </div>
               </div>
             </article>
