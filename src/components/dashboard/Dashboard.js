@@ -20,20 +20,23 @@ class Dashboard extends Component {
     return (
       <div className="dashboard_wrapper">
         <div className="dashboard_title">Dashboard</div>
-        <Map
-          containerElement={<div className="map_wrapper" />}
-          mapElement={<div className="map_element" />}
-          isMarkerShown >
-        </Map>
-        <Modal/>
-        <div className="map_filters_location_list_wrapper">
-          <div className="map_filters_wrapper">
-            <FilterRadioButton/>
-            <FilterSelectInput/>
-          </div>
-          <div className="map_locations_list_wrapper">
-            <div className="map_locations_list_header">Diners, Drive-ins & Dives Locations:</div>
-            <FileterdLocationsList/>
+
+        <div className="dashboard_map_filters_location_list_wrapper">
+          <Map
+            containerElement={<div className="map_wrapper" />}
+            mapElement={<div className="map_element" />}
+            isMarkerShown >
+          </Map>
+          <Modal/>
+          <div className="filters_location_list_wrapper">
+            <div className="filters_wrapper">
+              <FilterRadioButton/>
+              <FilterSelectInput/>
+            </div>
+            <div className="filtered_locations_list_wrapper">
+              <div className="filtered_locations_list_header">Diners, Drive-ins & Dives Locations:</div>
+              <FileterdLocationsList/>
+            </div>
           </div>
         </div>
 

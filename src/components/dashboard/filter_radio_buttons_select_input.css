@@ -1,11 +1,11 @@
 /* wrappers - BEGIN */
-.map_filters_location_list_wrapper {
+.filters_location_list_wrapper {
   /* wraps radio button, filter select input, locations list  */
   min-width: 400px;
   width: 400px;
   margin-left: 20px;
 }
-.map_filters_wrapper {
+.filters_wrapper {
   /* wraps radio buttons, filter select input */
   padding: 10px;
   border: 1px solid black;
