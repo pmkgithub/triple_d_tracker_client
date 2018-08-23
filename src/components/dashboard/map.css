@@ -1,14 +1,95 @@
-/* map css classNames defined in dashboard.js <Map> component */
-.map_wrapper {
-  height: 550px;
-  width: 800px;
-  padding: 10px;
-  border: 1px solid black;
+/*!* CSS before refact - BEGIN *!*/
+/*!* map css classNames defined in dashboard.js <Map> component *!*/
+/*.map_wrapper {*/
+  /*height: 550px;*/
+  /*width: 800px;*/
+  /*padding: 10px;*/
+  /*border: 1px solid black;*/
+/*}*/
+/*.map_element{*/
+  /*height: 530px;*/
+  /*width: 780px;*/
+/*}*/
+/*!* map legend - BEGIN *!*/
+/*.map_legend_wrapper {*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*position: relative;*/
+  /*top: -124px;*/
+  /*left: 2px;*/
+  /*width: 170px;*/
+  /*border: 1px solid black;*/
+  /*background-color: white;*/
+  /*padding: 3px;*/
+/*}*/
+/*.map_legend_header {*/
+  /*text-align: center;*/
+/*}*/
+/*.map_legend_row {*/
+  /*display: flex;*/
+  /*padding: 2px 0;*/
+/*}*/
+/*.map_legend_icon {*/
+  /*height: 20px;*/
+  /*width: 20px;*/
+/*}*/
+/*.map_legend_icon_desc {*/
+  /*font-size: 14px;*/
+  /*margin-left: 5px;*/
+/*}*/
+/*!* map legend - END *!*/
+/*.map_is_geolocating_spinner_wrapper {*/
+  /*position: absolute;*/
+  /*top: 300px;*/
+  /*left: 260px;*/
+  /*border: 1px solid black;*/
+  /*background-color: white;*/
+  /*text-align: center;*/
+  /*padding: 15px;*/
+  /*color: blue;*/
+/*}*/
+/*.map_is_geolocating_spinner_message {*/
+  /*font-size: 20px;*/
+/*}*/
+/*.map_is_geolocating_spinner {*/
+  /*font-size: 30px;*/
+  /*margin-top: 5px;*/
+/*}*/
+/*!* CSS before refact mobile - END *!*/
+
+
+/* CSS refact mobile- BEGIN */
+@media only screen and (min-width: 1260px) {
+  .map_wrapper {
+    height: 550px;
+    width: 800px;
+    padding: 10px;
+    border: 1px solid black;
+  }
+  .map_element{
+    height: 530px;
+    width: 780px;
+  }
 }
-.map_element{
-  height: 530px;
-  width: 780px;
+
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen less than or equal to 1260px - BEGIN  //////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+@media only screen and (max-width: 1260px) {
+  .dashboard_map_filters_location_list_wrapper {
+    flex-direction: column;
+  }
+  .map_wrapper {
+    object-fit: cover;
+  }
+  .map_element{
+    object-fit: cover;
+  }
 }
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen less than or equal to 1200px - END  ////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
 /* map legend - BEGIN */
 .map_legend_wrapper {
   display: flex;
@@ -54,3 +135,4 @@
   font-size: 30px;
   margin-top: 5px;
 }
+/* CSS refact mobile- END */
