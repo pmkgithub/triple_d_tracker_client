@@ -59,6 +59,9 @@
 
 
 /* CSS refact mobile- BEGIN */
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen greater than or equal to 1260px - BEGIN  ///////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
 @media only screen and (min-width: 1260px) {
   .map_wrapper {
     height: 550px;
@@ -71,24 +74,38 @@
     width: 780px;
   }
 }
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen greater than or equal to 1260px - END  /////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
 
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /* screen less than or equal to 1260px - BEGIN  //////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////// */
 @media only screen and (max-width: 1260px) {
-  .dashboard_map_filters_location_list_wrapper {
-    flex-direction: column;
-  }
+  /* TODO - don't have react-google-maps Responsive yet, map still set with width/height in px */
+  /*.dashboard_map_filters_location_list_wrapper {*/
+    /*flex-direction: column;*/
+  /*}*/
+  /*.map_wrapper {*/
+    /*object-fit: cover;*/
+  /*}*/
+  /*.map_element{*/
+    /*object-fit: cover;*/
+  /*}*/
   .map_wrapper {
-    object-fit: cover;
+    height: 550px;
+    width: 800px;
+    padding: 10px;
+    border: 1px solid black;
   }
   .map_element{
-    object-fit: cover;
+    height: 530px;
+    width: 780px;
   }
 }
 /* ///////////////////////////////////////////////////////////////////////// */
-/* screen less than or equal to 1200px - END  ////////////////////////////// */
+/* screen less than or equal to 1260px - END  ////////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////// */
 /* map legend - BEGIN */
 .map_legend_wrapper {
