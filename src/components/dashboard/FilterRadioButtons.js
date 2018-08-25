@@ -18,13 +18,13 @@ class FilterRadioButtons extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { selectedRadio: 'us' };
+    this.state = { selectedRadioButton: 'us' };
   }
 
   handleOnChange(e) {
     let uiListRecenterCoords;
     const radioButtonValue = e.target.value;
-    this.setState({selectedRadio: radioButtonValue});
+    this.setState({selectedRadioButton: radioButtonValue});
 
     // USA radio button.
     if (radioButtonValue === radioButtonConfig.us) {
@@ -108,7 +108,7 @@ class FilterRadioButtons extends Component {
               type="radio"
               name="filter_by"
               value="us"
-              checked={this.state.selectedRadio === radioButtonConfig.us}
+              checked={this.state.selectedRadioButton === radioButtonConfig.us}
               onChange={e => this.handleOnChange(e)}
             />
             <label htmlFor="radio_us">USA</label>
@@ -119,7 +119,7 @@ class FilterRadioButtons extends Component {
               type="radio"
               name="filter_by"
               value="state"
-              checked={this.state.selectedRadio === radioButtonConfig.state}
+              checked={this.state.selectedRadioButton === radioButtonConfig.state}
               onChange={e => this.handleOnChange(e)}
             />
             <label htmlFor="radio_states">States</label>
@@ -130,7 +130,7 @@ class FilterRadioButtons extends Component {
               type="radio"
               name="filter_by"
               value="nearme"
-              checked={this.state.selectedRadio === radioButtonConfig.nearme}
+              checked={this.state.selectedRadioButton === radioButtonConfig.nearme}
               onChange={e => this.handleOnChange(e)}
             />
             <label htmlFor="radio_nearme">Near Me</label>
@@ -141,7 +141,7 @@ class FilterRadioButtons extends Component {
               type="radio"
               name="filter_by"
               value="visited"
-              checked={this.state.selectedRadio === radioButtonConfig.visited}
+              checked={this.state.selectedRadioButton === radioButtonConfig.visited}
               onChange={e => this.handleOnChange(e)}
             />
             <label htmlFor="radio_states">Visited</label>

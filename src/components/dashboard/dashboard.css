@@ -24,17 +24,14 @@
   padding: 20px;
 }
 /* ///////////////////////////////////////////////////////////////////////// */
-/* screen greater than or equal to 1200px - BEGIN  ///////////////////////// */
+/* screen greater than or equal to 1260px - BEGIN  ///////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////// */
-/* non-mobile - no special CSS needed.
-   Flexbox CSS creates side by side columns  */
 @media only screen and (min-width: 1260px) {
-  .dashboard_map_filters_location_list_wrapper {
-
-  }
+  /* non-mobile - no special CSS needed.
+     Flexbox CSS creates side by side columns  */
 }
 /* ///////////////////////////////////////////////////////////////////////// */
-/* screen greater than or equal to 1200px - END  /////////////////////////// */
+/* screen greater than or equal to 1260px - END  /////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////// */
 
 /* ///////////////////////////////////////////////////////////////////////// */
@@ -43,12 +40,7 @@
 @media only screen and (max-width: 1260px) {
   .dashboard_map_filters_location_list_wrapper {
     flex-direction: column;
-  }
-  .map_wrapper {
-    object-fit: cover;
-  }
-  .map_element{
-    object-fit: cover;
+    min-width: 470px;
   }
 }
 /* ///////////////////////////////////////////////////////////////////////// */

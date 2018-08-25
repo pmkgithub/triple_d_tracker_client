@@ -1,61 +1,3 @@
-/*!* before Refact Responsive Filters/Locations List - BEGIN *!*/
-/*!* wrappers - BEGIN *!*/
-/*.filters_location_list_wrapper {*/
-  /*!* wraps radio button, filter select input, locations list  *!*/
-  /*min-width: 400px;*/
-  /*width: 400px;*/
-  /*margin-left: 20px;*/
-/*}*/
-/*.filters_wrapper {*/
-  /*!* wraps radio buttons, filter select input *!*/
-  /*padding: 10px;*/
-  /*border: 1px solid black;*/
-/*}*/
-/*!* wrappers - END *!*/
-
-/*!* Radio Buttons - BEGIN *!*/
-/*.filter_radio_buttons_wrapper {*/
-  /*!* currently not used *!*/
-/*}*/
-
-/*.filter_radio_button_header {*/
-  /*font-size: 18px;*/
-  /*font-weight: bold;*/
-  /*!*margin-bottom: 10px;*!*/
-/*}*/
-/*.form_filter_radio_buttons {*/
-  /*display: flex;*/
-  /*justify-content: space-between;*/
-  /*align-items: center;*/
-  /*margin-top: 10px;*/
-  /*margin-bottom: 10px;*/
-/*}*/
-/*.form_filter_radio_buttons label {*/
-  /*!*display: inline-block;*!*/
-  /*font-size: 16px;*/
-  /*margin-left:  5px;*/
-/*}*/
-/*!* wacko css *!*/
-/*!* https://stackoverflow.com/questions/13509883/how-to-vertically-align-a-html-radio-button-to-its-label *!*/
-/*.form_filter_radio_buttons input[type=radio] {*/
-  /*margin-top: -6px;*/
-  /*vertical-align: middle;*/
-/*}*/
-/*!* Radio Buttons - END *!*/
-
-
-/*!* Select Input - BEGIN *!*/
-/*.filter_select_input {*/
-  /*height: 30px;*/
-  /*width: 100%;*/
-  /*font-size: 16px;*/
-/*}*/
-/*!* Select Input - END *!*/
-/*!* before Refact Responsive Filters/Locations List - BEGIN *!*/
-
-/* Refact Responsive Filters/Locations List - BEGIN */
-/* wrappers - BEGIN */
-
 /* ///////////////////////////////////////////////////////////////////////// */
 /* screen greater than or equal to 1260px - BEGIN  ///////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////// */
@@ -75,8 +17,6 @@
 /* screen less than or equal to 1260px - BEGIN  //////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////// */
 @media only screen and (max-width: 1260px) {
-  /* NOTE: this style is also repeated in map.css for now. */
-  /* TODO - don't have react-google-maps Responsive yet, map still set with width/height in px */
   .dashboard_map_filters_location_list_wrapper {
     flex-direction: column;
   }
@@ -119,7 +59,7 @@
   font-size: 16px;
   margin-left:  5px;
 }
-/* wacko css */
+/* hacko css */
 /* https://stackoverflow.com/questions/13509883/how-to-vertically-align-a-html-radio-button-to-its-label */
 .form_filter_radio_buttons input[type=radio] {
   margin-top: -6px;
@@ -135,4 +75,3 @@
   font-size: 16px;
 }
 /* Select Input - END */
-/* Refact Responsive Filters/Locations List - BEGIN */

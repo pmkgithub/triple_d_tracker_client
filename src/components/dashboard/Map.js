@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { withGoogleMap, GoogleMap, Marker, InfoWindow, Circle } from 'react-google-maps';
+import { GoogleMap, Marker, InfoWindow, Circle, withGoogleMap } from 'react-google-maps';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { MAP } from 'react-google-maps/lib/constants';
 import {
@@ -43,12 +43,15 @@ class Map extends Component {
 
   onMapLoad(map) {
     // Set GMA map instance to component's local state.
+    // NOTE: this map instance is NOT a true GMA map instance, but rather a
+    //       react-google-map version of the GMA map instance.
+    //       Thus, not all of GMA's map instance methods are present on the
+    //       react-google-map version of the GMA map instance.
     // If map instance already set to local state, return.
     // Note: without this check, react throws an error.
     if (this.state.map !== null) {return}
     this.setState({map: map});
     // console.log('MAP', MAP);
-
   }
 
   // When map is panned by User, set the map center lat/lon.
@@ -165,7 +168,6 @@ class Map extends Component {
   // markers - END
 
   renderIsGeolocatingSpinner() {
-
     return (
       <div className="map_is_geolocating_spinner_wrapper">
         <div className="map_is_geolocating_spinner_message">Finding Near Me Locations</div>

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 export default (ChildComponent) => {
   class ComposedComponent extends Component {
 
-    // HOC - for requiring authorization to access a protected route.
-    // handles case when our component renders the first time.
+    // HOC - for requiring authorization to access a protected route/asset.
+    // Handles case when our component renders the first time.
     componentDidMount() {
       this.shouldNavigageAway();
     }
@@ -30,7 +30,7 @@ export default (ChildComponent) => {
 
   const mapStateToProps = (state) => {
     return {
-      // NOTE: auth.authenticated is the token...
+      // NOTE: state.auth.authenticated is the token.
       auth: state.auth.authenticated
     }
   };
