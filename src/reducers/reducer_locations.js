@@ -216,7 +216,7 @@ export default (state=initialState, action) => {
         isNearmeRadioButtonSelected: false,       // for UPDATE_MARKERS_LOCATIONS_LIST.
         mapCenterLat: mapConfig.US.lat,
         mapCenterLon: mapConfig.US.lon,
-        mapZoom: mapConfig.US.zoom,
+        mapZoom: action.zoom,
       };
 
     case MAP_SINGLE_LOCATION_FROM_UI_LIST:

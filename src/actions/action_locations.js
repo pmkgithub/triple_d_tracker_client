@@ -138,9 +138,10 @@ export const createUsLocationsList = (zoom) => {
 };
 
 export const CREATE_VISITED_LOCATIONS_UI_LIST = 'CREATE_VISITED_LOCATIONS_UI_LIST';
-export const createVisitedLocationsUiList = () => {
+export const createVisitedLocationsUiList = (zoom) => {
   return {
-    type: CREATE_VISITED_LOCATIONS_UI_LIST
+    type: CREATE_VISITED_LOCATIONS_UI_LIST,
+    zoom
   }
 };
 
