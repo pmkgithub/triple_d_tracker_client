@@ -53,62 +53,6 @@
 /* screen less than or equal to 1260px - END  ////////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////// */
 
-/*!* ///////////////////////////////////////////////////////////////////////// *!*/
-/*!* Map Legend, isGeolocation Spinner - BEGIN  ////////////////////////////// *!*/
-/*!* ///////////////////////////////////////////////////////////////////////// *!*/
-/*.map_is_geolocating_spinner_wrapper {*/
-  /*position: relative;*/
-  /*top: -360px;*/
-  /*width: 300px;*/
-  /*margin-left: auto;*/
-  /*margin-right: auto;*/
-  /*border: 1px solid black;*/
-  /*background-color: white;*/
-  /*text-align: center;*/
-  /*padding: 15px;*/
-  /*color: blue;*/
-/*}*/
-/*.map_is_geolocating_spinner_message {*/
-  /*font-size: 20px;*/
-/*}*/
-/*.map_is_geolocating_spinner {*/
-  /*font-size: 30px;*/
-  /*margin-top: 5px;*/
-/*}*/
-/*!* isGeolocatingSpinner - END *!*/
-
-/*!* map legend - BEGIN *!*/
-/*.map_legend_wrapper {*/
-  /*display: flex;*/
-  /*flex-direction: column;*/
-  /*position: relative;*/
-  /*top: -224px;*/
-  /*left: 2px;*/
-  /*width: 170px;*/
-  /*border: 1px solid black;*/
-  /*background-color: white;*/
-  /*padding: 3px;*/
-/*}*/
-/*.map_legend_header {*/
-  /*text-align: center;*/
-/*}*/
-/*.map_legend_row {*/
-  /*display: flex;*/
-  /*padding: 2px 0;*/
-/*}*/
-/*.map_legend_icon {*/
-  /*height: 20px;*/
-  /*width: 20px;*/
-/*}*/
-/*.map_legend_icon_desc {*/
-  /*font-size: 14px;*/
-  /*margin-left: 5px;*/
-/*}*/
-/*!* map legend - END *!*/
-
-/*!* ///////////////////////////////////////////////////////////////////////// *!*/
-/*!* Map Legend, isGeolocation Spinner - END  //////////////////////////////// *!*/
-/*!* ///////////////////////////////////////////////////////////////////////// *!*/
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /* Map Legend, isGeolocation Spinner - BEGIN  ////////////////////////////// */
