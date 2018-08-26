@@ -50,7 +50,6 @@ class FilterSelectInput extends Component {
         states.sort();
       });
 
-      // Build <options>.
       return states.map((stateName, index) => {
         return (
           <option
@@ -120,7 +119,8 @@ class FilterSelectInput extends Component {
         // clear Locations List (and displayed map locations).
         this.props.clearLocationsFromList();
 
-        // set isGeolocationg to true so the Finding Nearme Spinner displays.
+        // set isGeolocationg to true so the Finding Nearme Spinner displays
+        // isGeolocationSpinner found in Map.js.
         this.props.setIsGeolocating(true);
 
         // get User's position.

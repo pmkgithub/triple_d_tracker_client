@@ -167,14 +167,18 @@ class Map extends Component {
   }
   // markers - END
 
-  renderIsGeolocatingSpinner() {
+  renderGeolocatingSpinner() {
+    let wrapperClass = `map_is_geolocating_spinner_wrapper`;
+    this.props.mapData.isGeolocating ? wrapperClass = wrapperClass + ' visible'
+      : wrapperClass = wrapperClass + ' hidden';
     return (
-      <div className="map_is_geolocating_spinner_wrapper">
+      <div className={wrapperClass}>
         <div className="map_is_geolocating_spinner_message">Finding Near Me Locations</div>
         <div className="map_is_geolocating_spinner"><FontAwesomeIcon className="map_is_geolocating_spinner fa-spin" icon="spinner"/></div>
       </div>
     )
   }
+
   
   renderMapLegend() {
     const greenMarker = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
@@ -217,28 +221,29 @@ class Map extends Component {
           onDragEnd={(e) => this.handleOnDragEnd(e)}
           onZoomChanged={(e) => this.handleOnZoomChanged(e)}
         >
-          {this.renderMapLegend()}
-          {this.props.mapData.isGeolocating && this.renderIsGeolocatingSpinner()}
           {!this.props.mapData.isGeolocating &&
-            this.props.selectedRadioButton === 'nearme' &&
-            this.props.usersNearmeData.lat &&
-            <Circle
-              center={{lat: this.props.usersNearmeData.lat, lng: this.props.usersNearmeData.lon }}
-              radius={this.props.usersNearmeData.distanceMeters}
-              options={{
-                // strokeColor: '#FFFF00', // yellow.
-                strokeColor: '#3366FF', // blue.
-                strokeWeight: 2,
-                fillColor: '',
-                fillOpacity: 0.0
-              }}
-            />
+          this.props.selectedRadioButton === 'nearme' &&
+          this.props.usersNearmeData.lat &&
+          <Circle
+            center={{lat: this.props.usersNearmeData.lat, lng: this.props.usersNearmeData.lon }}
+            radius={this.props.usersNearmeData.distanceMeters}
+            options={{
+              // strokeColor: '#FFFF00', // yellow.
+              strokeColor: '#3366FF', // blue.
+              strokeWeight: 2,
+              fillColor: '',
+              fillOpacity: 0.0
+            }}
+          />
           }
           {this.props.isMarkerShown && <div>{this.renderMarkers()}</div>}
         </GoogleMap>
+        {this.renderGeolocatingSpinner()}
+        {this.renderMapLegend()}
       </div>
     )
   }
+
 }
 
 const mapStateToProps = (state) => {
