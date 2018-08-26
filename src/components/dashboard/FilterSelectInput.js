@@ -5,6 +5,7 @@ import {
   setLatLonZoomForUiList,
   setIsGeolocating,
   setUsersNearmeData,
+  setUsStateAbbr,
   fetchNearmeLocations,
   clearLocationsFromList
 } from '../../actions/action_locations';
@@ -100,7 +101,8 @@ class FilterSelectInput extends Component {
       const usStateAbbr = stateNameToAbbrConfig[usStateName];
 
       // TODO - responsive / mobile zoom
-      // set usStateAbbr - for setResponsiveZoom() in Map.js
+      // setUsStateAbbr => for setResponsiveZoom() in Map.js.
+      this.props.setUsStateAbbr(usStateAbbr);
 
       // For clicking "Map All Listed Locations" button - BEGIN.
       // Store the selected US State's re-center coords.
@@ -224,6 +226,7 @@ export default connect(mapStateToProps, {
   setLatLonZoomForUiList,
   setIsGeolocating,
   setUsersNearmeData,
+  setUsStateAbbr,
   fetchNearmeLocations,
   clearLocationsFromList
 })(FilterSelectInput);

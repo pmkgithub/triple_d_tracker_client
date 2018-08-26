@@ -15,6 +15,7 @@ import {
 } from '../../actions/action_modal';
 import { fetchReviews } from '../../actions/action_reviews';
 import radioButtonConfig from '../../configs/radioButtonConfig';
+import mapConfig from '../../configs/mapConfig';
 import "./map.css";
 
 
@@ -28,7 +29,7 @@ class Map extends Component {
       markerId: null,
     };
 
-    this.setResponsiveZoom = this.setResponsiveZoom.bind(this);
+    this.setScreenResizeZoom = this.setScreenResizeZoom.bind(this);
 
   }
 
@@ -44,12 +45,12 @@ class Map extends Component {
         })
     }
 
-    window.addEventListener('resize', this.setResponsiveZoom);
-    this.setResponsiveZoom(); // for initial map load.
+    window.addEventListener('resize', this.setScreenResizeZoom);
+    this.setScreenResizeZoom(); // for initial map load.
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.setResponsiveZoom);
+    window.removeEventListener('resize', this.setScreenResizeZoom);
   }
 
   onMapLoad(map) {
@@ -82,27 +83,30 @@ class Map extends Component {
     // NOTE: for whatever reason, handleOnZoomChanged() gets called
     //       when App initially loads.
     const zoom = this.state.map.getZoom();
-    console.log('handleOnZoomChanged zoom = ', zoom);
     this.props.setMapZoom(zoom);
   }
 
-  setResponsiveZoom() {
+  setScreenResizeZoom() {
 
     if(this.props.selectedRadioButton === radioButtonConfig.us) {
-
-      // set mobile zoom.
       if(window.innerWidth <= 1260 ) {
+        // set mobile zoom.
         this.props.setMapZoom(3);
-      }
-      // full screen zoom
-      if(window.innerWidth > 1260 ) {
+      } else {
+        // full screen zoom
         this.props.setMapZoom(4);
       }
     }
 
     if(this.props.selectedRadioButton === radioButtonConfig.state) {
-      console.log('state radio button selected, set mobile state zoom');
-
+      let usStateZoom = mapConfig[this.props.mapData.usStateAbbr].zoom;
+      if(window.innerWidth <= 1260 ) {
+        // set mobile zoom.
+        this.props.setMapZoom(usStateZoom - 1);
+      } else {
+        // full screen zoom
+        this.props.setMapZoom(usStateZoom);
+      }
     }
 
     if(this.props.selectedRadioButton === radioButtonConfig.nearme) {
@@ -111,13 +115,11 @@ class Map extends Component {
     }
 
     if(this.props.selectedRadioButton === radioButtonConfig.visited) {
-      console.log('visited radio button selected, set mobile visited zoom');
-      // set mobile zoom.
       if(window.innerWidth <= 1260 ) {
+        // set mobile zoom.
         this.props.setMapZoom(3);
-      }
-      // full screen zoom
-      if(window.innerWidth > 1260 ) {
+      } else {
+        // full screen zoom
         this.props.setMapZoom(4);
       }
     }

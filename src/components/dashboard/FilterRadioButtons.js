@@ -88,27 +88,6 @@ class FilterRadioButtons extends Component {
       //       list data is re-fectched on each "nearme" Select Input selection.
     }
 
-    // // TODO - before refact
-    // // VISITED radio button.
-    // if (radioButtonValue === radioButtonConfig.visited) {
-    //
-    //   this.props.setSelectedRadioButton(radioButtonValue);
-    //
-    //   // For clicking "Map All Listed Locations" button - BEGIN.
-    //   // Store the US's re-center coords.
-    //   // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
-    //   uiListRecenterCoords = {
-    //     lat: mapConfig.US.lat,
-    //     lon: mapConfig.US.lon,
-    //     zoom: mapConfig.US.zoom
-    //   };
-    //   this.props.setLatLonZoomForUiList(uiListRecenterCoords);
-    //   // For clicking "Map All Listed Locations" button - END.
-    //
-    //   this.props.clearLocationsFromList();
-    //   this.props.createVisitedLocationsUiList();  // when User re-clicks Visited button.
-    // }
-
     // VISITED radio button.
     if (radioButtonValue === radioButtonConfig.visited) {
 

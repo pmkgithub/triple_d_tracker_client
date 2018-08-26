@@ -1,3 +1,4 @@
+// Zoom with Decimals.
 export default {
   US: {
     lat: 37,
@@ -12,12 +13,12 @@ export default {
   AK: {
     lat: 65,
     lon: -153,
-    zoom: 4
+    zoom: 4.5
   },
   AZ: {
     lat: 34.25,
     lon: -111.5,
-    zoom: 6
+    zoom: 6.5
   },
   AR: {
     lat: 34.969704,
@@ -27,7 +28,7 @@ export default {
   CA: {
     lat: 37.25,
     lon: -119,
-    zoom: 5
+    zoom: 5.75
   },
   CO: {
     lat: 39,
@@ -37,7 +38,7 @@ export default {
   CT: {
     lat: 41.597782,
     lon: -72.755371,
-    zoom: 8
+    zoom: 8.5
   },
   DE: {
     lat: 39.318523,
@@ -52,7 +53,7 @@ export default {
   FL: {
     lat: 27.766279,
     lon: -84,
-    zoom: 6
+    zoom: 6.5
   },
   GA: {
     lat: 33.040619,
@@ -67,12 +68,12 @@ export default {
   ID: {
     lat: 45,
     lon: -114,
-    zoom: 6
+    zoom: 6.25
   },
   IL: {
     lat: 40,
     lon: -88,
-    zoom: 6
+    zoom: 6.5
   },
   IN: {
     lat: 40,
@@ -102,12 +103,12 @@ export default {
   ME: {
     lat: 45.25,
     lon: -69,
-    zoom: 6
+    zoom: 6.75
   },
   MD: {
     lat: 39,
     lon: -77,
-    zoom: 7
+    zoom: 7.5
   },
   MA: {
     lat: 42,
@@ -122,12 +123,12 @@ export default {
   MN: {
     lat: 46.25,
     lon: -94,
-    zoom: 6
+    zoom: 6.3
   },
   MS: {
     lat: 32.7,
     lon: -89.6,
-    zoom: 6
+    zoom: 6.75
   },
   MO: {
     lat: 38.456085,
@@ -147,22 +148,22 @@ export default {
   NV: {
     lat: 38.6,
     lon: -117,
-    zoom: 6
+    zoom: 6.25
   },
   NH: {
     lat: 44,
     lon: -71.5,
-    zoom: 7
+    zoom: 7.5
   },
   NJ: {
     lat: 40.1,
     lon: -74.5,
-    zoom: 7
+    zoom: 7.5
   },
   NM: {
     lat: 34.3,
     lon: -107,
-    zoom: 6
+    zoom: 6.5
   },
   NY: {
     lat: 42,
@@ -261,11 +262,12 @@ export default {
   }
 }
 
+// Zoom with Whole Numbers.
 // export default {
 //   US: {
 //     lat: 37,
 //     lon: -96.5795,
-//     zoom: 4.1
+//     zoom: 4
 //   },
 //   AL: {
 //     lat: 32.806671,
@@ -275,12 +277,12 @@ export default {
 //   AK: {
 //     lat: 65,
 //     lon: -153,
-//     zoom: 4.5
+//     zoom: 4
 //   },
 //   AZ: {
 //     lat: 34.25,
 //     lon: -111.5,
-//     zoom: 6.5
+//     zoom: 6
 //   },
 //   AR: {
 //     lat: 34.969704,
@@ -290,7 +292,7 @@ export default {
 //   CA: {
 //     lat: 37.25,
 //     lon: -119,
-//     zoom: 5.75
+//     zoom: 5
 //   },
 //   CO: {
 //     lat: 39,
@@ -300,7 +302,7 @@ export default {
 //   CT: {
 //     lat: 41.597782,
 //     lon: -72.755371,
-//     zoom: 8.5
+//     zoom: 8
 //   },
 //   DE: {
 //     lat: 39.318523,
@@ -315,7 +317,7 @@ export default {
 //   FL: {
 //     lat: 27.766279,
 //     lon: -84,
-//     zoom: 6.5
+//     zoom: 6
 //   },
 //   GA: {
 //     lat: 33.040619,
@@ -330,12 +332,12 @@ export default {
 //   ID: {
 //     lat: 45,
 //     lon: -114,
-//     zoom: 6.25
+//     zoom: 6
 //   },
 //   IL: {
 //     lat: 40,
 //     lon: -88,
-//     zoom: 6.5
+//     zoom: 6
 //   },
 //   IN: {
 //     lat: 40,
@@ -365,12 +367,12 @@ export default {
 //   ME: {
 //     lat: 45.25,
 //     lon: -69,
-//     zoom: 6.75
+//     zoom: 6
 //   },
 //   MD: {
 //     lat: 39,
 //     lon: -77,
-//     zoom: 7.5
+//     zoom: 7
 //   },
 //   MA: {
 //     lat: 42,
@@ -385,12 +387,12 @@ export default {
 //   MN: {
 //     lat: 46.25,
 //     lon: -94,
-//     zoom: 6.3
+//     zoom: 6
 //   },
 //   MS: {
 //     lat: 32.7,
 //     lon: -89.6,
-//     zoom: 6.75
+//     zoom: 6
 //   },
 //   MO: {
 //     lat: 38.456085,
@@ -410,22 +412,22 @@ export default {
 //   NV: {
 //     lat: 38.6,
 //     lon: -117,
-//     zoom: 6.25
+//     zoom: 6
 //   },
 //   NH: {
 //     lat: 44,
 //     lon: -71.5,
-//     zoom: 7.5
+//     zoom: 7
 //   },
 //   NJ: {
 //     lat: 40.1,
 //     lon: -74.5,
-//     zoom: 7.5
+//     zoom: 7
 //   },
 //   NM: {
 //     lat: 34.3,
 //     lon: -107,
-//     zoom: 6.5
+//     zoom: 6
 //   },
 //   NY: {
 //     lat: 42,

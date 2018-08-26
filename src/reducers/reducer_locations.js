@@ -14,6 +14,7 @@ import {
   CREATE_VISITED_LOCATIONS_UI_LIST,
   CREATE_STATE_LOCATIONS_UI_LIST,
   SET_LOCATION_ID,
+  SET_US_STATE_ABBR,
 
   UPDATE_MARKERS_LOCATIONS_LIST,
 
@@ -250,6 +251,12 @@ export default (state=initialState, action) => {
       return {
         ...state,
         locationId: action.locationId,
+      };
+
+    case SET_US_STATE_ABBR:
+      return {
+        ...state,
+        usStateAbbr: action.usStateAbbr
       };
 
     ///////////////////////////////////////////////////////////////////////////

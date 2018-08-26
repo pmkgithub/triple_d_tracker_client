@@ -163,6 +163,15 @@ export const setLocationId = (locationId) => {
   }
 };
 
+// For Map.js setScreenResizeZoom() logic.
+export const SET_US_STATE_ABBR = 'SET_US_STATE_ABBR';
+export const setUsStateAbbr = (usStateAbbr) => {
+  return {
+    type: SET_US_STATE_ABBR,
+    usStateAbbr
+  }
+
+};
 ///////////////////////////////////////////////////////////////////////////////
 // other - END
 ///////////////////////////////////////////////////////////////////////////////
