@@ -27,6 +27,12 @@ import {
 } from "../actions/action_locations";
 import mapConfig from '../configs/mapConfig';
 
+// Fixes edge case if/when
+// User launches app in mobile,
+// then selects either States or Near Me radio button,
+// then clicks "MAP ALL LISTED LOCATIONS"
+const appLoadZoom = window.innerWidth <= 1260 ? 3 : 4;
+
 const initialState = {
   locationsBeenFetched: false,
   cachedLocations: [],
@@ -41,11 +47,11 @@ const initialState = {
   isMappingSingleLocation: false,       // for UPDATE_MARKERS_LOCATIONS_LIST - Single Location view case
   singleLocationData: {},               // for UPDATE_MARKERS_LOCATIONS_LIST - Single Location view case
   locationId: '',                       // locationId of clicked Map Marker.
-  // default value set to US.
+  // default value set to USA.
   uiListRecenterCoords: {
     lat: 37,
     lon: -96.5795,
-    zoom: 4
+    zoom: appLoadZoom
   },
   mapCenterLat: mapConfig.US.lat,
   mapCenterLon: mapConfig.US.lon,
@@ -243,20 +249,11 @@ export default (state=initialState, action) => {
       };
 
     case MAP_ALL_LOCATIONS_FROM_UI_LIST:
-      console.log('MAP_ALL_LOCATIONS_FROM_UI_LIST state.uiListRecenterCoords.zoom = ', state.uiListRecenterCoords.zoom);
-      // Edge Case if/when User launches App in mobile screen,
-      // and then User selects States or Near Me radio button,
-      // and then User clicks "MAP ALL LISTED LOCATIONS" button.
-      zoom = state.uiListRecenterCoords.zoom;
-      if(window.innerWidth <= 1260) {
-        zoom = zoom - 1;
-      }
-
       return {
         ...state,
         mapCenterLat: state.uiListRecenterCoords.lat,
         mapCenterLon: state.uiListRecenterCoords.lon,
-        mapZoom: zoom,
+        mapZoom: state.uiListRecenterCoords.zoom,
         displayedMapLocations: state.filteredLocationsList,
         isMappingSingleLocation: false
       };
