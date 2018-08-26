@@ -156,11 +156,17 @@ export default (state=initialState, action) => {
       };
 
     case CLEAR_LOCATIONS_FROM_UI_LIST:
+      zoom = mapConfig.US.zoom;
+      // When in "mobile" screen size (e.g. below 1260px for this app),
+      // set map zoom for "mobile" zoom.
+      if(window.innerWidth <= 1260) {
+        zoom = zoom - 1;
+      }
       return {
         ...state,
         mapCenterLat: mapConfig.US.lat,
         mapCenterLon: mapConfig.US.lon,
-        mapZoom: mapConfig.US.zoom,
+        mapZoom: zoom,
         displayedMapLocations: [],
         filteredLocationsList: []
       };
@@ -186,7 +192,7 @@ export default (state=initialState, action) => {
         return location.state === usStateAbbr;
       });
 
-      // KEEP.  For logging to console.
+      // DEV KEEP.  For logging to console to count reconcile number of records in DB.
       // console.log(`${usStateAbbr} has ${filteredLocations.length} restaurants in DB`);
 
       return {
@@ -199,7 +205,7 @@ export default (state=initialState, action) => {
         isNearmeRadioButtonSelected: false,       // for UPDATE_MARKERS_LOCATIONS_LIST.
         mapCenterLat: mapConfig[usStateAbbr].lat,
         mapCenterLon: mapConfig[usStateAbbr].lon,
-        mapZoom: mapConfig[usStateAbbr].zoom,
+        mapZoom: action.zoom,
       };
 
     case CREATE_VISITED_LOCATIONS_UI_LIST:

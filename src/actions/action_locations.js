@@ -146,10 +146,11 @@ export const createVisitedLocationsUiList = (zoom) => {
 };
 
 export const CREATE_STATE_LOCATIONS_UI_LIST = 'CREATE_STATE_LOCATIONS_UI_LIST';
-export const createStateLocationsList = (usStateAbbr) => {
+export const createStateLocationsList = (usStateAbbr, zoom) => {
   return {
     type: CREATE_STATE_LOCATIONS_UI_LIST,
-    usStateAbbr
+    usStateAbbr,
+    zoom
   }
 };
 

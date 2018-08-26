@@ -100,9 +100,16 @@ class FilterSelectInput extends Component {
       const usStateName = e.target.value;
       const usStateAbbr = stateNameToAbbrConfig[usStateName];
 
-      // TODO - responsive / mobile zoom
-      // setUsStateAbbr => for setResponsiveZoom() in Map.js.
+      // setUsStateAbbr => for setScreenResizeZoom() in Map.js.
       this.props.setUsStateAbbr(usStateAbbr);
+
+      // set zoom for mobile / full screen.
+      let zoom = mapConfig[usStateAbbr].zoom;
+      // When in "mobile" screen size (e.g. below 1260px for this app),
+      // set map zoom for "mobile" zoom.
+      if(window.innerWidth <= 1260) {
+        zoom = zoom - 1;
+      }
 
       // For clicking "Map All Listed Locations" button - BEGIN.
       // Store the selected US State's re-center coords.
@@ -110,12 +117,12 @@ class FilterSelectInput extends Component {
       uiListRecenterCoords  = {
         lat: mapConfig[usStateAbbr].lat,
         lon: mapConfig[usStateAbbr].lon,
-        zoom: mapConfig[usStateAbbr].zoom
+        zoom: zoom
       };
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
       // For clicking "Map All Listed Locations" button - END.
 
-      this.props.createStateLocationsList(usStateAbbr);
+      this.props.createStateLocationsList(usStateAbbr, zoom);
     }
 
     // NEARME - Select Input.

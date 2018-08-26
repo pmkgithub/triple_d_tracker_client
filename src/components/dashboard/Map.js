@@ -147,10 +147,7 @@ class Map extends Component {
     const { displayedMapLocations } = this.props.mapData;
     let markers;
 
-    if ( this.props.mapData.isFetching ) {
-      // console.log('data is loading');
-      return false;
-    }
+    if ( this.props.mapData.isFetching ) { return false; }
 
     markers = displayedMapLocations.map((location, index) => {
       const {lat, lon} = location.coords;
