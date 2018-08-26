@@ -1,11 +1,10 @@
-.map_locations_list_wrapper {
+.filtered_locations_list_wrapper {
   padding: 10px;
   border-left: 1px solid black;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
 }
-
-.map_locations_list_header {
+.filtered_locations_list_header {
   font-size: 18px;
   font-weight: bold;
   /*margin-top: 5px;*/
@@ -23,7 +22,7 @@
   color: white;
   background-color: cornflowerblue;
 }
-.map_locations_list_wrapper hr {
+.filtered_locations_list_wrapper hr {
   margin-top: 15px;
   margin-bottom: 15px;
 }

@@ -1,43 +1,9 @@
-/*!*orig*!*/
-/*.overlay {*/
-/*position: fixed;*/
-/*top: 0;*/
-/*left: 0;*/
-/*right: 0;*/
-/*bottom: 0;*/
-/*background-color: rebeccapurple;*/
-/*}*/
-/*!*orig*!*/
-/*.modal {*/
-/*position: absolute;*/
-/*top: 40px;*/
-/*left: 40px;*/
-/*right: 40px;*/
-/*bottom: 40px;*/
-/*background-color: papayawhip;*/
-/*}*/
-
-/*.modal_button_close {*/
-/*position:absolute;*/
-/*top:0;*/
-/*right:0;*/
-/*margin-top: 25px;*/
-/*margin-right: 25px;*/
-/*height: 30px;*/
-/*width: 30px;*/
-/*text-align: center;*/
-/*vertical-align: middle;*/
-/*line-height: 30px;*/
-/*font-size: 20pt;*/
-/*font-weight: bold;*/
-/*color: red;*/
-/*background-color: rgb(223, 223, 223);*/
-/*border: 1px solid black;*/
-/*z-index: 100;*/
-/*}*/
-/*.modal_button_close:hover {*/
-/*cursor: pointer;*/
-/*}*/
+.ReactModal__Body--open {
+  /* this CSS make modal overlay cover the entire underlying elements.
+     e.g. map, filters, locations list */
+  position: relative;
+  margin: 0;
+}
 
 .overlay {
   position: absolute;
@@ -47,36 +13,72 @@
   width: 100%;
   background-color: rgba(24, 39, 56, 0.6);
 }
+/* ///////////////////////////////////////////////////////////////////////// */
+/* full width to 1260px - BEGIN  /////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
 .modal {
   position: absolute;
   top: 10%;
   left: 20%;
   right: 20%;
-  /*bottom: 20%;*/
-  /*overflow-y: auto;*/
   background-color: rgb(255, 255, 255);
 }
+/* ///////////////////////////////////////////////////////////////////////// */
+/* full width to 1260px - END  ///////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
 
-/* orig - BEGIN */
-/*.modal_button_close_wrapper {*/
-  /*display: flex;*/
-  /*justify-content: flex-end;*/
-/*}*/
-/*.modal_button_close {*/
-  /*margin-right: 15px;*/
-  /*margin-top: 15px;*/
-  /*height: 30px;*/
-  /*width:  30px;*/
-  /*background-color: lightgrey;*/
-  /*font-size: 18px;*/
-  /*font-weight: bold;*/
-  /*color: red;*/
-  /*text-align: center;*/
-  /*vertical-align: middle;*/
-  /*line-height: 30px;*/
-/*}*/
-/* orig - END */
-/* refact - BEGIN */
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen between 1260px and 800px - BEGIN  //////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+/* NOTE: @ 1260px, Map and Filters/Locations List go to flex column          */
+/*       Adjust top of modal.                                                */
+@media only screen and (max-width: 1260px) and (min-width: 800px) {
+  .modal {
+    position: absolute;
+    top: 5%;
+    left: 20%;
+    right: 20%;
+    background-color: rgb(255, 255, 255);
+  }
+}
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen between 1260px and 800px - END  ////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen less than or equal to 800px - BEGIN  ////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+@media only screen and (max-width: 800px) {
+  .modal {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    right: 5%;
+    background-color: rgb(255, 255, 255);
+  }
+}
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen less than or equal to 800px - END  //////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen less than or equal to 500px - BEGIN  ////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+@media only screen and (max-width: 485px) {
+  .modal {
+    position: absolute;
+    top: 5%;
+    left: 0%;
+    right: 0%;
+    background-color: rgb(255, 255, 255);
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen less than or equal to 500px - END  /////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+
 .modal_button_close {
   position: absolute;
   z-index: 10;
@@ -94,8 +96,6 @@
   vertical-align: middle;
   line-height: 30px;
 }
-/* refact - END */
-
 .modal_button_close:hover {
   cursor: pointer;
   font-size: 24px;

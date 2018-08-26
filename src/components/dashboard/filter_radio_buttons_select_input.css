@@ -1,11 +1,36 @@
-/* wrappers - BEGIN */
-.map_filters_location_list_wrapper {
-  /* wraps radio button, filter select input, locations list  */
-  min-width: 400px;
-  width: 400px;
-  margin-left: 20px;
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen greater than or equal to 1260px - BEGIN  ///////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+@media only screen and (min-width: 1260px) {
+  .filters_location_list_wrapper {
+    /* wraps radio button, filter select input, locations list  */
+    min-width: 400px;
+    width: 400px;
+    margin-left: 20px;
+  }
 }
-.map_filters_wrapper {
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen greater than or equal to 1260px - END  /////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen less than or equal to 1260px - BEGIN  //////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+@media only screen and (max-width: 1260px) {
+  .dashboard_map_filters_location_list_wrapper {
+    flex-direction: column;
+  }
+  .filters_location_list_wrapper {
+    /* wraps radio button, filter select input, locations list  */
+    width: 100%;
+    margin-top: 30px;
+  }
+}
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen less than or equal to 1260px - END  ////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+
+.filters_wrapper {
   /* wraps radio buttons, filter select input */
   padding: 10px;
   border: 1px solid black;
@@ -34,7 +59,7 @@
   font-size: 16px;
   margin-left:  5px;
 }
-/* wacko css */
+/* hacko css */
 /* https://stackoverflow.com/questions/13509883/how-to-vertically-align-a-html-radio-button-to-its-label */
 .form_filter_radio_buttons input[type=radio] {
   margin-top: -6px;

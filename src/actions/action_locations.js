@@ -130,24 +130,27 @@ export const clearLocationsFromList = () => {
 };
 
 export const CREATE_US_LOCATIONS_UI_LIST = 'CREATE_US_LOCATIONS_UI_LIST';
-export const createUsLocationsList = () => {
+export const createUsLocationsList = (zoom) => {
   return {
-    type: CREATE_US_LOCATIONS_UI_LIST
+    type: CREATE_US_LOCATIONS_UI_LIST,
+    zoom
   }
 };
 
 export const CREATE_VISITED_LOCATIONS_UI_LIST = 'CREATE_VISITED_LOCATIONS_UI_LIST';
-export const createVisitedLocationsUiList = () => {
+export const createVisitedLocationsUiList = (zoom) => {
   return {
-    type: CREATE_VISITED_LOCATIONS_UI_LIST
+    type: CREATE_VISITED_LOCATIONS_UI_LIST,
+    zoom
   }
 };
 
 export const CREATE_STATE_LOCATIONS_UI_LIST = 'CREATE_STATE_LOCATIONS_UI_LIST';
-export const createStateLocationsList = (usStateAbbr) => {
+export const createStateLocationsList = (usStateAbbr, zoom) => {
   return {
     type: CREATE_STATE_LOCATIONS_UI_LIST,
-    usStateAbbr
+    usStateAbbr,
+    zoom
   }
 };
 
@@ -161,6 +164,22 @@ export const setLocationId = (locationId) => {
   }
 };
 
+// For Map.js setScreenResizeZoom() logic.
+export const SET_US_STATE_ABBR = 'SET_US_STATE_ABBR';
+export const setUsStateAbbr = (usStateAbbr) => {
+  return {
+    type: SET_US_STATE_ABBR,
+    usStateAbbr
+  }
+};
+
+export const SET_NEAR_ME_DISTANCE = 'SET_NEAR_ME_DISTANCE';
+export const setNearMeDistance = (nearMeDistance) => {
+  return {
+    type: SET_NEAR_ME_DISTANCE,
+    nearMeDistance
+  }
+};
 ///////////////////////////////////////////////////////////////////////////////
 // other - END
 ///////////////////////////////////////////////////////////////////////////////

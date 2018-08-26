@@ -39,7 +39,6 @@ class About extends Component {
 
           </section>
 
-
           <section className="about_dashboard_section">
             <div className="about_dashboard_section_title">The Dashboard</div>
 
@@ -72,8 +71,8 @@ class About extends Component {
                 <div className="about_dashboard_content_title">Filter By: Near Me</div>
                 <div className="about_dashboard_content">
                   <p>When road tripping, Filter By Near Me comes in super handy.</p>
-                  <p>Find locations within 20, 50, 100, 200 or 300 mile radii.</p>
-                  <p>For this feature to work, one must allow the Browser to access your current location.</p>
+                  <p>Find locations within 20, 50, 100, 200 or 300 mile radii of your current location.</p>
+                  <p>For this feature to work, one must allow the Browser to access your location.</p>
                 </div>
               </div>
             </article>
@@ -99,9 +98,9 @@ class About extends Component {
                 <div className="about_review_content_title">Reviews</div>
                 <div className="about_review_content">
                   <p>Click Map Markers to view restaurant detail and reviews.</p>
-                  <p>As you visit Triple D locations, write a review.  Your Reviews are private to you and only you.</p>
-                  <p>When a review is saved, the Map Marker turns green indicating you have "been there and done that".</p>
-                  <p>Not only can you Edit and Delete any review, you may also save multiple reviews for each time you visit a Triple D location.</p>
+                  <p>Each time you visit a Triple D location, write a review.  Reviews are private to you and only you.</p>
+                  <p>When the review is saved, the Map Marker turns green indicating it has been Visited.</p>
+                  <p>Save multiple reviews; one for each time you visit the same Triple D location.</p>
                 </div>
               </div>
             </article>

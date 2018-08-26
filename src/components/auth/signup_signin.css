@@ -8,18 +8,43 @@ html {
 /******************************************************************************/
 /*  SIGNIN / SIGNUP FORM - BEGIN */
 /******************************************************************************/
+/* mobile and non-mobile */
+.signup-form-wrapper {
+  min-width: 420px;
+  /* loc below creates spacing under form/link */
+  padding-bottom: 10rem;
+  z-index: 2;
+}
+/* mobile */
 .signup-form-wrapper {
   padding-top: 2em;
-  /* loc below creates spacing under form/link */
-  padding-bottom: 10rem;
-  z-index: 2;
 }
+/* non-mobile */
+@media only screen and (min-width: 640px) {
+  .signup-form-wrapper {
+    padding-top: 4em;
+  }
+}
+
+/* mobile and non-mobile */
 .signin-form-wrapper {
-  padding-top: 6em;
+  min-width: 420px;
   /* loc below creates spacing under form/link */
   padding-bottom: 10rem;
   z-index: 2;
 }
+/* mobile */
+.signin-form-wrapper {
+  padding-top: 2em;
+}
+/* non-mobile */
+@media only screen and (min-width: 640px) {
+  .signin-form-wrapper {
+    padding-top: 6em;
+  }
+}
+
+/* everything below: mobile and non-mobile */
 .signin-form,
 .signup-form {
   width: 400px;

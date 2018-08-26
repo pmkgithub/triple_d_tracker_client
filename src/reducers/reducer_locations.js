@@ -14,6 +14,8 @@ import {
   CREATE_VISITED_LOCATIONS_UI_LIST,
   CREATE_STATE_LOCATIONS_UI_LIST,
   SET_LOCATION_ID,
+  SET_US_STATE_ABBR,
+  SET_NEAR_ME_DISTANCE,
 
   UPDATE_MARKERS_LOCATIONS_LIST,
 
@@ -43,7 +45,7 @@ const initialState = {
   uiListRecenterCoords: {
     lat: 37,
     lon: -96.5795,
-    zoom: 4.1
+    zoom: 4
   },
   mapCenterLat: mapConfig.US.lat,
   mapCenterLon: mapConfig.US.lon,
@@ -155,11 +157,17 @@ export default (state=initialState, action) => {
       };
 
     case CLEAR_LOCATIONS_FROM_UI_LIST:
+      zoom = mapConfig.US.zoom;
+      // When in "mobile" screen size (e.g. below 1260px for this app),
+      // set map zoom for "mobile" zoom.
+      if(window.innerWidth <= 1260) {
+        zoom = zoom - 1;
+      }
       return {
         ...state,
         mapCenterLat: mapConfig.US.lat,
         mapCenterLon: mapConfig.US.lon,
-        mapZoom: mapConfig.US.zoom,
+        mapZoom: zoom,
         displayedMapLocations: [],
         filteredLocationsList: []
       };
@@ -175,7 +183,7 @@ export default (state=initialState, action) => {
         isNearmeRadioButtonSelected: false,           // for UPDATE_MARKERS_LOCATIONS_LIST.
         mapCenterLat: mapConfig.US.lat,
         mapCenterLon: mapConfig.US.lon,
-        mapZoom: mapConfig.US.zoom,
+        mapZoom: action.zoom,
       };
 
     case CREATE_STATE_LOCATIONS_UI_LIST:
@@ -185,7 +193,7 @@ export default (state=initialState, action) => {
         return location.state === usStateAbbr;
       });
 
-      // KEEP.  For logging to console.
+      // DEV KEEP.  For logging to console to count reconcile number of records in DB.
       // console.log(`${usStateAbbr} has ${filteredLocations.length} restaurants in DB`);
 
       return {
@@ -198,7 +206,7 @@ export default (state=initialState, action) => {
         isNearmeRadioButtonSelected: false,       // for UPDATE_MARKERS_LOCATIONS_LIST.
         mapCenterLat: mapConfig[usStateAbbr].lat,
         mapCenterLon: mapConfig[usStateAbbr].lon,
-        mapZoom: mapConfig[usStateAbbr].zoom,
+        mapZoom: action.zoom,
       };
 
     case CREATE_VISITED_LOCATIONS_UI_LIST:
@@ -216,7 +224,7 @@ export default (state=initialState, action) => {
         isNearmeRadioButtonSelected: false,       // for UPDATE_MARKERS_LOCATIONS_LIST.
         mapCenterLat: mapConfig.US.lat,
         mapCenterLon: mapConfig.US.lon,
-        mapZoom: mapConfig.US.zoom,
+        mapZoom: action.zoom,
       };
 
     case MAP_SINGLE_LOCATION_FROM_UI_LIST:
@@ -235,11 +243,20 @@ export default (state=initialState, action) => {
       };
 
     case MAP_ALL_LOCATIONS_FROM_UI_LIST:
+      console.log('MAP_ALL_LOCATIONS_FROM_UI_LIST state.uiListRecenterCoords.zoom = ', state.uiListRecenterCoords.zoom);
+      // Edge Case if/when User launches App in mobile screen,
+      // and then User selects States or Near Me radio button,
+      // and then User clicks "MAP ALL LISTED LOCATIONS" button.
+      zoom = state.uiListRecenterCoords.zoom;
+      if(window.innerWidth <= 1260) {
+        zoom = zoom - 1;
+      }
+
       return {
         ...state,
         mapCenterLat: state.uiListRecenterCoords.lat,
         mapCenterLon: state.uiListRecenterCoords.lon,
-        mapZoom: state.uiListRecenterCoords.zoom,
+        mapZoom: zoom,
         displayedMapLocations: state.filteredLocationsList,
         isMappingSingleLocation: false
       };
@@ -250,6 +267,18 @@ export default (state=initialState, action) => {
       return {
         ...state,
         locationId: action.locationId,
+      };
+
+    case SET_US_STATE_ABBR:
+      return {
+        ...state,
+        usStateAbbr: action.usStateAbbr
+      };
+
+    case SET_NEAR_ME_DISTANCE:
+      return {
+        ...state,
+        nearMeDistance: action.nearMeDistance
       };
 
     ///////////////////////////////////////////////////////////////////////////

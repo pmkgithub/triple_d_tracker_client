@@ -6,6 +6,7 @@ import {
   createVisitedLocationsUiList,
   setLatLonZoomForUiList,
   setUsersNearmeData,
+  setMapZoom
 } from '../../actions/action_locations';
 import {
   setSelectedRadioButton
@@ -18,30 +19,41 @@ class FilterRadioButtons extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { selectedRadio: 'us' };
+    this.state = { selectedRadioButton: 'us' };
   }
 
   handleOnChange(e) {
     let uiListRecenterCoords;
     const radioButtonValue = e.target.value;
-    this.setState({selectedRadio: radioButtonValue});
+    this.setState({selectedRadioButton: radioButtonValue});
 
     // USA radio button.
     if (radioButtonValue === radioButtonConfig.us) {
 
       this.props.setSelectedRadioButton(radioButtonValue); // controls Map Filter Select Input.
+
+      let zoom = mapConfig.US.zoom;
+      // When in "mobile" screen size (e.g. below 1260px for this app),
+      // set map zoom for "mobile" zoom.
+      if(window.innerWidth <= 1260) {
+        zoom = zoom - 1;
+      }
+
+      // For clicking "MAP ALL LISTED LOCATIONS" button - BEGIN.
       // Store the US's re-center coords.
       // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       uiListRecenterCoords = {
         lat: mapConfig.US.lat,
         lon: mapConfig.US.lon,
-        zoom: mapConfig.US.zoom
+        zoom: zoom
       };
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
-      // For clicking "Map All Listed Locations" button - END.
+      // For clicking "MAP ALL LISTED LOCATIONS" button - END.
 
       this.props.clearLocationsFromList();
-      this.props.createUsLocationsList();  // when User re-clicks USA button.
+
+      // When User re-clicks USA button.
+      this.props.createUsLocationsList(zoom);
     }
 
     // US STATE radio button.
@@ -81,19 +93,25 @@ class FilterRadioButtons extends Component {
 
       this.props.setSelectedRadioButton(radioButtonValue);
 
-      // For clicking "Map All Listed Locations" button - BEGIN.
+      let zoom = mapConfig.US.zoom;
+      // When in "mobile" screen size (e.g. below 1260px for this app),
+      // set map zoom for "mobile" zoom.
+      if(window.innerWidth <= 1260) {
+        zoom = zoom - 1;
+      }
+      // For clicking "MAP ALL LISTED LOCATIONS" button - BEGIN.
       // Store the US's re-center coords.
       // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       uiListRecenterCoords = {
         lat: mapConfig.US.lat,
         lon: mapConfig.US.lon,
-        zoom: mapConfig.US.zoom
+        zoom: zoom
       };
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
-      // For clicking "Map All Listed Locations" button - END.
+      // For clicking "MAP ALL LISTED LOCATIONS" button - END.
 
       this.props.clearLocationsFromList();
-      this.props.createVisitedLocationsUiList();  // when User re-clicks Visited button.
+      this.props.createVisitedLocationsUiList(zoom);  // when User re-clicks Visited button.
     }
   }
 
@@ -108,7 +126,7 @@ class FilterRadioButtons extends Component {
               type="radio"
               name="filter_by"
               value="us"
-              checked={this.state.selectedRadio === radioButtonConfig.us}
+              checked={this.state.selectedRadioButton === radioButtonConfig.us}
               onChange={e => this.handleOnChange(e)}
             />
             <label htmlFor="radio_us">USA</label>
@@ -119,7 +137,7 @@ class FilterRadioButtons extends Component {
               type="radio"
               name="filter_by"
               value="state"
-              checked={this.state.selectedRadio === radioButtonConfig.state}
+              checked={this.state.selectedRadioButton === radioButtonConfig.state}
               onChange={e => this.handleOnChange(e)}
             />
             <label htmlFor="radio_states">States</label>
@@ -130,7 +148,7 @@ class FilterRadioButtons extends Component {
               type="radio"
               name="filter_by"
               value="nearme"
-              checked={this.state.selectedRadio === radioButtonConfig.nearme}
+              checked={this.state.selectedRadioButton === radioButtonConfig.nearme}
               onChange={e => this.handleOnChange(e)}
             />
             <label htmlFor="radio_nearme">Near Me</label>
@@ -141,7 +159,7 @@ class FilterRadioButtons extends Component {
               type="radio"
               name="filter_by"
               value="visited"
-              checked={this.state.selectedRadio === radioButtonConfig.visited}
+              checked={this.state.selectedRadioButton === radioButtonConfig.visited}
               onChange={e => this.handleOnChange(e)}
             />
             <label htmlFor="radio_states">Visited</label>
@@ -158,5 +176,6 @@ export default connect(null, {
   createUsLocationsList,
   createVisitedLocationsUiList,
   setSelectedRadioButton,
-  setUsersNearmeData
+  setUsersNearmeData,
+  setMapZoom
 })(FilterRadioButtons);

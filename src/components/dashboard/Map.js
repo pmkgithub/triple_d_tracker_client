@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { withGoogleMap, GoogleMap, Marker, InfoWindow, Circle } from 'react-google-maps';
+import { GoogleMap, Marker, InfoWindow, Circle, withGoogleMap } from 'react-google-maps';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { MAP } from 'react-google-maps/lib/constants';
 import {
@@ -14,8 +14,10 @@ import {
   setIsModalOpen
 } from '../../actions/action_modal';
 import { fetchReviews } from '../../actions/action_reviews';
+import radioButtonConfig from '../../configs/radioButtonConfig';
+import mapConfig from '../../configs/mapConfig';
+import mapSelectInputConfig from "../../configs/mapSelectInputConfig";
 import "./map.css";
-
 
 class Map extends Component {
 
@@ -26,6 +28,9 @@ class Map extends Component {
       isInfoWindowOpen: false,
       markerId: null,
     };
+
+    this.setScreenResizeZoom = this.setScreenResizeZoom.bind(this);
+
   }
 
   componentDidMount() {
@@ -39,16 +44,26 @@ class Map extends Component {
           this.props.fetchLocations();
         })
     }
+
+    window.addEventListener('resize', this.setScreenResizeZoom);
+    this.setScreenResizeZoom(); // for initial map load.
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setScreenResizeZoom);
   }
 
   onMapLoad(map) {
     // Set GMA map instance to component's local state.
+    // NOTE: this map instance is NOT a true GMA map instance, but rather a
+    //       react-google-map version of the GMA map instance.
+    //       Thus, not all of GMA's map instance methods are present on the
+    //       react-google-map version of the GMA map instance.
     // If map instance already set to local state, return.
     // Note: without this check, react throws an error.
     if (this.state.map !== null) {return}
     this.setState({map: map});
     // console.log('MAP', MAP);
-
   }
 
   // When map is panned by User, set the map center lat/lon.
@@ -71,6 +86,63 @@ class Map extends Component {
     this.props.setMapZoom(zoom);
   }
 
+  setScreenResizeZoom() {
+
+    if ( this.props.selectedRadioButton === radioButtonConfig.us ||
+         this.props.selectedRadioButton === radioButtonConfig.visited )
+    {
+      if(window.innerWidth <= 1260 ) {
+        // set mobile zoom.
+        this.props.setMapZoom(3);
+      } else {
+        // full screen zoom
+        this.props.setMapZoom(4);
+      }
+    }
+
+    if(this.props.selectedRadioButton === radioButtonConfig.state) {
+
+      // Handles if/when user might resize screen without first selecting
+      // a US State from Select Input.
+      if(!this.props.mapData.usStateAbbr) {return}
+
+      let usStateZoom = mapConfig[this.props.mapData.usStateAbbr].zoom;
+      if(window.innerWidth <= 1260 ) {
+        // set mobile zoom.
+        this.props.setMapZoom(usStateZoom - 1);
+      } else {
+        // full screen zoom
+        this.props.setMapZoom(usStateZoom);
+      }
+    }
+
+    if(this.props.selectedRadioButton === radioButtonConfig.nearme) {
+
+      // Handles if/when user might resize screen without first selecting
+      // a Near Me Distance from Select Input.
+      if(!this.props.mapData.nearMeDistance) {
+        if(window.innerWidth <= 1260 ) {
+          // set mobile zoom.
+          this.props.setMapZoom(3);
+        } else {
+          // full screen zoom
+          this.props.setMapZoom(4);
+        }
+        return;
+      }
+
+      let nearMeZoom = mapSelectInputConfig.nearmeZoom[this.props.mapData.nearMeDistance];
+      if(window.innerWidth <= 1260 ) {
+        // set mobile zoom.
+        this.props.setMapZoom(nearMeZoom - 1);
+      } else {
+        // full screen zoom
+        this.props.setMapZoom(nearMeZoom);
+      }
+    }
+
+  }
+
   // markers - BEGIN
   handleOnClickMarker(markerObj, locationId) {
     //NOTE: markerObj supplied as first arg by react-google-maps, don't need it.
@@ -91,10 +163,7 @@ class Map extends Component {
     const { displayedMapLocations } = this.props.mapData;
     let markers;
 
-    if ( this.props.mapData.isFetching ) {
-      // console.log('data is loading');
-      return false;
-    }
+    if ( this.props.mapData.isFetching ) { return false; }
 
     markers = displayedMapLocations.map((location, index) => {
       const {lat, lon} = location.coords;
@@ -160,20 +229,21 @@ class Map extends Component {
     }
 
     return markers;
-
   }
   // markers - END
 
-  renderIsGeolocatingSpinner() {
-
+  renderGeolocatingSpinner() {
+    let wrapperClass = `map_is_geolocating_spinner_wrapper`;
+    this.props.mapData.isGeolocating ? wrapperClass = wrapperClass + ' visible'
+      : wrapperClass = wrapperClass + ' hidden';
     return (
-      <div className="map_is_geolocating_spinner_wrapper">
+      <div className={wrapperClass}>
         <div className="map_is_geolocating_spinner_message">Finding Near Me Locations</div>
         <div className="map_is_geolocating_spinner"><FontAwesomeIcon className="map_is_geolocating_spinner fa-spin" icon="spinner"/></div>
       </div>
     )
   }
-  
+
   renderMapLegend() {
     const greenMarker = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
     const blueMarker = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
@@ -215,28 +285,29 @@ class Map extends Component {
           onDragEnd={(e) => this.handleOnDragEnd(e)}
           onZoomChanged={(e) => this.handleOnZoomChanged(e)}
         >
-          {this.renderMapLegend()}
-          {this.props.mapData.isGeolocating && this.renderIsGeolocatingSpinner()}
           {!this.props.mapData.isGeolocating &&
-            this.props.selectedRadioButton === 'nearme' &&
-            this.props.usersNearmeData.lat &&
-            <Circle
-              center={{lat: this.props.usersNearmeData.lat, lng: this.props.usersNearmeData.lon }}
-              radius={this.props.usersNearmeData.distanceMeters}
-              options={{
-                // strokeColor: '#FFFF00', // yellow.
-                strokeColor: '#3366FF', // blue.
-                strokeWeight: 2,
-                fillColor: '',
-                fillOpacity: 0.0
-              }}
-            />
+          this.props.selectedRadioButton === 'nearme' &&
+          this.props.usersNearmeData.lat &&
+          <Circle
+            center={{lat: this.props.usersNearmeData.lat, lng: this.props.usersNearmeData.lon }}
+            radius={this.props.usersNearmeData.distanceMeters}
+            options={{
+              // strokeColor: '#FFFF00', // yellow.
+              strokeColor: '#3366FF', // blue.
+              strokeWeight: 2,
+              fillColor: '',
+              fillOpacity: 0.0
+            }}
+          />
           }
           {this.props.isMarkerShown && <div>{this.renderMarkers()}</div>}
         </GoogleMap>
+        {this.renderGeolocatingSpinner()}
+        {this.renderMapLegend()}
       </div>
     )
   }
+
 }
 
 const mapStateToProps = (state) => {

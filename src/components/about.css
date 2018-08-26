@@ -1,3 +1,7 @@
+/* ///////////////////////////////////////////////////////////////////////// */
+/* mobile, non-mobile - BEGIN  ///////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+/* mobile and non-mobile */
 .about_title {
   /*font-family: 'klinkomite', Times, serif;*/
   font-family: 'Acme', Times, serif;
@@ -9,11 +13,13 @@
   left: 20px;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
+/* mobile and non-mobile */
 .about_sections_wrapper {
   height: 90vh;
   overflow-y: auto;
   padding: 0 20px 20px 20px;
 }
+/* mobile and non-mobile */
 .about_overview_section_title,
 .about_dashboard_section_title,
 .about_review_section_title {
@@ -23,6 +29,7 @@
   color: #fff;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
+/* mobile and non-mobile */
 .about_overview_content_title,
 .about_dashboard_content_title,
 .about_review_content_title {
@@ -32,63 +39,95 @@
   color: #fff;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
-/* ///////////////////////////////////////////////////////////////////////// */
-/* Overview -BEGIN  //////////////////////////////////////////////////////// */
-/* ///////////////////////////////////////////////////////////////////////// */
-.about_overview_section {
-  margin-top: 10px;
-}
-.about_overview_article {
-  display: flex;
-  background-color: #5BA3D7;
-}
-.about_overview_content_wrapper{
-  padding: 20px;
-}
-.about_overview_content p {
-  font-size: 20px;
-  color: white;
-  /*text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;*/
-}
-/* ///////////////////////////////////////////////////////////////////////// */
-/* Overview - END  ///////////////////////////////////////////////////////// */
-/* ///////////////////////////////////////////////////////////////////////// */
-
-/* ///////////////////////////////////////////////////////////////////////// */
-/* Dashboard / Reviews - BEGIN  //////////////////////////////////////////// */
-/* ///////////////////////////////////////////////////////////////////////// */
+.about_overview_section,
 .about_dashboard_section,
 .about_review_section {
   margin-top: 40px;
 }
-/*.about_dashboard_article {*/
-  /*margin-bottom: 15px;*/
-/*}*/
+.about_overview_article,
 .about_dashboard_article,
 .about_review_article {
   display: flex;
   background-color: #5BA3D7;
   margin-bottom: 15px;
 }
+.about_overview_content_wrapper,
 .about_dashboard_content_wrapper,
 .about_review_content_wrapper {
   padding: 20px;
 }
-.about_dashboard_article_image {
-  height: 375px;
-  min-width: 800px;
-  width: 800px;
-}
-.about_review_article_image {
-  height: 450px;
-  min-width: 800px;
-  width: 800px;
-}
+.about_overview_content p,
 .about_dashboard_content p,
 .about_review_content p {
   font-size: 20px;
   color: white;
 }
 /* ///////////////////////////////////////////////////////////////////////// */
-/* Dashboard / Reviews - END  ////////////////////////////////////////////// */
+/* mobile, non-mobile - END  /////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen greater than or equal to 1200px - BEGIN  ///////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+/* non-mobile - no special CSS needed.
+   Flexbox CSS creates side by side columns  */
+@media only screen and (min-width: 1200px) {
+  .about_overview_article_image {
+    /* no CSS needed */
+  }
+  .about_overview_content_wrapper {
+    /* no CSS needed */
+  }
+  .about_dashboard_article_image {
+    height: 375px;
+    /*width: 800px;*/  /* width value can cause sizing issue */
+  }
+  .about_dashboard_content_wrapper {
+    /* no CSS needed */
+  }
+  .about_review_article_image {
+    height: 450px;
+    width: 800px;  /* need width here */
+  }
+  .about_review_content_wrapper {
+    /* no CSS needed */
+  }
+}
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen greater than or equal to 1200px - END  /////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen less than or equal to 1200px - BEGIN  //////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////// */
+@media only screen and (max-width: 1200px) {
+  .about_overview_article,
+  .about_dashboard_article,
+  .about_review_article {
+    flex-direction: column;
+  }
+  .about_overview_article_image,
+  .about_dashboard_article_image,
+  .about_review_article_image {
+    object-fit: cover;
+  }
+  .about_dashboard_article_image,
+  .about_review_article_image {
+    width: 100%;
+
+  }
+  .about_overview_content_wrapper,
+  .about_dashboard_content_wrapper,
+  .about_review_content_wrapper {
+    object-fit: cover;
+
+  }
+  .about_dashboard_content_wrapper,
+  .about_review_content_wrapper {
+    width: 100%;
+  }
+}
+/* ///////////////////////////////////////////////////////////////////////// */
+/* screen less than or equal to 1200px - END  ////////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////// */
