@@ -243,11 +243,20 @@ export default (state=initialState, action) => {
       };
 
     case MAP_ALL_LOCATIONS_FROM_UI_LIST:
+      console.log('MAP_ALL_LOCATIONS_FROM_UI_LIST state.uiListRecenterCoords.zoom = ', state.uiListRecenterCoords.zoom);
+      // Edge Case if/when User launches App in mobile screen,
+      // and then User selects States or Near Me radio button,
+      // and then User clicks "MAP ALL LISTED LOCATIONS" button.
+      zoom = state.uiListRecenterCoords.zoom;
+      if(window.innerWidth <= 1260) {
+        zoom = zoom - 1;
+      }
+
       return {
         ...state,
         mapCenterLat: state.uiListRecenterCoords.lat,
         mapCenterLon: state.uiListRecenterCoords.lon,
-        mapZoom: state.uiListRecenterCoords.zoom,
+        mapZoom: zoom,
         displayedMapLocations: state.filteredLocationsList,
         isMappingSingleLocation: false
       };
