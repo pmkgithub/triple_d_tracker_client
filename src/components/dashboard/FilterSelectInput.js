@@ -132,10 +132,8 @@ class FilterSelectInput extends Component {
         // clear Locations List (and displayed map locations).
         this.props.clearLocationsFromList();
 
-
-
-        // set isGeolocationg to true so the Finding Nearme Spinner displays
-        // isGeolocationSpinner found in Map.js.
+        // set isGeolocating to true so the Finding Nearme Locations spinner displays
+        // Finding Near Me Locations spinner rendered in Map.js.
         this.props.setIsGeolocating(true);
 
         // get User's position.
@@ -144,51 +142,6 @@ class FilterSelectInput extends Component {
     }
   }
 
-  // // TODO - begin refact mobile for nearme
-  // onGeolocateSuccess(coordinates) {
-  //   // NOTE: mapCenterLat, mapCenterLon is set in FETCH_NEARME_LOCATIONS_SUCCESS.
-  //
-  //   let { latitude, longitude } = coordinates.coords;
-  //
-  //   // // For making Nearme Map screen captures.
-  //   // // LA lat, lon: 34.0522° N, 118.2437° W
-  //   // latitude = 34.0522;
-  //   // longitude = -118.2437;
-  //
-  //   const selectedDistanceMiles = this.state.value;
-  //   // Convert selectedDistance (miles) to meters.
-  //   // mongoose $geoNear requires meters.
-  //   const selectedDistanceMeters = selectedDistanceMiles * 1.60934 * 1000;
-  //   const zoom = mapSelectInputConfig.nearmeZoom[selectedDistanceMiles];
-  //
-  //   // set isGeolocating to false, remove spinner from Map.js
-  //   this.props.setIsGeolocating(false);
-  //
-  //   // usersNearmeData needed by Map.js to create User's Location Marker.
-  //   const usersNearmeData = {
-  //     distanceMeters: selectedDistanceMeters,
-  //     lat: latitude,
-  //     lon: longitude
-  //   };
-  //   this.props.setUsersNearmeData(usersNearmeData);
-  //
-  //   // For clicking "Map All Listed Locations" button - BEGIN.
-  //   // Store the selected Near Me re-center coords.
-  //   // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
-  //   const uiListRecenterCoords = {
-  //     lat: latitude,
-  //     lon: longitude,
-  //     zoom: zoom
-  //   };
-  //   this.props.setLatLonZoomForUiList(uiListRecenterCoords);
-  //   // for clicking "Map All Listed Locations" button - END.
-  //
-  //   // Fetch Nearme Locations from API.
-  //   this.props.fetchNearmeLocations(usersNearmeData);
-  //
-  // }
-
-  // TODO - refact mobile for nearme.
   onGeolocateSuccess(coordinates) {
     // NOTE: mapCenterLat, mapCenterLon is set in FETCH_NEARME_LOCATIONS_SUCCESS.
 
