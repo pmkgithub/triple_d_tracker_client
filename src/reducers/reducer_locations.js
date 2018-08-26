@@ -43,7 +43,7 @@ const initialState = {
   uiListRecenterCoords: {
     lat: 37,
     lon: -96.5795,
-    zoom: 4.1
+    zoom: 4
   },
   mapCenterLat: mapConfig.US.lat,
   mapCenterLon: mapConfig.US.lon,
@@ -175,7 +175,7 @@ export default (state=initialState, action) => {
         isNearmeRadioButtonSelected: false,           // for UPDATE_MARKERS_LOCATIONS_LIST.
         mapCenterLat: mapConfig.US.lat,
         mapCenterLon: mapConfig.US.lon,
-        mapZoom: mapConfig.US.zoom,
+        mapZoom: action.zoom,
       };
 
     case CREATE_STATE_LOCATIONS_UI_LIST:

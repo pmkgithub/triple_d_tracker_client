@@ -130,9 +130,10 @@ export const clearLocationsFromList = () => {
 };
 
 export const CREATE_US_LOCATIONS_UI_LIST = 'CREATE_US_LOCATIONS_UI_LIST';
-export const createUsLocationsList = () => {
+export const createUsLocationsList = (zoom) => {
   return {
-    type: CREATE_US_LOCATIONS_UI_LIST
+    type: CREATE_US_LOCATIONS_UI_LIST,
+    zoom
   }
 };
 

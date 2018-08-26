@@ -99,6 +99,9 @@ class FilterSelectInput extends Component {
       const usStateName = e.target.value;
       const usStateAbbr = stateNameToAbbrConfig[usStateName];
 
+      // TODO - responsive / mobile zoom
+      // set usStateAbbr - for setResponsiveZoom() in Map.js
+
       // For clicking "Map All Listed Locations" button - BEGIN.
       // Store the selected US State's re-center coords.
       // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.

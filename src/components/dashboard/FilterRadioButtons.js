@@ -6,6 +6,7 @@ import {
   createVisitedLocationsUiList,
   setLatLonZoomForUiList,
   setUsersNearmeData,
+  setMapZoom
 } from '../../actions/action_locations';
 import {
   setSelectedRadioButton
@@ -30,18 +31,29 @@ class FilterRadioButtons extends Component {
     if (radioButtonValue === radioButtonConfig.us) {
 
       this.props.setSelectedRadioButton(radioButtonValue); // controls Map Filter Select Input.
+
+      let zoom = mapConfig.US.zoom;
+      // When in "mobile" screen size (e.g. below 1260px for this app),
+      // set map zoom for "mobile" zoom.
+      if(window.innerWidth <= 1260) {
+        zoom = zoom - 1;
+      }
+
+      // For clicking "Map All Listed Locations" button - BEGIN.
       // Store the US's re-center coords.
       // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       uiListRecenterCoords = {
         lat: mapConfig.US.lat,
         lon: mapConfig.US.lon,
-        zoom: mapConfig.US.zoom
+        zoom: zoom
       };
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
       // For clicking "Map All Listed Locations" button - END.
 
       this.props.clearLocationsFromList();
-      this.props.createUsLocationsList();  // when User re-clicks USA button.
+
+      // When User re-clicks USA button.
+      this.props.createUsLocationsList(zoom);
     }
 
     // US STATE radio button.
@@ -158,5 +170,6 @@ export default connect(null, {
   createUsLocationsList,
   createVisitedLocationsUiList,
   setSelectedRadioButton,
-  setUsersNearmeData
+  setUsersNearmeData,
+  setMapZoom
 })(FilterRadioButtons);

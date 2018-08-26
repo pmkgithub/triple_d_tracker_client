@@ -14,6 +14,7 @@ import {
   setIsModalOpen
 } from '../../actions/action_modal';
 import { fetchReviews } from '../../actions/action_reviews';
+import radioButtonConfig from '../../configs/radioButtonConfig';
 import "./map.css";
 
 
@@ -26,6 +27,9 @@ class Map extends Component {
       isInfoWindowOpen: false,
       markerId: null,
     };
+
+    this.setResponsiveZoom = this.setResponsiveZoom.bind(this);
+
   }
 
   componentDidMount() {
@@ -39,6 +43,13 @@ class Map extends Component {
           this.props.fetchLocations();
         })
     }
+
+    window.addEventListener('resize', this.setResponsiveZoom);
+    this.setResponsiveZoom(); // for initial map load.
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setResponsiveZoom);
   }
 
   onMapLoad(map) {
@@ -71,7 +82,47 @@ class Map extends Component {
     // NOTE: for whatever reason, handleOnZoomChanged() gets called
     //       when App initially loads.
     const zoom = this.state.map.getZoom();
+    console.log('handleOnZoomChanged zoom = ', zoom);
     this.props.setMapZoom(zoom);
+  }
+
+  setResponsiveZoom() {
+
+    if(this.props.selectedRadioButton === radioButtonConfig.us) {
+
+      // set mobile zoom.
+      if(window.innerWidth <= 1260 ) {
+        this.props.setMapZoom(3);
+      }
+      // full screen zoom
+      if(window.innerWidth > 1260 ) {
+        this.props.setMapZoom(4);
+      }
+    }
+
+    if(this.props.selectedRadioButton === radioButtonConfig.state) {
+      console.log('state radio button selected, set mobile state zoom');
+
+    }
+
+    if(this.props.selectedRadioButton === radioButtonConfig.nearme) {
+      console.log('nearme radio button selected, set mobile nearme zoom');
+
+    }
+
+    if(this.props.selectedRadioButton === radioButtonConfig.visited) {
+      console.log('visited radio button selected, set mobile visited zoom');
+      // set mobile zoom.
+      if(window.innerWidth <= 1260 ) {
+        this.props.setMapZoom(3);
+      }
+      // full screen zoom
+      if(window.innerWidth > 1260 ) {
+        this.props.setMapZoom(4);
+      }
+    }
+
+
   }
 
   // markers - BEGIN
