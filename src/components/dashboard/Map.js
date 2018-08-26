@@ -16,8 +16,8 @@ import {
 import { fetchReviews } from '../../actions/action_reviews';
 import radioButtonConfig from '../../configs/radioButtonConfig';
 import mapConfig from '../../configs/mapConfig';
+import mapSelectInputConfig from "../../configs/mapSelectInputConfig";
 import "./map.css";
-
 
 class Map extends Component {
 
@@ -88,7 +88,9 @@ class Map extends Component {
 
   setScreenResizeZoom() {
 
-    if(this.props.selectedRadioButton === radioButtonConfig.us) {
+    if ( this.props.selectedRadioButton === radioButtonConfig.us ||
+         this.props.selectedRadioButton === radioButtonConfig.visited )
+    {
       if(window.innerWidth <= 1260 ) {
         // set mobile zoom.
         this.props.setMapZoom(3);
@@ -99,6 +101,11 @@ class Map extends Component {
     }
 
     if(this.props.selectedRadioButton === radioButtonConfig.state) {
+
+      // Handles if/when user might resize screen without first selecting
+      // a US State from Select Input.
+      if(!this.props.mapData.usStateAbbr) {return}
+
       let usStateZoom = mapConfig[this.props.mapData.usStateAbbr].zoom;
       if(window.innerWidth <= 1260 ) {
         // set mobile zoom.
@@ -110,20 +117,29 @@ class Map extends Component {
     }
 
     if(this.props.selectedRadioButton === radioButtonConfig.nearme) {
-      console.log('nearme radio button selected, set mobile nearme zoom');
 
-    }
+      // Handles if/when user might resize screen without first selecting
+      // a Near Me Distance from Select Input.
+      if(!this.props.mapData.nearMeDistance) {
+        if(window.innerWidth <= 1260 ) {
+          // set mobile zoom.
+          this.props.setMapZoom(3);
+        } else {
+          // full screen zoom
+          this.props.setMapZoom(4);
+        }
+        return;
+      }
 
-    if(this.props.selectedRadioButton === radioButtonConfig.visited) {
+      let nearMeZoom = mapSelectInputConfig.nearmeZoom[this.props.mapData.nearMeDistance];
       if(window.innerWidth <= 1260 ) {
         // set mobile zoom.
-        this.props.setMapZoom(3);
+        this.props.setMapZoom(nearMeZoom - 1);
       } else {
         // full screen zoom
-        this.props.setMapZoom(4);
+        this.props.setMapZoom(nearMeZoom);
       }
     }
-
 
   }
 
@@ -213,7 +229,6 @@ class Map extends Component {
     }
 
     return markers;
-
   }
   // markers - END
 
@@ -229,7 +244,6 @@ class Map extends Component {
     )
   }
 
-  
   renderMapLegend() {
     const greenMarker = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
     const blueMarker = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';

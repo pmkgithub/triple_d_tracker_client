@@ -15,6 +15,7 @@ import {
   CREATE_STATE_LOCATIONS_UI_LIST,
   SET_LOCATION_ID,
   SET_US_STATE_ABBR,
+  SET_NEAR_ME_DISTANCE,
 
   UPDATE_MARKERS_LOCATIONS_LIST,
 
@@ -263,6 +264,12 @@ export default (state=initialState, action) => {
       return {
         ...state,
         usStateAbbr: action.usStateAbbr
+      };
+
+    case SET_NEAR_ME_DISTANCE:
+      return {
+        ...state,
+        nearMeDistance: action.nearMeDistance
       };
 
     ///////////////////////////////////////////////////////////////////////////

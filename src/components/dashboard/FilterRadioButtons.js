@@ -39,7 +39,7 @@ class FilterRadioButtons extends Component {
         zoom = zoom - 1;
       }
 
-      // For clicking "Map All Listed Locations" button - BEGIN.
+      // For clicking "MAP ALL LISTED LOCATIONS" button - BEGIN.
       // Store the US's re-center coords.
       // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       uiListRecenterCoords = {
@@ -48,7 +48,7 @@ class FilterRadioButtons extends Component {
         zoom: zoom
       };
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
-      // For clicking "Map All Listed Locations" button - END.
+      // For clicking "MAP ALL LISTED LOCATIONS" button - END.
 
       this.props.clearLocationsFromList();
 
@@ -99,7 +99,7 @@ class FilterRadioButtons extends Component {
       if(window.innerWidth <= 1260) {
         zoom = zoom - 1;
       }
-      // For clicking "Map All Listed Locations" button - BEGIN.
+      // For clicking "MAP ALL LISTED LOCATIONS" button - BEGIN.
       // Store the US's re-center coords.
       // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.
       uiListRecenterCoords = {
@@ -108,7 +108,7 @@ class FilterRadioButtons extends Component {
         zoom: zoom
       };
       this.props.setLatLonZoomForUiList(uiListRecenterCoords);
-      // For clicking "Map All Listed Locations" button - END.
+      // For clicking "MAP ALL LISTED LOCATIONS" button - END.
 
       this.props.clearLocationsFromList();
       this.props.createVisitedLocationsUiList(zoom);  // when User re-clicks Visited button.

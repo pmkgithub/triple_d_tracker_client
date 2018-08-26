@@ -171,7 +171,14 @@ export const setUsStateAbbr = (usStateAbbr) => {
     type: SET_US_STATE_ABBR,
     usStateAbbr
   }
+};
 
+export const SET_NEAR_ME_DISTANCE = 'SET_NEAR_ME_DISTANCE';
+export const setNearMeDistance = (nearMeDistance) => {
+  return {
+    type: SET_NEAR_ME_DISTANCE,
+    nearMeDistance
+  }
 };
 ///////////////////////////////////////////////////////////////////////////////
 // other - END
