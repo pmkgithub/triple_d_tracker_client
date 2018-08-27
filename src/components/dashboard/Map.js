@@ -167,8 +167,6 @@ class Map extends Component {
     if ( this.props.mapData.isFetching ) { return false; }
 
     markers = displayedMapLocations.map((location, index) => {
-      // TODO - write code to push CLOSED location to bottom of Google map via setting z-index.
-      // TODO - write code to push Near Me Marker location to top of Google map via setting z-index.
       const {lat, lon} = location.coords;
 
       let redMarkerZIndex;
