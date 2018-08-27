@@ -163,12 +163,15 @@ class Map extends Component {
     const { displayedMapLocations } = this.props.mapData;
     let markers;
 
+    // Return early if data is being fetched.
     if ( this.props.mapData.isFetching ) { return false; }
 
     markers = displayedMapLocations.map((location, index) => {
       // TODO - write code to push CLOSED location to bottom of Google map via setting z-index.
       // TODO - write code to push Near Me Marker location to top of Google map via setting z-index.
       const {lat, lon} = location.coords;
+
+      let redMarkerZIndex;
 
       let iconUrl;
       const blueMarker = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
@@ -185,6 +188,7 @@ class Map extends Component {
 
       if (location.outOfBusiness === true) {
         iconUrl = redMarker;
+        redMarkerZIndex =  index - index -1;  // set red marker z-index to -1
       }
 
       return (
@@ -196,6 +200,7 @@ class Map extends Component {
           onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, index, location.coords)}
           onMouseOut={(markerObj) => this.mouseOutMarker()}
           icon={{url: iconUrl}}
+          zIndex={ iconUrl === redMarker ? redMarkerZIndex : '' }
         >
           {this.state.isInfoWindowOpen && this.state.markerId === index && <InfoWindow
             key={index}
@@ -222,6 +227,7 @@ class Map extends Component {
           onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, distanceMeters)}
           onMouseOut={(markerObj) => this.mouseOutMarker()}
           icon={{url: iconUrl}}
+          zIndex={10000}
         >
           {this.state.isInfoWindowOpen && this.state.markerId === distanceMeters && <InfoWindow
             key={distanceMeters}
