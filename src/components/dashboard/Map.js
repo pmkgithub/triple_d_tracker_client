@@ -169,8 +169,6 @@ class Map extends Component {
     markers = displayedMapLocations.map((location, index) => {
       const {lat, lon} = location.coords;
 
-      let redMarkerZIndex;
-
       let iconUrl;
       const blueMarker = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
       const redMarker = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
@@ -186,7 +184,6 @@ class Map extends Component {
 
       if (location.outOfBusiness === true) {
         iconUrl = redMarker;
-        redMarkerZIndex =  index - index -1;  // set red marker z-index to -1
       }
 
       return (
@@ -198,7 +195,9 @@ class Map extends Component {
           onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, index, location.coords)}
           onMouseOut={(markerObj) => this.mouseOutMarker()}
           icon={{url: iconUrl}}
-          zIndex={ iconUrl === redMarker ? redMarkerZIndex : '' }
+          // Push red marker to bottom.
+          // Blue / green markers z-index set by GMA's default latitude ranking.
+          zIndex={ iconUrl === redMarker ? -1 : '' }
         >
           {this.state.isInfoWindowOpen && this.state.markerId === index && <InfoWindow
             key={index}
@@ -225,6 +224,7 @@ class Map extends Component {
           onMouseOver={(markerObj) => this.mouseOverMarker(markerObj, distanceMeters)}
           onMouseOut={(markerObj) => this.mouseOutMarker()}
           icon={{url: iconUrl}}
+          // Set high z-index so yellow marker always on top.
           zIndex={10000}
         >
           {this.state.isInfoWindowOpen && this.state.markerId === distanceMeters && <InfoWindow
