@@ -10,14 +10,11 @@ import {
 } from '../actions';
 
 // setting authenticated here, allows user on signup to access protected resources.
-// TODO - is setting authenticated in initialState needed?
 const INITIAL_STATE = {
-  // authenticated: '',
-  authenticated: localStorage.getItem('token'),
-  // Dev - user b@b.com
+  // TODO - Dev - user b@b.com - remove when pushed to Production.
   // userId: '5b578696527db520e24a7bc2',
-  // Production
-  userId: '',
+  authenticated: localStorage.getItem('token'),
+  userId: localStorage.getItem('userId'),
   authErrorMessage: '',
   isFetching: false
 };

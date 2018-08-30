@@ -1,5 +1,5 @@
 import { updateMarkersLocationsList } from './action_locations';
-const ROOT_URL = 'http://localhost:8080/api';
+import { API_BASE_URL } from "../configs/config";
 
 ///////////////////////////////////////////////////////////////////////////////
 // GET Reviews - BEGIN
@@ -17,7 +17,7 @@ export const fetchReviews = () => dispatch => {
   dispatch(fetchReviewsRequest());
 
   // "return" so that multiple AJAX requests in Map.js works.
-  return fetch(`${ROOT_URL}/reviews/${userId}`, {
+  return fetch(`${API_BASE_URL}/reviews/${userId}`, {
     method: "GET",
     headers: {
       "content-type": "application/json",
@@ -73,7 +73,7 @@ export const fetchReviewsError = (err) => ({
 export const createReview = ( formData, callback ) => dispatch => {
 
   dispatch(createReviewRequest());
-  fetch(`${ROOT_URL}/reviews/create`, {
+  fetch(`${API_BASE_URL}/reviews/create`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -143,7 +143,7 @@ export const setReviewToEdit = (reviewToEdit) => {
 export const editReview = ( userId, reviewToEditId, toUpdate, callback ) => dispatch => {
 
   dispatch(editReviewRequest());
-  fetch(`${ROOT_URL}/reviews/edit/${userId}/${reviewToEditId}`, {
+  fetch(`${API_BASE_URL}/reviews/edit/${userId}/${reviewToEditId}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json",
@@ -205,7 +205,7 @@ export const editReviewError = (err) => ({
 export const deleteReview = ( userId, reviewId, callback ) => dispatch => {
 
   dispatch(deleteReviewRequest());
-  fetch(`${ROOT_URL}/reviews/delete/${userId}/${reviewId}`, {
+  fetch(`${API_BASE_URL}/reviews/delete/${userId}/${reviewId}`, {
     method: "DELETE",
     headers: {
       "content-type": "application/json",

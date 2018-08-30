@@ -37,6 +37,7 @@ ReactDom.render(
   document.querySelector('#root')
 );
 
+// TODO - keep or discard Root.js
 // import React from 'react';
 // import ReactDom from 'react-dom';
 // import { BrowserRouter, Route } from 'react-router-dom';

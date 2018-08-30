@@ -2,14 +2,14 @@
 /////////////////////////////////////////////////////////////////////////
 // fetch logic - BEGIN
 /////////////////////////////////////////////////////////////////////////
-const ROOT_URL = 'http://localhost:8080/api';
+import { API_BASE_URL } from "../configs/config";
 
 /////////////////////////////////////////////////////////////////////////
 // signup - fetch syntax - BEGIN
 /////////////////////////////////////////////////////////////////////////
 export const signup = ( formProps, callback ) => dispatch => {
   dispatch(fetchSignupSigninRequest());
-  fetch(`${ROOT_URL}/signup`, {
+  fetch(`${API_BASE_URL}/signup`, {
     method: "POST",
     headers: {
       "content-type": "application/json"
@@ -54,7 +54,7 @@ export const signup = ( formProps, callback ) => dispatch => {
 /////////////////////////////////////////////////////////////////////////
 export const signin = ( formProps, callback ) => dispatch => {
   dispatch(fetchSignupSigninRequest());
-  fetch(`${ROOT_URL}/signin`, {
+  fetch(`${API_BASE_URL}/signin`, {
     method: "POST",
     headers: {
       "content-type": "application/json"
@@ -105,7 +105,8 @@ export const signout = () => {
   window.location = '/';
   return {
     type: AUTH_USER,
-    token: ''
+    token: '',
+    userId: ''
   }
 };
 /////////////////////////////////////////////////////////////////////////

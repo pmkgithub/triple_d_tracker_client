@@ -1,6 +1,6 @@
 import { store } from '../index';
+// TODO - keep or discard Root.js
 // import { store } from '../Root';
-// const ROOT_URL = 'http://localhost:8080/api';
 import { API_BASE_URL } from "../configs/config";
 
 let reviews;
