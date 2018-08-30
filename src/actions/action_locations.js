@@ -1,6 +1,8 @@
-// import { store } from '../index';
-import { store } from '../Root';
-const ROOT_URL = 'http://localhost:8080/api';
+import { store } from '../index';
+// import { store } from '../Root';
+// const ROOT_URL = 'http://localhost:8080/api';
+import { API_BASE_URL } from "../configs/config";
+
 let reviews;
 
 
@@ -16,7 +18,7 @@ export const fetchLocations = () => dispatch => {
 
   dispatch(fetchLocationsRequest);
 
-  fetch(`${ROOT_URL}/locations`, {
+  fetch(`${API_BASE_URL}/locations`, {
     method: "GET",
     headers: {
       "authorization": localStorage.getItem('token')
@@ -230,7 +232,7 @@ export const fetchNearmeLocations = (usersNearmeData) => dispatch => {
 
   dispatch(fetchNearmeLocationsRequest);
 
-  fetch(`${ROOT_URL}/locations/nearme?lat=${lat}&lon=${lon}&distanceMeters=${distanceMeters}`, {
+  fetch(`${API_BASE_URL}/locations/nearme?lat=${lat}&lon=${lon}&distanceMeters=${distanceMeters}`, {
     method: "GET",
     headers: {
       "authorization": localStorage.getItem('token')

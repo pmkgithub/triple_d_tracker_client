@@ -60,6 +60,7 @@ class FilteredLocationsList extends Component {
       // location.outOfBusiness ? className = className + ' closed' : '';
       // location.visited ? className = className + ' visited' : '';
 
+      // TODO - fix code.
       if(location.outOfBusiness) {
         className = className + ' closed'
       }
