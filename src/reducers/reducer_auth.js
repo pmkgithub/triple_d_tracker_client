@@ -15,9 +15,9 @@ const INITIAL_STATE = {
   // authenticated: '',
   authenticated: localStorage.getItem('token'),
   // Dev - user b@b.com
-  userId: '5b578696527db520e24a7bc2',
+  // userId: '5b578696527db520e24a7bc2',
   // Production
-  // userId: '',
+  userId: '',
   authErrorMessage: '',
   isFetching: false
 };
