@@ -220,9 +220,9 @@ class FilterSelectInput extends Component {
             size={this.state.size}
             height={this.state.height}
           >
-            {this.props.selectedRadioButton === 'us'? <option value="choose_country" selected disabled>Not Applicable for Filter By: USA</option> : ''}
+            {this.props.selectedRadioButton === 'us'? <option value="choose_country" defaultValue="choose_country" disabled>Not Applicable for Filter By: USA</option> : ''}
             {this.props.selectedRadioButton === 'state'? <option value="choose_us_state" disabled>Choose a US State</option> : ''}
-            {this.props.selectedRadioButton === 'visited'? <option value="choose_visited" selected disabled>Not Applicable for Filter By: Visited</option> : ''}
+            {this.props.selectedRadioButton === 'visited'? <option value="choose_visited" defaultValue="choose_visited" disabled>Not Applicable for Filter By: Visited</option> : ''}
             {this.props.selectedRadioButton === 'nearme'? <option value="choose_nearme" disabled>Choose a Near Me Distance (Miles)</option> : ''}
 
             {this.buildOptions()}
