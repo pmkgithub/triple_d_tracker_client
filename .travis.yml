@@ -1,0 +1,14 @@
+language: node_js
+node_js: node
+cache:
+  directories:
+  - node_modules
+env:
+- CI=true
+deploy:
+  provider: heroku
+  api_key:
+    secure: HlrNxCQJx0hOzorR/SHhb1tx4oKAn80PlPsSSeNmxxm4HVmY99ximVjiN0+BfMw8HjSfk70nffNaeGt07k4frP4llXIaW5FoqpLp5WF5YnkkO7Ns9Wbm2mFmEH5NX8c3icOwGnCzBjqDKPqDR5sqvqfAQNeSe/zHlcaTTsLriLYLm1/pdALypWtopfeTFR8PqBkjHI/+VHVEGEFX3lL3nUkkRCqtlbsuWeE+nyCKdOjtNwn4D7VuoL+rN9c3nOvh/kkOyUglQQmU4sPCear8n3QM1xVV4WF33tDAMEsvJSG+szYiqLKCTx4Dn6YRdGUTjazLJAoTCcK/nPo44cvwCYNjvBTIJAxDIODfmUGWpTt8YM0+8LR2hrDHFjG2hj3MK+fAaTmeMlytMq+OIYBj7NW9kWlhbyU4ZWYYAgoN0nU4owtEkdOCjI+BJwCKSyRlzFq60ZFYOSW3XhZo77lQwpmCD01nsuXThLO10K6nb5i9SnrDPkXnHN6InaJX0JIOj9QaxGKKNqbKBwBtfd7cGueHz12rWgfr9wYbWQQmqu0K9PSd2QtIXd0eQb5MRkRqZGc2CvZLaB9rbLYJCUIcERwhgMFSIhD1Mpxx9j39MEWef24sQgg6+yIlsl7EBmx8xB1UBLRfqQaRCEqSsV6D4eiRvDfIfTXmt2o5JKRvpss=
+  app: rocky-bayou-25901
+  on:
+    repo: pmkgithub/triple_d_tracker_client
