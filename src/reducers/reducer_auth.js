@@ -9,10 +9,9 @@ import {
   AUTH_ERROR
 } from '../actions';
 
-// setting authenticated here, allows user on signup to access protected resources.
+// Setting authenticated, userId via localStorage necessary b/c these values
+// in Redux are not persisting b/c of redirects within the app code.
 const INITIAL_STATE = {
-  // TODO - Dev - user b@b.com - remove when pushed to Production.
-  // userId: '5b578696527db520e24a7bc2',
   authenticated: localStorage.getItem('token'),
   userId: localStorage.getItem('userId'),
   authErrorMessage: '',

@@ -55,19 +55,14 @@ class FilteredLocationsList extends Component {
 
     return this.props.filteredLocationsList.map((location, index) => {
 
+      // Create the className for the <li>.
       let className;
       index % 2 === 1 ? className = "filtered_locations_li even" : className = "filtered_locations_li odd";
+      if(location.outOfBusiness) { className = className + ' closed' }
+      if(location.visited) { className = className + ' visited' }
+      // Note: ternary creates a compile error in console.
       // location.outOfBusiness ? className = className + ' closed' : '';
       // location.visited ? className = className + ' visited' : '';
-
-      // TODO - fix code.
-      if(location.outOfBusiness) {
-        className = className + ' closed'
-      }
-
-      if(location.visited) {
-        className = className + ' visited'
-      }
 
       return (
         <li

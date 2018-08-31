@@ -159,6 +159,8 @@ class Map extends Component {
     this.setState({isInfoWindowOpen: !this.state.isInfoWindowOpen});
   }
 
+  computeZIndex(iconUrl, redMarker) { if(iconUrl === redMarker) return -1 }
+
   renderMarkers() {
     const { displayedMapLocations } = this.props.mapData;
     let markers;
@@ -197,8 +199,8 @@ class Map extends Component {
           icon={{url: iconUrl}}
           // Push red marker to bottom.
           // Blue / green markers z-index set by GMA's default latitude ranking.
-          // zIndex={ iconUrl === redMarker ? -1 : '' }
-          // zIndex={ if(iconUrl === redMarker) { zIndex = -1} }
+          zIndex={ this.computeZIndex(iconUrl, redMarker) }
+
         >
           {this.state.isInfoWindowOpen && this.state.markerId === index && <InfoWindow
             key={index}
