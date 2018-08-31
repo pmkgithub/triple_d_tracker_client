@@ -8,6 +8,7 @@ import { API_BASE_URL } from "../configs/config";
 // signup - fetch syntax - BEGIN
 /////////////////////////////////////////////////////////////////////////
 export const signup = ( formProps, callback ) => dispatch => {
+  console.log('index.js signup API_BASE_URL =', API_BASE_URL);
   dispatch(fetchSignupSigninRequest());
   fetch(`${API_BASE_URL}/signup`, {
     method: "POST",
