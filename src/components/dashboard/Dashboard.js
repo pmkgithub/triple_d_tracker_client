@@ -10,7 +10,7 @@ import { setCurrentRoute } from '../../actions/action_currentRoute';
 import requireAuth from '../requireAuth';
 import './dashboard.css';
 
-class Dashboard extends Component {
+export class Dashboard extends Component {
 
   componentWillMount() {
     this.props.setCurrentRoute(window.location.pathname);  // for Nav.js links logic.
@@ -50,5 +50,5 @@ class Dashboard extends Component {
 
 export default compose(
   connect(null, { setCurrentRoute }),
-  requireAuth
+  // requireAuth
 )(Dashboard);

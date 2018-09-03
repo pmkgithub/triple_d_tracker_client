@@ -9,7 +9,7 @@ import map_visited from '../images/about_page/map_visited.png';
 import review from '../images/about_page/review.png';
 import './about.css';
 
-class About extends Component {
+export class About extends Component {
 
   componentWillMount() {
     this.props.setCurrentRoute(window.location.pathname); // for Nav.js links logic.
