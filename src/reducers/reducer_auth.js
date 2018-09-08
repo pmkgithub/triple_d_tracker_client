@@ -12,8 +12,10 @@ import {
 // Setting authenticated, userId via localStorage necessary b/c these values
 // in Redux are not persisting b/c of redirects within the app code.
 const INITIAL_STATE = {
-  authenticated: localStorage.getItem('token'),
-  userId: localStorage.getItem('userId'),
+  // authenticated: localStorage.getItem('token'),
+  // userId: localStorage.getItem('userId'),
+  authenticated: localStorage ? localStorage.getItem('token') : {},
+  userId: localStorage ? localStorage.getItem('userId') : {},
   authErrorMessage: '',
   isFetching: false
 };

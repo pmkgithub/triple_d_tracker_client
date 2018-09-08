@@ -35,9 +35,10 @@ class FilterRadioButtons extends Component {
       let zoom = mapConfig.US.zoom;
       // When in "mobile" screen size (e.g. below 1260px for this app),
       // set map zoom for "mobile" zoom.
-      if(window.innerWidth <= 1260) {
-        zoom = zoom - 1;
-      }
+      // // TODO - c-out
+      // if(window.innerWidth <= 1260) {
+      //   zoom = zoom - 1;
+      // }
 
       // For clicking "MAP ALL LISTED LOCATIONS" button - BEGIN.
       // Store the US's re-center coords.
@@ -96,9 +97,10 @@ class FilterRadioButtons extends Component {
       let zoom = mapConfig.US.zoom;
       // When in "mobile" screen size (e.g. below 1260px for this app),
       // set map zoom for "mobile" zoom.
-      if(window.innerWidth <= 1260) {
-        zoom = zoom - 1;
-      }
+      // // TODO - c-out
+      // if(window.innerWidth <= 1260) {
+      //   zoom = zoom - 1;
+      // }
       // For clicking "MAP ALL LISTED LOCATIONS" button - BEGIN.
       // Store the US's re-center coords.
       // uiListRecenterCoords needed when User clicks "Map All Listed Locations" button.

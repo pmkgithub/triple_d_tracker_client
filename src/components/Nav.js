@@ -61,7 +61,7 @@ class Nav extends Component {
       )
     }
 
-    // TODO - convert window.location syntaxt to this.history.push() logic.
+    // TODO - convert window.location syntax to this.history.push() logic.
     // Handle cases when User closes Browser without signing out,
     // User will still be logged in when the Browser is opened at a later time.
     // Redirect the User back to the Dashboard.

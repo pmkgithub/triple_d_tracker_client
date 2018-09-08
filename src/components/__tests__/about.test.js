@@ -9,7 +9,6 @@ describe('<About /> ',() => {
     const mockFunc = jest.fn();
 
     const wrapper = shallow(<About setCurrentRoute={mockFunc}/>);
-    console.log(wrapper.debug);
 
   })
 });
