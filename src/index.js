@@ -14,7 +14,7 @@ import About from './components/About';
 import Dashboard from './components/dashboard/Dashboard';
 
 // NOTE store is imported into action_locations.js to have access to reviews.
-export const store = createStore(
+const store = createStore(
   reducers,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   // {auth: {authenticated: localStorage.getItem('token')}}, // moved to reducer_auth initialState.
