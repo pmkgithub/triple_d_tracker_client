@@ -60,6 +60,7 @@ class Signin extends Component {
           onSubmit={handleSubmit(this.onSubmit)}
         >
           <legend>Sign In</legend>
+          <div>Test Account: UN: b@b.com PW: 123</div>
           <div className="auth-error-message">{this.props.authErrorMessage}</div>
           <fieldset>
             <Field
