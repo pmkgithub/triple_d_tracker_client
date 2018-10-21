@@ -60,7 +60,8 @@ class Signin extends Component {
           onSubmit={handleSubmit(this.onSubmit)}
         >
           <legend>Sign In</legend>
-          <div>Test Account: UN: b@b.com PW: 123</div>
+          <div style={{textAlign: 'center'}}>To demo, Email: b@b.com PW: 123</div>
+          <div style={{ textAlign: 'center', marginTop: '10px'}}>Please note, it may take a few moments for Heroku Servers to start.</div>
           <div className="auth-error-message">{this.props.authErrorMessage}</div>
           <fieldset>
             <Field
@@ -132,7 +133,7 @@ const mapStateToProps = (state) => {
 
 // syntax USING compose -> allows us to pass in multiple HOC's.
 export default compose(
-  connect(mapStateToProps, { signin, authError, setCurrentRoute} ),
+  connect(mapStateToProps, { signin, authError, setCurrentRoute } ),
   reduxForm({
     form: 'signin',
     validate: validate
