@@ -6,12 +6,15 @@ import './nav.css';
 class Nav extends Component {
 
   renderLinks() {
+    console.log('this.props.authenticated = ', this.props.authenticated);
+    console.log('this.props.currentRoute = ', this.props.currentRoute);
 
     if (!this.props.authenticated && this.props.currentRoute === '/') {
       return (
         <div className="nav_links_wrapper">
           <Link to="/about">About</Link>
-          <Link to="/signin">Sign In</Link>
+          {/*<Link to="/signin">Sign In</Link>*/}
+          <Link to="/signup">Sign Up</Link>
         </div>
       )
     }
