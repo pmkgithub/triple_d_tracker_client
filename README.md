@@ -17,7 +17,6 @@ Map Markers
 * Non-visited restaurant location markers are Blue.
 * Out of business locations are denoted by Red markers.
 
-
 ## Technology
 
 ### Front End
@@ -48,3 +47,46 @@ Map Markers
 * TravisCI
 * mocha
 * chai
+
+# Using the App
+![triple d guy fieri animation](https://github.com/pmkgithub/triple_d_tracker_client/blob/master/src/images/ddd.gif)
+
+## The Dashboard
+
+### Filter by USA
+When the Diners Drive-ins and Dives Tracker application loads, the User is presented with all Triple D locations in the Lower 48 states.
+
+Alaska and Hawaii Triple D locations can be found via the States Filter (see below).
+![on app load restaurants venues display](https://github.com/pmkgithub/triple_d_tracker_client/blob/master/src/images/about_page/map_usa.png)
+
+### Filter by State
+Find Triple D locations by State.
+
+In any Filtered View, you can click a listed location and zoom into that particular location on the map.
+
+Clicking the "Map All Listed Locations" button will zoom back out to display all locations in the current Locations List.
+![on app load restaurants venues display](https://github.com/pmkgithub/triple_d_tracker_client/blob/master/src/images/about_page/map_state.png)
+
+### Filter by Near Me
+When road tripping, Filter By Near Me comes in super handy.
+
+Find locations within 20, 50, 100, 200 or 300 mile radii of your current location.
+
+For this feature to work, one must allow the Browser to access your location.
+![on app load restaurants venues display](https://github.com/pmkgithub/triple_d_tracker_client/blob/master/src/images/about_page/map_nearme.png)
+
+### Filter by Visited
+To see all the locations you have visited, simply click the Visited filter radio button.
+![on app load restaurants venues display](https://github.com/pmkgithub/triple_d_tracker_client/blob/master/src/images/about_page/map_visited.png)
+
+## Writing Reviews
+
+### Reviews
+Click Map Markers to view restaurant detail and reviews.
+
+Each time you visit a Triple D location, write a review. Reviews are private to you and only you.
+
+When the review is saved, the Map Marker turns green indicating it has been Visited.
+
+Save multiple reviews; one for each time you visit the same Triple D location.
+![on app load restaurants venues display](https://github.com/pmkgithub/triple_d_tracker_client/blob/master/src/images/about_page/review.png)
