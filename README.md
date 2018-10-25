@@ -47,7 +47,7 @@ Map Markers
 * TravisCI
 * mocha
 * chai
-
+***
 # Using the App
 ![triple d guy fieri animation](https://github.com/pmkgithub/triple_d_tracker_client/blob/master/src/images/ddd.gif)
 
