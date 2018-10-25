@@ -6,8 +6,6 @@ import './nav.css';
 class Nav extends Component {
 
   renderLinks() {
-    console.log('this.props.authenticated = ', this.props.authenticated);
-    console.log('this.props.currentRoute = ', this.props.currentRoute);
 
     if (!this.props.authenticated && this.props.currentRoute === '/') {
       return (
