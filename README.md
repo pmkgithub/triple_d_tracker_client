@@ -3,7 +3,7 @@
 Easily find restaurants featured on Food Network's most successful and popular show.
 
 Now, fans can write private reviews and track the locations they visit.
-<br/>
+<br>
 ![triple d guy fieri animation](https://github.com/pmkgithub/triple_d_tracker_client/blob/master/src/images/ddd.gif)
 
 ## Overview
