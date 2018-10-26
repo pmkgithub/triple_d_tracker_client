@@ -81,7 +81,7 @@
   }
   .about_dashboard_article_image {
     height: 375px;
-    /*width: 800px;*/  /* width value can cause sizing issue */
+    width: 800px;   /* width value can cause sizing issue */
   }
   .about_dashboard_content_wrapper {
     /* no CSS needed */
